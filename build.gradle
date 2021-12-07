@@ -6,11 +6,7 @@ buildscript {
         mavenCentral()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "a Russian forum post told me to use this to find the missing files"
-            url = "https://repo.spongepowered.org/repository/forge-proxy/"
+            url = "https://maven.minecraftforge.net/"
         }
         maven {
             name = "sonatype"
@@ -19,12 +15,9 @@ buildscript {
         maven {
             url = "https://jitpack.io"
         }
-        maven {
-            url = "https://plugins.gradle.org/m2/"
-        }
     }
     dependencies {
-        classpath 'com.github.CDAGaming:ForgeGradle:1c670759c5'
+        classpath 'com.github.GTNewHorizons:ForgeGradle:1.2.4'
     }
 }
 
