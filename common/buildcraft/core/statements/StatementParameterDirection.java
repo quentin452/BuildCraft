@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
  * http://www.mod-buildcraft.com
  * <p/>
  * BuildCraft is distributed under the terms of the Minecraft Mod Public
@@ -50,7 +50,12 @@ public class StatementParameterDirection implements IStatementParameter {
 	public void onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse) {
 		if (source.getTile() instanceof IPipeTile) {
 			for (int i = 0; i < 6; i++) {
-				direction = ForgeDirection.getOrientation((direction.ordinal() + (mouse.getButton() > 0 ? -1 : 1)) % 6);
+				int dir = (direction.ordinal() + (mouse.getButton() > 0 ? -1 : 1)) % 6;
+				if (dir < 0) {
+					dir += 6;
+				}
+
+				direction = ForgeDirection.getOrientation(dir);
 				if (((IPipeTile) source.getTile()).isPipeConnected(direction)) {
 					return;
 				}

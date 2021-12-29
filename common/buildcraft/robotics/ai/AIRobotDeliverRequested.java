@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
  * http://www.mod-buildcraft.com
  * <p/>
  * BuildCraft is distributed under the terms of the Minecraft Mod Public
@@ -53,25 +53,32 @@ public class AIRobotDeliverRequested extends AIRobot {
 				return;
 			}
 
-			IInvSlot slot = InvUtils.getItem(robot, new ArrayStackOrListFilter(requested.getStack()));
-
-			if (slot == null) {
-				setSuccess(false);
-				terminate();
-				return;
-			}
-
 			IRequestProvider requester = requested.getRequester(robot.worldObj);
 			if (requester == null) {
 				setSuccess(false);
 				terminate();
 				return;
 			}
-			ItemStack newStack = requester.offerItem(requested.getSlot(), slot.getStackInSlot().copy());
 
-			if (newStack == null || newStack.stackSize != slot.getStackInSlot().stackSize) {
-				slot.setStackInSlot(newStack);
+			// TODO: Make this not exceed the requested amount of items.
+
+			int count = 0;
+
+			for (IInvSlot slot : InvUtils.getItems(robot, new ArrayStackOrListFilter(requested.getStack()))) {
+				int difference = slot.getStackInSlot().stackSize;
+				ItemStack newStack = requester.offerItem(requested.getSlot(), slot.getStackInSlot().copy());
+
+				if (newStack == null) {
+					slot.setStackInSlot(newStack);
+				} else if (newStack.stackSize != slot.getStackInSlot().stackSize) {
+					slot.setStackInSlot(newStack);
+					difference = newStack.stackSize - difference;
+				}
+
+				count += difference;
 			}
+
+			setSuccess(count > 0);
 			terminate();
 		}
 	}
