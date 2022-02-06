@@ -77,10 +77,6 @@ public class Version implements Runnable {
 		return recommendedVersion;
 	}
 
-	public static void versionCheck() {
-
-	}
-
 	public static String[] getChangelog() {
 		if (cachedChangelog == null) {
 			cachedChangelog = grabChangelog(recommendedVersion);
