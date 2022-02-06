@@ -1,26 +1,8 @@
-## Welcome to Buildcraft on GitHub
+## Welcome to the GTNH fork of Buildcraft on GitHub
 
 ### Reporting an issue
 
-Please open an issue for a bug report only if:
-
-* you are sure the bug is caused by BuildCraft and not by any other mod,
-* you have at least one of the following:
-  * a crash report, 
-  * means of reproducing the bug in question,
-  * screenshots/videos/etc. to demonstrate the bug.
-
-**If you are not sure if a bug report is valid, please use the "Ask Help!" subforum.**
-
-Please only use **official BuildCraft releases** for any kind of bug reports unless otherwise told to do by the BuildCraft team. Custom builds (for instance from Jenkins) are unsupported, often buggy and will **not** get any support from the developers.
-
-Please check if the bug has been reported beforehand. Also, provide the version of BuildCraft used - if it's a version compiled from source, link to the commit/tree you complied from.
-
-Please mention if you are using MCPC+, Cauldron, OptiFine, FastCraft or any other mods which optimize or otherwise severely modify the functioning of the Minecraft engine. That is very helpful when trying to reproduce a bug.
-
-Please do not open issues for features unless you are a member of the BuildCraft team. For that, use the "Feature Requests" subforum.
-
-BuildCraft, being an open-source project, gives you the right to submit a pull request if a particular fix or feature is important to you. However, if the change in question is major, please contact the team beforehand - we wish to prevent wasted effort.
+Please report issues to the [GTNH GitHub](https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues)
 
 ### Contributing
 
@@ -41,8 +23,7 @@ PR implementing new features or changing large portions of code are helpful. But
 * Render issue (Quarry causes flickering) - Try without OptiFine first! This is a known issue with some versions of OptiFine.
 
 ### Compiling and packaging Buildcraft
-1. Ensure that `Java` (found [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)), `Git` (found [here](http://git-scm.com/)) are installed correctly on your system.
- * Optional: Install `Gradle` (found [here](http://www.gradle.org/downloads))
+1. Ensure that `java8` (found [here](https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0)), `git` (found [here](http://git-scm.com/)) are installed correctly on your system.
 1. Create a base directory for the build
 1. Clone the Buildcraft repository into 'baseDir/BuildCraft/'
  * Optional: Copy BuildCraft localization repository into `baseDir/BuildCraft-Localization`
@@ -81,24 +62,3 @@ And like this after running gradle:
 
 ***
 
-### Localizations
-
-Localizations can be submitted [here](https://github.com/BuildCraft/BuildCraft-Localization). Localization PRs against
-this repository will have to be rejected.
-
-### Depending on BuildCraft
-
-Add the following to your build.gradle file:
-```
-repositories {
-    ivy {
-        name "BuildCraft"
-        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
-    }
-}
-
-dependencies {
-    compile name: "buildcraft", version: "7.0.7", classifier: "dev"
-}
-```
-Where `7.0.7` is the desired version of BuildCraft.
