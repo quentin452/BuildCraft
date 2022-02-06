@@ -37,9 +37,6 @@ public class Version implements Runnable {
 	public static final String VERSION = "GRADLETOKEN_VERSION";
 	public static EnumUpdateState currentVersion = EnumUpdateState.CURRENT;
 
-	private static final String REMOTE_VERSION_FILE =
-			"https://raw.githubusercontent.com/BuildCraft/BuildCraft/master/buildcraft_resources/versions.txt";
-
 	private static final String REMOTE_CHANGELOG_ROOT =
 			"https://raw.githubusercontent.com/BuildCraft/BuildCraft/master/buildcraft_resources/changelog/";
 
@@ -78,66 +75,6 @@ public class Version implements Runnable {
 
 	public static String getRecommendedVersion() {
 		return recommendedVersion;
-	}
-
-	public static void versionCheck() {
-		try {
-
-			if ("0.0.0".equals(VERSION)) {
-				return;
-			}
-
-			String location = REMOTE_VERSION_FILE;
-			HttpURLConnection conn = null;
-			while (location != null && !location.isEmpty()) {
-				URL url = new URL(location);
-
-				if (conn != null) {
-					conn.disconnect();
-				}
-
-				conn = (HttpURLConnection) url.openConnection();
-				conn.setRequestProperty("User-Agent",
-						"Mozilla/5.0 (Windows; U; Windows NT 6.0; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11 (.NET CLR 3.5.30729)");
-				conn.connect();
-				location = conn.getHeaderField("Location");
-			}
-
-			if (conn == null) {
-				throw new NullPointerException();
-			}
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-			String line;
-			String mcVersion = CoreProxy.proxy.getMinecraftVersion();
-			while ((line = reader.readLine()) != null) {
-				String[] tokens = line.split(":");
-				if (mcVersion.matches(tokens[0])) {
-					if (DefaultProps.MOD.matches(tokens[1])) {
-						recommendedVersion = tokens[2];
-
-						if (VERSION.matches(tokens[2])) {
-							BCLog.logger.trace("Using the latest version [" + getVersion() + "] for Minecraft " + mcVersion);
-							currentVersion = EnumUpdateState.CURRENT;
-							return;
-						}
-					}
-				}
-			}
-
-			BCLog.logger.warn("Using outdated version [" + VERSION + "] for Minecraft " + mcVersion
-					+ ". Consider updating to " + recommendedVersion + ".");
-			currentVersion = EnumUpdateState.OUTDATED;
-			sendIMCOutdatedMessage();
-
-			conn.disconnect();
-			reader.close();
-		} catch (Exception e) {
-			BCLog.logger.warn("Unable to read from remote version authority.");
-			BCLog.logger.warn(e.toString());
-			currentVersion = EnumUpdateState.CONNECTION_ERROR;
-		}
 	}
 
 	public static String[] getChangelog() {
@@ -197,29 +134,6 @@ public class Version implements Runnable {
 
 	@Override
 	public void run() {
-
-		int count = 0;
-		currentVersion = null;
-
-		BCLog.logger.info("Beginning version check");
-
-		try {
-			while ((count < 3) && ((currentVersion == null) || (currentVersion == EnumUpdateState.CONNECTION_ERROR))) {
-				versionCheck();
-				count++;
-
-				if (currentVersion == EnumUpdateState.CONNECTION_ERROR) {
-					BCLog.logger.info("Version check attempt " + count + " failed, trying again in 10 seconds");
-					Thread.sleep(10000);
-				}
-			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		if (currentVersion == EnumUpdateState.CONNECTION_ERROR) {
-			BCLog.logger.info("Version check failed");
-		}
 
 	}
 
