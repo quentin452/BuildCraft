@@ -13,9 +13,9 @@ package buildcraft.api.tiles;
  * work (crafting, ore processing, mining, et cetera).
  */
 public interface IHasWork {
-	/**
-	 * Check if the Tile Entity is currently doing any work.
-	 * @return True if the Tile Entity is doing work.
-	 */
-	boolean hasWork();
+    /**
+     * Check if the Tile Entity is currently doing any work.
+     * @return True if the Tile Entity is doing work.
+     */
+    boolean hasWork();
 }

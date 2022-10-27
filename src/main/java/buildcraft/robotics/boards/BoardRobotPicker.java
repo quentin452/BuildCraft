@@ -8,9 +8,6 @@
  */
 package buildcraft.robotics.boards;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import buildcraft.api.boards.RedstoneBoardRobot;
 import buildcraft.api.boards.RedstoneBoardRobotNBT;
 import buildcraft.api.robots.AIRobot;
@@ -19,49 +16,51 @@ import buildcraft.robotics.ai.AIRobotFetchItem;
 import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotGotoStationAndUnload;
 import buildcraft.robotics.statements.ActionRobotFilter;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BoardRobotPicker extends RedstoneBoardRobot {
-	public static Set<Integer> targettedItems = new HashSet<Integer>();
+    public static Set<Integer> targettedItems = new HashSet<Integer>();
 
-	public BoardRobotPicker(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public BoardRobotPicker(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	public static void onServerStart() {
-		targettedItems.clear();
-	}
+    public static void onServerStart() {
+        targettedItems.clear();
+    }
 
-	private void fetchNewItem() {
-		startDelegateAI(new AIRobotFetchItem(robot, 250, ActionRobotFilter.getGateFilter(robot
-				.getLinkedStation()), robot.getZoneToWork()));
-	}
+    private void fetchNewItem() {
+        startDelegateAI(new AIRobotFetchItem(
+                robot, 250, ActionRobotFilter.getGateFilter(robot.getLinkedStation()), robot.getZoneToWork()));
+    }
 
-	@Override
-	public void update() {
-		fetchNewItem();
-	}
+    @Override
+    public void update() {
+        fetchNewItem();
+    }
 
-	@Override
-	public void delegateAIEnded(AIRobot ai) {
-		if (ai instanceof AIRobotFetchItem) {
-			if (ai.success()) {
-				// if we find an item - that may have been cancelled.
-				// let's try to get another one
-				fetchNewItem();
-			} else if (robot.containsItems()) {
-				startDelegateAI(new AIRobotGotoStationAndUnload(robot));
-			} else {
-				startDelegateAI(new AIRobotGotoSleep(robot));
-			}
-		} else if (ai instanceof AIRobotGotoStationAndUnload) {
-			if (!ai.success()) {
-				startDelegateAI(new AIRobotGotoSleep(robot));
-			}
-		}
-	}
+    @Override
+    public void delegateAIEnded(AIRobot ai) {
+        if (ai instanceof AIRobotFetchItem) {
+            if (ai.success()) {
+                // if we find an item - that may have been cancelled.
+                // let's try to get another one
+                fetchNewItem();
+            } else if (robot.containsItems()) {
+                startDelegateAI(new AIRobotGotoStationAndUnload(robot));
+            } else {
+                startDelegateAI(new AIRobotGotoSleep(robot));
+            }
+        } else if (ai instanceof AIRobotGotoStationAndUnload) {
+            if (!ai.success()) {
+                startDelegateAI(new AIRobotGotoSleep(robot));
+            }
+        }
+    }
 
-	@Override
-	public RedstoneBoardRobotNBT getNBTHandler() {
-		return BCBoardNBT.REGISTRY.get("picker");
-	}
+    @Override
+    public RedstoneBoardRobotNBT getNBTHandler() {
+        return BCBoardNBT.REGISTRY.get("picker");
+    }
 }

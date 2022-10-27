@@ -12,12 +12,11 @@ import java.util.Random;
 
 public interface IZone {
 
-	double distanceTo(BlockIndex index);
+    double distanceTo(BlockIndex index);
 
-	double distanceToSquared(BlockIndex index);
+    double distanceToSquared(BlockIndex index);
 
-	boolean contains(double x, double y, double z);
+    boolean contains(double x, double y, double z);
 
-	BlockIndex getRandomBlockIndex(Random rand);
-
+    BlockIndex getRandomBlockIndex(Random rand);
 }

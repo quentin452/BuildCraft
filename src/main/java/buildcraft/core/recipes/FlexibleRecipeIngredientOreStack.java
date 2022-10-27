@@ -8,13 +8,11 @@
  */
 package buildcraft.core.recipes;
 
+import buildcraft.api.recipes.IFlexibleRecipeIngredient;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import buildcraft.api.recipes.IFlexibleRecipeIngredient;
 
 public class FlexibleRecipeIngredientOreStack implements IFlexibleRecipeIngredient {
     private final String oreName;

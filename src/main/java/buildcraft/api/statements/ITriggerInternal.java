@@ -10,6 +10,5 @@ package buildcraft.api.statements;
 
 public interface ITriggerInternal extends IStatement {
 
-	boolean isTriggerActive(IStatementContainer source, IStatementParameter[] parameters);
-
+    boolean isTriggerActive(IStatementContainer source, IStatementParameter[] parameters);
 }

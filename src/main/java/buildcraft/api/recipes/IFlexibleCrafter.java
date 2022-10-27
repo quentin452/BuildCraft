@@ -13,16 +13,15 @@ import net.minecraftforge.fluids.FluidStack;
 
 public interface IFlexibleCrafter {
 
-	int getCraftingItemStackSize();
+    int getCraftingItemStackSize();
 
-	ItemStack getCraftingItemStack(int slotid);
+    ItemStack getCraftingItemStack(int slotid);
 
-	ItemStack decrCraftingItemStack(int slotid, int val);
+    ItemStack decrCraftingItemStack(int slotid, int val);
 
-	FluidStack getCraftingFluidStack(int tankid);
+    FluidStack getCraftingFluidStack(int tankid);
 
-	FluidStack decrCraftingFluidStack(int tankid, int val);
+    FluidStack decrCraftingFluidStack(int tankid, int val);
 
-	int getCraftingFluidStackSize();
-
+    int getCraftingFluidStackSize();
 }

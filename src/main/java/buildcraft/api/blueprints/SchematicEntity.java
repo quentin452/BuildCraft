@@ -8,10 +8,10 @@
  */
 package buildcraft.api.blueprints;
 
+import buildcraft.api.core.Position;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.Item;
@@ -22,199 +22,189 @@ import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
-import buildcraft.api.core.Position;
-
 public class SchematicEntity extends Schematic {
-	public Class<? extends Entity> entity;
+    public Class<? extends Entity> entity;
 
-	/**
-	 * This tree contains additional data to be stored in the blueprint. By
-	 * default, it will be initialized from Schematic.readFromWord with the
-	 * standard readNBT function of the corresponding tile (if any) and will be
-	 * loaded from BptBlock.writeToWorld using the standard writeNBT function.
-	 */
-	public NBTTagCompound entityNBT = new NBTTagCompound();
+    /**
+     * This tree contains additional data to be stored in the blueprint. By
+     * default, it will be initialized from Schematic.readFromWord with the
+     * standard readNBT function of the corresponding tile (if any) and will be
+     * loaded from BptBlock.writeToWorld using the standard writeNBT function.
+     */
+    public NBTTagCompound entityNBT = new NBTTagCompound();
 
-	/**
-	 * This field contains requirements for a given block when stored in the
-	 * blueprint. Modders can either rely on this list or compute their own int
-	 * Schematic.
-	 */
-	public ItemStack[] storedRequirements = new ItemStack[0];
-	public BuildingPermission defaultPermission = BuildingPermission.ALL;
+    /**
+     * This field contains requirements for a given block when stored in the
+     * blueprint. Modders can either rely on this list or compute their own int
+     * Schematic.
+     */
+    public ItemStack[] storedRequirements = new ItemStack[0];
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
-		Collections.addAll(requirements, storedRequirements);
-	}
+    public BuildingPermission defaultPermission = BuildingPermission.ALL;
 
-	public void writeToWorld(IBuilderContext context) {
-		Entity e = EntityList.createEntityFromNBT(entityNBT, context.world());
-		context.world().spawnEntityInWorld(e);
-	}
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+        Collections.addAll(requirements, storedRequirements);
+    }
 
-	public void readFromWorld(IBuilderContext context, Entity entity) {
-		entity.writeToNBTOptional(entityNBT);
-	}
+    public void writeToWorld(IBuilderContext context) {
+        Entity e = EntityList.createEntityFromNBT(entityNBT, context.world());
+        context.world().spawnEntityInWorld(e);
+    }
 
-	@Override
-	public void translateToBlueprint(Translation transform) {
-		NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
-		Position pos = new Position(nbttaglist.func_150309_d(0),
-				nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
-		pos = transform.translate(pos);
+    public void readFromWorld(IBuilderContext context, Entity entity) {
+        entity.writeToNBTOptional(entityNBT);
+    }
 
-		entityNBT.setTag("Pos",
-				this.newDoubleNBTList(pos.x, pos.y, pos.z));
-	}
+    @Override
+    public void translateToBlueprint(Translation transform) {
+        NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
+        Position pos =
+                new Position(nbttaglist.func_150309_d(0), nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
+        pos = transform.translate(pos);
 
-	@Override
-	public void translateToWorld(Translation transform) {
-		NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
-		Position pos = new Position(nbttaglist.func_150309_d(0),
-				nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
-		pos = transform.translate(pos);
+        entityNBT.setTag("Pos", this.newDoubleNBTList(pos.x, pos.y, pos.z));
+    }
 
-		entityNBT.setTag("Pos",
-				this.newDoubleNBTList(pos.x, pos.y, pos.z));
-	}
+    @Override
+    public void translateToWorld(Translation transform) {
+        NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
+        Position pos =
+                new Position(nbttaglist.func_150309_d(0), nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
+        pos = transform.translate(pos);
 
-	@Override
-	public void idsToBlueprint(MappingRegistry registry) {
-		registry.scanAndTranslateStacksToRegistry(entityNBT);
-	}
+        entityNBT.setTag("Pos", this.newDoubleNBTList(pos.x, pos.y, pos.z));
+    }
 
-	@Override
-	public void idsToWorld(MappingRegistry registry) {
-		try {
-			registry.scanAndTranslateStacksToWorld(entityNBT);
-		} catch (MappingNotFoundException e) {
-			entityNBT = new NBTTagCompound();
-		}
-	}
+    @Override
+    public void idsToBlueprint(MappingRegistry registry) {
+        registry.scanAndTranslateStacksToRegistry(entityNBT);
+    }
 
-	@Override
-	public void rotateLeft(IBuilderContext context) {
-		NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
-		Position pos = new Position(nbttaglist.func_150309_d(0),
-				nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
-		pos = context.rotatePositionLeft(pos);
-		entityNBT.setTag("Pos",
-				this.newDoubleNBTList(pos.x, pos.y, pos.z));
+    @Override
+    public void idsToWorld(MappingRegistry registry) {
+        try {
+            registry.scanAndTranslateStacksToWorld(entityNBT);
+        } catch (MappingNotFoundException e) {
+            entityNBT = new NBTTagCompound();
+        }
+    }
 
-		nbttaglist = entityNBT.getTagList("Rotation", 5);
-		float yaw = nbttaglist.func_150308_e(0);
-		yaw += 90;
-		entityNBT.setTag(
-				"Rotation",
-				this.newFloatNBTList(yaw,
-						nbttaglist.func_150308_e(1)));
-	}
+    @Override
+    public void rotateLeft(IBuilderContext context) {
+        NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
+        Position pos =
+                new Position(nbttaglist.func_150309_d(0), nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
+        pos = context.rotatePositionLeft(pos);
+        entityNBT.setTag("Pos", this.newDoubleNBTList(pos.x, pos.y, pos.z));
 
-	@Override
-	public void writeSchematicToNBT(NBTTagCompound nbt, MappingRegistry registry) {
-		super.writeSchematicToNBT(nbt, registry);
+        nbttaglist = entityNBT.getTagList("Rotation", 5);
+        float yaw = nbttaglist.func_150308_e(0);
+        yaw += 90;
+        entityNBT.setTag("Rotation", this.newFloatNBTList(yaw, nbttaglist.func_150308_e(1)));
+    }
 
-		nbt.setInteger("entityId", registry.getIdForEntity(entity));
-		nbt.setTag("entity", entityNBT);
+    @Override
+    public void writeSchematicToNBT(NBTTagCompound nbt, MappingRegistry registry) {
+        super.writeSchematicToNBT(nbt, registry);
 
-		NBTTagList rq = new NBTTagList();
+        nbt.setInteger("entityId", registry.getIdForEntity(entity));
+        nbt.setTag("entity", entityNBT);
 
-		for (ItemStack stack : storedRequirements) {
-			NBTTagCompound sub = new NBTTagCompound();
-			stack.writeToNBT(stack.writeToNBT(sub));
-			sub.setInteger("id", registry.getIdForItem(stack.getItem()));
-			rq.appendTag(sub);
-		}
+        NBTTagList rq = new NBTTagList();
 
-		nbt.setTag("rq", rq);
-	}
+        for (ItemStack stack : storedRequirements) {
+            NBTTagCompound sub = new NBTTagCompound();
+            stack.writeToNBT(stack.writeToNBT(sub));
+            sub.setInteger("id", registry.getIdForItem(stack.getItem()));
+            rq.appendTag(sub);
+        }
 
-	@Override
-	public void readSchematicFromNBT(NBTTagCompound nbt, MappingRegistry registry) {
-		super.readSchematicFromNBT(nbt, registry);
+        nbt.setTag("rq", rq);
+    }
 
-		entityNBT = nbt.getCompoundTag("entity");
+    @Override
+    public void readSchematicFromNBT(NBTTagCompound nbt, MappingRegistry registry) {
+        super.readSchematicFromNBT(nbt, registry);
 
-		NBTTagList rq = nbt.getTagList("rq",
-				Constants.NBT.TAG_COMPOUND);
+        entityNBT = nbt.getCompoundTag("entity");
 
-		ArrayList<ItemStack> rqs = new ArrayList<ItemStack>();
+        NBTTagList rq = nbt.getTagList("rq", Constants.NBT.TAG_COMPOUND);
 
-		for (int i = 0; i < rq.tagCount(); ++i) {
-			try {
-				NBTTagCompound sub = rq.getCompoundTagAt(i);
+        ArrayList<ItemStack> rqs = new ArrayList<ItemStack>();
 
-				if (sub.getInteger("id") >= 0) {
-					// Maps the id in the blueprint to the id in the world
-					sub.setInteger("id", Item.itemRegistry
-							.getIDForObject(registry.getItemForId(sub
-									.getInteger("id"))));
+        for (int i = 0; i < rq.tagCount(); ++i) {
+            try {
+                NBTTagCompound sub = rq.getCompoundTagAt(i);
 
-					rqs.add(ItemStack.loadItemStackFromNBT(sub));
-				} else {
-					defaultPermission = BuildingPermission.CREATIVE_ONLY;
-				}
-			} catch (Throwable t) {
-				t.printStackTrace();
-				defaultPermission = BuildingPermission.CREATIVE_ONLY;
-			}
-		}
+                if (sub.getInteger("id") >= 0) {
+                    // Maps the id in the blueprint to the id in the world
+                    sub.setInteger("id", Item.itemRegistry.getIDForObject(registry.getItemForId(sub.getInteger("id"))));
 
-		storedRequirements = rqs.toArray(new ItemStack[rqs.size()]);
-	}
+                    rqs.add(ItemStack.loadItemStackFromNBT(sub));
+                } else {
+                    defaultPermission = BuildingPermission.CREATIVE_ONLY;
+                }
+            } catch (Throwable t) {
+                t.printStackTrace();
+                defaultPermission = BuildingPermission.CREATIVE_ONLY;
+            }
+        }
 
-	protected NBTTagList newDoubleNBTList(double... par1ArrayOfDouble) {
-		NBTTagList nbttaglist = new NBTTagList();
-		double[] adouble = par1ArrayOfDouble;
-		int i = par1ArrayOfDouble.length;
+        storedRequirements = rqs.toArray(new ItemStack[rqs.size()]);
+    }
 
-		for (int j = 0; j < i; ++j) {
-			double d1 = adouble[j];
-			nbttaglist.appendTag(new NBTTagDouble(d1));
-		}
+    protected NBTTagList newDoubleNBTList(double... par1ArrayOfDouble) {
+        NBTTagList nbttaglist = new NBTTagList();
+        double[] adouble = par1ArrayOfDouble;
+        int i = par1ArrayOfDouble.length;
 
-		return nbttaglist;
-	}
+        for (int j = 0; j < i; ++j) {
+            double d1 = adouble[j];
+            nbttaglist.appendTag(new NBTTagDouble(d1));
+        }
 
-	protected NBTTagList newFloatNBTList(float... par1ArrayOfFloat) {
-		NBTTagList nbttaglist = new NBTTagList();
-		float[] afloat = par1ArrayOfFloat;
-		int i = par1ArrayOfFloat.length;
+        return nbttaglist;
+    }
 
-		for (int j = 0; j < i; ++j) {
-			float f1 = afloat[j];
-			nbttaglist.appendTag(new NBTTagFloat(f1));
-		}
+    protected NBTTagList newFloatNBTList(float... par1ArrayOfFloat) {
+        NBTTagList nbttaglist = new NBTTagList();
+        float[] afloat = par1ArrayOfFloat;
+        int i = par1ArrayOfFloat.length;
 
-		return nbttaglist;
-	}
+        for (int j = 0; j < i; ++j) {
+            float f1 = afloat[j];
+            nbttaglist.appendTag(new NBTTagFloat(f1));
+        }
 
-	public boolean isAlreadyBuilt(IBuilderContext context) {
-		NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
-		Position newPosition = new Position(nbttaglist.func_150309_d(0),
-				nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
+        return nbttaglist;
+    }
 
-		for (Object o : context.world().loadedEntityList) {
-			Entity e = (Entity) o;
+    public boolean isAlreadyBuilt(IBuilderContext context) {
+        NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
+        Position newPosition =
+                new Position(nbttaglist.func_150309_d(0), nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
 
-			Position existingPositon = new Position(e.posX, e.posY, e.posZ);
+        for (Object o : context.world().loadedEntityList) {
+            Entity e = (Entity) o;
 
-			if (existingPositon.isClose(newPosition, 0.1F)) {
-				return true;
-			}
-		}
+            Position existingPositon = new Position(e.posX, e.posY, e.posZ);
 
-		return false;
-	}
+            if (existingPositon.isClose(newPosition, 0.1F)) {
+                return true;
+            }
+        }
 
-	@Override
-	public int buildTime() {
-		return 5;
-	}
+        return false;
+    }
 
-	@Override
-	public BuildingPermission getBuildingPermission() {
-		return defaultPermission;
-	}
+    @Override
+    public int buildTime() {
+        return 5;
+    }
+
+    @Override
+    public BuildingPermission getBuildingPermission() {
+        return defaultPermission;
+    }
 }

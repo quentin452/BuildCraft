@@ -12,11 +12,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IPipeConnectionForced {
 
-	/**
-	 * Allows you to block connection overrides.
-	 *
-	 * @param with
-	 * @return TRUE to block an override. FALSE to allow overrides.
-	 */
-	boolean ignoreConnectionOverrides(ForgeDirection with);
+    /**
+     * Allows you to block connection overrides.
+     *
+     * @param with
+     * @return TRUE to block an override. FALSE to allow overrides.
+     */
+    boolean ignoreConnectionOverrides(ForgeDirection with);
 }

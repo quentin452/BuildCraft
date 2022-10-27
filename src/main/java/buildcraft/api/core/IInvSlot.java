@@ -24,7 +24,7 @@ public interface IInvSlot {
 
     boolean isItemValidForSlot(ItemStack stack);
 
-	ItemStack decreaseStackInSlot(int amount);
+    ItemStack decreaseStackInSlot(int amount);
 
     ItemStack getStackInSlot();
 

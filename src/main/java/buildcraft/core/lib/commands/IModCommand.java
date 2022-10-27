@@ -6,25 +6,23 @@
  * License 1.0, or MMPL. Please check the contents of the license located in
  * http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
-
 package buildcraft.core.lib.commands;
 
 import java.util.List;
 import java.util.SortedSet;
-
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 
 public interface IModCommand extends ICommand {
 
-	String getFullCommandString();
+    String getFullCommandString();
 
-	@Override
-	List<String> getCommandAliases();
+    @Override
+    List<String> getCommandAliases();
 
-	int getMinimumPermissionLevel();
+    int getMinimumPermissionLevel();
 
-	SortedSet<SubCommand> getChildren();
+    SortedSet<SubCommand> getChildren();
 
-	void printHelp(ICommandSender sender);
+    void printHelp(ICommandSender sender);
 }

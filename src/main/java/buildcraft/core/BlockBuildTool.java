@@ -8,24 +8,22 @@
  */
 package buildcraft.core;
 
+import buildcraft.BuildCraftCore;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-import buildcraft.BuildCraftCore;
-
 public class BlockBuildTool extends Block {
-	public BlockBuildTool() {
-		super(Material.iron);
-	}
+    public BlockBuildTool() {
+        super(Material.iron);
+    }
 
-	@Override
-	public void registerBlockIcons(IIconRegister itemRegister) {
-	}
+    @Override
+    public void registerBlockIcons(IIconRegister itemRegister) {}
 
-	@Override
-	public IIcon getIcon(int i, int j) {
-		return BuildCraftCore.redLaserTexture;
-	}
+    @Override
+    public IIcon getIcon(int i, int j) {
+        return BuildCraftCore.redLaserTexture;
+    }
 }

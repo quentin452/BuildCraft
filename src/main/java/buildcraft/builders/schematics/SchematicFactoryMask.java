@@ -8,27 +8,25 @@
  */
 package buildcraft.builders.schematics;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import buildcraft.api.blueprints.MappingRegistry;
 import buildcraft.api.blueprints.SchematicFactory;
 import buildcraft.api.blueprints.SchematicMask;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class SchematicFactoryMask extends SchematicFactory<SchematicMask> {
 
-	@Override
-	protected SchematicMask loadSchematicFromWorldNBT(NBTTagCompound nbt, MappingRegistry registry) {
-		SchematicMask s = new SchematicMask();
-		s.readSchematicFromNBT(nbt, registry);
+    @Override
+    protected SchematicMask loadSchematicFromWorldNBT(NBTTagCompound nbt, MappingRegistry registry) {
+        SchematicMask s = new SchematicMask();
+        s.readSchematicFromNBT(nbt, registry);
 
-		return s;
-	}
+        return s;
+    }
 
-	@Override
-	public void saveSchematicToWorldNBT(NBTTagCompound nbt, SchematicMask object, MappingRegistry registry) {
-		super.saveSchematicToWorldNBT(nbt, object, registry);
+    @Override
+    public void saveSchematicToWorldNBT(NBTTagCompound nbt, SchematicMask object, MappingRegistry registry) {
+        super.saveSchematicToWorldNBT(nbt, object, registry);
 
-		object.writeSchematicToNBT(nbt, registry);
-	}
-
+        object.writeSchematicToNBT(nbt, registry);
+    }
 }

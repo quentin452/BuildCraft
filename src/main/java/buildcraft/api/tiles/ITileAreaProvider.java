@@ -7,5 +7,5 @@ import buildcraft.api.core.IAreaProvider;
  * to the provider here.
  */
 public interface ITileAreaProvider extends IAreaProvider {
-	boolean isValidFromLocation(int x, int y, int z);
+    boolean isValidFromLocation(int x, int y, int z);
 }

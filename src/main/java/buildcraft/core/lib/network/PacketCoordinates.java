@@ -12,40 +12,39 @@ import io.netty.buffer.ByteBuf;
 
 public abstract class PacketCoordinates extends Packet {
 
-	public int posX;
-	public int posY;
-	public int posZ;
+    public int posX;
+    public int posY;
+    public int posZ;
 
-	private int id;
+    private int id;
 
-	public PacketCoordinates() {
-	}
+    public PacketCoordinates() {}
 
-	public PacketCoordinates(int id, int x, int y, int z) {
-		this.id = id;
-		this.posX = x;
-		this.posY = y;
-		this.posZ = z;
-	}
+    public PacketCoordinates(int id, int x, int y, int z) {
+        this.id = id;
+        this.posX = x;
+        this.posY = y;
+        this.posZ = z;
+    }
 
-	@Override
-	public void writeData(ByteBuf data) {
-		data.writeByte(id);
-		data.writeInt(posX);
-		data.writeShort(posY);
-		data.writeInt(posZ);
-	}
+    @Override
+    public void writeData(ByteBuf data) {
+        data.writeByte(id);
+        data.writeInt(posX);
+        data.writeShort(posY);
+        data.writeInt(posZ);
+    }
 
-	@Override
-	public void readData(ByteBuf data) {
-		id = data.readByte();
-		posX = data.readInt();
-		posY = data.readShort();
-		posZ = data.readInt();
-	}
+    @Override
+    public void readData(ByteBuf data) {
+        id = data.readByte();
+        posX = data.readInt();
+        posY = data.readShort();
+        posZ = data.readInt();
+    }
 
-	@Override
-	public int getID() {
-		return id;
-	}
+    @Override
+    public int getID() {
+        return id;
+    }
 }

@@ -8,13 +8,6 @@
  */
 package buildcraft.builders;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
-
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-
 import buildcraft.BuildCraftBuilders;
 import buildcraft.builders.render.RenderArchitect;
 import buildcraft.builders.render.RenderBuilderTile;
@@ -26,63 +19,65 @@ import buildcraft.core.lib.render.RenderMultiTESR;
 import buildcraft.core.lib.render.RenderVoid;
 import buildcraft.core.render.RenderBuilder;
 import buildcraft.core.render.RenderLEDTile;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 public class BuilderProxyClient extends BuilderProxy {
-	public static IIcon drillTexture, drillSideTexture;
-	public static IIcon drillHeadTexture;
+    public static IIcon drillTexture, drillSideTexture;
+    public static IIcon drillHeadTexture;
 
-	@Override
-	public void registerClientHook() {
+    @Override
+    public void registerClientHook() {}
 
-	}
+    @Override
+    public void registerBlockRenderers() {
+        super.registerBlockRenderers();
 
-	@Override
-	public void registerBlockRenderers() {
-		super.registerBlockRenderers();
+        ClientRegistry.bindTileEntitySpecialRenderer(TileBuilder.class, new RenderBuilderTile());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileConstructionMarker.class, new RenderConstructionMarker());
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileBuilder.class, new RenderBuilderTile());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileConstructionMarker.class, new RenderConstructionMarker());
+        ClientRegistry.bindTileEntitySpecialRenderer(
+                TileFiller.class, new RenderMultiTESR(new TileEntitySpecialRenderer[] {
+                    new RenderLEDTile(BuildCraftBuilders.fillerBlock), new RenderFiller()
+                }));
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileFiller.class, new RenderMultiTESR(new TileEntitySpecialRenderer[]{
-				new RenderLEDTile(BuildCraftBuilders.fillerBlock),
-				new RenderFiller()
-		}));
+        ClientRegistry.bindTileEntitySpecialRenderer(
+                TileQuarry.class, new RenderMultiTESR(new TileEntitySpecialRenderer[] {
+                    new RenderLEDTile(BuildCraftBuilders.quarryBlock), new RenderBuilder()
+                }));
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileQuarry.class, new RenderMultiTESR(new TileEntitySpecialRenderer[]{
-				new RenderLEDTile(BuildCraftBuilders.quarryBlock),
-				new RenderBuilder()
-		}));
+        ClientRegistry.bindTileEntitySpecialRenderer(
+                TileArchitect.class, new RenderMultiTESR(new TileEntitySpecialRenderer[] {
+                    new RenderLEDTile(BuildCraftBuilders.architectBlock), new RenderArchitect()
+                }));
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileArchitect.class, new RenderMultiTESR(new TileEntitySpecialRenderer[]{
-				new RenderLEDTile(BuildCraftBuilders.architectBlock),
-				new RenderArchitect()
-		}));
+        RenderingRegistry.registerEntityRenderingHandler(EntityMechanicalArm.class, new RenderVoid());
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityMechanicalArm.class, new RenderVoid());
+        frameRenderId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(frameRenderId, new RenderFrame());
+    }
 
-		frameRenderId = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(frameRenderId, new RenderFrame());
-	}
+    @Override
+    public EntityBlock newDrill(World w, double i, double j, double k, double l, double d, double e, boolean xz) {
+        EntityBlock eb = super.newDrill(w, i, j, k, l, d, e, xz);
+        if (xz) {
+            eb.texture = new IIcon[6];
+            for (int a = 0; a < 6; a++) {
+                eb.texture[a] = a >= 2 ? drillSideTexture : drillTexture;
+            }
+        } else {
+            eb.setTexture(drillTexture);
+        }
+        return eb;
+    }
 
-
-	@Override
-	public EntityBlock newDrill(World w, double i, double j, double k, double l, double d, double e, boolean xz) {
-		EntityBlock eb = super.newDrill(w, i, j, k, l, d, e, xz);
-		if (xz) {
-			eb.texture = new IIcon[6];
-			for (int a = 0; a < 6; a++) {
-				eb.texture[a] = a >= 2 ? drillSideTexture : drillTexture;
-			}
-		} else {
-			eb.setTexture(drillTexture);
-		}
-		return eb;
-	}
-
-	@Override
-	public EntityBlock newDrillHead(World w, double i, double j, double k, double l, double d, double e) {
-		EntityBlock eb = super.newDrillHead(w, i, j, k, l, d, e);
-		eb.setTexture(drillHeadTexture);
-		return eb;
-	}
+    @Override
+    public EntityBlock newDrillHead(World w, double i, double j, double k, double l, double d, double e) {
+        EntityBlock eb = super.newDrillHead(w, i, j, k, l, d, e);
+        eb.setTexture(drillHeadTexture);
+        return eb;
+    }
 }

@@ -8,66 +8,59 @@
  */
 package buildcraft.core.builders;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.MappingNotFoundException;
 import buildcraft.api.blueprints.MappingRegistry;
 import buildcraft.api.blueprints.Schematic;
 import buildcraft.api.core.Position;
+import java.util.LinkedList;
+import java.util.List;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class BuildingSlot {
 
-	public LinkedList<ItemStack> stackConsumed;
+    public LinkedList<ItemStack> stackConsumed;
 
-	public boolean reserved = false;
+    public boolean reserved = false;
 
-	public boolean built = false;
+    public boolean built = false;
 
-	public boolean writeToWorld(IBuilderContext context) {
-		return false;
-	}
+    public boolean writeToWorld(IBuilderContext context) {
+        return false;
+    }
 
-	public void writeCompleted(IBuilderContext context, double complete) {
+    public void writeCompleted(IBuilderContext context, double complete) {}
 
-	}
+    public void postProcessing(IBuilderContext context) {}
 
-	public void postProcessing(IBuilderContext context) {
+    public LinkedList<ItemStack> getRequirements(IBuilderContext context) {
+        return new LinkedList<ItemStack>();
+    }
 
-	}
+    public abstract Position getDestination();
 
-	public LinkedList<ItemStack> getRequirements(IBuilderContext context) {
-		return new LinkedList<ItemStack>();
-	}
+    public void addStackConsumed(ItemStack stack) {
+        if (stackConsumed == null) {
+            stackConsumed = new LinkedList<ItemStack>();
+        }
 
-	public abstract Position getDestination();
+        stackConsumed.add(stack);
+    }
 
-	public void addStackConsumed(ItemStack stack) {
-		if (stackConsumed == null) {
-			stackConsumed = new LinkedList<ItemStack>();
-		}
+    public List<ItemStack> getStacksToDisplay() {
+        return getSchematic().getStacksToDisplay(stackConsumed);
+    }
 
-		stackConsumed.add(stack);
-	}
+    public abstract boolean isAlreadyBuilt(IBuilderContext context);
 
-	public List<ItemStack> getStacksToDisplay() {
-		return getSchematic().getStacksToDisplay(stackConsumed);
-	}
+    public abstract Schematic getSchematic();
 
-	public abstract boolean isAlreadyBuilt(IBuilderContext context);
+    public abstract void writeToNBT(NBTTagCompound nbt, MappingRegistry registry);
 
-	public abstract Schematic getSchematic();
+    public abstract void readFromNBT(NBTTagCompound nbt, MappingRegistry registry) throws MappingNotFoundException;
 
-	public abstract void writeToNBT(NBTTagCompound nbt, MappingRegistry registry);
+    public abstract int getEnergyRequirement();
 
-	public abstract void readFromNBT(NBTTagCompound nbt, MappingRegistry registry) throws MappingNotFoundException;
-
-	public abstract int getEnergyRequirement();
-
-	public abstract int buildTime();
-
+    public abstract int buildTime();
 }

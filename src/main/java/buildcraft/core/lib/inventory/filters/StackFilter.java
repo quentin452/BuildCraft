@@ -17,20 +17,19 @@ import net.minecraft.tileentity.TileEntityFurnace;
  * having to specify each item individually.
  */
 public enum StackFilter implements IStackFilter {
+    ALL {
+        @Override
+        public boolean matches(ItemStack stack) {
+            return true;
+        }
+    },
+    FUEL {
+        @Override
+        public boolean matches(ItemStack stack) {
+            return TileEntityFurnace.getItemBurnTime(stack) > 0;
+        }
+    };
 
-	ALL {
-		@Override
-		public boolean matches(ItemStack stack) {
-			return true;
-		}
-	},
-	FUEL {
-		@Override
-		public boolean matches(ItemStack stack) {
-			return TileEntityFurnace.getItemBurnTime(stack) > 0;
-		}
-	};
-
-	@Override
-	public abstract boolean matches(ItemStack stack);
+    @Override
+    public abstract boolean matches(ItemStack stack);
 }

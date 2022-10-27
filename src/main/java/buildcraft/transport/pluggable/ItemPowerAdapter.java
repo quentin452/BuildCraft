@@ -8,35 +8,32 @@
  */
 package buildcraft.transport.pluggable;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.api.transport.IPipe;
 import buildcraft.api.transport.pluggable.IPipePluggableItem;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.core.lib.items.ItemBuildCraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemPowerAdapter extends ItemBuildCraft implements IPipePluggableItem {
-	public ItemPowerAdapter() {
-		super();
-	}
+    public ItemPowerAdapter() {
+        super();
+    }
 
-	@Override
-	public String getUnlocalizedName(ItemStack itemstack) {
-		return "item.PipePowerAdapter";
-	}
+    @Override
+    public String getUnlocalizedName(ItemStack itemstack) {
+        return "item.PipePowerAdapter";
+    }
 
-	@Override
-	public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
-		return true;
-	}
+    @Override
+    public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
+        return true;
+    }
 
-	@Override
-	public PipePluggable createPipePluggable(IPipe pipe, ForgeDirection side, ItemStack stack) {
-		return new PowerAdapterPluggable();
-	}
-
+    @Override
+    public PipePluggable createPipePluggable(IPipe pipe, ForgeDirection side, ItemStack stack) {
+        return new PowerAdapterPluggable();
+    }
 }

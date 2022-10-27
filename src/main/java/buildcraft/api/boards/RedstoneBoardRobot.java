@@ -13,21 +13,18 @@ import buildcraft.api.robots.EntityRobotBase;
 
 public abstract class RedstoneBoardRobot extends AIRobot implements IRedstoneBoard<EntityRobotBase> {
 
-	public RedstoneBoardRobot(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public RedstoneBoardRobot(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	@Override
-	public abstract RedstoneBoardRobotNBT getNBTHandler();
+    @Override
+    public abstract RedstoneBoardRobotNBT getNBTHandler();
 
-	@Override
-	public final void updateBoard(EntityRobotBase container) {
+    @Override
+    public final void updateBoard(EntityRobotBase container) {}
 
-	}
-
-	@Override
-	public boolean canLoadFromNBT() {
-		return true;
-	}
-
+    @Override
+    public boolean canLoadFromNBT() {
+        return true;
+    }
 }

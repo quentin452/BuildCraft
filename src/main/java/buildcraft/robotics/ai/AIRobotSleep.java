@@ -15,34 +15,34 @@ import buildcraft.robotics.statements.ActionRobotWakeUp;
 
 public class AIRobotSleep extends AIRobot {
 
-	private static final int SLEEPING_TIME = 60 * 20;
-	private int sleptTime = 0;
+    private static final int SLEEPING_TIME = 60 * 20;
+    private int sleptTime = 0;
 
-	public AIRobotSleep(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public AIRobotSleep(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	@Override
-	public void preempt(AIRobot ai) {
-		for (StatementSlot s : robot.getLinkedStation().getActiveActions()) {
-			if (s.statement instanceof ActionRobotWakeUp) {
-				terminate();
-			}
-		}
-	}
+    @Override
+    public void preempt(AIRobot ai) {
+        for (StatementSlot s : robot.getLinkedStation().getActiveActions()) {
+            if (s.statement instanceof ActionRobotWakeUp) {
+                terminate();
+            }
+        }
+    }
 
-	@Override
-	public void update() {
-		sleptTime++;
+    @Override
+    public void update() {
+        sleptTime++;
 
-		if (sleptTime > SLEEPING_TIME) {
-			terminate();
-		}
-	}
+        if (sleptTime > SLEEPING_TIME) {
+            terminate();
+        }
+    }
 
-	@Override
-	public int getEnergyCost() {
-		// This trick is so we get 0.1 RF per tick.
-		return sleptTime % 10 == 0 ? 1 : 0;
-	}
+    @Override
+    public int getEnergyCost() {
+        // This trick is so we get 0.1 RF per tick.
+        return sleptTime % 10 == 0 ? 1 : 0;
+    }
 }

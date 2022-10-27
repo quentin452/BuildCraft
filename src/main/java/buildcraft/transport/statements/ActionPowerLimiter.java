@@ -8,39 +8,37 @@
  */
 package buildcraft.transport.statements;
 
-import java.util.Locale;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-
 import buildcraft.api.statements.IActionInternal;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.core.PowerMode;
 import buildcraft.core.statements.BCStatement;
+import java.util.Locale;
+import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class ActionPowerLimiter extends BCStatement implements IActionInternal {
 
-	public final PowerMode limit;
+    public final PowerMode limit;
 
-	public ActionPowerLimiter(PowerMode limit) {
-		super("buildcraft:power.limiter." + limit.name().toLowerCase(Locale.ENGLISH), "buildcraft.power.limiter." + limit.name().toLowerCase(Locale.ENGLISH));
+    public ActionPowerLimiter(PowerMode limit) {
+        super(
+                "buildcraft:power.limiter." + limit.name().toLowerCase(Locale.ENGLISH),
+                "buildcraft.power.limiter." + limit.name().toLowerCase(Locale.ENGLISH));
 
-		this.limit = limit;
-	}
+        this.limit = limit;
+    }
 
-	@Override
-	public String getDescription() {
-		return limit.maxPower + " RF/t Limit";
-	}
+    @Override
+    public String getDescription() {
+        return limit.maxPower + " RF/t Limit";
+    }
 
-	@Override
-	public void registerIcons(IIconRegister iconRegister) {
-		icon = iconRegister.registerIcon("buildcrafttransport:triggers/trigger_limiter_" + limit.name().toLowerCase(Locale.ENGLISH));
-	}
+    @Override
+    public void registerIcons(IIconRegister iconRegister) {
+        icon = iconRegister.registerIcon(
+                "buildcrafttransport:triggers/trigger_limiter_" + limit.name().toLowerCase(Locale.ENGLISH));
+    }
 
-	@Override
-	public void actionActivate(IStatementContainer source,
-							   IStatementParameter[] parameters) {
-
-	}
+    @Override
+    public void actionActivate(IStatementContainer source, IStatementParameter[] parameters) {}
 }

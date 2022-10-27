@@ -14,11 +14,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiButtonSmall extends GuiBetterButton {
 
-	public GuiButtonSmall(int i, int x, int y, String s) {
-		this(i, x, y, 200, s);
-	}
+    public GuiButtonSmall(int i, int x, int y, String s) {
+        this(i, x, y, 200, s);
+    }
 
-	public GuiButtonSmall(int i, int x, int y, int w, String s) {
-		super(i, x, y, w, StandardButtonTextureSets.SMALL_BUTTON, s);
-	}
+    public GuiButtonSmall(int i, int x, int y, int w, String s) {
+        super(i, x, y, w, StandardButtonTextureSets.SMALL_BUTTON, s);
+    }
 }

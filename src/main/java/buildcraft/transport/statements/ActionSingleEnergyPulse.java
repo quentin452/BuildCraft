@@ -8,33 +8,29 @@
  */
 package buildcraft.transport.statements;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-
 import buildcraft.api.statements.IActionInternal;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.core.statements.BCStatement;
+import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class ActionSingleEnergyPulse extends BCStatement implements IActionInternal {
 
-	public ActionSingleEnergyPulse() {
-		super("buildcraft:pulsar.single", "buildcraft.pulser.single");
-	}
+    public ActionSingleEnergyPulse() {
+        super("buildcraft:pulsar.single", "buildcraft.pulser.single");
+    }
 
-	@Override
-	public String getDescription() {
-		return StringUtils.localize("gate.action.pulsar.single");
-	}
+    @Override
+    public String getDescription() {
+        return StringUtils.localize("gate.action.pulsar.single");
+    }
 
-	@Override
-	public void registerIcons(IIconRegister iconRegister) {
-		icon = iconRegister.registerIcon("buildcrafttransport:triggers/action_single_pulsar");
-	}
+    @Override
+    public void registerIcons(IIconRegister iconRegister) {
+        icon = iconRegister.registerIcon("buildcrafttransport:triggers/action_single_pulsar");
+    }
 
-	@Override
-	public void actionActivate(IStatementContainer source,
-							   IStatementParameter[] parameters) {
-
-	}
+    @Override
+    public void actionActivate(IStatementContainer source, IStatementParameter[] parameters) {}
 }

@@ -8,43 +8,30 @@
  */
 package buildcraft.core.builders.schematics;
 
-import java.util.LinkedList;
-
-import net.minecraft.item.ItemStack;
-
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicBlock;
+import java.util.LinkedList;
+import net.minecraft.item.ItemStack;
 
 public class SchematicIgnore extends SchematicBlock {
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {}
 
-	}
+    @Override
+    public void rotateLeft(IBuilderContext context) {}
 
-	@Override
-	public void rotateLeft(IBuilderContext context) {
+    @Override
+    public void initializeFromObjectAt(IBuilderContext context, int x, int y, int z) {}
 
-	}
+    @Override
+    public void placeInWorld(IBuilderContext context, int x, int y, int z, LinkedList<ItemStack> stacks) {}
 
-	@Override
-	public void initializeFromObjectAt(IBuilderContext context, int x, int y, int z) {
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {}
 
-	}
-
-	@Override
-	public void placeInWorld(IBuilderContext context, int x, int y, int z, LinkedList<ItemStack> stacks) {
-
-	}
-
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
-
-	}
-
-	@Override
-	public boolean doNotBuild() {
-		return true;
-	}
-
+    @Override
+    public boolean doNotBuild() {
+        return true;
+    }
 }

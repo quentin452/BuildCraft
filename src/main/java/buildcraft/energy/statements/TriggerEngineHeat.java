@@ -8,15 +8,6 @@
  */
 package buildcraft.energy.statements;
 
-import java.util.Locale;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.tileentity.TileEntity;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerExternal;
@@ -24,36 +15,46 @@ import buildcraft.core.lib.engines.TileEngineBase;
 import buildcraft.core.lib.engines.TileEngineBase.EnergyStage;
 import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.core.statements.BCStatement;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Locale;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TriggerEngineHeat extends BCStatement implements ITriggerExternal {
 
-	public EnergyStage stage;
+    public EnergyStage stage;
 
-	public TriggerEngineHeat(EnergyStage stage) {
-		super("buildcraft:engine.stage." + stage.name().toLowerCase(Locale.ENGLISH), "buildcraft.engine.stage." + stage.name().toLowerCase(Locale.ENGLISH));
+    public TriggerEngineHeat(EnergyStage stage) {
+        super(
+                "buildcraft:engine.stage." + stage.name().toLowerCase(Locale.ENGLISH),
+                "buildcraft.engine.stage." + stage.name().toLowerCase(Locale.ENGLISH));
 
-		this.stage = stage;
-	}
+        this.stage = stage;
+    }
 
-	@Override
-	public String getDescription() {
-		return StringUtils.localize("gate.trigger.engine." + stage.name().toLowerCase(Locale.ENGLISH));
-	}
+    @Override
+    public String getDescription() {
+        return StringUtils.localize("gate.trigger.engine." + stage.name().toLowerCase(Locale.ENGLISH));
+    }
 
-	@Override
-	public boolean isTriggerActive(TileEntity tile, ForgeDirection side, IStatementContainer container, IStatementParameter[] parameters) {
-		if (tile instanceof TileEngineBase) {
-			TileEngineBase engine = (TileEngineBase) tile;
+    @Override
+    public boolean isTriggerActive(
+            TileEntity tile, ForgeDirection side, IStatementContainer container, IStatementParameter[] parameters) {
+        if (tile instanceof TileEngineBase) {
+            TileEngineBase engine = (TileEngineBase) tile;
 
-			return engine.getEnergyStage() == stage;
-		}
+            return engine.getEnergyStage() == stage;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister iconRegister) {
-		icon = iconRegister.registerIcon("buildcraftenergy:triggers/trigger_engineheat_" + stage.name().toLowerCase(Locale.ENGLISH));
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister) {
+        icon = iconRegister.registerIcon(
+                "buildcraftenergy:triggers/trigger_engineheat_" + stage.name().toLowerCase(Locale.ENGLISH));
+    }
 }

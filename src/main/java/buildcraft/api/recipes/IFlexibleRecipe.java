@@ -12,11 +12,11 @@ import net.minecraft.item.ItemStack;
 
 public interface IFlexibleRecipe<T> {
 
-	boolean canBeCrafted(IFlexibleCrafter crafter);
+    boolean canBeCrafted(IFlexibleCrafter crafter);
 
-	CraftingResult<T> craft(IFlexibleCrafter crafter, boolean preview);
+    CraftingResult<T> craft(IFlexibleCrafter crafter, boolean preview);
 
-	CraftingResult<T> canCraft(ItemStack expectedOutput);
+    CraftingResult<T> canCraft(ItemStack expectedOutput);
 
-	String getId();
+    String getId();
 }

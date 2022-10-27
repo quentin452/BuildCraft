@@ -12,5 +12,5 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public interface ISolidCoolant {
-	FluidStack getFluidFromSolidCoolant(ItemStack stack);
+    FluidStack getFluidFromSolidCoolant(ItemStack stack);
 }

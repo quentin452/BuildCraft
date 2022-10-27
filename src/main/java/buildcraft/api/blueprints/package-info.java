@@ -8,5 +8,5 @@
  */
 @API(apiVersion = "1.5", owner = "BuildCraftAPI|core", provides = "BuildCraftAPI|blueprints")
 package buildcraft.api.blueprints;
-import cpw.mods.fml.common.API;
 
+import cpw.mods.fml.common.API;

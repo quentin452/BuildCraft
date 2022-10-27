@@ -8,56 +8,53 @@
  */
 package buildcraft.core.lib.network;
 
+import buildcraft.api.core.ISerializable;
+import buildcraft.core.network.PacketIds;
 import io.netty.buffer.ByteBuf;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import buildcraft.api.core.ISerializable;
-import buildcraft.core.network.PacketIds;
-
 public class PacketTileUpdate extends PacketUpdate {
-	public int posX;
-	public int posY;
-	public int posZ;
+    public int posX;
+    public int posY;
+    public int posZ;
 
-	public PacketTileUpdate() {
-		super(PacketIds.TILE_UPDATE);
-	}
+    public PacketTileUpdate() {
+        super(PacketIds.TILE_UPDATE);
+    }
 
-	public PacketTileUpdate(ISerializable tile) {
-		this(PacketIds.TILE_UPDATE, tile);
-	}
+    public PacketTileUpdate(ISerializable tile) {
+        this(PacketIds.TILE_UPDATE, tile);
+    }
 
-	public PacketTileUpdate(int packetId, ISerializable tile) {
-		super(packetId, tile);
+    public PacketTileUpdate(int packetId, ISerializable tile) {
+        super(packetId, tile);
 
-		TileEntity entity = (TileEntity) tile;
-		posX = entity.xCoord;
-		posY = entity.yCoord;
-		posZ = entity.zCoord;
-	}
+        TileEntity entity = (TileEntity) tile;
+        posX = entity.xCoord;
+        posY = entity.yCoord;
+        posZ = entity.zCoord;
+    }
 
-	@Override
-	public void writeIdentificationData(ByteBuf data) {
-		data.writeInt(posX);
-		data.writeShort(posY);
-		data.writeInt(posZ);
-	}
+    @Override
+    public void writeIdentificationData(ByteBuf data) {
+        data.writeInt(posX);
+        data.writeShort(posY);
+        data.writeInt(posZ);
+    }
 
-	@Override
-	public void readIdentificationData(ByteBuf data) {
-		posX = data.readInt();
-		posY = data.readShort();
-		posZ = data.readInt();
-	}
+    @Override
+    public void readIdentificationData(ByteBuf data) {
+        posX = data.readInt();
+        posY = data.readShort();
+        posZ = data.readInt();
+    }
 
-	public boolean targetExists(World world) {
-		return world.blockExists(posX, posY, posZ);
-	}
+    public boolean targetExists(World world) {
+        return world.blockExists(posX, posY, posZ);
+    }
 
-	public TileEntity getTarget(World world) {
-		return world.getTileEntity(posX, posY, posZ);
-	}
-
+    public TileEntity getTarget(World world) {
+        return world.getTileEntity(posX, posY, posZ);
+    }
 }

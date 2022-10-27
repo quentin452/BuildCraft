@@ -15,5 +15,5 @@ import net.minecraft.tileentity.TileEntity;
  * Gates and TileEntities.
  */
 public interface IStatementContainer {
-	TileEntity getTile();
+    TileEntity getTile();
 }

@@ -17,77 +17,76 @@ import buildcraft.robotics.statements.ActionStationForbidRobot;
 
 public class AIRobotSearchStation extends AIRobot {
 
-	public DockingStation targetStation;
-	private IStationFilter filter;
-	private IZone zone;
+    public DockingStation targetStation;
+    private IStationFilter filter;
+    private IZone zone;
 
-	public AIRobotSearchStation(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public AIRobotSearchStation(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	public AIRobotSearchStation(EntityRobotBase iRobot, IStationFilter iFilter, IZone iZone) {
-		this(iRobot);
+    public AIRobotSearchStation(EntityRobotBase iRobot, IStationFilter iFilter, IZone iZone) {
+        this(iRobot);
 
-		filter = iFilter;
-		zone = iZone;
-	}
+        filter = iFilter;
+        zone = iZone;
+    }
 
-	@Override
-	public void start() {
-		if (robot.getDockingStation() != null
-				&& filter.matches(robot.getDockingStation())) {
-			targetStation = robot.getDockingStation();
-			terminate();
-			return;
-		}
+    @Override
+    public void start() {
+        if (robot.getDockingStation() != null && filter.matches(robot.getDockingStation())) {
+            targetStation = robot.getDockingStation();
+            terminate();
+            return;
+        }
 
-		double potentialStationDistance = Float.MAX_VALUE;
-		DockingStation potentialStation = null;
+        double potentialStationDistance = Float.MAX_VALUE;
+        DockingStation potentialStation = null;
 
-		for (DockingStation station : robot.getRegistry().getStations()) {
-			if (!station.isInitialized()) {
-				continue;
-			}
+        for (DockingStation station : robot.getRegistry().getStations()) {
+            if (!station.isInitialized()) {
+                continue;
+            }
 
-			if (station.isTaken() && station.robotIdTaking() != robot.getRobotId()) {
-				continue;
-			}
+            if (station.isTaken() && station.robotIdTaking() != robot.getRobotId()) {
+                continue;
+            }
 
-			if (zone != null && !zone.contains(station.x(), station.y(), station.z())) {
-				continue;
-			}
+            if (zone != null && !zone.contains(station.x(), station.y(), station.z())) {
+                continue;
+            }
 
-			if (filter.matches(station)) {
-				if (ActionStationForbidRobot.isForbidden(station, robot)) {
-					continue;
-				}
+            if (filter.matches(station)) {
+                if (ActionStationForbidRobot.isForbidden(station, robot)) {
+                    continue;
+                }
 
-				double dx = robot.posX - station.x();
-				double dy = robot.posY - station.y();
-				double dz = robot.posZ - station.z();
-				double distance = dx * dx + dy * dy + dz * dz;
+                double dx = robot.posX - station.x();
+                double dy = robot.posY - station.y();
+                double dz = robot.posZ - station.z();
+                double distance = dx * dx + dy * dy + dz * dz;
 
-				if (potentialStation == null || distance < potentialStationDistance) {
-					potentialStation = station;
-					potentialStationDistance = distance;
-				}
-			}
-		}
+                if (potentialStation == null || distance < potentialStationDistance) {
+                    potentialStation = station;
+                    potentialStationDistance = distance;
+                }
+            }
+        }
 
-		if (potentialStation != null) {
-			targetStation = potentialStation;
-		}
+        if (potentialStation != null) {
+            targetStation = potentialStation;
+        }
 
-		terminate();
-	}
+        terminate();
+    }
 
-	@Override
-	public void delegateAIEnded(AIRobot ai) {
-		terminate();
-	}
+    @Override
+    public void delegateAIEnded(AIRobot ai) {
+        terminate();
+    }
 
-	@Override
-	public boolean success() {
-		return targetStation != null;
-	}
+    @Override
+    public boolean success() {
+        return targetStation != null;
+    }
 }

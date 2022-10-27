@@ -15,20 +15,20 @@ import net.minecraft.item.ItemStack;
  */
 public class CompositeFilter implements IStackFilter {
 
-	private final IStackFilter[] filters;
+    private final IStackFilter[] filters;
 
-	public CompositeFilter(IStackFilter... iFilters) {
-		filters = iFilters;
-	}
+    public CompositeFilter(IStackFilter... iFilters) {
+        filters = iFilters;
+    }
 
-	@Override
-	public boolean matches(ItemStack stack) {
-		for (IStackFilter f : filters) {
-			if (f.matches(stack)) {
-				return true;
-			}
-		}
+    @Override
+    public boolean matches(ItemStack stack) {
+        for (IStackFilter f : filters) {
+            if (f.matches(stack)) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

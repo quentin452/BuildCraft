@@ -8,45 +8,45 @@
  */
 package buildcraft.builders;
 
+import buildcraft.BuildCraftBuilders;
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.GuiIds;
+import buildcraft.core.lib.block.BlockBuildCraft;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import buildcraft.BuildCraftBuilders;
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.GuiIds;
-import buildcraft.core.lib.block.BlockBuildCraft;
-
 public class BlockBlueprintLibrary extends BlockBuildCraft {
-	public BlockBlueprintLibrary() {
-		super(Material.iron, BCCreativeTab.get("main"));
-		setHardness(5F);
-		setRotatable(true);
-	}
+    public BlockBlueprintLibrary() {
+        super(Material.iron, BCCreativeTab.get("main"));
+        setHardness(5F);
+        setRotatable(true);
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-		if (super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9)) {
-			return true;
-		}
+    @Override
+    public boolean onBlockActivated(
+            World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+        if (super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9)) {
+            return true;
+        }
 
-		if (entityplayer.isSneaking()) {
-			return false;
-		}
+        if (entityplayer.isSneaking()) {
+            return false;
+        }
 
-		TileEntity tile = world.getTileEntity(i, j, k);
-		if (tile instanceof TileBlueprintLibrary) {
-			if (!world.isRemote) {
-				entityplayer.openGui(BuildCraftBuilders.instance, GuiIds.BLUEPRINT_LIBRARY, world, i, j, k);
-			}
-		}
+        TileEntity tile = world.getTileEntity(i, j, k);
+        if (tile instanceof TileBlueprintLibrary) {
+            if (!world.isRemote) {
+                entityplayer.openGui(BuildCraftBuilders.instance, GuiIds.BLUEPRINT_LIBRARY, world, i, j, k);
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int metadata) {
-		return new TileBlueprintLibrary();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int metadata) {
+        return new TileBlueprintLibrary();
+    }
 }

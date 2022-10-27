@@ -9,28 +9,28 @@
 package buildcraft.api.statements;
 
 public class StatementSlot {
-	public IStatement statement;
-	public IStatementParameter[] parameters;
+    public IStatement statement;
+    public IStatementParameter[] parameters;
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == null || !(o instanceof StatementSlot)) {
-			return false;
-		}
-		StatementSlot s = (StatementSlot) o;
-		if (s.statement != statement || parameters.length != s.parameters.length) {
-			return false;
-		}
-		for (int i = 0; i < parameters.length; i++) {
-			IStatementParameter p1 = parameters[i];
-			IStatementParameter p2 = s.parameters[i];
-			if (p1 == null && p2 != null) {
-				return false;
-			}
-			if (!(p1.equals(p2))) {
-				return false;
-			}
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof StatementSlot)) {
+            return false;
+        }
+        StatementSlot s = (StatementSlot) o;
+        if (s.statement != statement || parameters.length != s.parameters.length) {
+            return false;
+        }
+        for (int i = 0; i < parameters.length; i++) {
+            IStatementParameter p1 = parameters[i];
+            IStatementParameter p2 = s.parameters[i];
+            if (p1 == null && p2 != null) {
+                return false;
+            }
+            if (!(p1.equals(p2))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

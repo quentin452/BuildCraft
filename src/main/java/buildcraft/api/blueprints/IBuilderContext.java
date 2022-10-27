@@ -8,10 +8,9 @@
  */
 package buildcraft.api.blueprints;
 
-import net.minecraft.world.World;
-
 import buildcraft.api.core.IBox;
 import buildcraft.api.core.Position;
+import net.minecraft.world.World;
 
 /**
  * This interface provide contextual information when building or initializing
@@ -19,11 +18,11 @@ import buildcraft.api.core.Position;
  */
 public interface IBuilderContext {
 
-	Position rotatePositionLeft(Position pos);
+    Position rotatePositionLeft(Position pos);
 
-	IBox surroundingBox();
+    IBox surroundingBox();
 
-	World world();
+    World world();
 
-	MappingRegistry getMappingRegistry();
+    MappingRegistry getMappingRegistry();
 }

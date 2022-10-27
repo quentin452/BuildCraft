@@ -12,23 +12,22 @@ import buildcraft.api.core.Position;
 
 public class Translation {
 
-	public double x = 0;
-	public double y = 0;
-	public double z = 0;
+    public double x = 0;
+    public double y = 0;
+    public double z = 0;
 
-	public Position translate (Position p) {
-		Position p2 = new Position (p);
+    public Position translate(Position p) {
+        Position p2 = new Position(p);
 
-		p2.x = p.x + x;
-		p2.y = p.y + y;
-		p2.z = p.z + z;
+        p2.x = p.x + x;
+        p2.y = p.y + y;
+        p2.z = p.z + z;
 
-		return p2;
-	}
+        return p2;
+    }
 
-	@Override
-	public String toString () {
-		return "{" + x + ", " + y + ", " + z + "}";
-	}
-
+    @Override
+    public String toString() {
+        return "{" + x + ", " + y + ", " + z + "}";
+    }
 }

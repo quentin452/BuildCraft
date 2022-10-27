@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IStripesActivator {
-	void sendItem(ItemStack itemStack, ForgeDirection direction);
-	void dropItem(ItemStack itemStack, ForgeDirection direction);
+    void sendItem(ItemStack itemStack, ForgeDirection direction);
+
+    void dropItem(ItemStack itemStack, ForgeDirection direction);
 }

@@ -8,24 +8,22 @@
  */
 package buildcraft.core.config;
 
+import buildcraft.core.Version;
 import java.io.File;
-
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
-import buildcraft.core.Version;
-
 public class BuildCraftConfiguration extends Configuration {
 
-	public BuildCraftConfiguration(File file) {
-		super(file);
-	}
+    public BuildCraftConfiguration(File file) {
+        super(file);
+    }
 
-	@Override
-	public void save() {
-		Property versionProp = get(CATEGORY_GENERAL, "version", Version.VERSION);
-		versionProp.setShowInGui(false);
-		versionProp.set(Version.VERSION);
-		super.save();
-	}
+    @Override
+    public void save() {
+        Property versionProp = get(CATEGORY_GENERAL, "version", Version.VERSION);
+        versionProp.setShowInGui(false);
+        versionProp.set(Version.VERSION);
+        super.save();
+    }
 }

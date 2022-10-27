@@ -8,49 +8,48 @@
  */
 package buildcraft.transport.gates;
 
+import buildcraft.api.gates.IGateExpansion;
+import buildcraft.core.lib.utils.StringUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-import buildcraft.api.gates.IGateExpansion;
-import buildcraft.core.lib.utils.StringUtils;
-
 public abstract class GateExpansionBuildcraft implements IGateExpansion {
 
-	private final String tag;
-	private IIcon iconBlock;
-	private IIcon iconItem;
+    private final String tag;
+    private IIcon iconBlock;
+    private IIcon iconItem;
 
-	public GateExpansionBuildcraft(String tag) {
-		this.tag = tag;
-	}
+    public GateExpansionBuildcraft(String tag) {
+        this.tag = tag;
+    }
 
-	@Override
-	public String getUniqueIdentifier() {
-		return "buildcraft:" + tag;
-	}
+    @Override
+    public String getUniqueIdentifier() {
+        return "buildcraft:" + tag;
+    }
 
-	@Override
-	public String getDisplayName() {
-		return StringUtils.localize("gate.expansion." + tag);
-	}
+    @Override
+    public String getDisplayName() {
+        return StringUtils.localize("gate.expansion." + tag);
+    }
 
-	@Override
-	public void registerBlockOverlay(IIconRegister iconRegister) {
-		iconBlock = iconRegister.registerIcon("buildcrafttransport:gates/gate_expansion_" + tag);
-	}
+    @Override
+    public void registerBlockOverlay(IIconRegister iconRegister) {
+        iconBlock = iconRegister.registerIcon("buildcrafttransport:gates/gate_expansion_" + tag);
+    }
 
-	@Override
-	public void registerItemOverlay(IIconRegister iconRegister) {
-		iconItem = iconRegister.registerIcon("buildcrafttransport:gates/gate_expansion_" + tag);
-	}
+    @Override
+    public void registerItemOverlay(IIconRegister iconRegister) {
+        iconItem = iconRegister.registerIcon("buildcrafttransport:gates/gate_expansion_" + tag);
+    }
 
-	@Override
-	public IIcon getOverlayBlock() {
-		return iconBlock;
-	}
+    @Override
+    public IIcon getOverlayBlock() {
+        return iconBlock;
+    }
 
-	@Override
-	public IIcon getOverlayItem() {
-		return iconItem;
-	}
+    @Override
+    public IIcon getOverlayItem() {
+        return iconItem;
+    }
 }

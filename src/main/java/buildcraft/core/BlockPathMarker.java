@@ -8,6 +8,9 @@
  */
 package buildcraft.core;
 
+import buildcraft.core.lib.utils.ResourceUtils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
@@ -15,37 +18,32 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import buildcraft.core.lib.utils.ResourceUtils;
-
 public class BlockPathMarker extends BlockMarker {
-	private IIcon activeMarker;
+    private IIcon activeMarker;
 
-	public BlockPathMarker() {
-	}
+    public BlockPathMarker() {}
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int metadata) {
-		return new TilePathMarker();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int metadata) {
+        return new TilePathMarker();
+    }
 
-	@Override
-	public IIcon getIconAbsolute(IBlockAccess iblockaccess, int x, int y, int z, int side, int metadata) {
-		TilePathMarker marker = (TilePathMarker) iblockaccess.getTileEntity(x, y, z);
+    @Override
+    public IIcon getIconAbsolute(IBlockAccess iblockaccess, int x, int y, int z, int side, int metadata) {
+        TilePathMarker marker = (TilePathMarker) iblockaccess.getTileEntity(x, y, z);
 
-		if (side == 1 || (marker != null && marker.tryingToConnect)) {
-			return activeMarker;
-		} else {
-			return super.getIconAbsolute(side, metadata);
-		}
-	}
+        if (side == 1 || (marker != null && marker.tryingToConnect)) {
+            return activeMarker;
+        } else {
+            return super.getIconAbsolute(side, metadata);
+        }
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		super.registerBlockIcons(par1IconRegister);
-		activeMarker = par1IconRegister.registerIcon(ResourceUtils.getObjectPrefix(Block.blockRegistry.getNameForObject(this)) + "/active");
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
+        super.registerBlockIcons(par1IconRegister);
+        activeMarker = par1IconRegister.registerIcon(
+                ResourceUtils.getObjectPrefix(Block.blockRegistry.getNameForObject(this)) + "/active");
+    }
 }

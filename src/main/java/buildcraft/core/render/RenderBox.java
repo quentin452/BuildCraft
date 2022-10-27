@@ -8,38 +8,34 @@
  */
 package buildcraft.core.render;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.util.ResourceLocation;
-
 import buildcraft.core.Box;
 import buildcraft.core.LaserData;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public final class RenderBox {
 
-	/**
-	 * Deactivate constructor
-	 */
-	private RenderBox() {
-	}
+    /**
+     * Deactivate constructor
+     */
+    private RenderBox() {}
 
-	public static void doRender(TextureManager t, ResourceLocation texture, Box box) {
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_LIGHTING);
+    public static void doRender(TextureManager t, ResourceLocation texture, Box box) {
+        GL11.glPushMatrix();
+        GL11.glDisable(GL11.GL_LIGHTING);
 
-		box.createLaserData();
+        box.createLaserData();
 
-		for (LaserData l : box.lasersData) {
-			l.update();
-			GL11.glPushMatrix();
-			GL11.glTranslated(0.5F, 0.5F, 0.5F);
-			RenderLaser.doRenderLaser(t, l, texture);
-			GL11.glPopMatrix();
-		}
+        for (LaserData l : box.lasersData) {
+            l.update();
+            GL11.glPushMatrix();
+            GL11.glTranslated(0.5F, 0.5F, 0.5F);
+            RenderLaser.doRenderLaser(t, l, texture);
+            GL11.glPopMatrix();
+        }
 
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glPopMatrix();
-	}
-
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glPopMatrix();
+    }
 }

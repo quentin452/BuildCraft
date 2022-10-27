@@ -8,49 +8,50 @@
  */
 package buildcraft.core.statements;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.tileentity.TileEntity;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerExternal;
 import buildcraft.api.tiles.IHasWork;
 import buildcraft.core.lib.utils.StringUtils;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TriggerMachine extends BCStatement implements ITriggerExternal {
 
-	boolean active;
+    boolean active;
 
-	public TriggerMachine(boolean active) {
-		super("buildcraft:work." + (active ? "scheduled" : "done"), "buildcraft.work." + (active ? "scheduled" : "done"));
+    public TriggerMachine(boolean active) {
+        super(
+                "buildcraft:work." + (active ? "scheduled" : "done"),
+                "buildcraft.work." + (active ? "scheduled" : "done"));
 
-		this.active = active;
-	}
+        this.active = active;
+    }
 
-	@Override
-	public String getDescription() {
-		return StringUtils.localize("gate.trigger.machine." + (active ? "scheduled" : "done"));
-	}
+    @Override
+    public String getDescription() {
+        return StringUtils.localize("gate.trigger.machine." + (active ? "scheduled" : "done"));
+    }
 
-	@Override
-	public boolean isTriggerActive(TileEntity tile, ForgeDirection side, IStatementContainer container, IStatementParameter[] parameters) {
-		if (tile instanceof IHasWork) {
-			IHasWork machine = (IHasWork) tile;
+    @Override
+    public boolean isTriggerActive(
+            TileEntity tile, ForgeDirection side, IStatementContainer container, IStatementParameter[] parameters) {
+        if (tile instanceof IHasWork) {
+            IHasWork machine = (IHasWork) tile;
 
-			if (active) {
-				return machine.hasWork();
-			} else {
-				return !machine.hasWork();
-			}
-		}
+            if (active) {
+                return machine.hasWork();
+            } else {
+                return !machine.hasWork();
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public void registerIcons(IIconRegister register) {
-		icon = register.registerIcon("buildcraftcore:triggers/trigger_machine_" + (active ? "active" : "inactive"));
-	}
+    @Override
+    public void registerIcons(IIconRegister register) {
+        icon = register.registerIcon("buildcraftcore:triggers/trigger_machine_" + (active ? "active" : "inactive"));
+    }
 }

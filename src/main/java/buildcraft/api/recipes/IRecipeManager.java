@@ -12,28 +12,28 @@ import java.util.Collection;
 
 public interface IRecipeManager<T> {
 
-	/**
-	 * Add a recipe.
-	 *
-	 * @param input
-	 *            Object... containing either an ItemStack, or a paired string
-	 *            and integer(ex: "dyeBlue", 1)
-	 * @param energyCost
-	 *            RF cost to produce
-	 * @param output
-	 *            resulting ItemStack
-	 */
-	void addRecipe(String id, int energyCost, T output, Object... input);
+    /**
+     * Add a recipe.
+     *
+     * @param input
+     *            Object... containing either an ItemStack, or a paired string
+     *            and integer(ex: "dyeBlue", 1)
+     * @param energyCost
+     *            RF cost to produce
+     * @param output
+     *            resulting ItemStack
+     */
+    void addRecipe(String id, int energyCost, T output, Object... input);
 
-	void addRecipe(String id, int energyCost, int craftingDelay, T output, Object... input);
+    void addRecipe(String id, int energyCost, int craftingDelay, T output, Object... input);
 
-	void addRecipe(IFlexibleRecipe<T> recipe);
-	
-	void removeRecipe(String id);
+    void addRecipe(IFlexibleRecipe<T> recipe);
 
-	void removeRecipe(IFlexibleRecipe<T> recipe);
+    void removeRecipe(String id);
 
-	Collection<IFlexibleRecipe<T>> getRecipes();
+    void removeRecipe(IFlexibleRecipe<T> recipe);
 
-	IFlexibleRecipe<T> getRecipe(String id);
+    Collection<IFlexibleRecipe<T>> getRecipes();
+
+    IFlexibleRecipe<T> getRecipe(String id);
 }

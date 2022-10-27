@@ -8,33 +8,30 @@
  */
 package buildcraft.robotics.statements;
 
-import java.util.LinkedList;
-
-import net.minecraft.item.ItemStack;
-
 import buildcraft.api.statements.ActionState;
 import buildcraft.core.lib.inventory.filters.IStackFilter;
+import java.util.LinkedList;
+import net.minecraft.item.ItemStack;
 
 public class StateStationRequestItems extends ActionState {
 
-	LinkedList<ItemStack> items;
+    LinkedList<ItemStack> items;
 
-	public StateStationRequestItems(LinkedList<ItemStack> filter) {
-		items = filter;
-	}
+    public StateStationRequestItems(LinkedList<ItemStack> filter) {
+        items = filter;
+    }
 
-	public boolean matches(IStackFilter filter) {
-		if (items.size() == 0) {
-			return true;
-		} else {
-			for (ItemStack stack : items) {
-				if (filter.matches(stack)) {
-					return true;
-				}
-			}
-		}
+    public boolean matches(IStackFilter filter) {
+        if (items.size() == 0) {
+            return true;
+        } else {
+            for (ItemStack stack : items) {
+                if (filter.matches(stack)) {
+                    return true;
+                }
+            }
+        }
 
-		return false;
-	}
-
+        return false;
+    }
 }

@@ -8,38 +8,34 @@
  */
 package buildcraft.core.lib.inventory;
 
+import buildcraft.api.core.IInvSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
-
 import net.minecraftforge.common.util.ForgeDirection;
-
-import buildcraft.api.core.IInvSlot;
 
 public final class InventoryIterator {
 
-	/**
-	 * Deactivate constructor
-	 */
-	private InventoryIterator() {
-	}
+    /**
+     * Deactivate constructor
+     */
+    private InventoryIterator() {}
 
-	public static Iterable<IInvSlot> getIterable(IInventory inv) {
-		return getIterable(inv, ForgeDirection.UNKNOWN);
-	}
+    public static Iterable<IInvSlot> getIterable(IInventory inv) {
+        return getIterable(inv, ForgeDirection.UNKNOWN);
+    }
 
-	/**
-	 * Returns an Iterable object for the specified side of the inventory.
-	 *
-	 * @param inv
-	 * @param side
-	 * @return Iterable
-	 */
-	public static Iterable<IInvSlot> getIterable(IInventory inv, ForgeDirection side) {
-		if (inv instanceof ISidedInventory) {
-			return new InventoryIteratorSided((ISidedInventory) inv, side);
-		}
+    /**
+     * Returns an Iterable object for the specified side of the inventory.
+     *
+     * @param inv
+     * @param side
+     * @return Iterable
+     */
+    public static Iterable<IInvSlot> getIterable(IInventory inv, ForgeDirection side) {
+        if (inv instanceof ISidedInventory) {
+            return new InventoryIteratorSided((ISidedInventory) inv, side);
+        }
 
-		return new InventoryIteratorSimple(inv);
-	}
-
+        return new InventoryIteratorSimple(inv);
+    }
 }

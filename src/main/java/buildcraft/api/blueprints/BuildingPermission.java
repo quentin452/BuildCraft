@@ -16,23 +16,23 @@ package buildcraft.api.blueprints;
  * not be built because of a bug (such as dupe bug on inventories).
  */
 public enum BuildingPermission {
-	/**
-	 * No restrictions, blueprints using this schematic are good in all
-	 * contexts.
-	 */
-	ALL,
+    /**
+     * No restrictions, blueprints using this schematic are good in all
+     * contexts.
+     */
+    ALL,
 
-	/**
-	 * This blueprints containing this schematic can only be used in
-	 * creative. Maybe the block can't be crafted in survival in the first
-	 * place, or the content of the schematic is known to have dupe bugs.
-	 */
-	CREATIVE_ONLY,
+    /**
+     * This blueprints containing this schematic can only be used in
+     * creative. Maybe the block can't be crafted in survival in the first
+     * place, or the content of the schematic is known to have dupe bugs.
+     */
+    CREATIVE_ONLY,
 
-	/**
-	 * Blueprints containing this schematic should not be built. This is
-	 * typically used when a critical problems have been fixed, but older
-	 * versions of the schematic are too badly broken to be retreived.
-	 */
-	NONE,
+    /**
+     * Blueprints containing this schematic should not be built. This is
+     * typically used when a critical problems have been fixed, but older
+     * versions of the schematic are too badly broken to be retreived.
+     */
+    NONE,
 }

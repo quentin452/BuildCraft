@@ -11,9 +11,9 @@ package buildcraft.api.fuels;
 import net.minecraftforge.fluids.Fluid;
 
 public interface IFuel {
-	Fluid getFluid();
+    Fluid getFluid();
 
-	int getTotalBurningTime();
+    int getTotalBurningTime();
 
-	int getPowerPerCycle();
+    int getPowerPerCycle();
 }

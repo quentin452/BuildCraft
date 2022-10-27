@@ -8,48 +8,44 @@
  */
 package buildcraft.builders.schematics;
 
+import buildcraft.api.blueprints.IBuilderContext;
+import buildcraft.core.builders.schematics.SchematicBlockFloored;
 import java.util.LinkedList;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import buildcraft.api.blueprints.IBuilderContext;
-import buildcraft.core.builders.schematics.SchematicBlockFloored;
-
 public class SchematicRedstoneDiode extends SchematicBlockFloored {
-	private Item baseItem;
+    private Item baseItem;
 
-	public SchematicRedstoneDiode(Item baseItem) {
-		this.baseItem = baseItem;
-	}
+    public SchematicRedstoneDiode(Item baseItem) {
+        this.baseItem = baseItem;
+    }
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
-		requirements.add(new ItemStack(baseItem));
-	}
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+        requirements.add(new ItemStack(baseItem));
+    }
 
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {}
 
-	}
+    @Override
+    public void rotateLeft(IBuilderContext context) {
+        int step = meta - (meta & 3);
 
-	@Override
-	public void rotateLeft(IBuilderContext context) {
-		int step = meta - (meta & 3);
-
-		switch (meta - step) {
-			case 0:
-				meta = 1 + step;
-				break;
-			case 1:
-				meta = 2 + step;
-				break;
-			case 2:
-				meta = 3 + step;
-				break;
-			case 3:
-				meta = 0 + step;
-				break;
-		}
-	}
+        switch (meta - step) {
+            case 0:
+                meta = 1 + step;
+                break;
+            case 1:
+                meta = 2 + step;
+                break;
+            case 2:
+                meta = 3 + step;
+                break;
+            case 3:
+                meta = 0 + step;
+                break;
+        }
+    }
 }

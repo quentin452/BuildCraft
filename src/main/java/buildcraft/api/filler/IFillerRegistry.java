@@ -11,13 +11,13 @@ package buildcraft.api.filler;
 import java.util.Collection;
 
 public interface IFillerRegistry {
-	void addPattern(IFillerPattern pattern);
+    void addPattern(IFillerPattern pattern);
 
-	IFillerPattern getPattern(String patternName);
+    IFillerPattern getPattern(String patternName);
 
-	IFillerPattern getNextPattern(IFillerPattern currentPattern);
+    IFillerPattern getNextPattern(IFillerPattern currentPattern);
 
-	IFillerPattern getPreviousPattern(IFillerPattern currentPattern);
-	
-	Collection<IFillerPattern> getPatterns();
+    IFillerPattern getPreviousPattern(IFillerPattern currentPattern);
+
+    Collection<IFillerPattern> getPatterns();
 }

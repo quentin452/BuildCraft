@@ -8,18 +8,17 @@
  */
 package buildcraft.api.transport;
 
+import buildcraft.api.gates.IGate;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import buildcraft.api.gates.IGate;
-
 public interface IPipe {
-	IPipeTile getTile();
+    IPipeTile getTile();
 
-	IGate getGate(ForgeDirection side);
-	
-	boolean hasGate(ForgeDirection side);
-	
-	boolean isWired(PipeWire wire);
-	
-	boolean isWireActive(PipeWire wire);
+    IGate getGate(ForgeDirection side);
+
+    boolean hasGate(ForgeDirection side);
+
+    boolean isWired(PipeWire wire);
+
+    boolean isWireActive(PipeWire wire);
 }

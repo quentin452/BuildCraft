@@ -14,6 +14,4 @@ package buildcraft.api.power;
  *
  * It is used by BuildCraft Lasers for optimization purposes.
  */
-public interface ILaserTargetBlock {
-
-}
+public interface ILaserTargetBlock {}

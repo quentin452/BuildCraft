@@ -14,15 +14,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IStripesHandler {
-	enum StripesHandlerType {
-		ITEM_USE,
-		BLOCK_BREAK
-	}
-	
-	StripesHandlerType getType();
-	
-	boolean shouldHandle(ItemStack stack);
-	
-	boolean handle(World world, int x, int y, int z, ForgeDirection direction,
-			ItemStack stack, EntityPlayer player, IStripesActivator activator);
+    enum StripesHandlerType {
+        ITEM_USE,
+        BLOCK_BREAK
+    }
+
+    StripesHandlerType getType();
+
+    boolean shouldHandle(ItemStack stack);
+
+    boolean handle(
+            World world,
+            int x,
+            int y,
+            int z,
+            ForgeDirection direction,
+            ItemStack stack,
+            EntityPlayer player,
+            IStripesActivator activator);
 }

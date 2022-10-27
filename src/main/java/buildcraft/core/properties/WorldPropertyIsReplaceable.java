@@ -12,10 +12,8 @@ import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
 
 public class WorldPropertyIsReplaceable extends WorldProperty {
-	@Override
-	public boolean get(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
-		return block == null
-				|| block.isAir(blockAccess, x, y, z)
-				|| block.isReplaceable(blockAccess, x, y, z);
-	}
+    @Override
+    public boolean get(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
+        return block == null || block.isAir(blockAccess, x, y, z) || block.isReplaceable(blockAccess, x, y, z);
+    }
 }

@@ -11,10 +11,10 @@ package buildcraft.robotics;
 import cpw.mods.fml.common.SidedProxy;
 
 public class RoboticsProxy {
-	@SidedProxy(clientSide = "buildcraft.robotics.RoboticsProxyClient", serverSide = "buildcraft.robotics.RoboticsProxy")
-	public static RoboticsProxy proxy;
+    @SidedProxy(
+            clientSide = "buildcraft.robotics.RoboticsProxyClient",
+            serverSide = "buildcraft.robotics.RoboticsProxy")
+    public static RoboticsProxy proxy;
 
-	public void registerRenderers() {
-	}
-
+    public void registerRenderers() {}
 }

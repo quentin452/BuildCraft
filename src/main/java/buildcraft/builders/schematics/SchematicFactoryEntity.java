@@ -8,37 +8,35 @@
  */
 package buildcraft.builders.schematics;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import buildcraft.api.blueprints.MappingNotFoundException;
 import buildcraft.api.blueprints.MappingRegistry;
 import buildcraft.api.blueprints.SchematicEntity;
 import buildcraft.api.blueprints.SchematicFactory;
 import buildcraft.core.blueprints.SchematicRegistry;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class SchematicFactoryEntity extends SchematicFactory<SchematicEntity> {
 
-	@Override
-	protected SchematicEntity loadSchematicFromWorldNBT(NBTTagCompound nbt, MappingRegistry registry)
-			throws MappingNotFoundException {
-		int entityId = nbt.getInteger("entityId");
-		SchematicEntity s = SchematicRegistry.INSTANCE.createSchematicEntity(registry.getEntityForId(entityId));
+    @Override
+    protected SchematicEntity loadSchematicFromWorldNBT(NBTTagCompound nbt, MappingRegistry registry)
+            throws MappingNotFoundException {
+        int entityId = nbt.getInteger("entityId");
+        SchematicEntity s = SchematicRegistry.INSTANCE.createSchematicEntity(registry.getEntityForId(entityId));
 
-		if (s != null) {
-			s.readSchematicFromNBT(nbt, registry);
-		} else {
-			return null;
-		}
+        if (s != null) {
+            s.readSchematicFromNBT(nbt, registry);
+        } else {
+            return null;
+        }
 
-		return s;
-	}
+        return s;
+    }
 
-	@Override
-	public void saveSchematicToWorldNBT(NBTTagCompound nbt, SchematicEntity object, MappingRegistry registry) {
-		super.saveSchematicToWorldNBT(nbt, object, registry);
+    @Override
+    public void saveSchematicToWorldNBT(NBTTagCompound nbt, SchematicEntity object, MappingRegistry registry) {
+        super.saveSchematicToWorldNBT(nbt, object, registry);
 
-		nbt.setInteger("entityId", registry.getIdForEntity(object.entity));
-		object.writeSchematicToNBT(nbt, registry);
-	}
-
+        nbt.setInteger("entityId", registry.getIdForEntity(object.entity));
+        object.writeSchematicToNBT(nbt, registry);
+    }
 }

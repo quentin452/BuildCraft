@@ -1,19 +1,16 @@
 package buildcraft.core.blueprints;
 
-import net.minecraft.item.ItemStack;
-
 import buildcraft.api.blueprints.ISchematicHelper;
 import buildcraft.core.lib.inventory.StackHelper;
+import net.minecraft.item.ItemStack;
 
 public final class SchematicHelper implements ISchematicHelper {
-	public static final SchematicHelper INSTANCE = new SchematicHelper();
+    public static final SchematicHelper INSTANCE = new SchematicHelper();
 
-	private SchematicHelper() {
+    private SchematicHelper() {}
 
-	}
-
-	@Override
-	public boolean isEqualItem(ItemStack a, ItemStack b) {
-		return StackHelper.isEqualItem(a, b);
-	}
+    @Override
+    public boolean isEqualItem(ItemStack a, ItemStack b) {
+        return StackHelper.isEqualItem(a, b);
+    }
 }

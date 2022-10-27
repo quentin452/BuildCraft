@@ -8,23 +8,19 @@
  */
 package buildcraft.factory;
 
+import buildcraft.core.lib.EntityBlock;
+import cpw.mods.fml.common.SidedProxy;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.common.SidedProxy;
-
-import buildcraft.core.lib.EntityBlock;
-
 public class FactoryProxy {
-	@SidedProxy(clientSide = "buildcraft.factory.FactoryProxyClient", serverSide = "buildcraft.factory.FactoryProxy")
-	public static FactoryProxy proxy;
+    @SidedProxy(clientSide = "buildcraft.factory.FactoryProxyClient", serverSide = "buildcraft.factory.FactoryProxy")
+    public static FactoryProxy proxy;
 
-	public void initializeTileEntities() {
-	}
+    public void initializeTileEntities() {}
 
-	public void initializeEntityRenders() {
-	}
+    public void initializeEntityRenders() {}
 
-	public EntityBlock newPumpTube(World w) {
-		return new EntityBlock(w);
-	}
+    public EntityBlock newPumpTube(World w) {
+        return new EntityBlock(w);
+    }
 }

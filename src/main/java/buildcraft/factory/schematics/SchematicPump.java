@@ -8,41 +8,37 @@
  */
 package buildcraft.factory.schematics;
 
-import java.util.LinkedList;
-
-import net.minecraft.item.ItemStack;
-
 import buildcraft.BuildCraftFactory;
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicTile;
+import java.util.LinkedList;
+import net.minecraft.item.ItemStack;
 
 public class SchematicPump extends SchematicTile {
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
-		requirements.add(new ItemStack(BuildCraftFactory.pumpBlock));
-	}
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+        requirements.add(new ItemStack(BuildCraftFactory.pumpBlock));
+    }
 
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {}
 
-	}
+    @Override
+    public void initializeFromObjectAt(IBuilderContext context, int x, int y, int z) {
+        super.initializeFromObjectAt(context, x, y, z);
 
-	@Override
-	public void initializeFromObjectAt(IBuilderContext context, int x, int y, int z) {
-		super.initializeFromObjectAt(context, x, y, z);
+        tileNBT.removeTag("tank");
+        tileNBT.removeTag("mjStored");
+    }
 
-		tileNBT.removeTag("tank");
-		tileNBT.removeTag("mjStored");
-	}
+    @Override
+    public void placeInWorld(IBuilderContext context, int x, int y, int z, LinkedList<ItemStack> stacks) {
+        context.world().setBlock(x, y, z, block, 0, 3);
+    }
 
-	@Override
-	public void placeInWorld(IBuilderContext context, int x, int y, int z, LinkedList<ItemStack> stacks) {
-		context.world().setBlock(x, y, z, block, 0, 3);
-	}
-
-	@Override
-	public BuildingStage getBuildStage() {
-		return BuildingStage.STANDALONE;
-	}
+    @Override
+    public BuildingStage getBuildStage() {
+        return BuildingStage.STANDALONE;
+    }
 }

@@ -12,8 +12,5 @@ import buildcraft.core.lib.items.ItemBuildCraft;
 
 public class ItemGear extends ItemBuildCraft {
 
-	public ItemGear() {
-
-	}
-
+    public ItemGear() {}
 }

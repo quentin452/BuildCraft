@@ -16,39 +16,38 @@ import buildcraft.robotics.IStationFilter;
 
 public class AIRobotGotoStationToLoad extends AIRobot {
 
-	private IStackFilter filter;
-	private int quantity;
+    private IStackFilter filter;
+    private int quantity;
 
-	public AIRobotGotoStationToLoad(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public AIRobotGotoStationToLoad(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	public AIRobotGotoStationToLoad(EntityRobotBase iRobot, IStackFilter iFilter, int iQuantity) {
-		this(iRobot);
+    public AIRobotGotoStationToLoad(EntityRobotBase iRobot, IStackFilter iFilter, int iQuantity) {
+        this(iRobot);
 
-		filter = iFilter;
-		quantity = iQuantity;
-	}
+        filter = iFilter;
+        quantity = iQuantity;
+    }
 
-	@Override
-	public void update() {
-		startDelegateAI(new AIRobotSearchAndGotoStation(robot, new StationFilter(), robot.getZoneToLoadUnload()));
-	}
+    @Override
+    public void update() {
+        startDelegateAI(new AIRobotSearchAndGotoStation(robot, new StationFilter(), robot.getZoneToLoadUnload()));
+    }
 
-	@Override
-	public void delegateAIEnded(AIRobot ai) {
-		if (ai instanceof AIRobotSearchAndGotoStation) {
-			setSuccess(ai.success());
-			terminate();
-		}
-	}
+    @Override
+    public void delegateAIEnded(AIRobot ai) {
+        if (ai instanceof AIRobotSearchAndGotoStation) {
+            setSuccess(ai.success());
+            terminate();
+        }
+    }
 
-	private class StationFilter implements IStationFilter {
+    private class StationFilter implements IStationFilter {
 
-		@Override
-		public boolean matches(DockingStation station) {
-			return AIRobotLoad.load(robot, station, filter, quantity, false);
-		}
-
-	}
+        @Override
+        public boolean matches(DockingStation station) {
+            return AIRobotLoad.load(robot, station, filter, quantity, false);
+        }
+    }
 }

@@ -13,9 +13,8 @@ import buildcraft.api.blueprints.SchematicTile;
 
 public class SchematicTileCreative extends SchematicTile {
 
-	@Override
-	public BuildingPermission getBuildingPermission() {
-		return BuildingPermission.CREATIVE_ONLY;
-	}
-
+    @Override
+    public BuildingPermission getBuildingPermission() {
+        return BuildingPermission.CREATIVE_ONLY;
+    }
 }

@@ -8,25 +8,25 @@
  */
 package buildcraft.transport.schematics;
 
-import net.minecraft.item.Item;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicTile;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BptPipeRotatable extends BptPipeExtension {
 
-	public BptPipeRotatable(Item i) {
-		super(i);
-	}
+    public BptPipeRotatable(Item i) {
+        super(i);
+    }
 
-	@Override
-	public void rotateLeft(SchematicTile slot, IBuilderContext context) {
-		int orientation = slot.meta & 7;
-		int others = slot.meta - orientation;
+    @Override
+    public void rotateLeft(SchematicTile slot, IBuilderContext context) {
+        int orientation = slot.meta & 7;
+        int others = slot.meta - orientation;
 
-		slot.meta = ForgeDirection.values()[orientation].getRotation(ForgeDirection.UP).ordinal() + others;
-	}
-
+        slot.meta = ForgeDirection.values()[orientation]
+                        .getRotation(ForgeDirection.UP)
+                        .ordinal()
+                + others;
+    }
 }

@@ -14,17 +14,17 @@ import net.minecraft.util.IIcon;
 
 public interface IGateExpansion {
 
-	String getUniqueIdentifier();
+    String getUniqueIdentifier();
 
-	String getDisplayName();
+    String getDisplayName();
 
-	GateExpansionController makeController(TileEntity pipeTile);
+    GateExpansionController makeController(TileEntity pipeTile);
 
-	void registerBlockOverlay(IIconRegister iconRegister);
+    void registerBlockOverlay(IIconRegister iconRegister);
 
-	void registerItemOverlay(IIconRegister iconRegister);
+    void registerItemOverlay(IIconRegister iconRegister);
 
-	IIcon getOverlayBlock();
+    IIcon getOverlayBlock();
 
-	IIcon getOverlayItem();
+    IIcon getOverlayItem();
 }

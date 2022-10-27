@@ -12,10 +12,9 @@ import net.minecraft.inventory.IInventory;
 
 public interface IBlueprintBuilderAgent {
 
-	boolean breakBlock(int x, int y, int z);
+    boolean breakBlock(int x, int y, int z);
 
-	IInventory getInventory();
+    IInventory getInventory();
 
-	boolean buildBlock(int x, int y, int z);
-
+    boolean buildBlock(int x, int y, int z);
 }

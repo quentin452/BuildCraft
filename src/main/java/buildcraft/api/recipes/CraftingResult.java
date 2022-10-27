@@ -9,16 +9,15 @@
 package buildcraft.api.recipes;
 
 import java.util.ArrayList;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class CraftingResult<T> {
 
-	public T crafted = null;
-	public ArrayList<ItemStack> usedItems = new ArrayList<ItemStack>();
-	public ArrayList<FluidStack> usedFluids = new ArrayList<FluidStack>();
-	public int energyCost = 0;
-	public long craftingTime = 0;
-	public IFlexibleRecipe<T> recipe;
+    public T crafted = null;
+    public ArrayList<ItemStack> usedItems = new ArrayList<ItemStack>();
+    public ArrayList<FluidStack> usedFluids = new ArrayList<FluidStack>();
+    public int energyCost = 0;
+    public long craftingTime = 0;
+    public IFlexibleRecipe<T> recipe;
 }

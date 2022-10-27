@@ -18,6 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * See IOverrideDefaultStatements for a more aggressive approach.
  */
 public interface IBlockDefaultTriggers {
-	boolean blockInventoryTriggers(ForgeDirection side);
-	boolean blockFluidHandlerTriggers(ForgeDirection side);
+    boolean blockInventoryTriggers(ForgeDirection side);
+
+    boolean blockFluidHandlerTriggers(ForgeDirection side);
 }
