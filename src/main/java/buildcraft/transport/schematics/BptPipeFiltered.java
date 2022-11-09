@@ -8,34 +8,32 @@
  */
 package buildcraft.transport.schematics;
 
-import net.minecraft.item.Item;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicTile;
 import buildcraft.core.lib.inventory.SimpleInventory;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BptPipeFiltered extends BptPipeExtension {
 
-	public BptPipeFiltered(Item i) {
-		super(i);
-	}
+    public BptPipeFiltered(Item i) {
+        super(i);
+    }
 
-	@Override
-	public void rotateLeft(SchematicTile slot, IBuilderContext context) {
-		SimpleInventory inv = new SimpleInventory(54, "Filters", 1);
-		SimpleInventory newInv = new SimpleInventory(54, "Filters", 1);
-		inv.readFromNBT(slot.tileNBT);
+    @Override
+    public void rotateLeft(SchematicTile slot, IBuilderContext context) {
+        SimpleInventory inv = new SimpleInventory(54, "Filters", 1);
+        SimpleInventory newInv = new SimpleInventory(54, "Filters", 1);
+        inv.readFromNBT(slot.tileNBT);
 
-		for (int dir = 0; dir <= 5; ++dir) {
-			ForgeDirection r = ForgeDirection.values()[dir].getRotation(ForgeDirection.UP);
+        for (int dir = 0; dir <= 5; ++dir) {
+            ForgeDirection r = ForgeDirection.values()[dir].getRotation(ForgeDirection.UP);
 
-			for (int s = 0; s < 9; ++s) {
-				newInv.setInventorySlotContents(r.ordinal() * 9 + s, inv.getStackInSlot(dir * 9 + s));
-			}
-		}
+            for (int s = 0; s < 9; ++s) {
+                newInv.setInventorySlotContents(r.ordinal() * 9 + s, inv.getStackInSlot(dir * 9 + s));
+            }
+        }
 
-		newInv.writeToNBT(slot.tileNBT);
-	}
+        newInv.writeToNBT(slot.tileNBT);
+    }
 }

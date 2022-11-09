@@ -8,52 +8,52 @@
  */
 package buildcraft.api.statements;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public interface IStatementParameter {
-	
-	/**
-	 * Every parameter needs a unique tag, it should be in the format of
-	 * "&lt;modi&gt;:&lt;name&gt;".
-	 *
-	 * @return the unique id
-	 */
-	String getUniqueTag();
-	
-	@SideOnly(Side.CLIENT)
-	IIcon getIcon();
 
-	ItemStack getItemStack();
+    /**
+     * Every parameter needs a unique tag, it should be in the format of
+     * "&lt;modi&gt;:&lt;name&gt;".
+     *
+     * @return the unique id
+     */
+    String getUniqueTag();
 
-	/**
-	 * Something that is initially unintuitive: you HAVE to
-	 * keep your icons as static variables, due to the fact
-	 * that every IStatementParameter is instantiated upon creation,
-	 * in opposition to IStatements which are singletons (due to the
-	 * fact that they, unlike Parameters, store no additional data)
-	 */
-	@SideOnly(Side.CLIENT)
-	void registerIcons(IIconRegister iconRegister);
-	
-	/**
-	 * Return the parameter description in the UI
-	 */
-	String getDescription();
+    @SideOnly(Side.CLIENT)
+    IIcon getIcon();
 
-	void onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
+    ItemStack getItemStack();
 
-	void readFromNBT(NBTTagCompound compound);
+    /**
+     * Something that is initially unintuitive: you HAVE to
+     * keep your icons as static variables, due to the fact
+     * that every IStatementParameter is instantiated upon creation,
+     * in opposition to IStatements which are singletons (due to the
+     * fact that they, unlike Parameters, store no additional data)
+     */
+    @SideOnly(Side.CLIENT)
+    void registerIcons(IIconRegister iconRegister);
 
-	void writeToNBT(NBTTagCompound compound);
+    /**
+     * Return the parameter description in the UI
+     */
+    String getDescription();
 
-	/**
-	 * This returns the parameter after a left rotation. Used in particular in
-	 * blueprints orientation.
-	 */
-	IStatementParameter rotateLeft();
+    void onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
+
+    void readFromNBT(NBTTagCompound compound);
+
+    void writeToNBT(NBTTagCompound compound);
+
+    /**
+     * This returns the parameter after a left rotation. Used in particular in
+     * blueprints orientation.
+     */
+    IStatementParameter rotateLeft();
 }

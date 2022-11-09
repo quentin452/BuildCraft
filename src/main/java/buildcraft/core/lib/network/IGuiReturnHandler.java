@@ -9,14 +9,13 @@
 package buildcraft.core.lib.network;
 
 import io.netty.buffer.ByteBuf;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 public interface IGuiReturnHandler {
-	World getWorld();
+    World getWorld();
 
-	void writeGuiData(ByteBuf data);
+    void writeGuiData(ByteBuf data);
 
-	void readGuiData(ByteBuf data, EntityPlayer player);
+    void readGuiData(ByteBuf data, EntityPlayer player);
 }

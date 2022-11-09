@@ -8,47 +8,45 @@
  */
 package buildcraft.core.lib.network;
 
+import buildcraft.api.core.ISerializable;
+import buildcraft.core.network.PacketIds;
 import io.netty.buffer.ByteBuf;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
-import buildcraft.api.core.ISerializable;
-import buildcraft.core.network.PacketIds;
-
 public class PacketEntityUpdate extends PacketUpdate {
-	public int entityId;
+    public int entityId;
 
-	public PacketEntityUpdate() {
-		super(PacketIds.ENTITY_UPDATE);
-	}
+    public PacketEntityUpdate() {
+        super(PacketIds.ENTITY_UPDATE);
+    }
 
-	public PacketEntityUpdate(ISerializable payload) {
-		this(PacketIds.ENTITY_UPDATE, payload);
-	}
+    public PacketEntityUpdate(ISerializable payload) {
+        this(PacketIds.ENTITY_UPDATE, payload);
+    }
 
-	public PacketEntityUpdate(int packetId, ISerializable payload) {
-		super(packetId, payload);
+    public PacketEntityUpdate(int packetId, ISerializable payload) {
+        super(packetId, payload);
 
-		Entity entity = (Entity) payload;
-		entityId = entity.getEntityId();
-	}
+        Entity entity = (Entity) payload;
+        entityId = entity.getEntityId();
+    }
 
-	@Override
-	public void writeIdentificationData(ByteBuf data) {
-		data.writeInt(entityId);
-	}
+    @Override
+    public void writeIdentificationData(ByteBuf data) {
+        data.writeInt(entityId);
+    }
 
-	@Override
-	public void readIdentificationData(ByteBuf data) {
-		entityId = data.readInt();
-	}
+    @Override
+    public void readIdentificationData(ByteBuf data) {
+        entityId = data.readInt();
+    }
 
-	public boolean targetExists(World world) {
-		return world.getEntityByID(entityId) != null;
-	}
+    public boolean targetExists(World world) {
+        return world.getEntityByID(entityId) != null;
+    }
 
-	public Entity getTarget(World world) {
-		return world.getEntityByID(entityId);
-	}
+    public Entity getTarget(World world) {
+        return world.getEntityByID(entityId);
+    }
 }

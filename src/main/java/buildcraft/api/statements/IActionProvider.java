@@ -9,20 +9,19 @@
 package buildcraft.api.statements;
 
 import java.util.Collection;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IActionProvider {
 
-	/**
-	 * Returns the list of actions that are available from the statement container holding the
-	 * gate.
-	 */
-	Collection<IActionInternal> getInternalActions(IStatementContainer container);
+    /**
+     * Returns the list of actions that are available from the statement container holding the
+     * gate.
+     */
+    Collection<IActionInternal> getInternalActions(IStatementContainer container);
 
-	/**
-	 * Returns the list of actions available to a gate next to the given block.
-	 */
-	Collection<IActionExternal> getExternalActions(ForgeDirection side, TileEntity tile);
+    /**
+     * Returns the list of actions available to a gate next to the given block.
+     */
+    Collection<IActionExternal> getExternalActions(ForgeDirection side, TileEntity tile);
 }

@@ -8,33 +8,31 @@
  */
 package buildcraft.robotics.boards;
 
+import buildcraft.api.boards.RedstoneBoardRobotNBT;
+import buildcraft.api.core.BuildCraftAPI;
+import buildcraft.api.robots.EntityRobotBase;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import buildcraft.api.boards.RedstoneBoardRobotNBT;
-import buildcraft.api.core.BuildCraftAPI;
-import buildcraft.api.robots.EntityRobotBase;
-
 public class BoardRobotLeaveCutter extends BoardRobotGenericBreakBlock {
 
-	public BoardRobotLeaveCutter(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public BoardRobotLeaveCutter(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	@Override
-	public RedstoneBoardRobotNBT getNBTHandler() {
-		return BCBoardNBT.REGISTRY.get("leaveCutter");
-	}
+    @Override
+    public RedstoneBoardRobotNBT getNBTHandler() {
+        return BCBoardNBT.REGISTRY.get("leaveCutter");
+    }
 
-	@Override
-	public boolean isExpectedTool(ItemStack stack) {
-		return stack != null && stack.getItem() instanceof ItemShears;
-	}
+    @Override
+    public boolean isExpectedTool(ItemStack stack) {
+        return stack != null && stack.getItem() instanceof ItemShears;
+    }
 
-	@Override
-	public boolean isExpectedBlock(World world, int x, int y, int z) {
-		return BuildCraftAPI.getWorldProperty("leaves").get(world, x, y, z);
-	}
-
+    @Override
+    public boolean isExpectedBlock(World world, int x, int y, int z) {
+        return BuildCraftAPI.getWorldProperty("leaves").get(world, x, y, z);
+    }
 }

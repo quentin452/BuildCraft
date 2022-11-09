@@ -8,34 +8,32 @@
  */
 package buildcraft.builders.schematics;
 
+import buildcraft.api.blueprints.IBuilderContext;
+import buildcraft.api.blueprints.SchematicBlock;
 import java.util.LinkedList;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import buildcraft.api.blueprints.IBuilderContext;
-import buildcraft.api.blueprints.SchematicBlock;
-
 public class SchematicTripwire extends SchematicBlock {
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
-		requirements.add(new ItemStack(Items.string));
-	}
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+        requirements.add(new ItemStack(Items.string));
+    }
 
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
-		// cancel requirements reading
-	}
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {
+        // cancel requirements reading
+    }
 
-	@Override
-	public void placeInWorld(IBuilderContext context, int x, int y, int z, LinkedList<ItemStack> stacks) {
-		context.world().setBlock(x, y, z, Blocks.tripwire, 0, 3);
-	}
+    @Override
+    public void placeInWorld(IBuilderContext context, int x, int y, int z, LinkedList<ItemStack> stacks) {
+        context.world().setBlock(x, y, z, Blocks.tripwire, 0, 3);
+    }
 
-	@Override
-	public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
-		return context.world().getBlock(x, y, z) == Blocks.tripwire;
-	}
+    @Override
+    public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
+        return context.world().getBlock(x, y, z) == Blocks.tripwire;
+    }
 }

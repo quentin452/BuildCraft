@@ -8,43 +8,46 @@
  */
 package buildcraft.transport.stripes;
 
+import buildcraft.api.transport.IStripesActivator;
+import buildcraft.api.transport.IStripesHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
-
-import buildcraft.api.transport.IStripesActivator;
-import buildcraft.api.transport.IStripesHandler;
 
 public class StripesHandlerPlaceBlock implements IStripesHandler {
 
-	@Override
-	public StripesHandlerType getType() {
-		return StripesHandlerType.ITEM_USE;
-	}
+    @Override
+    public StripesHandlerType getType() {
+        return StripesHandlerType.ITEM_USE;
+    }
 
-	@Override
-	public boolean shouldHandle(ItemStack stack) {
-		return stack.getItem() instanceof ItemBlock;
-	}
+    @Override
+    public boolean shouldHandle(ItemStack stack) {
+        return stack.getItem() instanceof ItemBlock;
+    }
 
-	@Override
-	public boolean handle(World world, int x, int y, int z,
-						  ForgeDirection direction, ItemStack stack, EntityPlayer player,
-						  IStripesActivator activator) {
-		if (!world.isAirBlock(x, y, z)) {
-			return false;
-		}
-		if (stack.tryPlaceItemIntoWorld(player, world, x, y, z, direction.ordinal(), 0.0f,
-				0.0f, 0.0f)) {
-			if (stack.stackSize > 0) {
-				activator.sendItem(stack, direction.getOpposite());
-			}
+    @Override
+    public boolean handle(
+            World world,
+            int x,
+            int y,
+            int z,
+            ForgeDirection direction,
+            ItemStack stack,
+            EntityPlayer player,
+            IStripesActivator activator) {
+        if (!world.isAirBlock(x, y, z)) {
+            return false;
+        }
+        if (stack.tryPlaceItemIntoWorld(player, world, x, y, z, direction.ordinal(), 0.0f, 0.0f, 0.0f)) {
+            if (stack.stackSize > 0) {
+                activator.sendItem(stack, direction.getOpposite());
+            }
 
-			return true;
-		}
-		return false;
-	}
+            return true;
+        }
+        return false;
+    }
 }

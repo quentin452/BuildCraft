@@ -13,13 +13,12 @@ import buildcraft.api.blueprints.SchematicTile;
 
 public class SchematicSkull extends SchematicTile {
 
-	@Override
-	public void rotateLeft(IBuilderContext context) {
-		int rot = tileNBT.getByte("Rot");
+    @Override
+    public void rotateLeft(IBuilderContext context) {
+        int rot = tileNBT.getByte("Rot");
 
-		rot = (rot + 4) % 16;
+        rot = (rot + 4) % 16;
 
-		tileNBT.setByte("Rot", (byte) rot);
-	}
-
+        tileNBT.setByte("Rot", (byte) rot);
+    }
 }

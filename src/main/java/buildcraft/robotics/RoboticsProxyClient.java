@@ -8,29 +8,28 @@
  */
 package buildcraft.robotics;
 
+import buildcraft.BuildCraftRobotics;
+import buildcraft.robotics.render.RenderRobot;
+import buildcraft.robotics.render.RenderZonePlan;
+import buildcraft.robotics.render.RobotStationItemRenderer;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Loader;
 import net.minecraftforge.client.MinecraftForgeClient;
 
-import buildcraft.BuildCraftRobotics;
-import buildcraft.robotics.render.RenderRobot;
-import buildcraft.robotics.render.RenderZonePlan;
-import buildcraft.robotics.render.RobotStationItemRenderer;
-
 public class RoboticsProxyClient extends RoboticsProxy {
-	public void registerRenderers() {
-		RenderingRegistry.registerEntityRenderingHandler(EntityRobot.class, new RenderRobot());
-		MinecraftForgeClient.registerItemRenderer(BuildCraftRobotics.robotItem, new RenderRobot());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileZonePlan.class, new RenderZonePlan());
+    public void registerRenderers() {
+        RenderingRegistry.registerEntityRenderingHandler(EntityRobot.class, new RenderRobot());
+        MinecraftForgeClient.registerItemRenderer(BuildCraftRobotics.robotItem, new RenderRobot());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileZonePlan.class, new RenderZonePlan());
 
-		// TODO: Move robot station textures locally
-		if (Loader.isModLoaded("BuildCraft|Transport")) {
-			loadBCTransport();
-		}
-	}
+        // TODO: Move robot station textures locally
+        if (Loader.isModLoaded("BuildCraft|Transport")) {
+            loadBCTransport();
+        }
+    }
 
-	private void loadBCTransport() {
-		MinecraftForgeClient.registerItemRenderer(BuildCraftRobotics.robotStationItem, new RobotStationItemRenderer());
-	}
+    private void loadBCTransport() {
+        MinecraftForgeClient.registerItemRenderer(BuildCraftRobotics.robotStationItem, new RobotStationItemRenderer());
+    }
 }

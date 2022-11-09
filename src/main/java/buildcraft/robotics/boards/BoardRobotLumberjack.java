@@ -8,36 +8,35 @@
  */
 package buildcraft.robotics.boards;
 
+import buildcraft.api.boards.RedstoneBoardRobotNBT;
+import buildcraft.api.core.BuildCraftAPI;
+import buildcraft.api.robots.EntityRobotBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-import buildcraft.api.boards.RedstoneBoardRobotNBT;
-import buildcraft.api.core.BuildCraftAPI;
-import buildcraft.api.robots.EntityRobotBase;
-
 public class BoardRobotLumberjack extends BoardRobotGenericBreakBlock {
 
-	public BoardRobotLumberjack(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public BoardRobotLumberjack(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	public BoardRobotLumberjack(EntityRobotBase iRobot, NBTTagCompound nbt) {
-		super(iRobot);
-	}
+    public BoardRobotLumberjack(EntityRobotBase iRobot, NBTTagCompound nbt) {
+        super(iRobot);
+    }
 
-	@Override
-	public RedstoneBoardRobotNBT getNBTHandler() {
-		return BCBoardNBT.REGISTRY.get("lumberjack");
-	}
+    @Override
+    public RedstoneBoardRobotNBT getNBTHandler() {
+        return BCBoardNBT.REGISTRY.get("lumberjack");
+    }
 
-	@Override
-	public boolean isExpectedTool(ItemStack stack) {
-		return stack != null && stack.getItem().getToolClasses(stack).contains("axe");
-	}
+    @Override
+    public boolean isExpectedTool(ItemStack stack) {
+        return stack != null && stack.getItem().getToolClasses(stack).contains("axe");
+    }
 
-	@Override
-	public boolean isExpectedBlock(World world, int x, int y, int z) {
-		return BuildCraftAPI.getWorldProperty("wood").get(world, x, y, z);
-	}
+    @Override
+    public boolean isExpectedBlock(World world, int x, int y, int z) {
+        return BuildCraftAPI.getWorldProperty("wood").get(world, x, y, z);
+    }
 }

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public interface ICustomHighlight {
 
-	AxisAlignedBB[] getBoxes(World wrd, int x, int y, int z, EntityPlayer player);
+    AxisAlignedBB[] getBoxes(World wrd, int x, int y, int z, EntityPlayer player);
 
-	double getExpansion();
+    double getExpansion();
 }

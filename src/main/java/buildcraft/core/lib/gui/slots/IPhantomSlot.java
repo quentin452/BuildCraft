@@ -13,5 +13,5 @@ package buildcraft.core.lib.gui.slots;
  */
 public interface IPhantomSlot {
 
-	boolean canAdjust();
+    boolean canAdjust();
 }

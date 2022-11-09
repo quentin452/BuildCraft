@@ -14,13 +14,10 @@ import buildcraft.api.statements.IStatementParameter;
 import buildcraft.core.statements.BCStatement;
 
 public abstract class ActionStationInputItems extends BCStatement implements IActionInternal {
-	public ActionStationInputItems(String name) {
-		super(name);
-	}
+    public ActionStationInputItems(String name) {
+        super(name);
+    }
 
-	@Override
-	public void actionActivate(IStatementContainer source,
-							   IStatementParameter[] parameters) {
-
-	}
+    @Override
+    public void actionActivate(IStatementContainer source, IStatementParameter[] parameters) {}
 }

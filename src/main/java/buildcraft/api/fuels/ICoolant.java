@@ -11,7 +11,7 @@ package buildcraft.api.fuels;
 import net.minecraftforge.fluids.Fluid;
 
 public interface ICoolant {
-	Fluid getFluid();
+    Fluid getFluid();
 
-	float getDegreesCoolingPerMB(float heat);
+    float getDegreesCoolingPerMB(float heat);
 }

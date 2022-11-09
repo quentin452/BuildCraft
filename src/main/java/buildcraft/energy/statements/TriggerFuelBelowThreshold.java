@@ -8,20 +8,17 @@
  */
 package buildcraft.energy.statements;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.tileentity.TileEntity;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerExternal;
 import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.core.statements.BCStatement;
 import buildcraft.energy.TileEngineIron;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TriggerFuelBelowThreshold extends BCStatement implements ITriggerExternal {
 
@@ -38,7 +35,8 @@ public class TriggerFuelBelowThreshold extends BCStatement implements ITriggerEx
     }
 
     @Override
-    public boolean isTriggerActive(TileEntity target, ForgeDirection side, IStatementContainer source, IStatementParameter[] parameters) {
+    public boolean isTriggerActive(
+            TileEntity target, ForgeDirection side, IStatementContainer source, IStatementParameter[] parameters) {
         if (!(target instanceof TileEngineIron)) {
             return false;
         }

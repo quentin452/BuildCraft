@@ -8,27 +8,23 @@
  */
 package buildcraft.core.builders.schematics;
 
-import java.util.LinkedList;
-
-import net.minecraft.item.ItemStack;
-
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicBlock;
+import java.util.LinkedList;
+import net.minecraft.item.ItemStack;
 
 public class SchematicIgnoreMeta extends SchematicBlock {
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
-		requirements.add(new ItemStack(block, 1, 0));
-	}
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+        requirements.add(new ItemStack(block, 1, 0));
+    }
 
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {}
 
-	}
-
-	@Override
-	public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
-		return block == context.world().getBlock(x, y, z);
-	}
+    @Override
+    public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
+        return block == context.world().getBlock(x, y, z);
+    }
 }

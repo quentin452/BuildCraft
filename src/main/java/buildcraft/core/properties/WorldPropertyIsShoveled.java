@@ -20,14 +20,14 @@ import net.minecraft.world.IBlockAccess;
 
 public class WorldPropertyIsShoveled extends WorldProperty {
 
-	@Override
-	public boolean get(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
-		return block instanceof BlockDirt
-				|| block instanceof BlockSand
-				|| block instanceof BlockClay
-				|| block instanceof BlockGravel
-				|| block instanceof BlockFarmland
-				|| block instanceof BlockGrass
-				|| block instanceof BlockSnow;
-	}
+    @Override
+    public boolean get(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
+        return block instanceof BlockDirt
+                || block instanceof BlockSand
+                || block instanceof BlockClay
+                || block instanceof BlockGravel
+                || block instanceof BlockFarmland
+                || block instanceof BlockGrass
+                || block instanceof BlockSnow;
+    }
 }

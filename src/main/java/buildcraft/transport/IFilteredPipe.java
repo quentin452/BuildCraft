@@ -8,11 +8,9 @@
  */
 package buildcraft.transport;
 
+import buildcraft.api.core.ISerializable;
 import net.minecraft.inventory.IInventory;
 
-import buildcraft.api.core.ISerializable;
-
 public interface IFilteredPipe extends ISerializable {
-	IInventory getFilters();
-
+    IInventory getFilters();
 }

@@ -9,15 +9,14 @@
 package buildcraft.api.fuels;
 
 import java.util.Collection;
-
 import net.minecraftforge.fluids.Fluid;
 
 public interface IFuelManager {
-	IFuel addFuel(IFuel fuel);
+    IFuel addFuel(IFuel fuel);
 
-	IFuel addFuel(Fluid fluid, int powerPerCycle, int totalBurningTime);
+    IFuel addFuel(Fluid fluid, int powerPerCycle, int totalBurningTime);
 
-	Collection<IFuel> getFuels();
+    Collection<IFuel> getFuels();
 
-	IFuel getFuel(Fluid fluid);
+    IFuel getFuel(Fluid fluid);
 }

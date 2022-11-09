@@ -8,25 +8,26 @@
  */
 package buildcraft.api.gates;
 
-import java.util.List;
-
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.StatementSlot;
 import buildcraft.api.statements.containers.ISidedStatementContainer;
 import buildcraft.api.transport.IPipe;
+import java.util.List;
 
 public interface IGate extends ISidedStatementContainer {
-	@Deprecated
-	void setPulsing(boolean pulse);
+    @Deprecated
+    void setPulsing(boolean pulse);
 
-	IPipe getPipe();
+    IPipe getPipe();
 
-	List<IStatement> getTriggers();
-	List<IStatement> getActions();
+    List<IStatement> getTriggers();
 
-	List<StatementSlot> getActiveActions();
+    List<IStatement> getActions();
 
-	List<IStatementParameter> getTriggerParameters(int index);
-	List<IStatementParameter> getActionParameters(int index);
+    List<StatementSlot> getActiveActions();
+
+    List<IStatementParameter> getTriggerParameters(int index);
+
+    List<IStatementParameter> getActionParameters(int index);
 }

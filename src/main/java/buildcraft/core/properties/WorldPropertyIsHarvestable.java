@@ -8,15 +8,14 @@
  */
 package buildcraft.core.properties;
 
+import buildcraft.api.crops.CropManager;
 import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
 
-import buildcraft.api.crops.CropManager;
-
 public class WorldPropertyIsHarvestable extends WorldProperty {
 
-	@Override
-	public boolean get(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
-		return CropManager.isMature(blockAccess, block, meta, x, y, z);
-	}
+    @Override
+    public boolean get(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
+        return CropManager.isMature(blockAccess, block, meta, x, y, z);
+    }
 }

@@ -8,12 +8,6 @@
  */
 package buildcraft.transport.pipes;
 
-import net.minecraft.item.Item;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.IIconProvider;
 import buildcraft.core.lib.utils.MathUtils;
@@ -23,27 +17,34 @@ import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.TransportConstants;
 import buildcraft.transport.TravelingItem;
 import buildcraft.transport.pipes.events.PipeEventItem;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsGold extends Pipe<PipeTransportItems> {
 
-	public PipeItemsGold(Item item) {
-		super(new PipeTransportItems(), item);
-	}
+    public PipeItemsGold(Item item) {
+        super(new PipeTransportItems(), item);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIconProvider getIconProvider() {
-		return BuildCraftTransport.instance.pipeIconProvider;
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIconProvider getIconProvider() {
+        return BuildCraftTransport.instance.pipeIconProvider;
+    }
 
-	@Override
-	public int getIconIndex(ForgeDirection direction) {
-		return PipeIconProvider.TYPE.PipeItemsGold.ordinal();
-	}
+    @Override
+    public int getIconIndex(ForgeDirection direction) {
+        return PipeIconProvider.TYPE.PipeItemsGold.ordinal();
+    }
 
-	public void eventHandler(PipeEventItem.AdjustSpeed event) {
-		event.handled = true;
-		TravelingItem item = event.item;
-		item.setSpeed(MathUtils.clamp(item.getSpeed() * TransportConstants.PIPE_SPEEDUP_MULTIPLIER, TransportConstants.PIPE_MIN_SPEED * TransportConstants.PIPE_SPEEDUP_MULTIPLIER, TransportConstants.PIPE_MAX_SPEED));
-	}
+    public void eventHandler(PipeEventItem.AdjustSpeed event) {
+        event.handled = true;
+        TravelingItem item = event.item;
+        item.setSpeed(MathUtils.clamp(
+                item.getSpeed() * TransportConstants.PIPE_SPEEDUP_MULTIPLIER,
+                TransportConstants.PIPE_MIN_SPEED * TransportConstants.PIPE_SPEEDUP_MULTIPLIER,
+                TransportConstants.PIPE_MAX_SPEED));
+    }
 }

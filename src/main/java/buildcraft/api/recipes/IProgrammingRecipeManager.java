@@ -11,13 +11,13 @@ package buildcraft.api.recipes;
 import java.util.Collection;
 
 public interface IProgrammingRecipeManager {
-	void addRecipe(IProgrammingRecipe recipe);
-	
-	void removeRecipe(String id);
+    void addRecipe(IProgrammingRecipe recipe);
 
-	void removeRecipe(IProgrammingRecipe recipe);
+    void removeRecipe(String id);
 
-	IProgrammingRecipe getRecipe(String id);
+    void removeRecipe(IProgrammingRecipe recipe);
 
-	Collection<IProgrammingRecipe> getRecipes();
+    IProgrammingRecipe getRecipe(String id);
+
+    Collection<IProgrammingRecipe> getRecipes();
 }

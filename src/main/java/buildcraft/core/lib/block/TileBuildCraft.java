@@ -8,20 +8,6 @@
  */
 package buildcraft.core.lib.block;
 
-import java.util.HashSet;
-
-import io.netty.buffer.ByteBuf;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
-import cofh.api.energy.IEnergyHandler;
 import buildcraft.BuildCraftCore;
 import buildcraft.api.core.ISerializable;
 import buildcraft.api.tiles.IControllable;
@@ -31,6 +17,16 @@ import buildcraft.core.lib.TileBuffer;
 import buildcraft.core.lib.network.Packet;
 import buildcraft.core.lib.network.PacketTileUpdate;
 import buildcraft.core.lib.utils.Utils;
+import cofh.api.energy.IEnergyHandler;
+import io.netty.buffer.ByteBuf;
+import java.util.HashSet;
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * For future maintainers: This class intentionally does not implement
@@ -39,225 +35,218 @@ import buildcraft.core.lib.utils.Utils;
  * provides all the underlying functionality to stop code repetition.
  */
 public abstract class TileBuildCraft extends TileEntity implements IEnergyHandler, ISerializable {
-	protected TileBuffer[] cache;
-	protected HashSet<EntityPlayer> guiWatchers = new HashSet<EntityPlayer>();
-	protected IControllable.Mode mode;
+    protected TileBuffer[] cache;
+    protected HashSet<EntityPlayer> guiWatchers = new HashSet<EntityPlayer>();
+    protected IControllable.Mode mode;
 
-	private boolean init = false;
-	private String owner = "[BuildCraft]";
-	private RFBattery battery;
+    private boolean init = false;
+    private String owner = "[BuildCraft]";
+    private RFBattery battery;
 
-	private int receivedTick, extractedTick;
-	private long worldTimeEnergyReceive;
+    private int receivedTick, extractedTick;
+    private long worldTimeEnergyReceive;
 
-	public String getOwner() {
-		return owner;
-	}
+    public String getOwner() {
+        return owner;
+    }
 
-	public void addGuiWatcher(EntityPlayer player) {
-		if (!guiWatchers.contains(player)) {
-			guiWatchers.add(player);
-		}
-	}
+    public void addGuiWatcher(EntityPlayer player) {
+        if (!guiWatchers.contains(player)) {
+            guiWatchers.add(player);
+        }
+    }
 
-	public void removeGuiWatcher(EntityPlayer player) {
-		if (guiWatchers.contains(player)) {
-			guiWatchers.remove(player);
-		}
-	}
+    public void removeGuiWatcher(EntityPlayer player) {
+        if (guiWatchers.contains(player)) {
+            guiWatchers.remove(player);
+        }
+    }
 
-	@Override
-	public void updateEntity() {
-		if (!init && !isInvalid()) {
-			initialize();
-			init = true;
-		}
+    @Override
+    public void updateEntity() {
+        if (!init && !isInvalid()) {
+            initialize();
+            init = true;
+        }
 
-		if (battery != null) {
-			receivedTick = 0;
-			extractedTick = 0;
-		}
-	}
+        if (battery != null) {
+            receivedTick = 0;
+            extractedTick = 0;
+        }
+    }
 
-	public void initialize() {
+    public void initialize() {}
 
-	}
+    @Override
+    public void validate() {
+        super.validate();
+        cache = null;
+    }
 
-	@Override
-	public void validate() {
-		super.validate();
-		cache = null;
-	}
+    @Override
+    public void invalidate() {
+        init = false;
+        super.invalidate();
+        cache = null;
+    }
 
-	@Override
-	public void invalidate() {
-		init = false;
-		super.invalidate();
-		cache = null;
-	}
+    public void onBlockPlacedBy(EntityLivingBase entity, ItemStack stack) {
+        if (entity instanceof EntityPlayer) {
+            owner = ((EntityPlayer) entity).getDisplayName();
+        }
+    }
 
-	public void onBlockPlacedBy(EntityLivingBase entity, ItemStack stack) {
-		if (entity instanceof EntityPlayer) {
-			owner = ((EntityPlayer) entity).getDisplayName();
-		}
-	}
+    public void destroy() {
+        cache = null;
+    }
 
-	public void destroy() {
-		cache = null;
-	}
+    public void sendNetworkUpdate() {
+        if (worldObj != null && !worldObj.isRemote) {
+            BuildCraftCore.instance.sendToPlayers(
+                    getPacketUpdate(), worldObj, xCoord, yCoord, zCoord, getNetworkUpdateRange());
+        }
+    }
 
-	public void sendNetworkUpdate() {
-		if (worldObj != null && !worldObj.isRemote) {
-			BuildCraftCore.instance.sendToPlayers(getPacketUpdate(), worldObj,
-					xCoord, yCoord, zCoord, getNetworkUpdateRange());
-		}
-	}
+    protected int getNetworkUpdateRange() {
+        return DefaultProps.NETWORK_UPDATE_RANGE;
+    }
 
-	protected int getNetworkUpdateRange() {
-		return DefaultProps.NETWORK_UPDATE_RANGE;
-	}
+    public void writeData(ByteBuf stream) {}
 
-	public void writeData(ByteBuf stream) {
+    public void readData(ByteBuf stream) {}
 
-	}
+    public Packet getPacketUpdate() {
+        return new PacketTileUpdate(this);
+    }
 
-	public void readData(ByteBuf stream) {
+    @Override
+    public net.minecraft.network.Packet getDescriptionPacket() {
+        return Utils.toPacket(getPacketUpdate(), 0);
+    }
 
-	}
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setString("owner", owner);
+        if (battery != null) {
+            NBTTagCompound batteryNBT = new NBTTagCompound();
+            battery.writeToNBT(batteryNBT);
+            nbt.setTag("battery", batteryNBT);
+        }
+        if (mode != null) {
+            nbt.setByte("lastMode", (byte) mode.ordinal());
+        }
+    }
 
-	public Packet getPacketUpdate() {
-		return new PacketTileUpdate(this);
-	}
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        if (nbt.hasKey("owner")) {
+            owner = nbt.getString("owner");
+        }
+        if (battery != null) {
+            battery.readFromNBT(nbt.getCompoundTag("battery"));
+        }
+        if (nbt.hasKey("lastMode")) {
+            mode = IControllable.Mode.values()[nbt.getByte("lastMode")];
+        }
+    }
 
-	@Override
-	public net.minecraft.network.Packet getDescriptionPacket() {
-		return Utils.toPacket(getPacketUpdate(), 0);
-	}
+    protected int getTicksSinceEnergyReceived() {
+        return (int) (worldObj.getTotalWorldTime() - worldTimeEnergyReceive);
+    }
 
-	@Override
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		nbt.setString("owner", owner);
-		if (battery != null) {
-			NBTTagCompound batteryNBT = new NBTTagCompound();
-			battery.writeToNBT(batteryNBT);
-			nbt.setTag("battery", batteryNBT);
-		}
-		if (mode != null) {
-			nbt.setByte("lastMode", (byte) mode.ordinal());
-		}
-	}
+    @Override
+    public int hashCode() {
+        return (xCoord * 37 + yCoord) * 37 + zCoord;
+    }
 
-	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
-		if (nbt.hasKey("owner")) {
-			owner = nbt.getString("owner");
-		}
-		if (battery != null) {
-			battery.readFromNBT(nbt.getCompoundTag("battery"));
-		}
-		if (nbt.hasKey("lastMode")) {
-			mode = IControllable.Mode.values()[nbt.getByte("lastMode")];
-		}
-	}
+    @Override
+    public boolean equals(Object cmp) {
+        return this == cmp;
+    }
 
-	protected int getTicksSinceEnergyReceived() {
-		return (int) (worldObj.getTotalWorldTime() - worldTimeEnergyReceive);
-	}
+    @Override
+    public boolean canConnectEnergy(ForgeDirection from) {
+        return battery != null;
+    }
 
+    @Override
+    public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
+        if (battery != null && this.canConnectEnergy(from)) {
+            int received =
+                    battery.receiveEnergy(Math.min(maxReceive, battery.getMaxEnergyReceive() - receivedTick), simulate);
+            if (!simulate) {
+                receivedTick += received;
+                worldTimeEnergyReceive = worldObj.getTotalWorldTime();
+            }
+            return received;
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public int hashCode() {
-		return (xCoord * 37 + yCoord) * 37 + zCoord;
-	}
+    /**
+     * If you want to use this, implement IEnergyProvider.
+     */
+    public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
+        if (battery != null && this.canConnectEnergy(from)) {
+            int extracted = battery.extractEnergy(
+                    Math.min(maxExtract, battery.getMaxEnergyExtract() - extractedTick), simulate);
+            if (!simulate) {
+                extractedTick += extracted;
+            }
+            return extracted;
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public boolean equals(Object cmp) {
-		return this == cmp;
-	}
+    @Override
+    public int getEnergyStored(ForgeDirection from) {
+        if (battery != null && this.canConnectEnergy(from)) {
+            return battery.getEnergyStored();
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public boolean canConnectEnergy(ForgeDirection from) {
-		return battery != null;
-	}
+    @Override
+    public int getMaxEnergyStored(ForgeDirection from) {
+        if (battery != null && this.canConnectEnergy(from)) {
+            return battery.getMaxEnergyStored();
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public int receiveEnergy(ForgeDirection from, int maxReceive,
-							 boolean simulate) {
-		if (battery != null && this.canConnectEnergy(from)) {
-			int received = battery.receiveEnergy(Math.min(maxReceive, battery.getMaxEnergyReceive() - receivedTick), simulate);
-			if (!simulate) {
-				receivedTick += received;
-				worldTimeEnergyReceive = worldObj.getTotalWorldTime();
-			}
-			return received;
-		} else {
-			return 0;
-		}
-	}
+    public RFBattery getBattery() {
+        return battery;
+    }
 
-	/**
-	 * If you want to use this, implement IEnergyProvider.
-	 */
-	public int extractEnergy(ForgeDirection from, int maxExtract,
-							 boolean simulate) {
-		if (battery != null && this.canConnectEnergy(from)) {
-			int extracted = battery.extractEnergy(Math.min(maxExtract, battery.getMaxEnergyExtract() - extractedTick), simulate);
-			if (!simulate) {
-				extractedTick += extracted;
-			}
-			return extracted;
-		} else {
-			return 0;
-		}
-	}
+    protected void setBattery(RFBattery battery) {
+        this.battery = battery;
+    }
 
-	@Override
-	public int getEnergyStored(ForgeDirection from) {
-		if (battery != null && this.canConnectEnergy(from)) {
-			return battery.getEnergyStored();
-		} else {
-			return 0;
-		}
-	}
+    public Block getBlock(ForgeDirection side) {
+        if (cache == null) {
+            cache = TileBuffer.makeBuffer(worldObj, xCoord, yCoord, zCoord, false);
+        }
+        return cache[side.ordinal()].getBlock();
+    }
 
-	@Override
-	public int getMaxEnergyStored(ForgeDirection from) {
-		if (battery != null && this.canConnectEnergy(from)) {
-			return battery.getMaxEnergyStored();
-		} else {
-			return 0;
-		}
-	}
+    public TileEntity getTile(ForgeDirection side) {
+        if (cache == null) {
+            cache = TileBuffer.makeBuffer(worldObj, xCoord, yCoord, zCoord, false);
+        }
+        return cache[side.ordinal()].getTile();
+    }
 
-	public RFBattery getBattery() {
-		return battery;
-	}
+    public IControllable.Mode getControlMode() {
+        return mode;
+    }
 
-	protected void setBattery(RFBattery battery) {
-		this.battery = battery;
-	}
-
-	public Block getBlock(ForgeDirection side) {
-		if (cache == null) {
-			cache = TileBuffer.makeBuffer(worldObj, xCoord, yCoord, zCoord, false);
-		}
-		return cache[side.ordinal()].getBlock();
-	}
-
-	public TileEntity getTile(ForgeDirection side) {
-		if (cache == null) {
-			cache = TileBuffer.makeBuffer(worldObj, xCoord, yCoord, zCoord, false);
-		}
-		return cache[side.ordinal()].getTile();
-	}
-
-	public IControllable.Mode getControlMode() {
-		return mode;
-	}
-
-	public void setControlMode(IControllable.Mode mode) {
-		this.mode = mode;
-	}
+    public void setControlMode(IControllable.Mode mode) {
+        this.mode = mode;
+    }
 }

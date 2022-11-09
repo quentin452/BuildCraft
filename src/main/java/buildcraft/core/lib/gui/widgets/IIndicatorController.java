@@ -12,8 +12,7 @@ import buildcraft.core.lib.gui.tooltips.ToolTip;
 
 public interface IIndicatorController {
 
-	ToolTip getToolTip();
+    ToolTip getToolTip();
 
-	int getScaledLevel(int size);
-
+    int getScaledLevel(int size);
 }

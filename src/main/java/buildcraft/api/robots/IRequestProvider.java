@@ -20,27 +20,27 @@ import net.minecraft.item.ItemStack;
  * until it is offered the previous request.
  */
 public interface IRequestProvider {
-	/**
-	 * Return the total number of request slots available from this provider.
-	 *
-	 * @return
-	 */
-	int getRequestsCount();
+    /**
+     * Return the total number of request slots available from this provider.
+     *
+     * @return
+     */
+    int getRequestsCount();
 
-	/**
-	 * Return a stack with the request in the slot.
-	 *
-	 * @param slot
-	 * @return the request in the slot, or null if there's no request.
-	 */
-	ItemStack getRequest(int slot);
+    /**
+     * Return a stack with the request in the slot.
+     *
+     * @param slot
+     * @return the request in the slot, or null if there's no request.
+     */
+    ItemStack getRequest(int slot);
 
-	/**
-	 * Fulfill the request in slot with the stack given and return any excess.
-	 *
-	 * @param slot
-	 * @param stack
-	 * @return any excess that was not used to fulfill the request.
-	 */
-	ItemStack offerItem(int slot, ItemStack stack);
+    /**
+     * Fulfill the request in slot with the stack given and return any excess.
+     *
+     * @param slot
+     * @param stack
+     * @return any excess that was not used to fulfill the request.
+     */
+    ItemStack offerItem(int slot, ItemStack stack);
 }

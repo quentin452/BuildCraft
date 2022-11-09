@@ -10,7 +10,7 @@ package buildcraft.api.boards;
 
 public interface IRedstoneBoard<T> {
 
-	void updateBoard(T container);
+    void updateBoard(T container);
 
-	RedstoneBoardNBT<?> getNBTHandler();
+    RedstoneBoardNBT<?> getNBTHandler();
 }

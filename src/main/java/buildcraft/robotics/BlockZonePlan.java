@@ -8,38 +8,36 @@
  */
 package buildcraft.robotics;
 
+import buildcraft.BuildCraftRobotics;
+import buildcraft.core.GuiIds;
+import buildcraft.core.lib.block.BlockBuildCraft;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import buildcraft.BuildCraftRobotics;
-import buildcraft.core.GuiIds;
-import buildcraft.core.lib.block.BlockBuildCraft;
-
 public class BlockZonePlan extends BlockBuildCraft {
-	public BlockZonePlan() {
-		super(Material.iron);
-		setRotatable(true);
-	}
+    public BlockZonePlan() {
+        super(Material.iron);
+        setRotatable(true);
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileZonePlan();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TileZonePlan();
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7,
-									float par8, float par9) {
-		if (super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9)) {
-			return true;
-		}
+    @Override
+    public boolean onBlockActivated(
+            World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+        if (super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9)) {
+            return true;
+        }
 
-		if (!world.isRemote) {
-			entityplayer.openGui(BuildCraftRobotics.instance, GuiIds.MAP,
-					world, i, j, k);
-		}
+        if (!world.isRemote) {
+            entityplayer.openGui(BuildCraftRobotics.instance, GuiIds.MAP, world, i, j, k);
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

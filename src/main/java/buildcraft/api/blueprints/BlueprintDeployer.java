@@ -9,7 +9,6 @@
 package buildcraft.api.blueprints;
 
 import java.io.File;
-
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -22,26 +21,23 @@ import net.minecraftforge.common.util.ForgeDirection;
  */
 public abstract class BlueprintDeployer {
 
-	/**
-	 * The deployed instantiated by BuildCraft. This is set by the BuildCraft
-	 * builder mod. Mods that want to work with BuildCraft not installed should
-	 * check for this value to be not null.
-	 */
-	public static BlueprintDeployer instance;
+    /**
+     * The deployed instantiated by BuildCraft. This is set by the BuildCraft
+     * builder mod. Mods that want to work with BuildCraft not installed should
+     * check for this value to be not null.
+     */
+    public static BlueprintDeployer instance;
 
-	/**
-	 * Deploy the contents of the blueprints as if the builder was located at
-	 * {x, y, z} facing the direction dir.
-	 */
-	public abstract void deployBlueprint(World world, int x, int y, int z,
-			ForgeDirection dir, File file);
-			
-	/**
-	*Deploy the contents of the byte array as if the builder was located at
-	*{x, y, z} facing the direction dir.
-	*/
-	
-	public abstract void deployBlueprintFromFileStream(World world, int x, int y,
-	int z, ForgeDirection dir, byte [] data);
+    /**
+     * Deploy the contents of the blueprints as if the builder was located at
+     * {x, y, z} facing the direction dir.
+     */
+    public abstract void deployBlueprint(World world, int x, int y, int z, ForgeDirection dir, File file);
 
+    /**
+     *Deploy the contents of the byte array as if the builder was located at
+     *{x, y, z} facing the direction dir.
+     */
+    public abstract void deployBlueprintFromFileStream(
+            World world, int x, int y, int z, ForgeDirection dir, byte[] data);
 }

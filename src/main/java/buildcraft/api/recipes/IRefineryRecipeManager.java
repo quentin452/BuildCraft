@@ -9,21 +9,19 @@
 package buildcraft.api.recipes;
 
 import java.util.Collection;
-
 import net.minecraftforge.fluids.FluidStack;
 
 public interface IRefineryRecipeManager {
 
-	void addRecipe(String id, FluidStack ingredient, FluidStack result, int energy, int delay);
+    void addRecipe(String id, FluidStack ingredient, FluidStack result, int energy, int delay);
 
-	void addRecipe(String id, FluidStack ingredient1, FluidStack ingredient2, FluidStack result, int energy, int delay);
+    void addRecipe(String id, FluidStack ingredient1, FluidStack ingredient2, FluidStack result, int energy, int delay);
 
-	void removeRecipe(String id);
-	
-	void removeRecipe(IFlexibleRecipe<FluidStack> recipe);
+    void removeRecipe(String id);
 
-	Collection<IFlexibleRecipe<FluidStack>> getRecipes();
+    void removeRecipe(IFlexibleRecipe<FluidStack> recipe);
 
-	IFlexibleRecipe<FluidStack> getRecipe(String currentRecipeId);
+    Collection<IFlexibleRecipe<FluidStack>> getRecipes();
 
+    IFlexibleRecipe<FluidStack> getRecipe(String currentRecipeId);
 }

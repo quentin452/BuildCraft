@@ -10,5 +10,4 @@ package buildcraft.api.transport;
 
 import cofh.api.energy.IEnergyHandler;
 
-public interface IStripesPipe extends IPipe, IStripesActivator, IEnergyHandler {
-}
+public interface IStripesPipe extends IPipe, IStripesActivator, IEnergyHandler {}

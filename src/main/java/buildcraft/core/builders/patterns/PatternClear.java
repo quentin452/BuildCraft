@@ -8,30 +8,29 @@
  */
 package buildcraft.core.builders.patterns;
 
-import net.minecraft.world.World;
-
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.core.Box;
 import buildcraft.core.blueprints.Template;
+import net.minecraft.world.World;
 
 public class PatternClear extends FillerPattern {
 
-	public PatternClear() {
-		super("clear");
-	}
+    public PatternClear() {
+        super("clear");
+    }
 
-	@Override
-	public Template getTemplate(Box box, World world, IStatementParameter[] parameters) {
-		int xMin = (int) box.pMin().x;
-		int yMin = (int) box.pMin().y;
-		int zMin = (int) box.pMin().z;
+    @Override
+    public Template getTemplate(Box box, World world, IStatementParameter[] parameters) {
+        int xMin = (int) box.pMin().x;
+        int yMin = (int) box.pMin().y;
+        int zMin = (int) box.pMin().z;
 
-		int xMax = (int) box.pMax().x;
-		int yMax = (int) box.pMax().y;
-		int zMax = (int) box.pMax().z;
+        int xMax = (int) box.pMax().x;
+        int yMax = (int) box.pMax().y;
+        int zMax = (int) box.pMax().z;
 
-		Template bpt = new Template(xMax - xMin + 1, yMax - yMin + 1, zMax - zMin + 1);
+        Template bpt = new Template(xMax - xMin + 1, yMax - yMin + 1, zMax - zMin + 1);
 
-		return bpt;
-	}
+        return bpt;
+    }
 }

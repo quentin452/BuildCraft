@@ -8,46 +8,43 @@
  */
 package buildcraft.builders.schematics;
 
-import java.util.LinkedList;
-
-import net.minecraft.item.ItemStack;
-
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicBlock;
+import java.util.LinkedList;
+import net.minecraft.item.ItemStack;
 
 public class SchematicPumpkin extends SchematicBlock {
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
-		requirements.add(new ItemStack(block, 1, 0));
-	}
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+        requirements.add(new ItemStack(block, 1, 0));
+    }
 
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
-		// cancel requirements reading
-	}
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {
+        // cancel requirements reading
+    }
 
-	@Override
-	public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
-		return block == context.world().getBlock(x, y, z);
-	}
+    @Override
+    public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
+        return block == context.world().getBlock(x, y, z);
+    }
 
-	@Override
-	public void rotateLeft(IBuilderContext context) {
-		switch (meta) {
-			case 0:
-				meta = 1;
-				break;
-			case 1:
-				meta = 2;
-				break;
-			case 2:
-				meta = 3;
-				break;
-			case 3:
-				meta = 0;
-				break;
-		}
-	}
-
+    @Override
+    public void rotateLeft(IBuilderContext context) {
+        switch (meta) {
+            case 0:
+                meta = 1;
+                break;
+            case 1:
+                meta = 2;
+                break;
+            case 2:
+                meta = 3;
+                break;
+            case 3:
+                meta = 0;
+                break;
+        }
+    }
 }

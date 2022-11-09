@@ -8,30 +8,29 @@
  */
 package buildcraft.builders.gui;
 
+import buildcraft.builders.TileArchitect;
+import buildcraft.core.lib.gui.slots.SlotBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 
-import buildcraft.builders.TileArchitect;
-import buildcraft.core.lib.gui.slots.SlotBase;
-
 public class SlotArchitect extends SlotBase {
-	private TileArchitect architect;
-	private EntityPlayer player;
-	private int slot;
+    private TileArchitect architect;
+    private EntityPlayer player;
+    private int slot;
 
-	public SlotArchitect(IInventory iinventory, EntityPlayer player, int slotIndex, int posX, int posY) {
-		super(iinventory, slotIndex, posX, posY);
-		this.architect = (TileArchitect) iinventory;
-		this.slot = slotIndex;
-		this.player = player;
-	}
+    public SlotArchitect(IInventory iinventory, EntityPlayer player, int slotIndex, int posX, int posY) {
+        super(iinventory, slotIndex, posX, posY);
+        this.architect = (TileArchitect) iinventory;
+        this.slot = slotIndex;
+        this.player = player;
+    }
 
-	@Override
-	public void onSlotChanged() {
-		if (slot == 0) {
-			architect.currentAuthorName = player.getDisplayName();
-		}
+    @Override
+    public void onSlotChanged() {
+        if (slot == 0) {
+            architect.currentAuthorName = player.getDisplayName();
+        }
 
-		this.inventory.markDirty();
-	}
+        this.inventory.markDirty();
+    }
 }

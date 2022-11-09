@@ -8,73 +8,71 @@
  */
 package buildcraft.core.render;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.core.lib.render.IInventoryRenderer;
 import java.util.HashMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+public class RenderingEntityBlocks extends BCSimpleBlockRenderingHandler {
 
-import buildcraft.BuildCraftCore;
-import buildcraft.core.lib.render.IInventoryRenderer;
+    public static HashMap<EntityRenderIndex, IInventoryRenderer> blockByEntityRenders =
+            new HashMap<EntityRenderIndex, IInventoryRenderer>();
 
-public class RenderingEntityBlocks implements ISimpleBlockRenderingHandler {
+    public static class EntityRenderIndex {
+        Block block;
+        int damage;
 
-	public static HashMap<EntityRenderIndex, IInventoryRenderer> blockByEntityRenders = new HashMap<EntityRenderIndex, IInventoryRenderer>();
+        public EntityRenderIndex(Block block, int damage) {
+            this.block = block;
+            this.damage = damage;
+        }
 
-	public static class EntityRenderIndex {
-		Block block;
-		int damage;
+        @Override
+        public int hashCode() {
+            return block.hashCode() + damage;
+        }
 
-		public EntityRenderIndex(Block block, int damage) {
-			this.block = block;
-			this.damage = damage;
-		}
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof EntityRenderIndex)) {
+                return false;
+            }
 
-		@Override
-		public int hashCode() {
-			return block.hashCode() + damage;
-		}
+            EntityRenderIndex i = (EntityRenderIndex) o;
 
-		@Override
-		public boolean equals(Object o) {
-			if (!(o instanceof EntityRenderIndex)) {
-				return false;
-			}
+            return i.block == block && i.damage == damage;
+        }
+    }
 
-			EntityRenderIndex i = (EntityRenderIndex) o;
+    @Override
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (block.getRenderType() == BuildCraftCore.blockByEntityModel) {
+            EntityRenderIndex index = new EntityRenderIndex(block, metadata);
+            if (blockByEntityRenders.containsKey(index)) {
+                blockByEntityRenders.get(index).inventoryRender(-0.5, -0.5, -0.5, 0, 0);
+            }
+        }
+    }
 
-			return i.block == block && i.damage == damage;
-		}
-	}
+    @Override
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+        if (block.getRenderType() == BuildCraftCore.blockByEntityModel) {
+            // renderblocks.renderStandardBlock(block, i, j, k);
+        }
 
-	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		if (block.getRenderType() == BuildCraftCore.blockByEntityModel) {
-			EntityRenderIndex index = new EntityRenderIndex(block, metadata);
-			if (blockByEntityRenders.containsKey(index)) {
-				blockByEntityRenders.get(index).inventoryRender(-0.5, -0.5, -0.5, 0, 0);
-			}
-		}
-	}
+        return true;
+    }
 
-	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		if (block.getRenderType() == BuildCraftCore.blockByEntityModel) {
-			// renderblocks.renderStandardBlock(block, i, j, k);
-		}
+    @Override
+    public boolean shouldRender3DInInventory(int modelId) {
+        return true;
+    }
 
-		return true;
-	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return true;
-	}
-
-	@Override
-	public int getRenderId() {
-		return BuildCraftCore.blockByEntityModel;
-	}
+    @Override
+    public int getRenderId() {
+        return BuildCraftCore.blockByEntityModel;
+    }
 }

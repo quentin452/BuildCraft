@@ -8,22 +8,20 @@
  */
 package buildcraft.builders.schematics;
 
-import net.minecraft.item.ItemStack;
-
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicTile;
 import buildcraft.api.core.JavaTools;
+import net.minecraft.item.ItemStack;
 
 public class SchematicJukebox extends SchematicTile {
-	public SchematicJukebox() {
-	}
+    public SchematicJukebox() {}
 
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
-		super.storeRequirements(context, x, y, z);
-		if (tileNBT != null && tileNBT.hasKey("RecordItem")) {
-			ItemStack recordStack = ItemStack.loadItemStackFromNBT(tileNBT.getCompoundTag("RecordItem"));
-			storedRequirements = JavaTools.concat(storedRequirements, new ItemStack[] { recordStack });
-		}
-	}
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {
+        super.storeRequirements(context, x, y, z);
+        if (tileNBT != null && tileNBT.hasKey("RecordItem")) {
+            ItemStack recordStack = ItemStack.loadItemStackFromNBT(tileNBT.getCompoundTag("RecordItem"));
+            storedRequirements = JavaTools.concat(storedRequirements, new ItemStack[] {recordStack});
+        }
+    }
 }

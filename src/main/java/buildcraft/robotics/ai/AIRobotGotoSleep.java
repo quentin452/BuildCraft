@@ -13,22 +13,22 @@ import buildcraft.api.robots.EntityRobotBase;
 
 public class AIRobotGotoSleep extends AIRobot {
 
-	public AIRobotGotoSleep(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public AIRobotGotoSleep(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	@Override
-	public void start() {
-		robot.getRegistry().releaseResources(robot);
-		startDelegateAI(new AIRobotGotoStation(robot, robot.getLinkedStation()));
-	}
+    @Override
+    public void start() {
+        robot.getRegistry().releaseResources(robot);
+        startDelegateAI(new AIRobotGotoStation(robot, robot.getLinkedStation()));
+    }
 
-	@Override
-	public void delegateAIEnded(AIRobot ai) {
-		if (ai instanceof AIRobotGotoStation) {
-			startDelegateAI(new AIRobotSleep(robot));
-		} else if (ai instanceof AIRobotSleep) {
-			terminate();
-		}
-	}
+    @Override
+    public void delegateAIEnded(AIRobot ai) {
+        if (ai instanceof AIRobotGotoStation) {
+            startDelegateAI(new AIRobotSleep(robot));
+        } else if (ai instanceof AIRobotSleep) {
+            terminate();
+        }
+    }
 }

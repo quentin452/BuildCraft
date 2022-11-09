@@ -9,29 +9,28 @@
 package buildcraft.api.recipes;
 
 import java.util.Collection;
-
 import net.minecraft.item.ItemStack;
 
 public interface IAssemblyRecipeManager {
 
-	/**
-	 * Add an Assembly Table recipe.
-	 *
-	 * @param input
-	 *            Object... containing either an ItemStack, or a paired string
-	 *            and integer(ex: "dyeBlue", 1)
-	 * @param energyCost
-	 *            RF cost to produce
-	 * @param output
-	 *            resulting ItemStack
-	 */
-	void addRecipe(String id, int energyCost, ItemStack output, Object... input);
+    /**
+     * Add an Assembly Table recipe.
+     *
+     * @param input
+     *            Object... containing either an ItemStack, or a paired string
+     *            and integer(ex: "dyeBlue", 1)
+     * @param energyCost
+     *            RF cost to produce
+     * @param output
+     *            resulting ItemStack
+     */
+    void addRecipe(String id, int energyCost, ItemStack output, Object... input);
 
-	void addRecipe(IFlexibleRecipe<ItemStack> recipe);
-	
-	void removeRecipe(String id);
+    void addRecipe(IFlexibleRecipe<ItemStack> recipe);
 
-	void removeRecipe(IFlexibleRecipe<ItemStack> recipe);
+    void removeRecipe(String id);
 
-	Collection<IFlexibleRecipe<ItemStack>> getRecipes();
+    void removeRecipe(IFlexibleRecipe<ItemStack> recipe);
+
+    Collection<IFlexibleRecipe<ItemStack>> getRecipes();
 }

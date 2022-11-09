@@ -8,28 +8,27 @@
  */
 package buildcraft.transport.gates;
 
-import net.minecraft.tileentity.TileEntity;
-
 import buildcraft.api.gates.GateExpansionController;
 import buildcraft.api.gates.IGateExpansion;
+import net.minecraft.tileentity.TileEntity;
 
 public final class GateExpansionNote extends GateExpansionBuildcraft implements IGateExpansion {
 
-	public static GateExpansionNote INSTANCE = new GateExpansionNote();
+    public static GateExpansionNote INSTANCE = new GateExpansionNote();
 
-	private GateExpansionNote() {
-		super("note");
-	}
+    private GateExpansionNote() {
+        super("note");
+    }
 
-	@Override
-	public GateExpansionController makeController(TileEntity pipeTile) {
-		return new GateExpansionControllerNote(pipeTile);
-	}
+    @Override
+    public GateExpansionController makeController(TileEntity pipeTile) {
+        return new GateExpansionControllerNote(pipeTile);
+    }
 
-	private class GateExpansionControllerNote extends GateExpansionController {
+    private class GateExpansionControllerNote extends GateExpansionController {
 
-		public GateExpansionControllerNote(TileEntity pipeTile) {
-			super(GateExpansionNote.this, pipeTile);
-		}
-	}
+        public GateExpansionControllerNote(TileEntity pipeTile) {
+            super(GateExpansionNote.this, pipeTile);
+        }
+    }
 }

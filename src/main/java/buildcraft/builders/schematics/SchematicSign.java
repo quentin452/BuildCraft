@@ -8,45 +8,42 @@
  */
 package buildcraft.builders.schematics;
 
-import java.util.LinkedList;
-
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicTile;
+import java.util.LinkedList;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class SchematicSign extends SchematicTile {
 
-	boolean isWall;
+    boolean isWall;
 
-	public SchematicSign(boolean isWall) {
-		this.isWall = isWall;
-	}
+    public SchematicSign(boolean isWall) {
+        this.isWall = isWall;
+    }
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
-		requirements.add(new ItemStack(Items.sign));
-	}
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+        requirements.add(new ItemStack(Items.sign));
+    }
 
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
-		// cancel requirements reading
-	}
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {
+        // cancel requirements reading
+    }
 
-	@Override
-	public void rotateLeft(IBuilderContext context) {
-		if (!isWall) {
-			double angle = (meta * 360.0) / 16.0;
-			angle += 90.0;
-			if (angle >= 360) {
-				angle -= 360;
-			}
-			meta = (int) (angle / 360.0 * 16.0);
-		} else {
-			meta = ForgeDirection.values()[meta].getRotation(ForgeDirection.UP).ordinal();
-		}
-	}
+    @Override
+    public void rotateLeft(IBuilderContext context) {
+        if (!isWall) {
+            double angle = (meta * 360.0) / 16.0;
+            angle += 90.0;
+            if (angle >= 360) {
+                angle -= 360;
+            }
+            meta = (int) (angle / 360.0 * 16.0);
+        } else {
+            meta = ForgeDirection.values()[meta].getRotation(ForgeDirection.UP).ordinal();
+        }
+    }
 }

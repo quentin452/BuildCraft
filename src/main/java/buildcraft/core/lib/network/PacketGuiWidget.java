@@ -8,52 +8,48 @@
  */
 package buildcraft.core.lib.network;
 
-import io.netty.buffer.ByteBuf;
-
-import net.minecraft.entity.player.EntityPlayer;
-
-import cpw.mods.fml.client.FMLClientHandler;
-
 import buildcraft.core.lib.gui.BuildCraftContainer;
 import buildcraft.core.network.PacketIds;
+import cpw.mods.fml.client.FMLClientHandler;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class PacketGuiWidget extends Packet {
 
-	private byte windowId, widgetId;
-	private byte[] payload;
+    private byte windowId, widgetId;
+    private byte[] payload;
 
-	public PacketGuiWidget() {
-		super();
-	}
+    public PacketGuiWidget() {
+        super();
+    }
 
-	public PacketGuiWidget(int windowId, int widgetId, byte[] data) {
-		this.windowId = (byte) windowId;
-		this.widgetId = (byte) widgetId;
-		this.payload = data;
-	}
+    public PacketGuiWidget(int windowId, int widgetId, byte[] data) {
+        this.windowId = (byte) windowId;
+        this.widgetId = (byte) widgetId;
+        this.payload = data;
+    }
 
-	@Override
-	public void writeData(ByteBuf data) {
-		data.writeByte(windowId);
-		data.writeByte(widgetId);
-		data.writeBytes(payload);
-	}
+    @Override
+    public void writeData(ByteBuf data) {
+        data.writeByte(windowId);
+        data.writeByte(widgetId);
+        data.writeBytes(payload);
+    }
 
-	@Override
-	public void readData(ByteBuf data) {
-		windowId = data.readByte();
-		widgetId = data.readByte();
+    @Override
+    public void readData(ByteBuf data) {
+        windowId = data.readByte();
+        widgetId = data.readByte();
 
-		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
+        EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
 
-		if (player.openContainer instanceof BuildCraftContainer && player.openContainer.windowId == windowId) {
-			((BuildCraftContainer) player.openContainer).handleWidgetClientData(widgetId, data);
-		}
-	}
+        if (player.openContainer instanceof BuildCraftContainer && player.openContainer.windowId == windowId) {
+            ((BuildCraftContainer) player.openContainer).handleWidgetClientData(widgetId, data);
+        }
+    }
 
-	@Override
-	public int getID() {
-		return PacketIds.GUI_WIDGET;
-	}
-
+    @Override
+    public int getID() {
+        return PacketIds.GUI_WIDGET;
+    }
 }

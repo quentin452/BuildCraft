@@ -12,45 +12,44 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
 public final class BuildCraftAPI {
 
-	public static ICoreProxy proxy;
+    public static ICoreProxy proxy;
 
-	public static final Set<Block> softBlocks = new HashSet<Block>();
-	public static final HashMap<String, IWorldProperty> worldProperties = new HashMap<String, IWorldProperty>();
+    public static final Set<Block> softBlocks = new HashSet<Block>();
+    public static final HashMap<String, IWorldProperty> worldProperties = new HashMap<String, IWorldProperty>();
 
-	/**
-	 * Deactivate constructor
-	 */
-	private BuildCraftAPI() {
-	}
+    /**
+     * Deactivate constructor
+     */
+    private BuildCraftAPI() {}
 
-	public static String getVersion() {
-		try {
-			Class<?> clazz = Class.forName("buildcraft.core.Version");
-			Method method = clazz.getDeclaredMethod("getVersion");
-			return String.valueOf(method.invoke(null));
-		} catch (Exception e) {
-			return "UNKNOWN VERSION";
-		}
-	}
+    public static String getVersion() {
+        try {
+            Class<?> clazz = Class.forName("buildcraft.core.Version");
+            Method method = clazz.getDeclaredMethod("getVersion");
+            return String.valueOf(method.invoke(null));
+        } catch (Exception e) {
+            return "UNKNOWN VERSION";
+        }
+    }
 
-	public static IWorldProperty getWorldProperty(String name) {
-		return worldProperties.get(name);
-	}
+    public static IWorldProperty getWorldProperty(String name) {
+        return worldProperties.get(name);
+    }
 
-	public static void registerWorldProperty(String name, IWorldProperty property) {
-		if (worldProperties.containsKey(name)) {
-			BCLog.logger.warn("The WorldProperty key '" + name + "' is being overidden with " + property.getClass().getSimpleName() + "!");
-		}
-		worldProperties.put(name, property);
-	}
+    public static void registerWorldProperty(String name, IWorldProperty property) {
+        if (worldProperties.containsKey(name)) {
+            BCLog.logger.warn("The WorldProperty key '" + name + "' is being overidden with "
+                    + property.getClass().getSimpleName() + "!");
+        }
+        worldProperties.put(name, property);
+    }
 
-	public static boolean isSoftBlock(World world, int x, int y, int z) {
-		return worldProperties.get("soft").get(world, x, y, z);
-	}
+    public static boolean isSoftBlock(World world, int x, int y, int z) {
+        return worldProperties.get("soft").get(world, x, y, z);
+    }
 }

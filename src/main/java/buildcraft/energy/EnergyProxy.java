@@ -12,15 +12,15 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class EnergyProxy {
-	@SidedProxy(clientSide = "buildcraft.energy.EnergyProxyClient", serverSide = "buildcraft.energy.EnergyProxy")
-	public static EnergyProxy proxy;
+    @SidedProxy(clientSide = "buildcraft.energy.EnergyProxyClient", serverSide = "buildcraft.energy.EnergyProxy")
+    public static EnergyProxy proxy;
 
-	public void registerTileEntities() {
-		GameRegistry.registerTileEntity(TileEngineStone.class, "net.minecraft.src.buildcraft.energy.TileEngineStone");
-		GameRegistry.registerTileEntity(TileEngineIron.class, "net.minecraft.src.buildcraft.energy.TileEngineIron");
-		GameRegistry.registerTileEntity(TileEngineCreative.class, "net.minecraft.src.buildcraft.energy.TileEngineCreative");
-	}
+    public void registerTileEntities() {
+        GameRegistry.registerTileEntity(TileEngineStone.class, "net.minecraft.src.buildcraft.energy.TileEngineStone");
+        GameRegistry.registerTileEntity(TileEngineIron.class, "net.minecraft.src.buildcraft.energy.TileEngineIron");
+        GameRegistry.registerTileEntity(
+                TileEngineCreative.class, "net.minecraft.src.buildcraft.energy.TileEngineCreative");
+    }
 
-	public void registerBlockRenderers() {
-	}
+    public void registerBlockRenderers() {}
 }

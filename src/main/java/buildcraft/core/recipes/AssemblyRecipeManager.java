@@ -8,58 +8,56 @@
  */
 package buildcraft.core.recipes;
 
+import buildcraft.api.recipes.IAssemblyRecipeManager;
+import buildcraft.api.recipes.IFlexibleRecipe;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import net.minecraft.item.ItemStack;
-
-import buildcraft.api.recipes.IAssemblyRecipeManager;
-import buildcraft.api.recipes.IFlexibleRecipe;
 
 public class AssemblyRecipeManager implements IAssemblyRecipeManager {
 
-	public static final AssemblyRecipeManager INSTANCE = new AssemblyRecipeManager();
-	private Map<String, IFlexibleRecipe<ItemStack>> assemblyRecipes = new HashMap<String, IFlexibleRecipe<ItemStack>>();
+    public static final AssemblyRecipeManager INSTANCE = new AssemblyRecipeManager();
+    private Map<String, IFlexibleRecipe<ItemStack>> assemblyRecipes = new HashMap<String, IFlexibleRecipe<ItemStack>>();
 
-	@Override
-	public void addRecipe(String id, int energyCost, ItemStack output, Object... input) {
-		addRecipe(id, new FlexibleRecipe<ItemStack>(id, output, energyCost, 0, input));
-	}
+    @Override
+    public void addRecipe(String id, int energyCost, ItemStack output, Object... input) {
+        addRecipe(id, new FlexibleRecipe<ItemStack>(id, output, energyCost, 0, input));
+    }
 
-	@Override
-	public void addRecipe(IFlexibleRecipe<ItemStack> recipe) {
-		addRecipe(recipe.getId(), recipe);
-	}
+    @Override
+    public void addRecipe(IFlexibleRecipe<ItemStack> recipe) {
+        addRecipe(recipe.getId(), recipe);
+    }
 
-	private void addRecipe(String id, IFlexibleRecipe<ItemStack> recipe) {
-		if (recipe == null) {
-			throw new RuntimeException("Recipe \"" + id + "\" is null!");
-		}
+    private void addRecipe(String id, IFlexibleRecipe<ItemStack> recipe) {
+        if (recipe == null) {
+            throw new RuntimeException("Recipe \"" + id + "\" is null!");
+        }
 
-		if (assemblyRecipes.containsKey(id)) {
-			throw new RuntimeException("Recipe \"" + id + "\" already registered");
-		}
+        if (assemblyRecipes.containsKey(id)) {
+            throw new RuntimeException("Recipe \"" + id + "\" already registered");
+        }
 
-		assemblyRecipes.put(recipe.getId(), recipe);
-	}
+        assemblyRecipes.put(recipe.getId(), recipe);
+    }
 
-	@Override
-	public Collection<IFlexibleRecipe<ItemStack>> getRecipes() {
-		return assemblyRecipes.values();
-	}
+    @Override
+    public Collection<IFlexibleRecipe<ItemStack>> getRecipes() {
+        return assemblyRecipes.values();
+    }
 
-	public IFlexibleRecipe<ItemStack> getRecipe(String id) {
-		return assemblyRecipes.get(id);
-	}
+    public IFlexibleRecipe<ItemStack> getRecipe(String id) {
+        return assemblyRecipes.get(id);
+    }
 
-	@Override
-	public void removeRecipe(IFlexibleRecipe<ItemStack> recipe) {
-		removeRecipe(recipe.getId());
-	}
+    @Override
+    public void removeRecipe(IFlexibleRecipe<ItemStack> recipe) {
+        removeRecipe(recipe.getId());
+    }
 
-	@Override
-	public void removeRecipe(String id) {
-		assemblyRecipes.remove(id);
-	}
+    @Override
+    public void removeRecipe(String id) {
+        assemblyRecipes.remove(id);
+    }
 }

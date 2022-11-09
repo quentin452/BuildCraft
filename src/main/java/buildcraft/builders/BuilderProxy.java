@@ -8,32 +8,25 @@
  */
 package buildcraft.builders;
 
+import buildcraft.core.lib.EntityBlock;
+import cpw.mods.fml.common.SidedProxy;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.common.SidedProxy;
-
-import buildcraft.core.lib.EntityBlock;
-
 public class BuilderProxy {
-	@SidedProxy(clientSide = "buildcraft.builders.BuilderProxyClient", serverSide = "buildcraft.builders.BuilderProxy")
-	public static BuilderProxy proxy;
-	public static int frameRenderId;
+    @SidedProxy(clientSide = "buildcraft.builders.BuilderProxyClient", serverSide = "buildcraft.builders.BuilderProxy")
+    public static BuilderProxy proxy;
 
-	public void registerClientHook() {
+    public static int frameRenderId;
 
-	}
+    public void registerClientHook() {}
 
-	public void registerBlockRenderers() {
+    public void registerBlockRenderers() {}
 
-	}
+    public EntityBlock newDrill(World w, double i, double j, double k, double l, double d, double e, boolean xz) {
+        return new EntityBlock(w, i, j, k, l, d, e);
+    }
 
-	public EntityBlock newDrill(World w, double i, double j, double k,
-								double l, double d, double e, boolean xz) {
-		return new EntityBlock(w, i, j, k, l, d, e);
-	}
-
-	public EntityBlock newDrillHead(World w, double i, double j, double k,
-									double l, double d, double e) {
-		return new EntityBlock(w, i, j, k, l, d, e);
-	}
+    public EntityBlock newDrillHead(World w, double i, double j, double k, double l, double d, double e) {
+        return new EntityBlock(w, i, j, k, l, d, e);
+    }
 }

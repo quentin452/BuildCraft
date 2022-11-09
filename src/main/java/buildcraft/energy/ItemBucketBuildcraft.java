@@ -8,6 +8,9 @@
  */
 package buildcraft.energy;
 
+import buildcraft.core.BCCreativeTab;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,34 +18,29 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import buildcraft.core.BCCreativeTab;
-
 public class ItemBucketBuildcraft extends ItemBucket {
 
-	private String iconName;
+    private String iconName;
 
-	public ItemBucketBuildcraft(Block block) {
-		this(block, BCCreativeTab.get("main"));
-	}
+    public ItemBucketBuildcraft(Block block) {
+        this(block, BCCreativeTab.get("main"));
+    }
 
-	public ItemBucketBuildcraft(Block block, CreativeTabs creativeTab) {
-		super(block);
-		setContainerItem(Items.bucket);
-		setCreativeTab(creativeTab);
-	}
+    public ItemBucketBuildcraft(Block block, CreativeTabs creativeTab) {
+        super(block);
+        setContainerItem(Items.bucket);
+        setCreativeTab(creativeTab);
+    }
 
-	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		iconName = par1Str;
-		return super.setUnlocalizedName(par1Str);
-	}
+    @Override
+    public Item setUnlocalizedName(String par1Str) {
+        iconName = par1Str;
+        return super.setUnlocalizedName(par1Str);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		this.itemIcon = par1IconRegister.registerIcon("buildcraftenergy:" + iconName);
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister par1IconRegister) {
+        this.itemIcon = par1IconRegister.registerIcon("buildcraftenergy:" + iconName);
+    }
 }

@@ -8,8 +8,6 @@
  */
 package buildcraft.robotics.boards;
 
-import net.minecraft.item.ItemStack;
-
 import buildcraft.api.robots.AIRobot;
 import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.core.lib.inventory.filters.IStackFilter;
@@ -17,44 +15,44 @@ import buildcraft.robotics.ai.AIRobotBreak;
 import buildcraft.robotics.ai.AIRobotFetchAndEquipItemStack;
 import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotGotoStationAndUnload;
+import net.minecraft.item.ItemStack;
 
 public abstract class BoardRobotGenericBreakBlock extends BoardRobotGenericSearchBlock {
 
-	public BoardRobotGenericBreakBlock(EntityRobotBase iRobot) {
-		super(iRobot);
-	}
+    public BoardRobotGenericBreakBlock(EntityRobotBase iRobot) {
+        super(iRobot);
+    }
 
-	public abstract boolean isExpectedTool(ItemStack stack);
+    public abstract boolean isExpectedTool(ItemStack stack);
 
-	@Override
-	public final void update() {
-		if (!isExpectedTool(null) && robot.getHeldItem() == null) {
-			startDelegateAI(new AIRobotFetchAndEquipItemStack(robot, new IStackFilter() {
-				@Override
-				public boolean matches(ItemStack stack) {
-					return stack != null
-							&& (stack.getItemDamage() < stack.getMaxDamage())
-							&& isExpectedTool(stack);
-				}
-			}));
-		} else if (robot.getHeldItem() != null && robot.getHeldItem().getItemDamage() >= robot.getHeldItem().getMaxDamage()) {
-			startDelegateAI(new AIRobotGotoStationAndUnload(robot));
-		} else if (blockFound() != null) {
-			startDelegateAI(new AIRobotBreak(robot, blockFound()));
-		} else {
-			super.update();
-		}
-	}
+    @Override
+    public final void update() {
+        if (!isExpectedTool(null) && robot.getHeldItem() == null) {
+            startDelegateAI(new AIRobotFetchAndEquipItemStack(robot, new IStackFilter() {
+                @Override
+                public boolean matches(ItemStack stack) {
+                    return stack != null && (stack.getItemDamage() < stack.getMaxDamage()) && isExpectedTool(stack);
+                }
+            }));
+        } else if (robot.getHeldItem() != null
+                && robot.getHeldItem().getItemDamage() >= robot.getHeldItem().getMaxDamage()) {
+            startDelegateAI(new AIRobotGotoStationAndUnload(robot));
+        } else if (blockFound() != null) {
+            startDelegateAI(new AIRobotBreak(robot, blockFound()));
+        } else {
+            super.update();
+        }
+    }
 
-	@Override
-	public void delegateAIEnded(AIRobot ai) {
-		if (ai instanceof AIRobotFetchAndEquipItemStack || ai instanceof AIRobotGotoStationAndUnload) {
-			if (!ai.success()) {
-				startDelegateAI(new AIRobotGotoSleep(robot));
-			}
-		} else if (ai instanceof AIRobotBreak) {
-			releaseBlockFound(ai.success());
-		}
-		super.delegateAIEnded(ai);
-	}
+    @Override
+    public void delegateAIEnded(AIRobot ai) {
+        if (ai instanceof AIRobotFetchAndEquipItemStack || ai instanceof AIRobotGotoStationAndUnload) {
+            if (!ai.success()) {
+                startDelegateAI(new AIRobotGotoSleep(robot));
+            }
+        } else if (ai instanceof AIRobotBreak) {
+            releaseBlockFound(ai.success());
+        }
+        super.delegateAIEnded(ai);
+    }
 }

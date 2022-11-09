@@ -11,7 +11,7 @@ package buildcraft.api.recipes;
 import java.util.List;
 
 public interface IIntegrationRecipeManager {
-	void addRecipe(IIntegrationRecipe recipe);
+    void addRecipe(IIntegrationRecipe recipe);
 
-	List<? extends IIntegrationRecipe> getRecipes();
+    List<? extends IIntegrationRecipe> getRecipes();
 }

@@ -8,31 +8,27 @@
  */
 package buildcraft.builders.schematics;
 
+import buildcraft.api.blueprints.IBuilderContext;
+import buildcraft.api.blueprints.SchematicBlock;
 import java.util.LinkedList;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import buildcraft.api.blueprints.IBuilderContext;
-import buildcraft.api.blueprints.SchematicBlock;
-
 public class SchematicRedstoneLamp extends SchematicBlock {
 
-	@Override
-	public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
-		requirements.add(new ItemStack(Blocks.redstone_lamp, 1, 0));
-	}
+    @Override
+    public void getRequirementsForPlacement(IBuilderContext context, LinkedList<ItemStack> requirements) {
+        requirements.add(new ItemStack(Blocks.redstone_lamp, 1, 0));
+    }
 
-	@Override
-	public void storeRequirements(IBuilderContext context, int x, int y, int z) {
+    @Override
+    public void storeRequirements(IBuilderContext context, int x, int y, int z) {}
 
-	}
+    @Override
+    public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
+        Block block = context.world().getBlock(x, y, z);
 
-	@Override
-	public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
-		Block block = context.world().getBlock(x, y, z);
-
-		return block == Blocks.redstone_lamp || block == Blocks.lit_redstone_lamp;
-	}
+        return block == Blocks.redstone_lamp || block == Blocks.lit_redstone_lamp;
+    }
 }

@@ -8,52 +8,51 @@
  */
 package buildcraft.transport.gui;
 
-import org.lwjgl.opengl.GL11;
-
+import buildcraft.core.lib.utils.StringUtils;
+import buildcraft.transport.TileFilteredBuffer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-
-import buildcraft.core.lib.utils.StringUtils;
-import buildcraft.transport.TileFilteredBuffer;
+import org.lwjgl.opengl.GL11;
 
 public class GuiFilteredBuffer extends GuiContainer {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation("buildcrafttransport:textures/gui/filteredBuffer_gui.png");
-	IInventory playerInventory;
-	TileFilteredBuffer filteredBuffer;
+    private static final ResourceLocation TEXTURE =
+            new ResourceLocation("buildcrafttransport:textures/gui/filteredBuffer_gui.png");
+    IInventory playerInventory;
+    TileFilteredBuffer filteredBuffer;
 
-	public GuiFilteredBuffer(InventoryPlayer playerInventory, TileFilteredBuffer filteredBuffer) {
-		super(new ContainerFilteredBuffer(playerInventory, filteredBuffer));
+    public GuiFilteredBuffer(InventoryPlayer playerInventory, TileFilteredBuffer filteredBuffer) {
+        super(new ContainerFilteredBuffer(playerInventory, filteredBuffer));
 
-		this.playerInventory = playerInventory;
-		this.filteredBuffer = filteredBuffer;
-		xSize = 175;
-		ySize = 169;
-	}
+        this.playerInventory = playerInventory;
+        this.filteredBuffer = filteredBuffer;
+        xSize = 175;
+        ySize = 169;
+    }
 
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-		mc.renderEngine.bindTexture(TEXTURE);
+        mc.renderEngine.bindTexture(TEXTURE);
 
-		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-		IInventory filters = filteredBuffer.getFilters();
+        IInventory filters = filteredBuffer.getFilters();
 
-		for (int col = 0; col < filters.getSizeInventory(); col++) {
-			if (filters.getStackInSlot(col) == null) {
-				drawTexturedModalRect(guiLeft + 7 + col * 18, guiTop + 60, 176, 0, 18, 18);
-			}
-		}
-	}
+        for (int col = 0; col < filters.getSizeInventory(); col++) {
+            if (filters.getStackInSlot(col) == null) {
+                drawTexturedModalRect(guiLeft + 7 + col * 18, guiTop + 60, 176, 0, 18, 18);
+            }
+        }
+    }
 
-	@Override
-	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		String title = StringUtils.localize("tile.filteredBufferBlock.name");
-		int xPos = (xSize - fontRendererObj.getStringWidth(title)) / 2;
-		fontRendererObj.drawString(title, xPos, 10, 0x404040);
-	}
+    @Override
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        String title = StringUtils.localize("tile.filteredBufferBlock.name");
+        int xPos = (xSize - fontRendererObj.getStringWidth(title)) / 2;
+        fontRendererObj.drawString(title, xPos, 10, 0x404040);
+    }
 }

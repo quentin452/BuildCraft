@@ -8,10 +8,9 @@
  */
 package buildcraft.core.internal;
 
+import buildcraft.core.Box;
 import java.util.ArrayList;
 
-import buildcraft.core.Box;
-
 public interface IBoxesProvider {
-	ArrayList<Box> getBoxes();
+    ArrayList<Box> getBoxes();
 }

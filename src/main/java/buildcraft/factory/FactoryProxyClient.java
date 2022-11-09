@@ -8,11 +8,6 @@
  */
 package buildcraft.factory;
 
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
-
-import cpw.mods.fml.client.registry.ClientRegistry;
-
 import buildcraft.BuildCraftFactory;
 import buildcraft.core.lib.EntityBlock;
 import buildcraft.core.render.RenderLEDTile;
@@ -21,40 +16,45 @@ import buildcraft.core.render.RenderingEntityBlocks.EntityRenderIndex;
 import buildcraft.factory.render.RenderHopper;
 import buildcraft.factory.render.RenderRefinery;
 import buildcraft.factory.render.RenderTank;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 public class FactoryProxyClient extends FactoryProxy {
-	public static IIcon pumpTexture;
+    public static IIcon pumpTexture;
 
-	@Override
-	public void initializeTileEntities() {
-		super.initializeTileEntities();
+    @Override
+    public void initializeTileEntities() {
+        super.initializeTileEntities();
 
-		if (BuildCraftFactory.tankBlock != null) {
-			ClientRegistry.bindTileEntitySpecialRenderer(TileTank.class, new RenderTank());
-		}
+        if (BuildCraftFactory.tankBlock != null) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileTank.class, new RenderTank());
+        }
 
-		if (BuildCraftFactory.refineryBlock != null) {
-			ClientRegistry.bindTileEntitySpecialRenderer(TileRefinery.class, new RenderRefinery());
-			RenderingEntityBlocks.blockByEntityRenders.put(new EntityRenderIndex(BuildCraftFactory.refineryBlock, 0), new RenderRefinery());
-		}
+        if (BuildCraftFactory.refineryBlock != null) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileRefinery.class, new RenderRefinery());
+            RenderingEntityBlocks.blockByEntityRenders.put(
+                    new EntityRenderIndex(BuildCraftFactory.refineryBlock, 0), new RenderRefinery());
+        }
 
-		if (BuildCraftFactory.hopperBlock != null) {
-			ClientRegistry.bindTileEntitySpecialRenderer(TileHopper.class, new RenderHopper());
-			RenderingEntityBlocks.blockByEntityRenders.put(new EntityRenderIndex(BuildCraftFactory.hopperBlock, 0), new RenderHopper());
-		}
+        if (BuildCraftFactory.hopperBlock != null) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileHopper.class, new RenderHopper());
+            RenderingEntityBlocks.blockByEntityRenders.put(
+                    new EntityRenderIndex(BuildCraftFactory.hopperBlock, 0), new RenderHopper());
+        }
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileMiningWell.class, new RenderLEDTile(BuildCraftFactory.miningWellBlock));
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderLEDTile(BuildCraftFactory.pumpBlock));
-	}
+        ClientRegistry.bindTileEntitySpecialRenderer(
+                TileMiningWell.class, new RenderLEDTile(BuildCraftFactory.miningWellBlock));
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderLEDTile(BuildCraftFactory.pumpBlock));
+    }
 
-	@Override
-	public void initializeEntityRenders() {
-	}
+    @Override
+    public void initializeEntityRenders() {}
 
-	@Override
-	public EntityBlock newPumpTube(World w) {
-		EntityBlock eb = super.newPumpTube(w);
-		eb.setTexture(pumpTexture);
-		return eb;
-	}
+    @Override
+    public EntityBlock newPumpTube(World w) {
+        EntityBlock eb = super.newPumpTube(w);
+        eb.setTexture(pumpTexture);
+        return eb;
+    }
 }

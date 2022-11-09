@@ -11,33 +11,32 @@ package buildcraft.core.properties;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
-
 import net.minecraftforge.oredict.OreDictionary;
 
 public class WorldPropertyIsLeaf extends WorldProperty {
 
-	private int leavesId = 0;
+    private int leavesId = 0;
 
-	public WorldPropertyIsLeaf() {
-		leavesId = OreDictionary.getOreID("treeLeaves");
-	}
+    public WorldPropertyIsLeaf() {
+        leavesId = OreDictionary.getOreID("treeLeaves");
+    }
 
-	@Override
-	public boolean get(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
-		if (block == null) {
-			return false;
-		} else {
-			ItemStack stack = new ItemStack(block, 1, meta);
+    @Override
+    public boolean get(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
+        if (block == null) {
+            return false;
+        } else {
+            ItemStack stack = new ItemStack(block, 1, meta);
 
-			if (stack.getItem() != null) {
-				for (int id : OreDictionary.getOreIDs(stack)) {
-					if (id == leavesId) {
-						return true;
-					}
-				}
-			}
-		}
+            if (stack.getItem() != null) {
+                for (int id : OreDictionary.getOreIDs(stack)) {
+                    if (id == leavesId) {
+                        return true;
+                    }
+                }
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

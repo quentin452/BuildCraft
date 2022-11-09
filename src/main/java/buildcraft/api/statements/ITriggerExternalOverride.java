@@ -9,9 +9,11 @@ import net.minecraftforge.common.util.ForgeDirection;
  * Please use wisely.
  */
 public interface ITriggerExternalOverride {
-	public enum Result {
-		TRUE, FALSE, IGNORE
-	}
+    public enum Result {
+        TRUE,
+        FALSE,
+        IGNORE
+    }
 
-	Result override(ForgeDirection side, IStatementContainer source, IStatementParameter[] parameters);
+    Result override(ForgeDirection side, IStatementContainer source, IStatementParameter[] parameters);
 }

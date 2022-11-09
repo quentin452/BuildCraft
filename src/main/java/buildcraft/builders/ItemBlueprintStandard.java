@@ -11,17 +11,17 @@ package buildcraft.builders;
 import net.minecraft.item.ItemStack;
 
 public class ItemBlueprintStandard extends ItemBlueprint {
-	public ItemBlueprintStandard() {
-		super();
-	}
+    public ItemBlueprintStandard() {
+        super();
+    }
 
-	@Override
-	public String getIconType() {
-		return "blueprint";
-	}
+    @Override
+    public String getIconType() {
+        return "blueprint";
+    }
 
-	@Override
-	public Type getType(ItemStack stack) {
-		return Type.BLUEPRINT;
-	}
+    @Override
+    public Type getType(ItemStack stack) {
+        return Type.BLUEPRINT;
+    }
 }

@@ -12,6 +12,5 @@ import net.minecraft.inventory.IInventory;
 
 public interface ITileBuilder extends IInventory {
 
-	boolean isBuildingMaterialSlot(int i);
-
+    boolean isBuildingMaterialSlot(int i);
 }

@@ -8,28 +8,27 @@
  */
 package buildcraft.silicon.gui;
 
+import buildcraft.core.lib.gui.slots.SlotPhantom;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-import buildcraft.core.lib.gui.slots.SlotPhantom;
-
 public class SlotPackager extends SlotPhantom {
-	public SlotPackager(IInventory iinventory, int slotIndex, int posX, int posY) {
-		super(iinventory, slotIndex, posX, posY);
-	}
+    public SlotPackager(IInventory iinventory, int slotIndex, int posX, int posY) {
+        super(iinventory, slotIndex, posX, posY);
+    }
 
-	@Override
-	public boolean isItemValid(ItemStack stack) {
-		return stack != null;
-	}
+    @Override
+    public boolean isItemValid(ItemStack stack) {
+        return stack != null;
+    }
 
-	@Override
-	public boolean canShift() {
-		return false;
-	}
+    @Override
+    public boolean canShift() {
+        return false;
+    }
 
-	@Override
-	public int getSlotStackLimit() {
-		return 1;
-	}
+    @Override
+    public int getSlotStackLimit() {
+        return 1;
+    }
 }

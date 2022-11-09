@@ -8,6 +8,4 @@
  */
 package buildcraft.api.blueprints;
 
-public abstract class SchematicBlockBase extends Schematic {
-
-}
+public abstract class SchematicBlockBase extends Schematic {}

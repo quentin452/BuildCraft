@@ -8,6 +8,4 @@
  */
 package buildcraft.api.statements;
 
-public class ActionState {
-
-}
+public class ActionState {}
