@@ -1,12 +1,20 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.builders;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidStack;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.blueprints.BuilderAPI;
@@ -22,14 +30,6 @@ import buildcraft.core.lib.network.command.ICommandReceiver;
 import buildcraft.core.lib.network.command.PacketCommand;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidStack;
 
 public abstract class TileAbstractBuilder extends TileBuildCraft
         implements ITileBuilder, IInventory, IBoxProvider, IBuildingItemsProvider, ICommandReceiver {
@@ -44,8 +44,8 @@ public abstract class TileAbstractBuilder extends TileBuildCraft
     public TileAbstractBuilder() {
         super();
         /**
-         * The builder should not act as a gigantic energy buffer, thus we keep enough
-         * build energy to build about 2 stacks' worth of blocks.
+         * The builder should not act as a gigantic energy buffer, thus we keep enough build energy to build about 2
+         * stacks' worth of blocks.
          */
         this.setBattery(new RFBattery(2 * 64 * BuilderAPI.BUILD_ENERGY, 1000, 0));
     }
@@ -61,6 +61,7 @@ public abstract class TileAbstractBuilder extends TileBuildCraft
 
     private Packet createLaunchItemPacket(final BuildingItem i) {
         return new PacketCommand(this, "launchItem", new CommandWriter() {
+
             public void write(ByteBuf data) {
                 i.writeData(data);
             }
@@ -111,8 +112,8 @@ public abstract class TileAbstractBuilder extends TileBuildCraft
         rfUnchangedCycles++;
 
         /**
-         * After 100 cycles with no consumption or additional power, start to
-         * slowly to decrease the amount of power available in the builder.
+         * After 100 cycles with no consumption or additional power, start to slowly to decrease the amount of power
+         * available in the builder.
          */
         if (rfUnchangedCycles > 100) {
             battery.useEnergy(0, 1000, false);

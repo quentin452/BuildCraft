@@ -1,17 +1,19 @@
 package buildcraft.silicon.render;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+
+import org.lwjgl.opengl.GL11;
+
 import buildcraft.core.lib.block.BlockBuildCraft;
 import buildcraft.core.lib.render.FakeBlock;
 import buildcraft.core.lib.render.RenderUtils;
 import buildcraft.core.lib.render.SubIcon;
 import buildcraft.core.render.BCSimpleBlockRenderingHandler;
 import buildcraft.silicon.SiliconProxy;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import org.lwjgl.opengl.GL11;
 
 public class RenderLaserTable extends BCSimpleBlockRenderingHandler {
 
@@ -44,8 +46,8 @@ public class RenderLaserTable extends BCSimpleBlockRenderingHandler {
     }
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+            RenderBlocks renderer) {
         BlockBuildCraft bcBlock = (BlockBuildCraft) block;
         switch (world.getBlockMetadata(x, y, z)) {
             case 0:
@@ -73,22 +75,8 @@ public class RenderLaserTable extends BCSimpleBlockRenderingHandler {
         return true;
     }
 
-    private void renderCube(
-            RenderBlocks renderer,
-            boolean isInventory,
-            int xPos,
-            int yPos,
-            int zPos,
-            float xB,
-            float yB,
-            float zB,
-            int w,
-            int h,
-            int d,
-            int topX,
-            int topY,
-            IIcon base,
-            int mask) {
+    private void renderCube(RenderBlocks renderer, boolean isInventory, int xPos, int yPos, int zPos, float xB,
+            float yB, float zB, int w, int h, int d, int topX, int topY, IIcon base, int mask) {
         int xI = (int) (xB * 16.0F);
         int yI = 16 - (int) (yB * 16.0F) - h;
         int zI = (int) (zB * 16.0F);
@@ -122,9 +110,9 @@ public class RenderLaserTable extends BCSimpleBlockRenderingHandler {
         }
         IIcon base = block.getIcon(0, 0);
         renderCube(renderer, isInv, x, y, z, 0, 0, 0, 16, 2, 16, 16, 21, base, 0x3f); // bottom
-        renderCube(
-                renderer, isInv, x, y, z, 0.0625F, 0.125F, 0.0625F, 14, 1, 14, 18, 39, base,
-                0x3c); // middle (no top/bottom rendered)
+        renderCube(renderer, isInv, x, y, z, 0.0625F, 0.125F, 0.0625F, 14, 1, 14, 18, 39, base, 0x3c); // middle (no
+                                                                                                       // top/bottom
+                                                                                                       // rendered)
         renderCube(renderer, isInv, x, y, z, 0, 0.1875F, 0, 16, 5, 16, 16, 0, base, 0x3f); // top
     }
 
@@ -145,12 +133,12 @@ public class RenderLaserTable extends BCSimpleBlockRenderingHandler {
         renderCube(renderer, isInv, x, y, z, 0, 0.3125F, 0, 16, 3, 16, 16, 0, base, 0x3f); // top
     }
 
-    private void renderProgrammingTable(
-            RenderBlocks renderer, boolean isInv, int x, int y, int z, BlockBuildCraft block) {
+    private void renderProgrammingTable(RenderBlocks renderer, boolean isInv, int x, int y, int z,
+            BlockBuildCraft block) {
         IIcon base = block.getIcon(0, 4);
         if (block.getCurrentRenderPass() != 0) {
-            renderCube(
-                    renderer, isInv, x, y, z, 0.25F, 0.375F, 0.25F, 8, 2, 8, 8, 48, base, 0x02); // semitransparent view
+            renderCube(renderer, isInv, x, y, z, 0.25F, 0.375F, 0.25F, 8, 2, 8, 8, 48, base, 0x02); // semitransparent
+                                                                                                    // view
             if (!isInv) {
                 return;
             }
@@ -173,8 +161,8 @@ public class RenderLaserTable extends BCSimpleBlockRenderingHandler {
         renderCube(renderer, isInv, x, y, z, 0.75F, 0.1875F, 0, 4, 5, 16, 40, 43, base, 0x3e);
     }
 
-    private void renderIntegrationTable(
-            RenderBlocks renderer, boolean isInv, int x, int y, int z, BlockBuildCraft block) {
+    private void renderIntegrationTable(RenderBlocks renderer, boolean isInv, int x, int y, int z,
+            BlockBuildCraft block) {
         IIcon base = block.getIcon(0, 2);
         if (!isInv && block.getCurrentRenderPass() != 0) {
             fixEmptyAlphaPass(x, y, z);
@@ -198,8 +186,8 @@ public class RenderLaserTable extends BCSimpleBlockRenderingHandler {
         renderCube(renderer, isInv, x, y, z, 0.6875F, 0.1875F, 0, 5, 5, 16, 38, 43, base, 0x3f);
     }
 
-    private void renderAdvancedCraftingTable(
-            RenderBlocks renderer, boolean isInv, int x, int y, int z, BlockBuildCraft block) {
+    private void renderAdvancedCraftingTable(RenderBlocks renderer, boolean isInv, int x, int y, int z,
+            BlockBuildCraft block) {
         if (!isInv && block.getCurrentRenderPass() != 0) {
             fixEmptyAlphaPass(x, y, z);
             return;

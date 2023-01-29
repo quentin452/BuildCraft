@@ -1,20 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.network;
+
+import net.minecraft.util.MathHelper;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.EnumColor;
 import buildcraft.core.lib.network.Packet;
 import buildcraft.core.network.PacketIds;
 import buildcraft.transport.TravelingItem;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.util.MathHelper;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PacketPipeTransportTraveler extends Packet {
 
@@ -48,8 +47,8 @@ public class PacketPipeTransportTraveler extends Packet {
 
         data.writeShort(item.id);
 
-        byte flags =
-                (byte) ((item.output.ordinal() & 7) | ((item.input.ordinal() & 7) << 3) | (forceStackRefresh ? 64 : 0));
+        byte flags = (byte) ((item.output.ordinal() & 7) | ((item.input.ordinal() & 7) << 3)
+                | (forceStackRefresh ? 64 : 0));
         data.writeByte(flags);
 
         data.writeByte(item.color != null ? item.color.ordinal() : -1);

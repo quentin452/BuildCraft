@@ -1,16 +1,19 @@
 package buildcraft.core.lib.render;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import buildcraft.core.render.BCSimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import buildcraft.core.render.BCSimpleBlockRenderingHandler;
+
 public class RenderBlockComplex extends BCSimpleBlockRenderingHandler {
-    private static final int[] Y_ROTATE = {3, 0, 1, 2};
+
+    private static final int[] Y_ROTATE = { 3, 0, 1, 2 };
 
     @Override
     public void renderInventoryBlock(Block block, int meta, int modelId, RenderBlocks renderer) {
@@ -37,8 +40,8 @@ public class RenderBlockComplex extends BCSimpleBlockRenderingHandler {
         renderer.uvRotateBottom = 0;
     }
 
-    private void renderPassWorld(
-            int pass, BlockBuildCraft block, int meta, RenderBlocks renderer, IBlockAccess world, int x, int y, int z) {
+    private void renderPassWorld(int pass, BlockBuildCraft block, int meta, RenderBlocks renderer, IBlockAccess world,
+            int x, int y, int z) {
         if (block.isRotatable()) {
             renderer.uvRotateTop = Y_ROTATE[block.getFrontSide(meta) - 2];
             renderer.uvRotateBottom = Y_ROTATE[block.getFrontSide(meta) - 2];
@@ -60,8 +63,8 @@ public class RenderBlockComplex extends BCSimpleBlockRenderingHandler {
     }
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+            RenderBlocks renderer) {
         BlockBuildCraft bcBlock = (BlockBuildCraft) block;
         int meta = world.getBlockMetadata(x, y, z);
 

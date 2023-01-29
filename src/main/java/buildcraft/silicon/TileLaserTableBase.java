@@ -1,20 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon;
 
-import buildcraft.api.power.ILaserTarget;
-import buildcraft.api.tiles.IHasWork;
-import buildcraft.core.lib.block.TileBuildCraft;
-import buildcraft.core.lib.inventory.SimpleInventory;
-import buildcraft.core.lib.inventory.StackHelper;
-import buildcraft.core.lib.utils.AverageInt;
-import buildcraft.core.lib.utils.Utils;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -24,7 +15,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.power.ILaserTarget;
+import buildcraft.api.tiles.IHasWork;
+import buildcraft.core.lib.block.TileBuildCraft;
+import buildcraft.core.lib.inventory.SimpleInventory;
+import buildcraft.core.lib.inventory.StackHelper;
+import buildcraft.core.lib.utils.AverageInt;
+import buildcraft.core.lib.utils.Utils;
+
 public abstract class TileLaserTableBase extends TileBuildCraft implements ILaserTarget, IInventory, IHasWork {
+
     public int clientRequiredEnergy = 0;
     protected SimpleInventory inv = new SimpleInventory(getSizeInventory(), "inv", 64);
     private int energy = 0;
@@ -164,7 +164,12 @@ public abstract class TileLaserTableBase extends TileBuildCraft implements ILase
 
             if (remaining != null && remaining.stackSize > 0) {
                 remaining.stackSize -= Utils.addToRandomInjectableAround(
-                        worldObj, xCoord, yCoord, zCoord, ForgeDirection.UNKNOWN, remaining);
+                        worldObj,
+                        xCoord,
+                        yCoord,
+                        zCoord,
+                        ForgeDirection.UNKNOWN,
+                        remaining);
             }
         }
 

@@ -1,12 +1,14 @@
 package buildcraft.builders;
 
-import buildcraft.api.library.LibraryTypeHandlerNBT;
-import buildcraft.core.lib.utils.NBTUtils;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import buildcraft.api.library.LibraryTypeHandlerNBT;
+import buildcraft.core.lib.utils.NBTUtils;
+
 public class LibraryBookTypeHandler extends LibraryTypeHandlerNBT {
+
     public LibraryBookTypeHandler() {
         super("book");
     }

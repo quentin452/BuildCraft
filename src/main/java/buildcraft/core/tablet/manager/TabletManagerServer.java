@@ -1,13 +1,16 @@
 package buildcraft.core.tablet.manager;
 
+import java.util.HashMap;
+
+import net.minecraft.entity.player.EntityPlayer;
+
 import buildcraft.core.tablet.TabletServer;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import java.util.HashMap;
-import net.minecraft.entity.player.EntityPlayer;
 
 public class TabletManagerServer {
+
     public static final TabletManagerServer INSTANCE = new TabletManagerServer();
 
     private HashMap<EntityPlayer, TabletThread> threads = new HashMap<EntityPlayer, TabletThread>();

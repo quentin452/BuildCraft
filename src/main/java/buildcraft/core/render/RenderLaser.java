@@ -1,18 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.render;
 
-import buildcraft.api.core.Position;
-import buildcraft.core.EntityLaser;
-import buildcraft.core.LaserData;
-import buildcraft.core.lib.render.RenderEntityBlock;
-import buildcraft.core.lib.render.RenderEntityBlock.RenderInfo;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GLAllocation;
@@ -22,9 +15,17 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.api.core.Position;
+import buildcraft.core.EntityLaser;
+import buildcraft.core.LaserData;
+import buildcraft.core.lib.render.RenderEntityBlock;
+import buildcraft.core.lib.render.RenderEntityBlock.RenderInfo;
+
 public class RenderLaser extends Render {
+
     public static final float STEP = 0.04F;
 
     protected static ModelBase model = new ModelBase() {};

@@ -1,8 +1,7 @@
 package buildcraft.transport.stripes;
 
-import buildcraft.api.transport.IStripesActivator;
-import buildcraft.api.transport.IStripesHandler;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -12,6 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.transport.IStripesActivator;
+import buildcraft.api.transport.IStripesHandler;
 
 public class StripesHandlerShears implements IStripesHandler {
 
@@ -26,15 +28,8 @@ public class StripesHandlerShears implements IStripesHandler {
     }
 
     @Override
-    public boolean handle(
-            World world,
-            int x,
-            int y,
-            int z,
-            ForgeDirection direction,
-            ItemStack stack,
-            EntityPlayer player,
-            IStripesActivator activator) {
+    public boolean handle(World world, int x, int y, int z, ForgeDirection direction, ItemStack stack,
+            EntityPlayer player, IStripesActivator activator) {
         Block block = world.getBlock(x, y, z);
 
         if (block instanceof IShearable) {

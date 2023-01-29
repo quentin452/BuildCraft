@@ -1,22 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.core.EnumColor;
-import buildcraft.api.core.Position;
-import buildcraft.core.lib.inventory.StackHelper;
-import com.google.common.collect.MapMaker;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import java.util.EnumSet;
 import java.util.Map;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -24,6 +16,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.BuildCraftCore;
+import buildcraft.api.core.EnumColor;
+import buildcraft.api.core.Position;
+import buildcraft.core.lib.inventory.StackHelper;
+
+import com.google.common.collect.MapMaker;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 public class TravelingItem {
 
@@ -310,14 +312,15 @@ public class TravelingItem {
     }
 
     public static class InsertionHandler {
+
         public boolean canInsertItem(TravelingItem item, IInventory inv) {
             return true;
         }
     }
 
     public static class TravelingItemCache {
-        private final Map<Integer, TravelingItem> itemCache =
-                new MapMaker().weakValues().makeMap();
+
+        private final Map<Integer, TravelingItem> itemCache = new MapMaker().weakValues().makeMap();
 
         public void cache(TravelingItem item) {
             itemCache.put(item.id, item);

@@ -1,20 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.gates;
+
+import java.util.Iterator;
+
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.statements.StatementSlot;
 import buildcraft.api.transport.IPipe;
 import buildcraft.transport.Gate;
-import java.util.Iterator;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ActionIterator implements Iterable<StatementSlot> {
+
     private final IPipe pipe;
 
     public ActionIterator(IPipe iPipe) {
@@ -36,13 +37,13 @@ public class ActionIterator implements Iterable<StatementSlot> {
             while (!isValid()) {
                 if (curDir == ForgeDirection.UNKNOWN) {
                     break;
-                } else if (pipe.getGate(curDir) == null
-                        || index >= pipe.getGate(curDir).getActiveActions().size() - 1) {
-                    index = 0;
-                    curDir = ForgeDirection.values()[curDir.ordinal() + 1];
-                } else {
-                    index++;
-                }
+                } else
+                    if (pipe.getGate(curDir) == null || index >= pipe.getGate(curDir).getActiveActions().size() - 1) {
+                        index = 0;
+                        curDir = ForgeDirection.values()[curDir.ordinal() + 1];
+                    } else {
+                        index++;
+                    }
             }
 
             if (isValid()) {
@@ -89,8 +90,7 @@ public class ActionIterator implements Iterable<StatementSlot> {
         }
 
         private boolean isValid() {
-            return curDir != ForgeDirection.UNKNOWN
-                    && pipe.getGate(curDir) != null
+            return curDir != ForgeDirection.UNKNOWN && pipe.getGate(curDir) != null
                     && index < pipe.getGate(curDir).getActiveActions().size();
         }
     }

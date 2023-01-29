@@ -1,11 +1,13 @@
 package buildcraft.core.tablet;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import buildcraft.BuildCraftCore;
 import buildcraft.api.tablet.TabletBitmap;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class TabletClient extends TabletBase {
+
     protected final TabletRenderer renderer;
 
     public TabletClient() {

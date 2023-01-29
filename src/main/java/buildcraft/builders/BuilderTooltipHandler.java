@@ -1,20 +1,22 @@
 package buildcraft.builders;
 
+import java.util.List;
+
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+
 import buildcraft.builders.gui.ContainerBuilder;
 import buildcraft.core.blueprints.RequirementItemStack;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import java.util.List;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 /**
  * Created by asie on 10/6/15.
  */
 public class BuilderTooltipHandler {
+
     @SubscribeEvent
     public void itemTooltipEvent(ItemTooltipEvent event) {
-        if (event.itemStack != null
-                && event.entityPlayer != null
+        if (event.itemStack != null && event.entityPlayer != null
                 && event.entityPlayer.openContainer != null
                 && event.entityPlayer.openContainer instanceof ContainerBuilder) {
             ContainerBuilder containerBuilder = (ContainerBuilder) event.entityPlayer.openContainer;

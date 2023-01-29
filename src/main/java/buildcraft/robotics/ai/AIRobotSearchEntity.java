@@ -1,18 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
+
+import net.minecraft.entity.Entity;
 
 import buildcraft.api.core.IZone;
 import buildcraft.api.robots.AIRobot;
 import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.core.lib.utils.IEntityFilter;
-import net.minecraft.entity.Entity;
 
 public class AIRobotSearchEntity extends AIRobot {
 
@@ -41,8 +40,7 @@ public class AIRobotSearchEntity extends AIRobot {
         for (Object o : robot.worldObj.loadedEntityList) {
             Entity e = (Entity) o;
 
-            if (!e.isDead
-                    && filter.matches(e)
+            if (!e.isDead && filter.matches(e)
                     && (zone == null || zone.contains(e.posX, e.posY, e.posZ))
                     && (!robot.isKnownUnreachable(e))) {
                 double dx = e.posX - robot.posX;

@@ -1,6 +1,7 @@
 package buildcraft.core;
 
 public enum PowerMode {
+
     M2(20),
     M4(40),
     M8(80),
@@ -8,6 +9,7 @@ public enum PowerMode {
     M32(320),
     M64(640),
     M128(1280);
+
     public static final PowerMode[] VALUES = values();
     public final int maxPower;
 

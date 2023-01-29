@@ -1,12 +1,25 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport;
+
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.apache.logging.log4j.Level;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.BCLog;
@@ -18,18 +31,6 @@ import buildcraft.core.lib.utils.ColorUtils;
 import buildcraft.core.lib.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import org.apache.logging.log4j.Level;
 
 public class ItemPipe extends ItemBuildCraft implements IItemPipe {
 
@@ -45,17 +46,8 @@ public class ItemPipe extends ItemBuildCraft implements IItemPipe {
     }
 
     @Override
-    public boolean onItemUse(
-            ItemStack itemstack,
-            EntityPlayer entityplayer,
-            World world,
-            int x,
-            int y,
-            int z,
-            int sideI,
-            float par8,
-            float par9,
-            float par10) {
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z,
+            int sideI, float par8, float par9, float par10) {
         int side = sideI;
         Block block = BuildCraftTransport.genericPipeBlock;
 
@@ -67,29 +59,28 @@ public class ItemPipe extends ItemBuildCraft implements IItemPipe {
 
         if (worldBlock == Blocks.snow) {
             side = 1;
-        } else if (worldBlock != Blocks.vine
-                && worldBlock != Blocks.tallgrass
+        } else if (worldBlock != Blocks.vine && worldBlock != Blocks.tallgrass
                 && worldBlock != Blocks.deadbush
                 && (worldBlock == null || !worldBlock.isReplaceable(world, i, j, k))) {
-            if (side == 0) {
-                j--;
-            }
-            if (side == 1) {
-                j++;
-            }
-            if (side == 2) {
-                k--;
-            }
-            if (side == 3) {
-                k++;
-            }
-            if (side == 4) {
-                i--;
-            }
-            if (side == 5) {
-                i++;
-            }
-        }
+                    if (side == 0) {
+                        j--;
+                    }
+                    if (side == 1) {
+                        j++;
+                    }
+                    if (side == 2) {
+                        k--;
+                    }
+                    if (side == 3) {
+                        k++;
+                    }
+                    if (side == 4) {
+                        i--;
+                    }
+                    if (side == 5) {
+                        i++;
+                    }
+                }
 
         if (itemstack.stackSize == 0) {
             return false;
@@ -103,8 +94,8 @@ public class ItemPipe extends ItemBuildCraft implements IItemPipe {
                 return false;
             }
 
-            if (BlockGenericPipe.placePipe(
-                    pipe, world, i, j, k, block, 0, entityplayer, ForgeDirection.getOrientation(sideI))) {
+            if (BlockGenericPipe
+                    .placePipe(pipe, world, i, j, k, block, 0, entityplayer, ForgeDirection.getOrientation(sideI))) {
                 block.onBlockPlacedBy(world, i, j, k, entityplayer, itemstack);
 
                 if (!world.isRemote) {
@@ -168,9 +159,9 @@ public class ItemPipe extends ItemBuildCraft implements IItemPipe {
         super.addInformation(stack, player, list, advanced);
         if (stack.getItemDamage() >= 1) {
             int color = (stack.getItemDamage() - 1) & 15;
-            list.add(ColorUtils.getFormattingTooltip(color)
-                    + EnumChatFormatting.ITALIC
-                    + StringUtils.localize("color." + ColorUtils.getName(color)));
+            list.add(
+                    ColorUtils.getFormattingTooltip(color) + EnumChatFormatting.ITALIC
+                            + StringUtils.localize("color." + ColorUtils.getName(color)));
         }
         Class<? extends Pipe<?>> pipe = BlockGenericPipe.pipes.get(this);
         List<String> toolTip = PipeToolTipManager.getToolTip(pipe, advanced);

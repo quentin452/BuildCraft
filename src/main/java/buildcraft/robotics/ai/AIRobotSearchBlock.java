@@ -1,5 +1,10 @@
 package buildcraft.robotics.ai;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import net.minecraft.nbt.NBTTagCompound;
+
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.core.IZone;
 import buildcraft.api.robots.AIRobot;
@@ -11,9 +16,6 @@ import buildcraft.core.lib.utils.BlockScannerZoneRandom;
 import buildcraft.core.lib.utils.IBlockFilter;
 import buildcraft.core.lib.utils.IterableAlgorithmRunner;
 import buildcraft.core.lib.utils.PathFindingSearch;
-import java.util.Iterator;
-import java.util.LinkedList;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class AIRobotSearchBlock extends AIRobot {
 
@@ -30,8 +32,8 @@ public class AIRobotSearchBlock extends AIRobot {
         super(iRobot);
     }
 
-    public AIRobotSearchBlock(
-            EntityRobotBase iRobot, boolean random, IBlockFilter iPathFound, double iMaxDistanceToEnd) {
+    public AIRobotSearchBlock(EntityRobotBase iRobot, boolean random, IBlockFilter iPathFound,
+            double iMaxDistanceToEnd) {
         super(iRobot);
 
         pathFound = iPathFound;
@@ -54,7 +56,13 @@ public class AIRobotSearchBlock extends AIRobot {
     @Override
     public void start() {
         blockScanner = new PathFindingSearch(
-                robot.worldObj, new BlockIndex(robot), blockIter, pathFound, maxDistanceToEnd, 96, zone);
+                robot.worldObj,
+                new BlockIndex(robot),
+                blockIter,
+                pathFound,
+                maxDistanceToEnd,
+                96,
+                zone);
         blockScannerJob = new IterableAlgorithmRunner(blockScanner);
         blockScannerJob.start();
     }

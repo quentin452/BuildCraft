@@ -1,5 +1,8 @@
 package buildcraft.core.network;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.INetHandler;
+
 import buildcraft.core.lib.network.Packet;
 import buildcraft.core.lib.network.PacketHandler;
 import buildcraft.core.proxy.CoreProxy;
@@ -11,10 +14,9 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.channel.ChannelHandlerContext;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.INetHandler;
 
 public class PacketHandlerCore extends PacketHandler {
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) {
         super.channelRead0(ctx, packet);
@@ -22,14 +24,13 @@ public class PacketHandlerCore extends PacketHandler {
         EntityPlayer player = CoreProxy.proxy.getPlayerFromNetHandler(netHandler);
 
         switch (packet.getID()) {
-            case PacketIds.TABLET_MESSAGE:
-                {
-                    if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-                        handleTabletClient((PacketTabletMessage) packet);
-                    } else {
-                        handleTabletServer(player, (PacketTabletMessage) packet);
-                    }
+            case PacketIds.TABLET_MESSAGE: {
+                if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+                    handleTabletClient((PacketTabletMessage) packet);
+                } else {
+                    handleTabletServer(player, (PacketTabletMessage) packet);
                 }
+            }
                 break;
         }
     }

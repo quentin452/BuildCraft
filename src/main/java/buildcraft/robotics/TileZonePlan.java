@@ -1,12 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics;
+
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftRobotics;
@@ -24,13 +31,6 @@ import buildcraft.core.lib.utils.NetworkUtils;
 import buildcraft.robotics.gui.ContainerZonePlan;
 import buildcraft.robotics.map.MapWorld;
 import io.netty.buffer.ByteBuf;
-import java.util.Arrays;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 
 public class TileZonePlan extends TileBuildCraft implements IInventory {
 
@@ -82,8 +82,7 @@ public class TileZonePlan extends TileBuildCraft implements IInventory {
             recalculatePreview();
         }
 
-        if (inv.getStackInSlot(0) != null
-                && inv.getStackInSlot(1) == null
+        if (inv.getStackInSlot(0) != null && inv.getStackInSlot(1) == null
                 && inv.getStackInSlot(0).getItem() instanceof ItemMapLocation) {
 
             if (progress < CRAFT_TIME) {
@@ -114,11 +113,9 @@ public class TileZonePlan extends TileBuildCraft implements IInventory {
 
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 10; x++) {
-                int tx = (x * PREVIEW_BLOCKS_PER_PIXEL)
-                        - (5 * PREVIEW_BLOCKS_PER_PIXEL)
+                int tx = (x * PREVIEW_BLOCKS_PER_PIXEL) - (5 * PREVIEW_BLOCKS_PER_PIXEL)
                         + (PREVIEW_BLOCKS_PER_PIXEL / 2);
-                int ty = (y * PREVIEW_BLOCKS_PER_PIXEL)
-                        - (4 * PREVIEW_BLOCKS_PER_PIXEL)
+                int ty = (y * PREVIEW_BLOCKS_PER_PIXEL) - (4 * PREVIEW_BLOCKS_PER_PIXEL)
                         + (PREVIEW_BLOCKS_PER_PIXEL / 2);
                 newPreviewColors[y * 10 + x] = (byte) mw.getColor(
                         xCoord - (xCoord % PREVIEW_BLOCKS_PER_PIXEL) + tx,
@@ -191,12 +188,12 @@ public class TileZonePlan extends TileBuildCraft implements IInventory {
             if (zone != null && zone instanceof ZonePlan) {
                 selectedAreas[currentSelectedArea] = (ZonePlan) zone;
 
-                for (EntityPlayer e :
-                        (List<EntityPlayer>) MinecraftServer.getServer().getConfigurationManager().playerEntityList) {
-                    if (e.openContainer != null
-                            && e.openContainer instanceof ContainerZonePlan
+                for (EntityPlayer e : (List<EntityPlayer>) MinecraftServer.getServer()
+                        .getConfigurationManager().playerEntityList) {
+                    if (e.openContainer != null && e.openContainer instanceof ContainerZonePlan
                             && ((ContainerZonePlan) e.openContainer).getTile() == this) {
                         Packet p = new PacketCommand(e.openContainer, "areaLoaded", new CommandWriter() {
+
                             public void write(ByteBuf data) {
                                 ((ZonePlan) zone).writeData(data);
                             }

@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders.gui;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.builders.TileArchitect;
@@ -21,12 +27,6 @@ import buildcraft.core.lib.network.command.PacketCommand;
 import buildcraft.core.lib.utils.NetworkUtils;
 import buildcraft.core.lib.utils.StringUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 
 public class GuiArchitect extends GuiBuildCraft {
 
@@ -35,8 +35,8 @@ public class GuiArchitect extends GuiBuildCraft {
     private static final int TEXT_WIDTH = 156;
     private static final int TEXT_HEIGHT = 12;
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("buildcraftbuilders:textures/gui/architect_gui.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "buildcraftbuilders:textures/gui/architect_gui.png");
 
     private TileArchitect architect;
 
@@ -67,10 +67,11 @@ public class GuiArchitect extends GuiBuildCraft {
         buttonList.add(optionExcavate);
 
         optionAllowCreative = new GuiBetterButton(2, guiLeft + 5, guiTop + 80, 79, "");
-        optionAllowCreative.setToolTip(new ToolTip(
-                500,
-                new ToolTipLine(StringUtils.localize("tile.architect.tooltip.allowCreative.1")),
-                new ToolTipLine(StringUtils.localize("tile.architect.tooltip.allowCreative.2"))));
+        optionAllowCreative.setToolTip(
+                new ToolTip(
+                        500,
+                        new ToolTipLine(StringUtils.localize("tile.architect.tooltip.allowCreative.1")),
+                        new ToolTipLine(StringUtils.localize("tile.architect.tooltip.allowCreative.2"))));
         buttonList.add(optionAllowCreative);
 
         textField = new GuiTextField(this.fontRendererObj, TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT);
@@ -131,10 +132,8 @@ public class GuiArchitect extends GuiBuildCraft {
         fontRendererObj.drawString(title, getCenteredOffset(title), 6, 0x404040);
 
         /*
-         * if (editMode && ((new Date()).getTime() / 100) % 8 >= 4) {
-         * fontRendererObj.drawString(architect.name + "|", 131, 62, 0x404040);
-         * } else { fontRendererObj.drawString(architect.name, 131, 62,
-         * 0x404040); }
+         * if (editMode && ((new Date()).getTime() / 100) % 8 >= 4) { fontRendererObj.drawString(architect.name + "|",
+         * 131, 62, 0x404040); } else { fontRendererObj.drawString(architect.name, 131, 62, 0x404040); }
          */
 
         textField.drawTextBox();
@@ -165,6 +164,7 @@ public class GuiArchitect extends GuiBuildCraft {
                 textField.textboxKeyTyped(c, i);
                 final String text = textField.getText();
                 BuildCraftCore.instance.sendToServer(new PacketCommand(architect, "setName", new CommandWriter() {
+
                     public void write(ByteBuf data) {
                         NetworkUtils.writeUTF(data, text);
                     }

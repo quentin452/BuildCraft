@@ -1,23 +1,22 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders.schematics;
 
-import buildcraft.api.blueprints.IBuilderContext;
-import buildcraft.api.blueprints.SchematicEntity;
-import buildcraft.api.blueprints.Translation;
-import buildcraft.api.core.Position;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import buildcraft.api.blueprints.IBuilderContext;
+import buildcraft.api.blueprints.SchematicEntity;
+import buildcraft.api.blueprints.Translation;
+import buildcraft.api.core.Position;
 
 public class SchematicHanging extends SchematicEntity {
 
@@ -32,7 +31,9 @@ public class SchematicHanging extends SchematicEntity {
         super.translateToBlueprint(transform);
 
         Position pos = new Position(
-                entityNBT.getInteger("TileX"), entityNBT.getInteger("TileY"), entityNBT.getInteger("TileZ"));
+                entityNBT.getInteger("TileX"),
+                entityNBT.getInteger("TileY"),
+                entityNBT.getInteger("TileZ"));
         pos = transform.translate(pos);
         entityNBT.setInteger("TileX", (int) pos.x);
         entityNBT.setInteger("TileY", (int) pos.y);
@@ -44,7 +45,9 @@ public class SchematicHanging extends SchematicEntity {
         super.translateToWorld(transform);
 
         Position pos = new Position(
-                entityNBT.getInteger("TileX"), entityNBT.getInteger("TileY"), entityNBT.getInteger("TileZ"));
+                entityNBT.getInteger("TileX"),
+                entityNBT.getInteger("TileY"),
+                entityNBT.getInteger("TileZ"));
         pos = transform.translate(pos);
         entityNBT.setInteger("TileX", (int) pos.x);
         entityNBT.setInteger("TileY", (int) pos.y);
@@ -56,7 +59,9 @@ public class SchematicHanging extends SchematicEntity {
         super.rotateLeft(context);
 
         Position pos = new Position(
-                entityNBT.getInteger("TileX"), entityNBT.getInteger("TileY"), entityNBT.getInteger("TileZ"));
+                entityNBT.getInteger("TileX"),
+                entityNBT.getInteger("TileY"),
+                entityNBT.getInteger("TileZ"));
         pos = context.rotatePositionLeft(pos);
         entityNBT.setInteger("TileX", (int) pos.x);
         entityNBT.setInteger("TileY", (int) pos.y);
@@ -92,7 +97,9 @@ public class SchematicHanging extends SchematicEntity {
     @Override
     public boolean isAlreadyBuilt(IBuilderContext context) {
         Position newPosition = new Position(
-                entityNBT.getInteger("TileX"), entityNBT.getInteger("TileY"), entityNBT.getInteger("TileZ"));
+                entityNBT.getInteger("TileX"),
+                entityNBT.getInteger("TileY"),
+                entityNBT.getInteger("TileZ"));
 
         int dir = entityNBT.getInteger("Direction");
 

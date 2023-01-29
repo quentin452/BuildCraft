@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.statements;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementContainer;
@@ -14,11 +18,6 @@ import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.StatementMouseClick;
 import buildcraft.api.transport.IPipeTile;
 import buildcraft.core.lib.utils.StringUtils;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class StatementParameterDirection implements IStatementParameter {
 
@@ -99,14 +98,12 @@ public class StatementParameterDirection implements IStatementParameter {
 
     @Override
     public void registerIcons(IIconRegister iconRegister) {
-        icons = new IIcon[] {
-            iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_down"),
-            iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_up"),
-            iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_north"),
-            iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_south"),
-            iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_west"),
-            iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_east")
-        };
+        icons = new IIcon[] { iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_down"),
+                iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_up"),
+                iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_north"),
+                iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_south"),
+                iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_west"),
+                iconRegister.registerIcon("buildcraftcore:triggers/trigger_dir_east") };
     }
 
     @Override

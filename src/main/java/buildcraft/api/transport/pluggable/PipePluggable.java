@@ -1,27 +1,26 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.transport.pluggable;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.INBTStoreable;
 import buildcraft.api.core.ISerializable;
 import buildcraft.api.transport.IPipeTile;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
- * An IPipePluggable MUST have an empty constructor for client-side
- * rendering!
+ * An IPipePluggable MUST have an empty constructor for client-side rendering!
  */
 public abstract class PipePluggable implements INBTStoreable, ISerializable {
+
     public abstract ItemStack[] getDropItems(IPipeTile pipe);
 
     public void update(IPipeTile pipe, ForgeDirection direction) {}

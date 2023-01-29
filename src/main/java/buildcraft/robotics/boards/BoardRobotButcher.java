@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.boards;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 
 import buildcraft.api.boards.RedstoneBoardRobot;
 import buildcraft.api.boards.RedstoneBoardRobotNBT;
@@ -19,10 +22,6 @@ import buildcraft.robotics.ai.AIRobotFetchAndEquipItemStack;
 import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotGotoStationAndUnload;
 import buildcraft.robotics.ai.AIRobotSearchEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 
 public class BoardRobotButcher extends RedstoneBoardRobot {
 
@@ -39,6 +38,7 @@ public class BoardRobotButcher extends RedstoneBoardRobot {
     public final void update() {
         if (robot.getHeldItem() == null) {
             startDelegateAI(new AIRobotFetchAndEquipItemStack(robot, new IStackFilter() {
+
                 @Override
                 public boolean matches(ItemStack stack) {
                     return stack.getItem() instanceof ItemSword;
@@ -46,19 +46,16 @@ public class BoardRobotButcher extends RedstoneBoardRobot {
             }));
         } else if (robot.getHeldItem() != null
                 && robot.getHeldItem().getItemDamage() >= robot.getHeldItem().getMaxDamage()) {
-            startDelegateAI(new AIRobotGotoStationAndUnload(robot));
-        } else {
-            startDelegateAI(new AIRobotSearchEntity(
-                    robot,
-                    new IEntityFilter() {
+                    startDelegateAI(new AIRobotGotoStationAndUnload(robot));
+                } else {
+                    startDelegateAI(new AIRobotSearchEntity(robot, new IEntityFilter() {
+
                         @Override
                         public boolean matches(Entity entity) {
                             return entity instanceof EntityAnimal;
                         }
-                    },
-                    250,
-                    robot.getZoneToWork()));
-        }
+                    }, 250, robot.getZoneToWork()));
+                }
     }
 
     @Override

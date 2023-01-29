@@ -1,11 +1,14 @@
 package buildcraft.core.recipes;
 
-import buildcraft.api.recipes.IIntegrationRecipe;
 import java.lang.ref.SoftReference;
 import java.util.List;
+
 import net.minecraft.item.ItemStack;
 
+import buildcraft.api.recipes.IIntegrationRecipe;
+
 public abstract class IntegrationRecipeBC implements IIntegrationRecipe {
+
     private final int energyCost, maxExpansionCount;
     private SoftReference<List<ItemStack>> exampleInputs;
     private SoftReference<List<ItemStack>> exampleOutputs;

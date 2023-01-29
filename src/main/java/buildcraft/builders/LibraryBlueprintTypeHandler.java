@@ -1,13 +1,15 @@
 package buildcraft.builders;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
 import buildcraft.BuildCraftBuilders;
 import buildcraft.api.library.LibraryTypeHandlerNBT;
 import buildcraft.core.blueprints.BlueprintBase;
 import buildcraft.core.blueprints.LibraryId;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class LibraryBlueprintTypeHandler extends LibraryTypeHandlerNBT {
+
     private final boolean isBlueprint;
 
     public LibraryBlueprintTypeHandler(boolean isBlueprint) {

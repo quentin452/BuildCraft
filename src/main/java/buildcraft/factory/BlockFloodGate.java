@@ -1,17 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
 
-import buildcraft.api.tools.IToolWrench;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -23,7 +17,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.tools.IToolWrench;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockFloodGate extends BlockBuildCraft {
+
     private IIcon valve, transparent;
 
     public BlockFloodGate() {
@@ -37,8 +37,8 @@ public class BlockFloodGate extends BlockBuildCraft {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int i, int j, int k, EntityPlayer entityplayer, int side, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int side, float par7,
+            float par8, float par9) {
         if (super.onBlockActivated(world, i, j, k, entityplayer, side, par7, par8, par9)) {
             return true;
         }

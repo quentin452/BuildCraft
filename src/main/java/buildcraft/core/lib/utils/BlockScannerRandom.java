@@ -1,9 +1,11 @@
 package buildcraft.core.lib.utils;
 
-import buildcraft.api.core.BlockIndex;
 import java.util.Iterator;
 import java.util.Random;
+
 import net.minecraft.util.MathHelper;
+
+import buildcraft.api.core.BlockIndex;
 
 public class BlockScannerRandom implements Iterable<BlockIndex> {
 

@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
 public class RenderMultiTESR extends TileEntitySpecialRenderer {
+
     private final TileEntitySpecialRenderer[] renderers;
 
     public RenderMultiTESR(TileEntitySpecialRenderer[] renderers) {

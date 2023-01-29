@@ -1,15 +1,18 @@
 package buildcraft.core.list;
 
-import buildcraft.api.lists.ListMatchHandler;
-import buildcraft.core.lib.inventory.StackHelper;
-import buildcraft.core.lib.utils.FluidUtils;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import buildcraft.api.lists.ListMatchHandler;
+import buildcraft.core.lib.inventory.StackHelper;
+import buildcraft.core.lib.utils.FluidUtils;
+
 public class ListMatchHandlerFluid extends ListMatchHandler {
+
     @Override
     public boolean matches(Type type, ItemStack stack, ItemStack target, boolean precise) {
         if (type == Type.TYPE) {
@@ -46,8 +49,8 @@ public class ListMatchHandlerFluid extends ListMatchHandler {
             FluidStack fStack = FluidUtils.getFluidStackFromItemStack(stack);
             if (fStack != null) {
                 List<ItemStack> examples = new ArrayList<ItemStack>();
-                for (FluidContainerRegistry.FluidContainerData data :
-                        FluidContainerRegistry.getRegisteredFluidContainerData()) {
+                for (FluidContainerRegistry.FluidContainerData data : FluidContainerRegistry
+                        .getRegisteredFluidContainerData()) {
                     if (fStack.isFluidEqual(data.fluid)) {
                         examples.add(data.filledContainer);
                     }
@@ -60,8 +63,8 @@ public class ListMatchHandlerFluid extends ListMatchHandler {
                 ItemStack emptyContainerStack = FluidContainerRegistry.drainFluidContainer(stack);
                 examples.add(stack);
                 examples.add(emptyContainerStack);
-                for (FluidContainerRegistry.FluidContainerData data :
-                        FluidContainerRegistry.getRegisteredFluidContainerData()) {
+                for (FluidContainerRegistry.FluidContainerData data : FluidContainerRegistry
+                        .getRegisteredFluidContainerData()) {
                     if (StackHelper.isMatchingItem(data.emptyContainer, emptyContainerStack, true, true)) {
                         examples.add(data.filledContainer);
                     }

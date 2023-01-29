@@ -1,17 +1,18 @@
 package buildcraft.core.list;
 
-import buildcraft.api.items.IList;
-import buildcraft.core.lib.utils.StringUtils;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
+import buildcraft.api.items.IList;
+import buildcraft.core.lib.utils.StringUtils;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 public class ListTooltipHandler {
+
     @SubscribeEvent
     public void itemTooltipEvent(ItemTooltipEvent event) {
-        if (event.itemStack != null
-                && event.entityPlayer != null
+        if (event.itemStack != null && event.entityPlayer != null
                 && event.entityPlayer.openContainer != null
                 && event.entityPlayer.openContainer instanceof ContainerListNew) {
             ItemStack list = event.entityPlayer.getCurrentEquippedItem();

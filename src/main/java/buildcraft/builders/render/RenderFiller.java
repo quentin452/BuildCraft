@@ -1,14 +1,17 @@
 package buildcraft.builders.render;
 
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.tileentity.TileEntity;
+
+import org.lwjgl.opengl.GL11;
+
 import buildcraft.BuildCraftBuilders;
 import buildcraft.builders.TileFiller;
 import buildcraft.core.lib.render.RenderEntityBlock;
 import buildcraft.core.render.RenderBuilder;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.GL11;
 
 public class RenderFiller extends RenderBuilder {
+
     private static final float Z_OFFSET = 2049 / 2048.0F;
 
     @Override

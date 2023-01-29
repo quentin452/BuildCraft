@@ -1,20 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.proxy;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.core.ICoreProxy;
-import buildcraft.core.LaserKind;
-import buildcraft.core.lib.EntityBlock;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.SidedProxy;
 import java.lang.ref.WeakReference;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,6 +17,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayerFactory;
+
+import buildcraft.BuildCraftCore;
+import buildcraft.api.core.ICoreProxy;
+import buildcraft.core.LaserKind;
+import buildcraft.core.lib.EntityBlock;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.SidedProxy;
 
 public class CoreProxy implements ICoreProxy {
 
@@ -106,14 +106,14 @@ public class CoreProxy implements ICoreProxy {
         return CoreProxy.buildCraftPlayer;
     }
 
-    public EntityBlock newEntityBlock(
-            World world, double i, double j, double k, double iSize, double jSize, double kSize, LaserKind laserKind) {
+    public EntityBlock newEntityBlock(World world, double i, double j, double k, double iSize, double jSize,
+            double kSize, LaserKind laserKind) {
         return new EntityBlock(world, i, j, k, iSize, jSize, kSize);
     }
 
     /**
-     * This function returns either the player from the handler if it's on the
-     * server, or directly from the minecraft instance if it's the client.
+     * This function returns either the player from the handler if it's on the server, or directly from the minecraft
+     * instance if it's the client.
      */
     public EntityPlayer getPlayerFromNetHandler(INetHandler handler) {
         if (handler instanceof NetHandlerPlayServer) {

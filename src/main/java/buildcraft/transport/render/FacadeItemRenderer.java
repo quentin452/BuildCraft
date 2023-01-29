@@ -1,12 +1,20 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.render;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.client.IItemRenderer;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.facades.FacadeType;
@@ -17,14 +25,6 @@ import buildcraft.transport.ItemFacade;
 import buildcraft.transport.ItemFacade.FacadeState;
 import buildcraft.transport.PipeIconProvider;
 import buildcraft.transport.TransportConstants;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.client.IItemRenderer;
-import org.lwjgl.opengl.GL11;
 
 public class FacadeItemRenderer implements IItemRenderer {
 
@@ -105,8 +105,8 @@ public class FacadeItemRenderer implements IItemRenderer {
         tessellator.draw();
     }
 
-    private void renderFacadeItem(
-            RenderBlocks render, ItemStack item, float translateX, float translateY, float translateZ) {
+    private void renderFacadeItem(RenderBlocks render, ItemStack item, float translateX, float translateY,
+            float translateZ) {
         if (lastTime < System.currentTimeMillis()) {
             // 12 = LCM(1, 2, 3, 4)
             renderState = (renderState + 1) % 12;
@@ -168,12 +168,10 @@ public class FacadeItemRenderer implements IItemRenderer {
         RenderUtils.setGLColorFromInt(0xFFFFFF);
 
         // Render StructurePipe
-        if (!hollow
-                && block != null
-                && (block.getMaterial() == null || block.getMaterial().isOpaque())) {
+        if (!hollow && block != null && (block.getMaterial() == null || block.getMaterial().isOpaque())) {
             block = BuildCraftTransport.genericPipeBlock;
-            IIcon textureID = BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                    PipeIconProvider.TYPE.PipeStructureCobblestone.ordinal()); // Structure pipe
+            IIcon textureID = BuildCraftTransport.instance.pipeIconProvider
+                    .getIcon(PipeIconProvider.TYPE.PipeStructureCobblestone.ordinal()); // Structure pipe
 
             render.setRenderBounds(
                     CoreConstants.PIPE_MIN_POS,

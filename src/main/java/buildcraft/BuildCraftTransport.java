@@ -1,12 +1,28 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft;
+
+import java.io.PrintWriter;
+import java.util.LinkedList;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemMinecart;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import buildcraft.api.blueprints.BuilderAPI;
 import buildcraft.api.blueprints.SchematicTile;
@@ -168,22 +184,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.io.PrintWriter;
-import java.util.LinkedList;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemMinecart;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 @Mod(
         version = Version.VERSION,
@@ -191,6 +191,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
         name = "Buildcraft Transport",
         dependencies = DefaultProps.DEPENDENCY_CORE)
 public class BuildCraftTransport extends BuildCraftMod {
+
     @Mod.Instance("BuildCraft|Transport")
     public static BuildCraftTransport instance;
 
@@ -286,6 +287,7 @@ public class BuildCraftTransport extends BuildCraftMod {
     public IIconProvider wireIconProvider = new WireIconProvider();
 
     private static class PipeRecipe {
+
         boolean isShapeless = false; // pipe recipes come shaped and unshaped.
         ItemStack result;
         Object[] input;
@@ -305,14 +307,11 @@ public class BuildCraftTransport extends BuildCraftMod {
                     DefaultProps.PIPES_DURABILITY,
                     "How hard to break should a pipe be?",
                     ConfigManager.RestartRequirement.NONE);
-            BuildCraftCore.mainConfigManager
-                    .register(
-                            "general.pipes.baseFluidRate",
-                            DefaultProps.PIPES_FLUIDS_BASE_FLOW_RATE,
-                            "What should the base flow rate of a fluid pipe be?",
-                            ConfigManager.RestartRequirement.GAME)
-                    .setMinValue(1)
-                    .setMaxValue(40);
+            BuildCraftCore.mainConfigManager.register(
+                    "general.pipes.baseFluidRate",
+                    DefaultProps.PIPES_FLUIDS_BASE_FLOW_RATE,
+                    "What should the base flow rate of a fluid pipe be?",
+                    ConfigManager.RestartRequirement.GAME).setMinValue(1).setMaxValue(40);
             BuildCraftCore.mainConfigManager.register(
                     "debug.printFacadeList",
                     false,
@@ -335,20 +334,18 @@ public class BuildCraftTransport extends BuildCraftMod {
                     ConfigManager.RestartRequirement.GAME);
             BuildCraftCore.mainConfigManager.register(
                     "general.pipes.facadeBlacklist",
-                    new String[] {
-                        Block.blockRegistry.getNameForObject(Blocks.end_portal_frame),
-                        Block.blockRegistry.getNameForObject(Blocks.grass),
-                        Block.blockRegistry.getNameForObject(Blocks.leaves),
-                        Block.blockRegistry.getNameForObject(Blocks.leaves2),
-                        Block.blockRegistry.getNameForObject(Blocks.lit_pumpkin),
-                        Block.blockRegistry.getNameForObject(Blocks.lit_redstone_lamp),
-                        Block.blockRegistry.getNameForObject(Blocks.mob_spawner),
-                        Block.blockRegistry.getNameForObject(Blocks.monster_egg),
-                        Block.blockRegistry.getNameForObject(Blocks.redstone_lamp),
-                        Block.blockRegistry.getNameForObject(Blocks.double_stone_slab),
-                        Block.blockRegistry.getNameForObject(Blocks.double_wooden_slab),
-                        Block.blockRegistry.getNameForObject(Blocks.sponge)
-                    },
+                    new String[] { Block.blockRegistry.getNameForObject(Blocks.end_portal_frame),
+                            Block.blockRegistry.getNameForObject(Blocks.grass),
+                            Block.blockRegistry.getNameForObject(Blocks.leaves),
+                            Block.blockRegistry.getNameForObject(Blocks.leaves2),
+                            Block.blockRegistry.getNameForObject(Blocks.lit_pumpkin),
+                            Block.blockRegistry.getNameForObject(Blocks.lit_redstone_lamp),
+                            Block.blockRegistry.getNameForObject(Blocks.mob_spawner),
+                            Block.blockRegistry.getNameForObject(Blocks.monster_egg),
+                            Block.blockRegistry.getNameForObject(Blocks.redstone_lamp),
+                            Block.blockRegistry.getNameForObject(Blocks.double_stone_slab),
+                            Block.blockRegistry.getNameForObject(Blocks.double_wooden_slab),
+                            Block.blockRegistry.getNameForObject(Blocks.sponge) },
                     "What block types should be blacklisted from being a facade?",
                     ConfigManager.RestartRequirement.GAME);
             BuildCraftCore.mainConfigManager.register(
@@ -380,19 +377,28 @@ public class BuildCraftTransport extends BuildCraftMod {
 
             pipeItemsWood = buildPipe(PipeItemsWood.class, "plankWood", "blockGlassColorless", "plankWood");
             pipeItemsEmerald = buildPipe(PipeItemsEmerald.class, "gemEmerald", "blockGlassColorless", "gemEmerald");
-            pipeItemsCobblestone =
-                    buildPipe(PipeItemsCobblestone.class, "cobblestone", "blockGlassColorless", "cobblestone");
+            pipeItemsCobblestone = buildPipe(
+                    PipeItemsCobblestone.class,
+                    "cobblestone",
+                    "blockGlassColorless",
+                    "cobblestone");
             pipeItemsStone = buildPipe(PipeItemsStone.class, "stone", "blockGlassColorless", "stone");
             pipeItemsQuartz = buildPipe(PipeItemsQuartz.class, "blockQuartz", "blockGlassColorless", "blockQuartz");
             pipeItemsIron = buildPipe(PipeItemsIron.class, "ingotIron", "blockGlassColorless", "ingotIron");
             pipeItemsGold = buildPipe(PipeItemsGold.class, "ingotGold", "blockGlassColorless", "ingotGold");
             pipeItemsDiamond = buildPipe(PipeItemsDiamond.class, "gemDiamond", "blockGlassColorless", "gemDiamond");
-            pipeItemsObsidian =
-                    buildPipe(PipeItemsObsidian.class, Blocks.obsidian, "blockGlassColorless", Blocks.obsidian);
+            pipeItemsObsidian = buildPipe(
+                    PipeItemsObsidian.class,
+                    Blocks.obsidian,
+                    "blockGlassColorless",
+                    Blocks.obsidian);
             pipeItemsLapis = buildPipe(PipeItemsLapis.class, "blockLapis", "blockGlassColorless", "blockLapis");
             pipeItemsDaizuli = buildPipe(PipeItemsDaizuli.class, "blockLapis", "blockGlassColorless", "gemDiamond");
-            pipeItemsSandstone =
-                    buildPipe(PipeItemsSandstone.class, Blocks.sandstone, "blockGlassColorless", Blocks.sandstone);
+            pipeItemsSandstone = buildPipe(
+                    PipeItemsSandstone.class,
+                    Blocks.sandstone,
+                    "blockGlassColorless",
+                    Blocks.sandstone);
             pipeItemsVoid = buildPipe(PipeItemsVoid.class, "dyeBlack", "blockGlassColorless", "dustRedstone");
             pipeItemsEmzuli = buildPipe(PipeItemsEmzuli.class, "blockLapis", "blockGlassColorless", "gemEmerald");
             pipeItemsStripes = buildPipe(PipeItemsStripes.class, "gearGold", "blockGlassColorless", "gearGold");
@@ -420,8 +426,11 @@ public class BuildCraftTransport extends BuildCraftMod {
             pipePowerEmerald = buildPipe(PipePowerEmerald.class, "dustRedstone", pipeItemsEmerald);
             pipePowerSandstone = buildPipe(PipePowerSandstone.class, "dustRedstone", pipeItemsSandstone);
 
-            pipeStructureCobblestone =
-                    buildPipe(PipeStructureCobblestone.class, Blocks.cobblestone, Blocks.gravel, Blocks.cobblestone);
+            pipeStructureCobblestone = buildPipe(
+                    PipeStructureCobblestone.class,
+                    Blocks.cobblestone,
+                    Blocks.gravel,
+                    Blocks.cobblestone);
 
             pipeWire = new ItemPipeWire();
             BCRegistry.INSTANCE.registerItem(pipeWire, false);
@@ -510,7 +519,9 @@ public class BuildCraftTransport extends BuildCraftMod {
         transportChannelHandler.registerPacketType(PacketPowerUpdate.class);
 
         channels = NetworkRegistry.INSTANCE.newChannel(
-                DefaultProps.NET_CHANNEL_NAME + "-TRANSPORT", transportChannelHandler, new PacketHandlerTransport());
+                DefaultProps.NET_CHANNEL_NAME + "-TRANSPORT",
+                transportChannelHandler,
+                new PacketHandlerTransport());
 
         TransportProxy.proxy.registerTileEntities();
 
@@ -624,41 +635,25 @@ public class BuildCraftTransport extends BuildCraftMod {
     public void reloadConfig(ConfigManager.RestartRequirement restartType) {
         if (restartType == ConfigManager.RestartRequirement.GAME) {
             facadeTreatBlacklistAsWhitelist = BuildCraftCore.mainConfigManager
-                    .get("general.pipes.facadeBlacklistAsWhitelist")
-                    .getBoolean();
-            facadeBlacklist = BuildCraftCore.mainConfigManager
-                    .get("general.pipes.facadeBlacklist")
-                    .getStringList();
-            gateCostMultiplier = (float) BuildCraftCore.mainConfigManager
-                    .get("power.gateCostMultiplier")
-                    .getDouble();
+                    .get("general.pipes.facadeBlacklistAsWhitelist").getBoolean();
+            facadeBlacklist = BuildCraftCore.mainConfigManager.get("general.pipes.facadeBlacklist").getStringList();
+            gateCostMultiplier = (float) BuildCraftCore.mainConfigManager.get("power.gateCostMultiplier").getDouble();
             additionalWaterproofingRecipe = BuildCraftCore.mainConfigManager
-                    .get("general.pipes.slimeballWaterproofRecipe")
+                    .get("general.pipes.slimeballWaterproofRecipe").getBoolean();
+            debugPrintFacadeList = BuildCraftCore.mainConfigManager.get("debug.printFacadeList").getBoolean();
+            pipeFluidsBaseFlowRate = BuildCraftCore.mainConfigManager.get("general.pipes.baseFluidRate").getInt();
+            facadeForceNonLaserRecipe = BuildCraftCore.mainConfigManager.get("general.pipes.facadeNoLaserRecipe")
                     .getBoolean();
-            debugPrintFacadeList = BuildCraftCore.mainConfigManager
-                    .get("debug.printFacadeList")
-                    .getBoolean();
-            pipeFluidsBaseFlowRate = BuildCraftCore.mainConfigManager
-                    .get("general.pipes.baseFluidRate")
-                    .getInt();
-            facadeForceNonLaserRecipe = BuildCraftCore.mainConfigManager
-                    .get("general.pipes.facadeNoLaserRecipe")
-                    .getBoolean();
-            showAllFacadesCreative = BuildCraftCore.mainConfigManager
-                    .get("general.pipes.facadeShowAllInCreative")
+            showAllFacadesCreative = BuildCraftCore.mainConfigManager.get("general.pipes.facadeShowAllInCreative")
                     .getBoolean();
 
             reloadConfig(ConfigManager.RestartRequirement.WORLD);
         } else if (restartType == ConfigManager.RestartRequirement.WORLD) {
-            usePipeLoss = BuildCraftCore.mainConfigManager
-                    .get("experimental.kinesisPowerLossOnTravel")
-                    .getBoolean();
+            usePipeLoss = BuildCraftCore.mainConfigManager.get("experimental.kinesisPowerLossOnTravel").getBoolean();
 
             reloadConfig(ConfigManager.RestartRequirement.NONE);
         } else {
-            pipeDurability = (float) BuildCraftCore.mainConfigManager
-                    .get("general.pipes.hardness")
-                    .getDouble();
+            pipeDurability = (float) BuildCraftCore.mainConfigManager.get("general.pipes.hardness").getDouble();
 
             if (BuildCraftCore.mainConfiguration.hasChanged()) {
                 BuildCraftCore.mainConfiguration.save();
@@ -670,8 +665,7 @@ public class BuildCraftTransport extends BuildCraftMod {
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if ("BuildCraft|Core".equals(event.modID)) {
             reloadConfig(
-                    event.isWorldRunning
-                            ? ConfigManager.RestartRequirement.NONE
+                    event.isWorldRunning ? ConfigManager.RestartRequirement.NONE
                             : ConfigManager.RestartRequirement.WORLD);
         }
     }
@@ -760,24 +754,25 @@ public class BuildCraftTransport extends BuildCraftMod {
 
         // Facade turning helper
         GameRegistry.addRecipe(facadeItem.new FacadeRecipe());
-        RecipeSorter.register(
-                "facadeTurningHelper", ItemFacade.FacadeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+        RecipeSorter
+                .register("facadeTurningHelper", ItemFacade.FacadeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
         // Pipe Plug
         GameRegistry.addShapelessRecipe(new ItemStack(plugItem, 4), new ItemStack(pipeStructureCobblestone));
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(powerAdapterItem, 4),
-                "scs",
-                "sbs",
-                "sas",
-                's',
-                pipeStructureCobblestone,
-                'a',
-                Items.redstone,
-                'b',
-                "gearStone",
-                'c',
-                "ingotGold"));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(powerAdapterItem, 4),
+                        "scs",
+                        "sbs",
+                        "sas",
+                        's',
+                        pipeStructureCobblestone,
+                        'a',
+                        Items.redstone,
+                        'b',
+                        "gearStone",
+                        'c',
+                        "ingotGold"));
 
         if (Loader.isModLoaded("BuildCraft|Silicon")) {
             TransportSiliconRecipes.loadSiliconRecipes();
@@ -792,28 +787,30 @@ public class BuildCraftTransport extends BuildCraftMod {
             // Lenses, Filters
             for (int i = 0; i < 16; i++) {
                 String dye = ColorUtils.getOreDictionaryName(15 - i);
-                GameRegistry.addRecipe(new ShapedOreRecipe(
-                        new ItemStack(lensItem, 8, i),
-                        "OSO",
-                        "SGS",
-                        "OSO",
-                        'O',
-                        "ingotIron",
-                        'S',
-                        dye,
-                        'G',
-                        "blockGlass"));
-                GameRegistry.addRecipe(new ShapedOreRecipe(
-                        new ItemStack(lensItem, 8, i + 16),
-                        "OSO",
-                        "SGS",
-                        "OSO",
-                        'O',
-                        Blocks.iron_bars,
-                        'S',
-                        dye,
-                        'G',
-                        "blockGlass"));
+                GameRegistry.addRecipe(
+                        new ShapedOreRecipe(
+                                new ItemStack(lensItem, 8, i),
+                                "OSO",
+                                "SGS",
+                                "OSO",
+                                'O',
+                                "ingotIron",
+                                'S',
+                                dye,
+                                'G',
+                                "blockGlass"));
+                GameRegistry.addRecipe(
+                        new ShapedOreRecipe(
+                                new ItemStack(lensItem, 8, i + 16),
+                                "OSO",
+                                "SGS",
+                                "OSO",
+                                'O',
+                                Blocks.iron_bars,
+                                'S',
+                                dye,
+                                'G',
+                                "blockGlass"));
             }
         }
     }
@@ -828,8 +825,8 @@ public class BuildCraftTransport extends BuildCraftMod {
     }
 
     @Deprecated
-    public static Item buildPipe(
-            Class<? extends Pipe<?>> clas, String descr, BCCreativeTab creativeTab, Object... ingredients) {
+    public static Item buildPipe(Class<? extends Pipe<?>> clas, String descr, BCCreativeTab creativeTab,
+            Object... ingredients) {
         return buildPipe(clas, creativeTab, ingredients);
     }
 
@@ -860,7 +857,7 @@ public class BuildCraftTransport extends BuildCraftMod {
                 }
 
                 recipe.result = new ItemStack(res, 8, i);
-                recipe.input = new Object[] {"ABC", 'A', ingredients[0], 'B', glass, 'C', ingredients[2]};
+                recipe.input = new Object[] { "ABC", 'A', ingredients[0], 'B', glass, 'C', ingredients[2] };
 
                 pipeRecipes.add(recipe);
             }
@@ -877,14 +874,14 @@ public class BuildCraftTransport extends BuildCraftMod {
 
                 recipe.isShapeless = true;
                 recipe.result = new ItemStack(res, 1, i);
-                recipe.input = new Object[] {left, right};
+                recipe.input = new Object[] { left, right };
 
                 pipeRecipes.add(recipe);
 
                 if (ingredients[1] instanceof ItemPipe && clas != PipeStructureCobblestone.class) {
                     PipeRecipe uncraft = new PipeRecipe();
                     uncraft.isShapeless = true;
-                    uncraft.input = new Object[] {recipe.result};
+                    uncraft.input = new Object[] { recipe.result };
                     uncraft.result = (ItemStack) right;
                     pipeRecipes.add(uncraft);
                 }
@@ -896,10 +893,10 @@ public class BuildCraftTransport extends BuildCraftMod {
 
     @Mod.EventHandler
     public void whiteListAppliedEnergetics(FMLInitializationEvent event) {
-        FMLInterModComms.sendMessage(
-                "appliedenergistics2", "whitelist-spatial", TileGenericPipe.class.getCanonicalName());
-        FMLInterModComms.sendMessage(
-                "appliedenergistics2", "whitelist-spatial", TileFilteredBuffer.class.getCanonicalName());
+        FMLInterModComms
+                .sendMessage("appliedenergistics2", "whitelist-spatial", TileGenericPipe.class.getCanonicalName());
+        FMLInterModComms
+                .sendMessage("appliedenergistics2", "whitelist-spatial", TileFilteredBuffer.class.getCanonicalName());
     }
 
     @Mod.EventHandler

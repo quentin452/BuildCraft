@@ -1,6 +1,7 @@
 package buildcraft.api.tablet;
 
 public class TabletBitmap {
+
     public final int width, height;
     protected int[] data;
 

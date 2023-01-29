@@ -1,29 +1,27 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
 
-import buildcraft.api.core.Position;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import buildcraft.api.core.Position;
+
 public abstract class EntityLaser extends Entity {
 
     public static final ResourceLocation[] LASER_TEXTURES = new ResourceLocation[] {
-        new ResourceLocation("buildcraftcore", "textures/laserBeams/laser_1.png"),
-        new ResourceLocation("buildcraftcore", "textures/laserBeams/laser_2.png"),
-        new ResourceLocation("buildcraftcore", "textures/laserBeams/laser_3.png"),
-        new ResourceLocation("buildcraftcore", "textures/laserBeams/laser_4.png"),
-        new ResourceLocation("buildcraftcore", "textures/laserBeams/stripes.png"),
-        new ResourceLocation("buildcraftcore", "textures/laserBeams/blue_stripes.png")
-    };
+            new ResourceLocation("buildcraftcore", "textures/laserBeams/laser_1.png"),
+            new ResourceLocation("buildcraftcore", "textures/laserBeams/laser_2.png"),
+            new ResourceLocation("buildcraftcore", "textures/laserBeams/laser_3.png"),
+            new ResourceLocation("buildcraftcore", "textures/laserBeams/laser_4.png"),
+            new ResourceLocation("buildcraftcore", "textures/laserBeams/stripes.png"),
+            new ResourceLocation("buildcraftcore", "textures/laserBeams/blue_stripes.png") };
 
     public LaserData data = new LaserData();
 
@@ -76,7 +74,7 @@ public abstract class EntityLaser extends Entity {
         }
 
         // if (worldObj.isRemote) {
-        //	updateDataClient();
+        // updateDataClient();
         // }
 
         boundingBox.minX = Math.min(data.head.x, data.tail.x);

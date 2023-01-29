@@ -1,15 +1,18 @@
 package buildcraft.transport;
 
+import java.util.LinkedList;
+
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.api.transport.IPipe;
 import buildcraft.api.transport.IPipeTile;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.transport.pipes.events.PipeEventItem;
 import buildcraft.transport.pipes.events.PipeEventPriority;
 import buildcraft.transport.pluggable.LensPluggable;
-import java.util.LinkedList;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class LensFilterHandler {
+
     @PipeEventPriority(priority = -100)
     public void eventHandler(PipeEventItem.FindDest event) {
         IPipeTile container = event.pipe.getTile();

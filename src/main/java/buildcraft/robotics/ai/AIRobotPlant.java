@@ -1,17 +1,19 @@
 package buildcraft.robotics.ai;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.WorldServer;
+
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.crops.CropManager;
 import buildcraft.api.robots.AIRobot;
 import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.core.lib.utils.BlockUtils;
 import buildcraft.core.proxy.CoreProxy;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.WorldServer;
 
 public class AIRobotPlant extends AIRobot {
+
     private BlockIndex blockFound;
     private int delay = 0;
 
@@ -39,12 +41,14 @@ public class AIRobotPlant extends AIRobot {
         }
 
         if (delay++ > 40) {
-            EntityPlayer player = CoreProxy.proxy
-                    .getBuildCraftPlayer((WorldServer) robot.worldObj)
-                    .get();
+            EntityPlayer player = CoreProxy.proxy.getBuildCraftPlayer((WorldServer) robot.worldObj).get();
             if (CropManager.plantCrop(
-                    robot.worldObj, player, robot.getHeldItem(), blockFound.x, blockFound.y, blockFound.z)) {
-            } else {
+                    robot.worldObj,
+                    player,
+                    robot.getHeldItem(),
+                    blockFound.x,
+                    blockFound.y,
+                    blockFound.z)) {} else {
                 setSuccess(false);
             }
             if (robot.getHeldItem().stackSize > 0) {

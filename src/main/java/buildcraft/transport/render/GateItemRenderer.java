@@ -1,16 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.render;
 
-import buildcraft.api.gates.IGateExpansion;
-import buildcraft.transport.gates.ItemGate;
 import java.util.Random;
+
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -19,7 +16,11 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
+import buildcraft.api.gates.IGateExpansion;
+import buildcraft.transport.gates.ItemGate;
 
 public class GateItemRenderer implements IItemRenderer {
 
@@ -27,8 +28,7 @@ public class GateItemRenderer implements IItemRenderer {
 
     @Override
     public boolean handleRenderType(ItemStack stack, ItemRenderType type) {
-        return type == ItemRenderType.INVENTORY
-                || type == ItemRenderType.ENTITY
+        return type == ItemRenderType.INVENTORY || type == ItemRenderType.ENTITY
                 || type == ItemRenderType.EQUIPPED
                 || type == ItemRenderType.EQUIPPED_FIRST_PERSON;
     }
@@ -79,8 +79,8 @@ public class GateItemRenderer implements IItemRenderer {
         float uv3 = icon.getMinV();
         float uv4 = icon.getMaxV();
 
-        ItemRenderer.renderItemIn2D(
-                tessellator, uv2, uv3, uv1, uv4, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
+        ItemRenderer
+                .renderItemIn2D(tessellator, uv2, uv3, uv1, uv4, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
         GL11.glPopMatrix();
     }
 

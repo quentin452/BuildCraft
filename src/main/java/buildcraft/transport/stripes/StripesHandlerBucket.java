@@ -1,8 +1,5 @@
 package buildcraft.transport.stripes;
 
-import buildcraft.api.transport.IStripesActivator;
-import buildcraft.api.transport.IStripesHandler;
-import buildcraft.core.lib.utils.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -14,7 +11,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import buildcraft.api.transport.IStripesActivator;
+import buildcraft.api.transport.IStripesHandler;
+import buildcraft.core.lib.utils.BlockUtils;
+
 public class StripesHandlerBucket implements IStripesHandler {
+
     private static final ItemStack emptyBucket = new ItemStack(Items.bucket, 1);
 
     private ItemStack getFilledBucket(FluidStack fluidStack, Block underblock) {
@@ -38,15 +40,8 @@ public class StripesHandlerBucket implements IStripesHandler {
     }
 
     @Override
-    public boolean handle(
-            World world,
-            int x,
-            int y,
-            int z,
-            ForgeDirection direction,
-            ItemStack stack,
-            EntityPlayer player,
-            IStripesActivator activator) {
+    public boolean handle(World world, int x, int y, int z, ForgeDirection direction, ItemStack stack,
+            EntityPlayer player, IStripesActivator activator) {
         if (world.isAirBlock(x, y, z)) {
             if (((ItemBucket) stack.getItem())
                     .tryPlaceContainedLiquid(world, x, direction.ordinal() < 2 ? y : (y - 1), z)) {

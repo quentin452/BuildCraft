@@ -1,21 +1,20 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.render;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidBlock;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class EntityDropParticleFX extends EntityFX {
@@ -25,23 +24,23 @@ public class EntityDropParticleFX extends EntityFX {
      */
     private int bobTimer;
 
-    public EntityDropParticleFX(
-            World world, double x, double y, double z, float particleRed, float particleGreen, float particleBlue) {
+    public EntityDropParticleFX(World world, double x, double y, double z, float particleRed, float particleGreen,
+            float particleBlue) {
         super(world, x, y, z, 0.0D, 0.0D, 0.0D);
         this.motionX = this.motionY = this.motionZ = 0.0D;
 
-        //        if (par8Material == Material.water)
-        //        {
-        //            this.particleRed = 0.0F;
-        //            this.particleGreen = 0.0F;
-        //            this.particleBlue = 1.0F;
-        //        }
-        //        else
-        //        {
-        //            this.particleRed = 1.0F;
-        //            this.particleGreen = 0.0F;
-        //            this.particleBlue = 0.0F;
-        //        }
+        // if (par8Material == Material.water)
+        // {
+        // this.particleRed = 0.0F;
+        // this.particleGreen = 0.0F;
+        // this.particleBlue = 1.0F;
+        // }
+        // else
+        // {
+        // this.particleRed = 1.0F;
+        // this.particleGreen = 0.0F;
+        // this.particleBlue = 0.0F;
+        // }
         this.particleRed = particleRed;
         this.particleGreen = particleGreen;
         this.particleBlue = particleBlue;
@@ -98,8 +97,7 @@ public class EntityDropParticleFX extends EntityFX {
         Material material = block.getMaterial();
 
         if ((material.isLiquid() || material.isSolid()) && block instanceof IFluidBlock) {
-            double d0 = MathHelper.floor_double(this.posY)
-                    + 1
+            double d0 = MathHelper.floor_double(this.posY) + 1
                     - ((IFluidBlock) block).getFilledPercentage(worldObj, x, y, z);
 
             if (this.posY < d0) {

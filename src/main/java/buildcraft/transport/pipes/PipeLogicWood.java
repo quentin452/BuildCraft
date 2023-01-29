@@ -1,20 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.pipes;
 
-import buildcraft.api.tools.IToolWrench;
-import buildcraft.core.lib.TileBuffer;
-import buildcraft.transport.Pipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.tools.IToolWrench;
+import buildcraft.core.lib.TileBuffer;
+import buildcraft.transport.Pipe;
 
 public abstract class PipeLogicWood {
 
@@ -48,14 +47,12 @@ public abstract class PipeLogicWood {
             int meta = pipe.container.getBlockMetadata();
 
             if (newFacing.ordinal() != meta) {
-                pipe.container
-                        .getWorldObj()
-                        .setBlockMetadataWithNotify(
-                                pipe.container.xCoord,
-                                pipe.container.yCoord,
-                                pipe.container.zCoord,
-                                newFacing.ordinal(),
-                                3);
+                pipe.container.getWorldObj().setBlockMetadataWithNotify(
+                        pipe.container.xCoord,
+                        pipe.container.yCoord,
+                        pipe.container.zCoord,
+                        newFacing.ordinal(),
+                        3);
                 pipe.container.scheduleRenderUpdate();
             }
         }
@@ -106,12 +103,10 @@ public abstract class PipeLogicWood {
     }
 
     public boolean blockActivated(EntityPlayer entityplayer, ForgeDirection side) {
-        Item equipped = entityplayer.getCurrentEquippedItem() != null
-                ? entityplayer.getCurrentEquippedItem().getItem()
+        Item equipped = entityplayer.getCurrentEquippedItem() != null ? entityplayer.getCurrentEquippedItem().getItem()
                 : null;
-        if (equipped instanceof IToolWrench
-                && ((IToolWrench) equipped)
-                        .canWrench(entityplayer, pipe.container.xCoord, pipe.container.yCoord, pipe.container.zCoord)) {
+        if (equipped instanceof IToolWrench && ((IToolWrench) equipped)
+                .canWrench(entityplayer, pipe.container.xCoord, pipe.container.yCoord, pipe.container.zCoord)) {
             if (side != ForgeDirection.UNKNOWN) {
                 setSource(side);
             } else {

@@ -1,12 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.list;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.core.ItemList;
@@ -17,11 +19,9 @@ import buildcraft.core.lib.network.command.PacketCommand;
 import buildcraft.core.lib.utils.NetworkUtils;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 public class ContainerListNew extends BuildCraftContainer implements ICommandReceiver {
+
     public ListHandlerNew.Line[] lines;
     private EntityPlayer player;
 
@@ -54,6 +54,7 @@ public class ContainerListNew extends BuildCraftContainer implements ICommandRec
 
         if (player.worldObj.isRemote) {
             BuildCraftCore.instance.sendToServer(new PacketCommand(this, "setStack", new CommandWriter() {
+
                 public void write(ByteBuf data) {
                     data.writeByte(lineIndex);
                     data.writeByte(slotIndex);
@@ -69,6 +70,7 @@ public class ContainerListNew extends BuildCraftContainer implements ICommandRec
 
         if (player.worldObj.isRemote) {
             BuildCraftCore.instance.sendToServer(new PacketCommand(this, "switchButton", new CommandWriter() {
+
                 public void write(ByteBuf data) {
                     data.writeByte(lineIndex);
                     data.writeByte(button);
@@ -82,6 +84,7 @@ public class ContainerListNew extends BuildCraftContainer implements ICommandRec
 
         if (player.worldObj.isRemote) {
             BuildCraftCore.instance.sendToServer(new PacketCommand(this, "setLabel", new CommandWriter() {
+
                 public void write(ByteBuf data) {
                     NetworkUtils.writeUTF(data, text);
                 }

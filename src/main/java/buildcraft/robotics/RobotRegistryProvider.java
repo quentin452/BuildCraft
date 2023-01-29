@@ -1,12 +1,15 @@
 package buildcraft.robotics;
 
-import buildcraft.api.robots.DockingStation;
-import buildcraft.api.robots.IRobotRegistryProvider;
 import java.util.HashMap;
+
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
+import buildcraft.api.robots.DockingStation;
+import buildcraft.api.robots.IRobotRegistryProvider;
+
 public class RobotRegistryProvider implements IRobotRegistryProvider {
+
     private static HashMap<Integer, RobotRegistry> registries = new HashMap<Integer, RobotRegistry>();
 
     @Override
@@ -14,8 +17,8 @@ public class RobotRegistryProvider implements IRobotRegistryProvider {
         if (!registries.containsKey(world.provider.dimensionId)
                 || registries.get(world.provider.dimensionId).world != world) {
 
-            RobotRegistry newRegistry =
-                    (RobotRegistry) world.perWorldStorage.loadData(RobotRegistry.class, "robotRegistry");
+            RobotRegistry newRegistry = (RobotRegistry) world.perWorldStorage
+                    .loadData(RobotRegistry.class, "robotRegistry");
 
             if (newRegistry == null) {
                 newRegistry = new RobotRegistry("robotRegistry");

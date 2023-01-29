@@ -1,23 +1,26 @@
 package buildcraft.transport.render;
 
+import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
 import buildcraft.BuildCraftTransport;
 import buildcraft.core.CoreConstants;
 import buildcraft.core.lib.render.RenderEntityBlock;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeIconProvider;
 import buildcraft.transport.PipeTransportPower;
-import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import org.lwjgl.opengl.GL11;
 
 public class PipeTransportPowerRenderer extends PipeTransportRenderer<PipeTransportPower> {
+
     public static final int POWER_STAGES = 256;
     public static final int[] displayPowerList = new int[POWER_STAGES];
     public static final int[] displayPowerListOverload = new int[POWER_STAGES];
-    private static final int[] angleY = {0, 0, 270, 90, 0, 180};
-    private static final int[] angleZ = {90, 270, 0, 0, 0, 0};
+    private static final int[] angleY = { 0, 0, 270, 90, 0, 180 };
+    private static final int[] angleZ = { 90, 270, 0, 0, 0, 0 };
     private static final float POWER_MAGIC = 0.7F; // Math.pow(displayPower, POWER_MAGIC)
 
     private static boolean initialized = false;
@@ -45,8 +48,8 @@ public class PipeTransportPowerRenderer extends PipeTransportRenderer<PipeTransp
         initialized = true;
 
         RenderEntityBlock.RenderInfo block = new RenderEntityBlock.RenderInfo();
-        block.texture =
-                BuildCraftTransport.instance.pipeIconProvider.getIcon(PipeIconProvider.TYPE.Power_Normal.ordinal());
+        block.texture = BuildCraftTransport.instance.pipeIconProvider
+                .getIcon(PipeIconProvider.TYPE.Power_Normal.ordinal());
 
         float size = CoreConstants.PIPE_MAX_POS - CoreConstants.PIPE_MIN_POS;
 
@@ -72,8 +75,8 @@ public class PipeTransportPowerRenderer extends PipeTransportRenderer<PipeTransp
             GL11.glEndList();
         }
 
-        block.texture =
-                BuildCraftTransport.instance.pipeIconProvider.getIcon(PipeIconProvider.TYPE.Power_Overload.ordinal());
+        block.texture = BuildCraftTransport.instance.pipeIconProvider
+                .getIcon(PipeIconProvider.TYPE.Power_Overload.ordinal());
 
         size = CoreConstants.PIPE_MAX_POS - CoreConstants.PIPE_MIN_POS;
 
@@ -142,29 +145,15 @@ public class PipeTransportPowerRenderer extends PipeTransportRenderer<PipeTransp
             }
         }
 
-        /*bindTexture(STRIPES_TEXTURE);
-
-        for (int side = 0; side < 6; side += 2) {
-        	if (pipe.container.isPipeConnected(ForgeDirection.values()[side])) {
-        		GL11.glPushMatrix();
-
-        		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-
-        		GL11.glRotatef(angleY[side], 0, 1, 0);
-        		GL11.glRotatef(angleZ[side], 0, 0, 1);
-
-        		float scale = 1.0F - side * 0.0001F;
-        		GL11.glScalef(scale, scale, scale);
-
-        		float movement = (0.50F) * pipe.transport.getPistonStage(side / 2);
-        		GL11.glTranslatef(-0.25F - 1F / 16F - movement, -0.5F, -0.5F);
-
-        		// float factor = (float) (1.0 / 256.0);
-        		float factor = (float) (1.0 / 16.0);
-        		box.render(factor);
-        		GL11.glPopMatrix();
-        	}
-        }*/
+        /*
+         * bindTexture(STRIPES_TEXTURE); for (int side = 0; side < 6; side += 2) { if
+         * (pipe.container.isPipeConnected(ForgeDirection.values()[side])) { GL11.glPushMatrix();
+         * GL11.glTranslatef(0.5F, 0.5F, 0.5F); GL11.glRotatef(angleY[side], 0, 1, 0); GL11.glRotatef(angleZ[side], 0,
+         * 0, 1); float scale = 1.0F - side * 0.0001F; GL11.glScalef(scale, scale, scale); float movement = (0.50F) *
+         * pipe.transport.getPistonStage(side / 2); GL11.glTranslatef(-0.25F - 1F / 16F - movement, -0.5F, -0.5F); //
+         * float factor = (float) (1.0 / 256.0); float factor = (float) (1.0 / 16.0); box.render(factor);
+         * GL11.glPopMatrix(); } }
+         */
 
         GL11.glPopAttrib();
         GL11.glPopMatrix();

@@ -1,5 +1,16 @@
 package buildcraft.transport.gates;
 
+import java.util.Set;
+
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.api.core.render.ITextureStates;
 import buildcraft.api.gates.GateExpansions;
 import buildcraft.api.gates.IGateExpansion;
@@ -14,42 +25,33 @@ import buildcraft.transport.Gate;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.render.PipeRendererTESR;
 import io.netty.buffer.ByteBuf;
-import java.util.Set;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class GatePluggable extends PipePluggable {
+
     private static final class GatePluggableRenderer implements IPipePluggableRenderer, IPipePluggableDynamicRenderer {
+
         public static final GatePluggableRenderer INSTANCE = new GatePluggableRenderer();
 
         private GatePluggableRenderer() {}
 
         @Override
-        public void renderPluggable(
-                IPipe pipe, ForgeDirection side, PipePluggable pipePluggable, double x, double y, double z) {
+        public void renderPluggable(IPipe pipe, ForgeDirection side, PipePluggable pipePluggable, double x, double y,
+                double z) {
             PipeRendererTESR.renderGate(x, y, z, (GatePluggable) pipePluggable, side);
         }
 
         @Override
-        public void renderPluggable(
-                RenderBlocks renderblocks,
-                IPipe pipe,
-                ForgeDirection side,
-                PipePluggable pipePluggable,
-                ITextureStates blockStateMachine,
-                int renderPass,
-                int x,
-                int y,
-                int z) {
+        public void renderPluggable(RenderBlocks renderblocks, IPipe pipe, ForgeDirection side,
+                PipePluggable pipePluggable, ITextureStates blockStateMachine, int renderPass, int x, int y, int z) {
             if (renderPass == 0) {
                 PipeRendererTESR.renderGateStatic(
-                        renderblocks, side, (GatePluggable) pipePluggable, blockStateMachine, x, y, z);
+                        renderblocks,
+                        side,
+                        (GatePluggable) pipePluggable,
+                        blockStateMachine,
+                        x,
+                        y,
+                        z);
             }
         }
     }
@@ -143,7 +145,7 @@ public class GatePluggable extends PipePluggable {
         for (IGateExpansion expansion : expansions) {
             ItemGate.addGateExpansion(gate, expansion);
         }
-        return new ItemStack[] {gate};
+        return new ItemStack[] { gate };
     }
 
     @Override
@@ -166,8 +168,8 @@ public class GatePluggable extends PipePluggable {
             } else {
                 Gate gate = pipeReal.pipe.gates[direction.ordinal()];
                 if (gate == null || gate.material != material || gate.logic != logic) {
-                    pipeReal.pipe.gates[direction.ordinal()] =
-                            GateFactory.makeGate(pipeReal.pipe, material, logic, direction);
+                    pipeReal.pipe.gates[direction.ordinal()] = GateFactory
+                            .makeGate(pipeReal.pipe, material, logic, direction);
                     for (IGateExpansion expansion : expansions) {
                         pipeReal.pipe.gates[direction.ordinal()].addGateExpansion(expansion);
                     }
@@ -240,8 +242,8 @@ public class GatePluggable extends PipePluggable {
         bounds[2][1] = max;
 
         MatrixTranformations.transform(bounds, side);
-        return AxisAlignedBB.getBoundingBox(
-                bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
+        return AxisAlignedBB
+                .getBoundingBox(bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
     }
 
     @Override

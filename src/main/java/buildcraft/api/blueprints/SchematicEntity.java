@@ -1,17 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.blueprints;
 
-import buildcraft.api.core.Position;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.Item;
@@ -22,21 +20,22 @@ import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
+import buildcraft.api.core.Position;
+
 public class SchematicEntity extends Schematic {
+
     public Class<? extends Entity> entity;
 
     /**
-     * This tree contains additional data to be stored in the blueprint. By
-     * default, it will be initialized from Schematic.readFromWord with the
-     * standard readNBT function of the corresponding tile (if any) and will be
-     * loaded from BptBlock.writeToWorld using the standard writeNBT function.
+     * This tree contains additional data to be stored in the blueprint. By default, it will be initialized from
+     * Schematic.readFromWord with the standard readNBT function of the corresponding tile (if any) and will be loaded
+     * from BptBlock.writeToWorld using the standard writeNBT function.
      */
     public NBTTagCompound entityNBT = new NBTTagCompound();
 
     /**
-     * This field contains requirements for a given block when stored in the
-     * blueprint. Modders can either rely on this list or compute their own int
-     * Schematic.
+     * This field contains requirements for a given block when stored in the blueprint. Modders can either rely on this
+     * list or compute their own int Schematic.
      */
     public ItemStack[] storedRequirements = new ItemStack[0];
 
@@ -59,8 +58,10 @@ public class SchematicEntity extends Schematic {
     @Override
     public void translateToBlueprint(Translation transform) {
         NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
-        Position pos =
-                new Position(nbttaglist.func_150309_d(0), nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
+        Position pos = new Position(
+                nbttaglist.func_150309_d(0),
+                nbttaglist.func_150309_d(1),
+                nbttaglist.func_150309_d(2));
         pos = transform.translate(pos);
 
         entityNBT.setTag("Pos", this.newDoubleNBTList(pos.x, pos.y, pos.z));
@@ -69,8 +70,10 @@ public class SchematicEntity extends Schematic {
     @Override
     public void translateToWorld(Translation transform) {
         NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
-        Position pos =
-                new Position(nbttaglist.func_150309_d(0), nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
+        Position pos = new Position(
+                nbttaglist.func_150309_d(0),
+                nbttaglist.func_150309_d(1),
+                nbttaglist.func_150309_d(2));
         pos = transform.translate(pos);
 
         entityNBT.setTag("Pos", this.newDoubleNBTList(pos.x, pos.y, pos.z));
@@ -93,8 +96,10 @@ public class SchematicEntity extends Schematic {
     @Override
     public void rotateLeft(IBuilderContext context) {
         NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
-        Position pos =
-                new Position(nbttaglist.func_150309_d(0), nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
+        Position pos = new Position(
+                nbttaglist.func_150309_d(0),
+                nbttaglist.func_150309_d(1),
+                nbttaglist.func_150309_d(2));
         pos = context.rotatePositionLeft(pos);
         entityNBT.setTag("Pos", this.newDoubleNBTList(pos.x, pos.y, pos.z));
 
@@ -182,8 +187,10 @@ public class SchematicEntity extends Schematic {
 
     public boolean isAlreadyBuilt(IBuilderContext context) {
         NBTTagList nbttaglist = entityNBT.getTagList("Pos", 6);
-        Position newPosition =
-                new Position(nbttaglist.func_150309_d(0), nbttaglist.func_150309_d(1), nbttaglist.func_150309_d(2));
+        Position newPosition = new Position(
+                nbttaglist.func_150309_d(0),
+                nbttaglist.func_150309_d(1),
+                nbttaglist.func_150309_d(2));
 
         for (Object o : context.world().loadedEntityList) {
             Entity e = (Entity) o;

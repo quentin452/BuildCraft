@@ -1,9 +1,11 @@
 package buildcraft.core.lib;
 
-import cofh.api.energy.IEnergyStorage;
 import net.minecraft.nbt.NBTTagCompound;
 
+import cofh.api.energy.IEnergyStorage;
+
 public class RFBattery implements IEnergyStorage {
+
     private int energy, maxEnergy, maxReceive, maxExtract;
 
     public RFBattery(int maxEnergy, int maxReceive, int maxExtract) {
@@ -13,8 +15,7 @@ public class RFBattery implements IEnergyStorage {
     }
 
     public void readFromNBT(NBTTagCompound tag) {
-        if (tag.hasKey("energy")
-                && tag.hasKey("maxEnergy")
+        if (tag.hasKey("energy") && tag.hasKey("maxEnergy")
                 && tag.hasKey("maxReceive")
                 && tag.hasKey("maxExtract")
                 && tag.getInteger("maxEnergy") > 0) {

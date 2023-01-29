@@ -1,23 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
 
-import buildcraft.api.core.BlockIndex;
-import buildcraft.core.CoreConstants;
-import buildcraft.core.internal.IFramePipeConnection;
-import buildcraft.core.lib.utils.Utils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -32,7 +27,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.core.BlockIndex;
+import buildcraft.core.CoreConstants;
+import buildcraft.core.internal.IFramePipeConnection;
+import buildcraft.core.lib.utils.Utils;
+
 public class BlockFrame extends Block implements IFramePipeConnection {
+
     private static final ThreadLocal<Boolean> isRemovingFrames = new ThreadLocal<Boolean>();
 
     public BlockFrame() {
@@ -102,12 +103,8 @@ public class BlockFrame extends Block implements IFramePipeConnection {
 
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
-        float xMin = CoreConstants.PIPE_MIN_POS,
-                xMax = CoreConstants.PIPE_MAX_POS,
-                yMin = CoreConstants.PIPE_MIN_POS,
-                yMax = CoreConstants.PIPE_MAX_POS,
-                zMin = CoreConstants.PIPE_MIN_POS,
-                zMax = CoreConstants.PIPE_MAX_POS;
+        float xMin = CoreConstants.PIPE_MIN_POS, xMax = CoreConstants.PIPE_MAX_POS, yMin = CoreConstants.PIPE_MIN_POS,
+                yMax = CoreConstants.PIPE_MAX_POS, zMin = CoreConstants.PIPE_MIN_POS, zMax = CoreConstants.PIPE_MAX_POS;
 
         if (Utils.checkLegacyPipesConnections(world, i, j, k, i - 1, j, k)) {
             xMin = 0.0F;
@@ -143,7 +140,7 @@ public class BlockFrame extends Block implements IFramePipeConnection {
     }
 
     @Override
-    @SuppressWarnings({"all"})
+    @SuppressWarnings({ "all" })
     // @Override (client only)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k) {
         return getCollisionBoundingBoxFromPool(world, i, j, k);
@@ -151,8 +148,8 @@ public class BlockFrame extends Block implements IFramePipeConnection {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void addCollisionBoxesToList(
-            World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist, Entity par7Entity) {
+    public void addCollisionBoxesToList(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist,
+            Entity par7Entity) {
         setBlockBounds(
                 CoreConstants.PIPE_MIN_POS,
                 CoreConstants.PIPE_MIN_POS,
@@ -233,12 +230,8 @@ public class BlockFrame extends Block implements IFramePipeConnection {
 
     @Override
     public MovingObjectPosition collisionRayTrace(World world, int i, int j, int k, Vec3 vec3d, Vec3 vec3d1) {
-        float xMin = CoreConstants.PIPE_MIN_POS,
-                xMax = CoreConstants.PIPE_MAX_POS,
-                yMin = CoreConstants.PIPE_MIN_POS,
-                yMax = CoreConstants.PIPE_MAX_POS,
-                zMin = CoreConstants.PIPE_MIN_POS,
-                zMax = CoreConstants.PIPE_MAX_POS;
+        float xMin = CoreConstants.PIPE_MIN_POS, xMax = CoreConstants.PIPE_MAX_POS, yMin = CoreConstants.PIPE_MIN_POS,
+                yMax = CoreConstants.PIPE_MAX_POS, zMin = CoreConstants.PIPE_MIN_POS, zMax = CoreConstants.PIPE_MAX_POS;
 
         if (Utils.checkLegacyPipesConnections(world, i, j, k, i - 1, j, k)) {
             xMin = 0.0F;
@@ -278,7 +271,7 @@ public class BlockFrame extends Block implements IFramePipeConnection {
         return blockAccess.getBlock(x2, y2, z2) == this;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(this));

@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders.blueprints;
+
+import java.util.ArrayList;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.core.Box;
 import buildcraft.core.blueprints.Blueprint;
@@ -15,10 +19,6 @@ import buildcraft.core.blueprints.BptBuilderBase;
 import buildcraft.core.blueprints.BptBuilderBlueprint;
 import buildcraft.core.blueprints.BptBuilderTemplate;
 import buildcraft.core.blueprints.Template;
-import java.util.ArrayList;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class RecursiveBlueprintBuilder {
 
@@ -32,8 +32,8 @@ public class RecursiveBlueprintBuilder {
     private World world;
     private Box box = new Box();
 
-    public RecursiveBlueprintBuilder(
-            BlueprintBase iBlueprint, World iWorld, int iX, int iY, int iZ, ForgeDirection iDir) {
+    public RecursiveBlueprintBuilder(BlueprintBase iBlueprint, World iWorld, int iX, int iY, int iZ,
+            ForgeDirection iDir) {
         blueprint = iBlueprint;
         subBlueprints = iBlueprint.subBlueprintsNBT;
         world = iWorld;

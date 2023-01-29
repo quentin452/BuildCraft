@@ -1,12 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.pipes;
+
+import java.util.Collection;
+import java.util.LinkedList;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftTransport;
@@ -22,13 +29,6 @@ import buildcraft.transport.PipeTransportPower;
 import buildcraft.transport.statements.ActionPowerLimiter;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.Collection;
-import java.util.LinkedList;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipePowerIron extends Pipe<PipeTransportPower> {
 
@@ -47,9 +47,7 @@ public class PipePowerIron extends Pipe<PipeTransportPower> {
 
     @Override
     public boolean blockActivated(EntityPlayer player, ForgeDirection direction) {
-        Item equipped = player.getCurrentEquippedItem() != null
-                ? player.getCurrentEquippedItem().getItem()
-                : null;
+        Item equipped = player.getCurrentEquippedItem() != null ? player.getCurrentEquippedItem().getItem() : null;
         if (equipped instanceof IToolWrench
                 && ((IToolWrench) equipped).canWrench(player, container.xCoord, container.yCoord, container.zCoord)) {
             if (player.isSneaking()) {
@@ -59,9 +57,10 @@ public class PipePowerIron extends Pipe<PipeTransportPower> {
             }
             if (getWorld().isRemote && !(player instanceof FakePlayer)) {
                 if (BuildCraftCore.hidePowerNumbers) {
-                    player.addChatMessage(new ChatComponentTranslation(
-                            "chat.pipe.power.iron.mode.numberless",
-                            StringUtils.localize("chat.pipe.power.iron.level." + getMode().maxPower)));
+                    player.addChatMessage(
+                            new ChatComponentTranslation(
+                                    "chat.pipe.power.iron.mode.numberless",
+                                    StringUtils.localize("chat.pipe.power.iron.level." + getMode().maxPower)));
                 } else {
                     player.addChatMessage(
                             new ChatComponentTranslation("chat.pipe.power.iron.mode", getMode().maxPower));
@@ -87,10 +86,12 @@ public class PipePowerIron extends Pipe<PipeTransportPower> {
 
     public void setMode(PowerMode mode) {
         if (mode.ordinal() != container.getBlockMetadata()) {
-            container
-                    .getWorldObj()
-                    .setBlockMetadataWithNotify(
-                            container.xCoord, container.yCoord, container.zCoord, mode.ordinal(), 3);
+            container.getWorldObj().setBlockMetadataWithNotify(
+                    container.xCoord,
+                    container.yCoord,
+                    container.zCoord,
+                    mode.ordinal(),
+                    3);
             container.scheduleRenderUpdate();
         }
     }

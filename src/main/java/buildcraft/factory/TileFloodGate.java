@@ -1,26 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
 
-import buildcraft.api.core.BlockIndex;
-import buildcraft.api.core.BuildCraftAPI;
-import buildcraft.core.lib.block.TileBuildCraft;
-import buildcraft.core.lib.fluids.Tank;
-import buildcraft.core.lib.fluids.TankUtils;
-import buildcraft.core.lib.utils.BlockUtils;
-import buildcraft.core.lib.utils.Utils;
-import io.netty.buffer.ByteBuf;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -32,7 +23,17 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import buildcraft.api.core.BlockIndex;
+import buildcraft.api.core.BuildCraftAPI;
+import buildcraft.core.lib.block.TileBuildCraft;
+import buildcraft.core.lib.fluids.Tank;
+import buildcraft.core.lib.fluids.TankUtils;
+import buildcraft.core.lib.utils.BlockUtils;
+import buildcraft.core.lib.utils.Utils;
+import io.netty.buffer.ByteBuf;
+
 public class TileFloodGate extends TileBuildCraft implements IFluidHandler {
+
     public static final int[] REBUILD_DELAY = new int[8];
     public static final int MAX_LIQUID = FluidContainerRegistry.BUCKET_VOLUME * 2;
     private final TreeMap<Integer, Deque<BlockIndex>> pumpLayerQueues = new TreeMap<Integer, Deque<BlockIndex>>();
@@ -320,7 +321,7 @@ public class TileFloodGate extends TileBuildCraft implements IFluidHandler {
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[] {tank.getInfo()};
+        return new FluidTankInfo[] { tank.getInfo() };
     }
 
     public boolean isSideBlocked(int side) {

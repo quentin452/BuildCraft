@@ -1,5 +1,22 @@
 package buildcraft.transport;
 
+import java.util.Arrays;
+import java.util.BitSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidEvent;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.SafeTimeTracker;
@@ -21,31 +38,17 @@ import buildcraft.transport.pipes.PipeFluidsVoid;
 import buildcraft.transport.pipes.PipeFluidsWood;
 import buildcraft.transport.pipes.events.PipeEventFluid;
 import buildcraft.transport.utils.FluidRenderData;
+
 import com.google.common.collect.EnumMultiset;
 import com.google.common.collect.Multiset;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidEvent;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 
 public class PipeTransportFluids extends PipeTransport implements IFluidHandler, IDebuggable {
-    public static final Map<Class<? extends Pipe<?>>, Integer> fluidCapacities =
-            new HashMap<Class<? extends Pipe<?>>, Integer>();
+
+    public static final Map<Class<? extends Pipe<?>>, Integer> fluidCapacities = new HashMap<Class<? extends Pipe<?>>, Integer>();
 
     /**
-     * The amount of liquid contained by a pipe section. For simplicity, all
-     * pipe sections are assumed to be of the same volume.
+     * The amount of liquid contained by a pipe section. For simplicity, all pipe sections are assumed to be of the same
+     * volume.
      */
     public static int MAX_TRAVEL_DELAY = 12;
 
@@ -58,6 +61,7 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
     private static final ForgeDirection[] orientations = ForgeDirection.values();
 
     public class PipeSection {
+
         public int amount;
 
         private short currentTime = 0;
@@ -108,8 +112,7 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
         }
 
         /**
-         * Get the amount of fluid available to move. This nicely takes care
-         * of the travel delay mechanic.
+         * Get the amount of fluid available to move. This nicely takes care of the travel delay mechanic.
          *
          * @return
          */
@@ -150,10 +153,10 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
     private final SafeTimeTracker networkSyncTracker = new SafeTimeTracker(NETWORK_SYNC_TICKS);
     private final TransferState[] transferState = new TransferState[directions.length];
     private final int[] inputPerTick = new int[directions.length];
-    private final short[] inputTTL = new short[] {0, 0, 0, 0, 0, 0};
-    private final short[] outputTTL =
-            new short[] {OUTPUT_TTL, OUTPUT_TTL, OUTPUT_TTL, OUTPUT_TTL, OUTPUT_TTL, OUTPUT_TTL};
-    private final short[] outputCooldown = new short[] {0, 0, 0, 0, 0, 0};
+    private final short[] inputTTL = new short[] { 0, 0, 0, 0, 0, 0 };
+    private final short[] outputTTL = new short[] { OUTPUT_TTL, OUTPUT_TTL, OUTPUT_TTL, OUTPUT_TTL, OUTPUT_TTL,
+            OUTPUT_TTL };
+    private final short[] outputCooldown = new short[] { 0, 0, 0, 0, 0, 0 };
     private final boolean[] canReceiveCache = new boolean[6];
     private int clientSyncCounter = 0;
     private int capacity, flowRate;
@@ -189,8 +192,8 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
     public void initFromPipe(Class<? extends Pipe<?>> pipeClass) {
         capacity = 25 * Math.min(1000, BuildCraftTransport.pipeFluidsBaseFlowRate);
         flowRate = fluidCapacities.get(pipeClass);
-        travelDelay = MathUtils.clamp(
-                Math.round(16F / (flowRate / BuildCraftTransport.pipeFluidsBaseFlowRate)), 1, MAX_TRAVEL_DELAY);
+        travelDelay = MathUtils
+                .clamp(Math.round(16F / (flowRate / BuildCraftTransport.pipeFluidsBaseFlowRate)), 1, MAX_TRAVEL_DELAY);
     }
 
     @Override
@@ -320,8 +323,7 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
             container.pipe.eventBus.handleEvent(
                     PipeEventFluid.FindDest.class,
                     new PipeEventFluid.FindDest(container.pipe, new FluidStack(fluidType, pushAmount), realDirections));
-            float min = Math.min(flowRate * realDirections.size(), totalAvailable)
-                    / (float) flowRate
+            float min = Math.min(flowRate * realDirections.size(), totalAvailable) / (float) flowRate
                     / realDirections.size();
 
             for (ForgeDirection direction : realDirections.elementSet()) {
@@ -453,10 +455,8 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
 
         FluidRenderData renderCacheCopy = this.renderCache;
 
-        if (initPacket
-                || (fluidType == null && renderCacheCopy.fluidID != 0)
-                || (fluidType != null
-                        && renderCacheCopy.fluidID != fluidType.getFluid().getID())) {
+        if (initPacket || (fluidType == null && renderCacheCopy.fluidID != 0)
+                || (fluidType != null && renderCacheCopy.fluidID != fluidType.getFluid().getID())) {
             changed = true;
             renderCache.fluidID = fluidType != null ? fluidType.getFluid().getID() : 0;
             renderCache.color = fluidType != null ? fluidType.getFluid().getColor(fluidType) : 0;
@@ -486,7 +486,11 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
 
         if (changed || initPacket) {
             PacketFluidUpdate packet = new PacketFluidUpdate(
-                    container.xCoord, container.yCoord, container.zCoord, initPacket, getCapacity() > 255);
+                    container.xCoord,
+                    container.yCoord,
+                    container.zCoord,
+                    initPacket,
+                    getCapacity() > 255);
             packet.renderCache = renderCacheCopy;
             packet.delta = delta;
             return packet;
@@ -532,12 +536,13 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
                 totalAmount += sections[i].amount;
             }
             if (totalAmount > 0) {
-                FluidEvent.fireEvent(new FluidEvent.FluidSpilledEvent(
-                        new FluidStack(fluidType, totalAmount),
-                        getWorld(),
-                        container.xCoord,
-                        container.yCoord,
-                        container.zCoord));
+                FluidEvent.fireEvent(
+                        new FluidEvent.FluidSpilledEvent(
+                                new FluidStack(fluidType, totalAmount),
+                                getWorld(),
+                                container.xCoord,
+                                container.yCoord,
+                                container.zCoord));
             }
         }
     }
@@ -568,8 +573,8 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
                 }
             }
             if (direction != ForgeDirection.UNKNOWN) {
-                transferState[direction.ordinal()] =
-                        TransferState.values()[nbttagcompound.getShort("transferState[" + direction.ordinal() + "]")];
+                transferState[direction.ordinal()] = TransferState.values()[nbttagcompound
+                        .getShort("transferState[" + direction.ordinal() + "]")];
             }
         }
     }
@@ -588,8 +593,9 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
                 sections[direction.ordinal()].writeToNBT(subTag);
                 nbttagcompound.setTag("tank[" + direction.ordinal() + "]", subTag);
                 if (direction != ForgeDirection.UNKNOWN) {
-                    nbttagcompound.setShort("transferState[" + direction.ordinal() + "]", (short)
-                            transferState[direction.ordinal()].ordinal());
+                    nbttagcompound.setShort(
+                            "transferState[" + direction.ordinal() + "]",
+                            (short) transferState[direction.ordinal()].ordinal());
                 }
             }
         }
@@ -648,7 +654,7 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[] {new FluidTankInfo(fluidType, sections[from.ordinal()].amount)};
+        return new FluidTankInfo[] { new FluidTankInfo(fluidType, sections[from.ordinal()].amount) };
     }
 
     @Override
@@ -689,9 +695,12 @@ public class PipeTransportFluids extends PipeTransport implements IFluidHandler,
                 amount[i] = sections[i].amount;
             }
         }
-        info.add(String.format(
-                "PipeTransportFluids (%s, %d mB, %d mB/t)",
-                fluidType != null ? fluidType.getLocalizedName() : "Empty", capacity, flowRate));
+        info.add(
+                String.format(
+                        "PipeTransportFluids (%s, %d mB, %d mB/t)",
+                        fluidType != null ? fluidType.getLocalizedName() : "Empty",
+                        capacity,
+                        flowRate));
         info.add("- Stored: " + Arrays.toString(amount));
     }
 

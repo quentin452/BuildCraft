@@ -11,6 +11,7 @@ public interface IEmeraldPipe extends IFilteredPipe {
     }
 
     class EmeraldPipeSettings {
+
         private FilterMode filterMode;
 
         public EmeraldPipeSettings(FilterMode defaultMode) {

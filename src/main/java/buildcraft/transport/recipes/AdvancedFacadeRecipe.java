@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.recipes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.JavaTools;
@@ -16,11 +19,9 @@ import buildcraft.api.transport.PipeWire;
 import buildcraft.core.recipes.IntegrationRecipeBC;
 import buildcraft.transport.ItemFacade;
 import buildcraft.transport.ItemPipeWire;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.item.ItemStack;
 
 public class AdvancedFacadeRecipe extends IntegrationRecipeBC {
+
     public AdvancedFacadeRecipe() {
         super(25000, 2);
     }
@@ -55,7 +56,7 @@ public class AdvancedFacadeRecipe extends IntegrationRecipeBC {
     @Override
     public boolean isValidExpansion(ItemStack input, ItemStack expansion) {
         return (expansion.getItem() instanceof ItemFacade
-                        && ((IFacadeItem) expansion.getItem()).getFacadeType(expansion) == FacadeType.Basic)
+                && ((IFacadeItem) expansion.getItem()).getFacadeType(expansion) == FacadeType.Basic)
                 || expansion.getItem() == BuildCraftTransport.plugItem
                 || expansion.getItem() == BuildCraftTransport.pipeWire;
     }
@@ -73,11 +74,11 @@ public class AdvancedFacadeRecipe extends IntegrationRecipeBC {
                 }
             } else if (facade == null
                     && (stack.getItem() instanceof ItemFacade || stack.getItem() == BuildCraftTransport.pipeWire)) {
-                facade = stack;
-                if (!preview) {
-                    stack.stackSize--;
-                }
-            }
+                        facade = stack;
+                        if (!preview) {
+                            stack.stackSize--;
+                        }
+                    }
         }
 
         if (wire != null && facade != null) {
@@ -89,7 +90,10 @@ public class AdvancedFacadeRecipe extends IntegrationRecipeBC {
             } else {
                 additionalState = ItemFacade.getFacadeStates(facade)[0];
                 additionalState = new ItemFacade.FacadeState(
-                        additionalState.block, additionalState.metadata, wire, additionalState.hollow);
+                        additionalState.block,
+                        additionalState.metadata,
+                        wire,
+                        additionalState.hollow);
             }
 
             // if in states array exists state with the same wire just override it
@@ -100,7 +104,7 @@ public class AdvancedFacadeRecipe extends IntegrationRecipeBC {
                 }
             }
 
-            return ItemFacade.getFacade(JavaTools.concat(states, new ItemFacade.FacadeState[] {additionalState}));
+            return ItemFacade.getFacade(JavaTools.concat(states, new ItemFacade.FacadeState[] { additionalState }));
         } else {
             return null;
         }

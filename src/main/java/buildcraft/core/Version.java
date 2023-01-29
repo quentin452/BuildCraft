@@ -1,22 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.core.BCLog;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
@@ -25,7 +20,13 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.config.Property;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.api.core.BCLog;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.event.FMLInterModComms;
+
 public class Version implements Runnable {
+
     public enum EnumUpdateState {
         CURRENT,
         OUTDATED,
@@ -35,8 +36,7 @@ public class Version implements Runnable {
     public static final String VERSION = "GRADLETOKEN_VERSION";
     public static EnumUpdateState currentVersion = EnumUpdateState.CURRENT;
 
-    private static final String REMOTE_CHANGELOG_ROOT =
-            "https://raw.githubusercontent.com/BuildCraft/BuildCraft/master/buildcraft_resources/changelog/";
+    private static final String REMOTE_CHANGELOG_ROOT = "https://raw.githubusercontent.com/BuildCraft/BuildCraft/master/buildcraft_resources/changelog/";
 
     private static String recommendedVersion;
     private static String[] cachedChangelog;
@@ -59,8 +59,7 @@ public class Version implements Runnable {
         }
 
         Property property = BuildCraftCore.mainConfiguration.get("vars", "version.seen", VERSION);
-        property.comment =
-                "indicates the last version the user has been informed about and will suppress further notices on it.";
+        property.comment = "indicates the last version the user has been informed about and will suppress further notices on it.";
         String seenVersion = property.getString();
 
         if (recommendedVersion == null || recommendedVersion.equals(seenVersion)) {
@@ -129,15 +128,14 @@ public class Version implements Runnable {
             BCLog.logger.warn("Unable to read changelog from remote site.");
         }
 
-        return new String[] {String.format("Unable to retrieve changelog for %s %s", DefaultProps.MOD, version)};
+        return new String[] { String.format("Unable to retrieve changelog for %s %s", DefaultProps.MOD, version) };
     }
 
     @Override
     public void run() {}
 
     /**
-     * This is an integration with Dynious Version Checker See
-     * http://www.minecraftforum.net/topic/2721902-
+     * This is an integration with Dynious Version Checker See http://www.minecraftforum.net/topic/2721902-
      */
     public static void sendIMCOutdatedMessage() {
         if (Loader.isModLoaded("VersionChecker")) {
@@ -161,9 +159,9 @@ public class Version implements Runnable {
     }
 
     public static void displayChangelog(ICommandSender sender) {
-        sender.addChatMessage(new ChatComponentTranslation(
-                        "command.buildcraft.changelog_header", getRecommendedVersion())
-                .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GRAY).setBold(true)));
+        sender.addChatMessage(
+                new ChatComponentTranslation("command.buildcraft.changelog_header", getRecommendedVersion())
+                        .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GRAY).setBold(true)));
         for (String updateLine : Version.getChangelog()) {
             EnumChatFormatting format = EnumChatFormatting.BLUE;
             if (updateLine.startsWith("*")) {

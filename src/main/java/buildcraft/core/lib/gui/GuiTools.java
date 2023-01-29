@@ -1,16 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.gui;
 
-import buildcraft.core.lib.gui.buttons.GuiBetterButton;
 import java.util.List;
+
 import net.minecraft.client.gui.FontRenderer;
+
+import buildcraft.core.lib.gui.buttons.GuiBetterButton;
 
 public final class GuiTools {
 
@@ -33,8 +33,8 @@ public final class GuiTools {
         fr.drawString(s, sPos, y, color, shadow);
     }
 
-    public static void newButtonRowAuto(
-            List<GuiBetterButton> buttonList, int xStart, int xSize, List<? extends GuiBetterButton> buttons) {
+    public static void newButtonRowAuto(List<GuiBetterButton> buttonList, int xStart, int xSize,
+            List<? extends GuiBetterButton> buttons) {
         int buttonWidth = 0;
         for (GuiBetterButton b : buttons) {
             buttonWidth += b.getWidth();
@@ -50,8 +50,8 @@ public final class GuiTools {
         }
     }
 
-    public static void newButtonRow(
-            List<GuiBetterButton> buttonList, int xStart, int spacing, List<? extends GuiBetterButton> buttons) {
+    public static void newButtonRow(List<GuiBetterButton> buttonList, int xStart, int spacing,
+            List<? extends GuiBetterButton> buttons) {
         int pointer = 0;
         for (GuiBetterButton b : buttons) {
             b.xPosition = xStart + pointer;

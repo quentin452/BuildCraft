@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.statements;
+
+import java.util.Locale;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.IInvSlot;
 import buildcraft.api.statements.IStatementContainer;
@@ -16,19 +22,15 @@ import buildcraft.api.statements.StatementParameterItemStack;
 import buildcraft.core.lib.inventory.InventoryIterator;
 import buildcraft.core.lib.inventory.StackHelper;
 import buildcraft.core.lib.utils.StringUtils;
-import java.util.Locale;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TriggerInventoryLevel extends BCStatement implements ITriggerExternal {
 
     public enum TriggerType {
+
         BELOW25(0.25F),
         BELOW50(0.5F),
         BELOW75(0.75F);
+
         public final float level;
 
         TriggerType(float level) {
@@ -62,8 +64,8 @@ public class TriggerInventoryLevel extends BCStatement implements ITriggerExtern
     }
 
     @Override
-    public boolean isTriggerActive(
-            TileEntity tile, ForgeDirection side, IStatementContainer container, IStatementParameter[] parameters) {
+    public boolean isTriggerActive(TileEntity tile, ForgeDirection side, IStatementContainer container,
+            IStatementParameter[] parameters) {
         // A parameter is required
         if (parameters == null || parameters.length < 1 || parameters[0] == null) {
             return false;
@@ -90,9 +92,8 @@ public class TriggerInventoryLevel extends BCStatement implements ITriggerExtern
             }
 
             if (stackSpace > 0) {
-                float percentage = foundItems
-                        / ((float) stackSpace
-                                * (float) Math.min(searchStack.getMaxStackSize(), inventory.getInventoryStackLimit()));
+                float percentage = foundItems / ((float) stackSpace
+                        * (float) Math.min(searchStack.getMaxStackSize(), inventory.getInventoryStackLimit()));
                 return percentage < type.level;
             }
         }
@@ -102,8 +103,7 @@ public class TriggerInventoryLevel extends BCStatement implements ITriggerExtern
 
     @Override
     public void registerIcons(IIconRegister register) {
-        icon = register.registerIcon(
-                "buildcraftcore:triggers/trigger_inventory_" + type.name().toLowerCase());
+        icon = register.registerIcon("buildcraftcore:triggers/trigger_inventory_" + type.name().toLowerCase());
     }
 
     @Override

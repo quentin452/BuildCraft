@@ -1,16 +1,18 @@
 package buildcraft.core.builders.patterns;
 
-import buildcraft.api.statements.IStatement;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.StatementMouseClick;
-import buildcraft.core.lib.utils.StringUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
+import buildcraft.api.statements.IStatement;
+import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.StatementMouseClick;
+import buildcraft.core.lib.utils.StringUtils;
+
 public class PatternParameterYDir implements IStatementParameter {
+
     private static IIcon iconUp, iconDown;
 
     public boolean up = false;

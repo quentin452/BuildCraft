@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.pipes;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.IIconProvider;
@@ -23,15 +29,9 @@ import buildcraft.transport.TravelingItem;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsWood extends Pipe<PipeTransportItems> implements IEnergyHandler {
+
     protected RFBattery battery = new RFBattery(2560, 80, 0);
 
     protected int standardIconIndex = PipeIconProvider.TYPE.PipeItemsWood_Standard.ordinal();
@@ -41,6 +41,7 @@ public class PipeItemsWood extends Pipe<PipeTransportItems> implements IEnergyHa
     private int ticksSincePull = 0;
 
     private PipeLogicWood logic = new PipeLogicWood(this) {
+
         @Override
         protected boolean isValidConnectingTile(TileEntity tile) {
             if (tile instanceof IPipeTile) {
@@ -178,8 +179,11 @@ public class PipeItemsWood extends Pipe<PipeTransportItems> implements IEnergyHa
                     continue;
                 }
 
-                Position entityPos =
-                        new Position(tile.xCoord + 0.5, tile.yCoord + 0.5, tile.zCoord + 0.5, side.getOpposite());
+                Position entityPos = new Position(
+                        tile.xCoord + 0.5,
+                        tile.yCoord + 0.5,
+                        tile.zCoord + 0.5,
+                        side.getOpposite());
 
                 entityPos.moveForwards(0.6);
 
@@ -195,16 +199,15 @@ public class PipeItemsWood extends Pipe<PipeTransportItems> implements IEnergyHa
     }
 
     /**
-     * Return the itemstack that can be if something can be extracted from this
-     * inventory, null if none. On certain cases, the extractable slot depends
-     * on the position of the pipe.
+     * Return the itemstack that can be if something can be extracted from this inventory, null if none. On certain
+     * cases, the extractable slot depends on the position of the pipe.
      */
     public ItemStack[] checkExtract(IInventory inventory, boolean doRemove, ForgeDirection from) {
         IInventory inv = InvUtils.getInventory(inventory);
         ItemStack result = checkExtractGeneric(inv, doRemove, from);
 
         if (result != null) {
-            return new ItemStack[] {result};
+            return new ItemStack[] { result };
         }
 
         return null;

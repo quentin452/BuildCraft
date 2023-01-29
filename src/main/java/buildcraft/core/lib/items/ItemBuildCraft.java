@@ -1,17 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.items;
 
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.lib.utils.ResourceUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +13,13 @@ import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.lib.utils.ResourceUtils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemBuildCraft extends Item {
+
     public IIcon[] icons;
     private String iconName;
     private boolean passSneakClick = false;
@@ -54,7 +54,7 @@ public class ItemBuildCraft extends Item {
     }
 
     public String[] getIconNames() {
-        return new String[] {iconName};
+        return new String[] { iconName };
     }
 
     @Override

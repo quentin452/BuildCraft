@@ -1,26 +1,26 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.network;
+
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import buildcraft.api.core.ISerializable;
 import buildcraft.core.network.PacketIds;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 public class PacketTileState extends PacketCoordinates {
 
     private ByteBuf state;
 
     private class StateWithId {
+
         public byte stateId;
         public ISerializable state;
 

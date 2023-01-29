@@ -1,24 +1,25 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.gui.buttons;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.core.lib.gui.tooltips.IToolTipProvider;
 import buildcraft.core.lib.gui.tooltips.ToolTip;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiBetterButton extends GuiButton implements IToolTipProvider {
+
     protected final IButtonTextureSet texture;
     private ToolTip toolTip;
 
@@ -54,8 +55,7 @@ public class GuiBetterButton extends GuiButton implements IToolTipProvider {
     }
 
     public boolean isMouseOverButton(int mouseX, int mouseY) {
-        return mouseX >= xPosition
-                && mouseY >= yPosition
+        return mouseX >= xPosition && mouseY >= yPosition
                 && mouseX < xPosition + width
                 && mouseY < yPosition + getHeight();
     }
@@ -81,10 +81,19 @@ public class GuiBetterButton extends GuiButton implements IToolTipProvider {
         int hoverState = getHoverState(mouseOver);
         drawTexturedModalRect(xPosition, yPosition, xOffset, yOffset + hoverState * h, width / 2, h);
         drawTexturedModalRect(
-                xPosition + width / 2, yPosition, xOffset + w - width / 2, yOffset + hoverState * h, width / 2, h);
+                xPosition + width / 2,
+                yPosition,
+                xOffset + w - width / 2,
+                yOffset + hoverState * h,
+                width / 2,
+                h);
         mouseDragged(minecraft, mouseX, mouseY);
         drawCenteredString(
-                fontrenderer, displayString, xPosition + width / 2, yPosition + (h - 8) / 2, getTextColor(mouseOver));
+                fontrenderer,
+                displayString,
+                xPosition + width / 2,
+                yPosition + (h - 8) / 2,
+                getTextColor(mouseOver));
     }
 
     @Override

@@ -1,57 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.boards.RedstoneBoardNBT;
-import buildcraft.api.boards.RedstoneBoardRegistry;
-import buildcraft.api.boards.RedstoneBoardRobot;
-import buildcraft.api.boards.RedstoneBoardRobotNBT;
-import buildcraft.api.core.BCLog;
-import buildcraft.api.core.BlockIndex;
-import buildcraft.api.core.IZone;
-import buildcraft.api.events.RobotEvent;
-import buildcraft.api.robots.AIRobot;
-import buildcraft.api.robots.DockingStation;
-import buildcraft.api.robots.EntityRobotBase;
-import buildcraft.api.robots.IRobotOverlayItem;
-import buildcraft.api.robots.RobotManager;
-import buildcraft.api.statements.StatementSlot;
-import buildcraft.api.tiles.IDebuggable;
-import buildcraft.core.DefaultProps;
-import buildcraft.core.ItemWrench;
-import buildcraft.core.LaserData;
-import buildcraft.core.lib.RFBattery;
-import buildcraft.core.lib.network.command.CommandWriter;
-import buildcraft.core.lib.network.command.ICommandReceiver;
-import buildcraft.core.lib.network.command.PacketCommand;
-import buildcraft.core.lib.utils.NetworkUtils;
-import buildcraft.core.proxy.CoreProxy;
-import buildcraft.robotics.ai.AIRobotMain;
-import buildcraft.robotics.ai.AIRobotShutdown;
-import buildcraft.robotics.ai.AIRobotSleep;
-import buildcraft.robotics.statements.ActionRobotWorkInArea;
-import buildcraft.robotics.statements.ActionRobotWorkInArea.AreaType;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -94,11 +54,53 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.api.boards.RedstoneBoardNBT;
+import buildcraft.api.boards.RedstoneBoardRegistry;
+import buildcraft.api.boards.RedstoneBoardRobot;
+import buildcraft.api.boards.RedstoneBoardRobotNBT;
+import buildcraft.api.core.BCLog;
+import buildcraft.api.core.BlockIndex;
+import buildcraft.api.core.IZone;
+import buildcraft.api.events.RobotEvent;
+import buildcraft.api.robots.AIRobot;
+import buildcraft.api.robots.DockingStation;
+import buildcraft.api.robots.EntityRobotBase;
+import buildcraft.api.robots.IRobotOverlayItem;
+import buildcraft.api.robots.RobotManager;
+import buildcraft.api.statements.StatementSlot;
+import buildcraft.api.tiles.IDebuggable;
+import buildcraft.core.DefaultProps;
+import buildcraft.core.ItemWrench;
+import buildcraft.core.LaserData;
+import buildcraft.core.lib.RFBattery;
+import buildcraft.core.lib.network.command.CommandWriter;
+import buildcraft.core.lib.network.command.ICommandReceiver;
+import buildcraft.core.lib.network.command.PacketCommand;
+import buildcraft.core.lib.utils.NetworkUtils;
+import buildcraft.core.proxy.CoreProxy;
+import buildcraft.robotics.ai.AIRobotMain;
+import buildcraft.robotics.ai.AIRobotShutdown;
+import buildcraft.robotics.ai.AIRobotSleep;
+import buildcraft.robotics.statements.ActionRobotWorkInArea;
+import buildcraft.robotics.statements.ActionRobotWorkInArea.AreaType;
+
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
+
 public class EntityRobot extends EntityRobotBase
         implements IEntityAdditionalSpawnData, IInventory, IFluidHandler, ICommandReceiver, IDebuggable {
 
-    public static final ResourceLocation ROBOT_BASE =
-            new ResourceLocation(DefaultProps.TEXTURE_PATH_ROBOTS + "/robot_base.png");
+    public static final ResourceLocation ROBOT_BASE = new ResourceLocation(
+            DefaultProps.TEXTURE_PATH_ROBOTS + "/robot_base.png");
     public static final int MAX_WEARABLES = 8;
     public static final int TRANSFER_INV_SLOTS = 4;
 
@@ -208,8 +210,8 @@ public class EntityRobot extends EntityRobotBase
         laser.tail.z = dataWatcher.getWatchableObjectFloat(14);
         laser.isVisible = dataWatcher.getWatchableObjectByte(15) == 1;
 
-        RedstoneBoardNBT<?> boardNBT =
-                RedstoneBoardRegistry.instance.getRedstoneBoard(dataWatcher.getWatchableObjectString(16));
+        RedstoneBoardNBT<?> boardNBT = RedstoneBoardRegistry.instance
+                .getRedstoneBoard(dataWatcher.getWatchableObjectString(16));
 
         if (boardNBT != null) {
             texture = ((RedstoneBoardRobotNBT) boardNBT).getRobotTexture();
@@ -324,12 +326,11 @@ public class EntityRobot extends EntityRobotBase
         if (!worldObj.isRemote) {
             if (linkedDockingStation == null) {
                 if (linkedDockingStationIndex != null) {
-                    linkedDockingStation = getRegistry()
-                            .getStation(
-                                    linkedDockingStationIndex.x,
-                                    linkedDockingStationIndex.y,
-                                    linkedDockingStationIndex.z,
-                                    linkedDockingStationSide);
+                    linkedDockingStation = getRegistry().getStation(
+                            linkedDockingStationIndex.x,
+                            linkedDockingStationIndex.y,
+                            linkedDockingStationIndex.z,
+                            linkedDockingStationSide);
                 }
 
                 if (linkedDockingStation == null) {
@@ -348,12 +349,11 @@ public class EntityRobot extends EntityRobotBase
             }
 
             if (currentDockingStationIndex != null && currentDockingStation == null) {
-                currentDockingStation = getRegistry()
-                        .getStation(
-                                currentDockingStationIndex.x,
-                                currentDockingStationIndex.y,
-                                currentDockingStationIndex.z,
-                                currentDockingStationSide);
+                currentDockingStation = getRegistry().getStation(
+                        currentDockingStationIndex.x,
+                        currentDockingStationIndex.y,
+                        currentDockingStationIndex.z,
+                        currentDockingStationSide);
             }
 
             if (posY < -128) {
@@ -409,9 +409,8 @@ public class EntityRobot extends EntityRobotBase
 
     @SideOnly(Side.CLIENT)
     private void spawnEnergyFX() {
-        Minecraft.getMinecraft()
-                .effectRenderer
-                .addEffect(new EntityRobotEnergyParticle(
+        Minecraft.getMinecraft().effectRenderer.addEffect(
+                new EntityRobotEnergyParticle(
                         worldObj,
                         posX + steamDx * 0.25,
                         posY + steamDy * 0.25,
@@ -424,8 +423,8 @@ public class EntityRobot extends EntityRobotBase
 
     @Override
     public AxisAlignedBB getBoundingBox() {
-        return AxisAlignedBB.getBoundingBox(
-                posX - 0.25F, posY - 0.25F, posZ - 0.25F, posX + 0.25F, posY + 0.25F, posZ + 0.25F);
+        return AxisAlignedBB
+                .getBoundingBox(posX - 0.25F, posY - 0.25F, posZ - 0.25F, posX + 0.25F, posY + 0.25F, posZ + 0.25F);
     }
 
     public void setNullBoundingBox() {
@@ -756,14 +755,13 @@ public class EntityRobot extends EntityRobotBase
     public void markDirty() {}
 
     public void updateClientSlot(final int slot) {
-        BuildCraftCore.instance.sendToEntity(
-                new PacketCommand(this, "clientSetInventory", new CommandWriter() {
-                    public void write(ByteBuf data) {
-                        data.writeShort(slot);
-                        NetworkUtils.writeStack(data, inv[slot]);
-                    }
-                }),
-                this);
+        BuildCraftCore.instance.sendToEntity(new PacketCommand(this, "clientSetInventory", new CommandWriter() {
+
+            public void write(ByteBuf data) {
+                data.writeShort(slot);
+                NetworkUtils.writeStack(data, inv[slot]);
+            }
+        }), this);
     }
 
     @Override
@@ -779,11 +777,8 @@ public class EntityRobot extends EntityRobotBase
 
     @Override
     public boolean isItemValidForSlot(int var1, ItemStack var2) {
-        return inv[var1] == null
-                || (inv[var1].isItemEqual(var2)
-                        && inv[var1].isStackable()
-                        && inv[var1].stackSize + var2.stackSize
-                                <= inv[var1].getItem().getItemStackLimit(inv[var1]));
+        return inv[var1] == null || (inv[var1].isItemEqual(var2) && inv[var1].isStackable()
+                && inv[var1].stackSize + var2.stackSize <= inv[var1].getItem().getItemStackLimit(inv[var1]));
     }
 
     @Override
@@ -794,26 +789,24 @@ public class EntityRobot extends EntityRobotBase
     @Override
     public void setItemInUse(ItemStack stack) {
         itemInUse = stack;
-        BuildCraftCore.instance.sendToEntity(
-                new PacketCommand(this, "clientSetItemInUse", new CommandWriter() {
-                    public void write(ByteBuf data) {
-                        NetworkUtils.writeStack(data, itemInUse);
-                    }
-                }),
-                this);
+        BuildCraftCore.instance.sendToEntity(new PacketCommand(this, "clientSetItemInUse", new CommandWriter() {
+
+            public void write(ByteBuf data) {
+                NetworkUtils.writeStack(data, itemInUse);
+            }
+        }), this);
     }
 
     private void setSteamDirection(final int x, final int y, final int z) {
         if (!worldObj.isRemote) {
-            BuildCraftCore.instance.sendToEntity(
-                    new PacketCommand(this, "setSteamDirection", new CommandWriter() {
-                        public void write(ByteBuf data) {
-                            data.writeInt(x);
-                            data.writeShort(y);
-                            data.writeInt(z);
-                        }
-                    }),
-                    this);
+            BuildCraftCore.instance.sendToEntity(new PacketCommand(this, "setSteamDirection", new CommandWriter() {
+
+                public void write(ByteBuf data) {
+                    data.writeInt(x);
+                    data.writeShort(y);
+                    data.writeInt(z);
+                }
+            }), this);
         } else {
             Vec3 v = Vec3.createVectorHelper(x, y, z);
             v = v.normalize();
@@ -858,6 +851,7 @@ public class EntityRobot extends EntityRobotBase
             EntityPlayer p = (EntityPlayer) sender;
             if ("requestInitialization".equals(command)) {
                 BuildCraftCore.instance.sendToPlayer(p, new PacketCommand(this, "initialize", new CommandWriter() {
+
                     public void write(ByteBuf data) {
                         NetworkUtils.writeStack(data, itemInUse);
                         data.writeBoolean(itemActive);
@@ -866,8 +860,9 @@ public class EntityRobot extends EntityRobotBase
 
                 for (int i = 0; i < inv.length; ++i) {
                     final int j = i;
-                    BuildCraftCore.instance.sendToPlayer(
-                            p, new PacketCommand(this, "clientSetInventory", new CommandWriter() {
+                    BuildCraftCore.instance
+                            .sendToPlayer(p, new PacketCommand(this, "clientSetInventory", new CommandWriter() {
+
                                 public void write(ByteBuf data) {
                                     data.writeShort(j);
                                     NetworkUtils.writeStack(data, inv[j]);
@@ -896,8 +891,7 @@ public class EntityRobot extends EntityRobotBase
     public boolean attackEntityFrom(DamageSource source, float f) {
         // Ignore hits from mobs or when docked.
         Entity src = source.getSourceOfDamage();
-        if (src != null
-                && !(src instanceof EntityFallingBlock)
+        if (src != null && !(src instanceof EntityFallingBlock)
                 && !(src instanceof IMob)
                 && currentDockingStation == null) {
             if (ForgeHooks.onLivingAttack(this, source, f)) {
@@ -1006,13 +1000,12 @@ public class EntityRobot extends EntityRobotBase
     public void setItemActive(final boolean isActive) {
         if (isActive != itemActive) {
             itemActive = isActive;
-            BuildCraftCore.instance.sendToEntity(
-                    new PacketCommand(this, "setItemActive", new CommandWriter() {
-                        public void write(ByteBuf data) {
-                            data.writeBoolean(isActive);
-                        }
-                    }),
-                    this);
+            BuildCraftCore.instance.sendToEntity(new PacketCommand(this, "setItemActive", new CommandWriter() {
+
+                public void write(ByteBuf data) {
+                    data.writeBoolean(isActive);
+                }
+            }), this);
         }
     }
 
@@ -1056,11 +1049,11 @@ public class EntityRobot extends EntityRobotBase
     }
 
     public void attackTargetEntityWithCurrentItem(Entity par1Entity) {
-        if (MinecraftForge.EVENT_BUS.post(new AttackEntityEvent(
-                CoreProxy.proxy
-                        .getBuildCraftPlayer((WorldServer) worldObj, (int) posX, (int) posY, (int) posZ)
-                        .get(),
-                par1Entity))) {
+        if (MinecraftForge.EVENT_BUS.post(
+                new AttackEntityEvent(
+                        CoreProxy.proxy.getBuildCraftPlayer((WorldServer) worldObj, (int) posX, (int) posY, (int) posZ)
+                                .get(),
+                        par1Entity))) {
             return;
         }
 
@@ -1073,8 +1066,8 @@ public class EntityRobot extends EntityRobotBase
                 int knockback = 0;
 
                 if (attributes != null) {
-                    for (AttributeModifier modifier :
-                            attributes.get(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName())) {
+                    for (AttributeModifier modifier : attributes
+                            .get(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName())) {
                         switch (modifier.getOperation()) {
                             case 0:
                                 attackDamage += modifier.getAmount();
@@ -1263,29 +1256,29 @@ public class EntityRobot extends EntityRobotBase
                 player.swingItem();
             }
             return true;
-        } else if (wearables.size() < MAX_WEARABLES
-                && stack.getItem() instanceof IRobotOverlayItem
+        } else if (wearables.size() < MAX_WEARABLES && stack.getItem() instanceof IRobotOverlayItem
                 && ((IRobotOverlayItem) stack.getItem()).isValidRobotOverlay(stack)) {
-            if (!worldObj.isRemote) {
-                wearables.add(stack.splitStack(1));
-                syncWearablesToClient();
+                    if (!worldObj.isRemote) {
+                        wearables.add(stack.splitStack(1));
+                        syncWearablesToClient();
+                    } else {
+                        player.swingItem();
+                    }
+                    return true;
+                } else
+            if (wearables.size() < MAX_WEARABLES && stack.getItem() instanceof ItemSkull) {
+                if (!worldObj.isRemote) {
+                    ItemStack skullStack = stack.splitStack(1);
+                    initSkullItem(skullStack);
+                    wearables.add(skullStack);
+                    syncWearablesToClient();
+                } else {
+                    player.swingItem();
+                }
+                return true;
             } else {
-                player.swingItem();
+                return super.interact(player);
             }
-            return true;
-        } else if (wearables.size() < MAX_WEARABLES && stack.getItem() instanceof ItemSkull) {
-            if (!worldObj.isRemote) {
-                ItemStack skullStack = stack.splitStack(1);
-                initSkullItem(skullStack);
-                wearables.add(skullStack);
-                syncWearablesToClient();
-            } else {
-                player.swingItem();
-            }
-            return true;
-        } else {
-            return super.interact(player);
-        }
     }
 
     private void initSkullItem(ItemStack skullStack) {
@@ -1297,26 +1290,24 @@ public class EntityRobot extends EntityRobotBase
                 gameProfile = NBTUtil.func_152459_a(nbttagcompound.getCompoundTag("SkullOwner"));
             } else if (nbttagcompound.hasKey("SkullOwner", NBT.TAG_STRING)
                     && !StringUtils.isNullOrEmpty(nbttagcompound.getString("SkullOwner"))) {
-                gameProfile = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
-            }
+                        gameProfile = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
+                    }
             if (gameProfile != null && !StringUtils.isNullOrEmpty(gameProfile.getName())) {
                 if (!gameProfile.isComplete() || !gameProfile.getProperties().containsKey("textures")) {
                     gameProfile = MinecraftServer.getServer().func_152358_ax().func_152655_a(gameProfile.getName());
 
                     if (gameProfile != null) {
-                        Property property = (Property)
-                                Iterables.getFirst(gameProfile.getProperties().get("textures"), (Object) null);
+                        Property property = (Property) Iterables
+                                .getFirst(gameProfile.getProperties().get("textures"), (Object) null);
 
                         if (property == null) {
-                            gameProfile = MinecraftServer.getServer()
-                                    .func_147130_as()
+                            gameProfile = MinecraftServer.getServer().func_147130_as()
                                     .fillProfileProperties(gameProfile, true);
                         }
                     }
                 }
             }
-            if (gameProfile != null
-                    && gameProfile.isComplete()
+            if (gameProfile != null && gameProfile.isComplete()
                     && gameProfile.getProperties().containsKey("textures")) {
                 NBTTagCompound profileNBT = new NBTTagCompound();
                 NBTUtil.func_152460_a(profileNBT, gameProfile);
@@ -1328,16 +1319,15 @@ public class EntityRobot extends EntityRobotBase
     }
 
     private void syncWearablesToClient() {
-        BuildCraftCore.instance.sendToEntity(
-                new PacketCommand(this, "syncWearables", new CommandWriter() {
-                    public void write(ByteBuf data) {
-                        data.writeByte(wearables.size());
-                        for (ItemStack s : wearables) {
-                            NetworkUtils.writeStack(data, s);
-                        }
-                    }
-                }),
-                this);
+        BuildCraftCore.instance.sendToEntity(new PacketCommand(this, "syncWearables", new CommandWriter() {
+
+            public void write(ByteBuf data) {
+                data.writeByte(wearables.size());
+                for (ItemStack s : wearables) {
+                    NetworkUtils.writeStack(data, s);
+                }
+            }
+        }), this);
     }
 
     private List<ItemStack> getDrops() {
@@ -1413,13 +1403,11 @@ public class EntityRobot extends EntityRobotBase
     }
 
     /**
-     * Tries to receive items in parameters, return items that are left after
-     * the operation.
+     * Tries to receive items in parameters, return items that are left after the operation.
      */
     @Override
     public ItemStack receiveItem(TileEntity tile, ItemStack stack) {
-        if (currentDockingStation != null
-                && currentDockingStation.index().nextTo(new BlockIndex(tile))
+        if (currentDockingStation != null && currentDockingStation.index().nextTo(new BlockIndex(tile))
                 && mainAI != null) {
 
             return mainAI.getActiveAI().receiveItem(stack);
@@ -1500,9 +1488,7 @@ public class EntityRobot extends EntityRobotBase
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return tank == null
-                || tank.amount == 0
-                || (tank.amount < maxFluid && tank.getFluid().getID() == fluid.getID());
+        return tank == null || tank.amount == 0 || (tank.amount < maxFluid && tank.getFluid().getID() == fluid.getID());
     }
 
     @Override
@@ -1512,7 +1498,7 @@ public class EntityRobot extends EntityRobotBase
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[] {new FluidTankInfo(tank, maxFluid)};
+        return new FluidTankInfo[] { new FluidTankInfo(tank, maxFluid) };
     }
 
     @SideOnly(Side.CLIENT)
@@ -1528,8 +1514,13 @@ public class EntityRobot extends EntityRobotBase
 
     @Override
     public void getDebugInfo(List<String> info, ForgeDirection side, ItemStack debugger, EntityPlayer player) {
-        info.add("Robot " + board.getNBTHandler().getID() + " (" + getBattery().getEnergyStored() + "/"
-                + getBattery().getMaxEnergyStored() + " RF)");
+        info.add(
+                "Robot " + board.getNBTHandler().getID()
+                        + " ("
+                        + getBattery().getEnergyStored()
+                        + "/"
+                        + getBattery().getMaxEnergyStored()
+                        + " RF)");
         info.add(String.format("Position: %.2f, %.2f, %.2f", posX, posY, posZ));
         info.add("AI tree:");
         AIRobot aiRobot = mainAI;

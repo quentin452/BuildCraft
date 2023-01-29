@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.recipes;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
 
 import buildcraft.api.gates.GateExpansions;
 import buildcraft.api.gates.IGateExpansion;
@@ -15,15 +19,13 @@ import buildcraft.core.recipes.IntegrationRecipeBC;
 import buildcraft.silicon.ItemRedstoneChipset;
 import buildcraft.transport.gates.GateDefinition;
 import buildcraft.transport.gates.ItemGate;
+
 import com.google.common.collect.BiMap;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import net.minecraft.item.ItemStack;
 
 public class GateExpansionRecipe extends IntegrationRecipeBC {
-    private static final BiMap<IGateExpansion, ItemStack> recipes =
-            (BiMap<IGateExpansion, ItemStack>) GateExpansions.getRecipesForPostInit();
+
+    private static final BiMap<IGateExpansion, ItemStack> recipes = (BiMap<IGateExpansion, ItemStack>) GateExpansions
+            .getRecipesForPostInit();
 
     public GateExpansionRecipe() {
         super(25000);
@@ -95,8 +97,7 @@ public class GateExpansionRecipe extends IntegrationRecipeBC {
             if (StackHelper.isMatchingItem(ItemRedstoneChipset.Chipset.RED.getStack(), chipset, true, true)) {
                 ItemGate.setLogic(
                         output,
-                        ItemGate.getLogic(output) == GateDefinition.GateLogic.AND
-                                ? GateDefinition.GateLogic.OR
+                        ItemGate.getLogic(output) == GateDefinition.GateLogic.AND ? GateDefinition.GateLogic.OR
                                 : GateDefinition.GateLogic.AND);
                 expansionsAdded++;
                 continue;

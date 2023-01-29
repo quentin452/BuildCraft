@@ -1,12 +1,23 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.MinecraftForge;
 
 import buildcraft.api.blueprints.BuilderAPI;
 import buildcraft.api.blueprints.SchematicTile;
@@ -137,17 +148,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.MinecraftForge;
 
 @Mod(
         name = "BuildCraft Robotics",
@@ -156,6 +156,7 @@ import net.minecraftforge.common.MinecraftForge;
         modid = "BuildCraft|Robotics",
         dependencies = DefaultProps.DEPENDENCY_CORE)
 public class BuildCraftRobotics extends BuildCraftMod {
+
     @Mod.Instance("BuildCraft|Robotics")
     public static BuildCraftRobotics instance;
 
@@ -227,12 +228,17 @@ public class BuildCraftRobotics extends BuildCraftMod {
         // Cheapest, dumbest robot types
         // Those generally do very simple tasks
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotPicker", "picker", BoardRobotPicker.class, "green"), 8000);
+                new BCBoardNBT("buildcraft:boardRobotPicker", "picker", BoardRobotPicker.class, "green"),
+                8000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotCarrier", "carrier", BoardRobotCarrier.class, "green"), 8000);
+                new BCBoardNBT("buildcraft:boardRobotCarrier", "carrier", BoardRobotCarrier.class, "green"),
+                8000);
         RedstoneBoardRegistry.instance.registerBoardType(
                 new BCBoardNBT(
-                        "buildcraft:boardRobotFluidCarrier", "fluidCarrier", BoardRobotFluidCarrier.class, "green"),
+                        "buildcraft:boardRobotFluidCarrier",
+                        "fluidCarrier",
+                        BoardRobotFluidCarrier.class,
+                        "green"),
                 8000);
 
         // More expensive robot types
@@ -243,31 +249,41 @@ public class BuildCraftRobotics extends BuildCraftMod {
         RedstoneBoardRegistry.instance.registerBoardType(
                 new BCBoardNBT("buildcraft:boardRobotHarvester", "harvester", BoardRobotHarvester.class, "blue"),
                 32000);
+        RedstoneBoardRegistry.instance
+                .registerBoardType(new BCBoardNBT("buildcraft:miner", "miner", BoardRobotMiner.class, "blue"), 32000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:miner", "miner", BoardRobotMiner.class, "blue"), 32000);
+                new BCBoardNBT("buildcraft:boardRobotPlanter", "planter", BoardRobotPlanter.class, "blue"),
+                32000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotPlanter", "planter", BoardRobotPlanter.class, "blue"), 32000);
+                new BCBoardNBT("buildcraft:boardRobotFarmer", "farmer", BoardRobotFarmer.class, "blue"),
+                32000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotFarmer", "farmer", BoardRobotFarmer.class, "blue"), 32000);
+                new BCBoardNBT("buildcraft:leave_cutter", "leaveCutter", BoardRobotLeaveCutter.class, "blue"),
+                32000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:leave_cutter", "leaveCutter", BoardRobotLeaveCutter.class, "blue"), 32000);
+                new BCBoardNBT("buildcraft:boardRobotButcher", "butcher", BoardRobotButcher.class, "blue"),
+                32000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotButcher", "butcher", BoardRobotButcher.class, "blue"), 32000);
+                new BCBoardNBT("buildcraft:shovelman", "shovelman", BoardRobotShovelman.class, "blue"),
+                32000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:shovelman", "shovelman", BoardRobotShovelman.class, "blue"), 32000);
-        RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotPump", "pump", BoardRobotPump.class, "blue"), 32000);
+                new BCBoardNBT("buildcraft:boardRobotPump", "pump", BoardRobotPump.class, "blue"),
+                32000);
 
         // Even more expensive
         // These handle complex multi-step operations.
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotDelivery", "delivery", BoardRobotDelivery.class, "green"), 128000);
+                new BCBoardNBT("buildcraft:boardRobotDelivery", "delivery", BoardRobotDelivery.class, "green"),
+                128000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotKnight", "knight", BoardRobotKnight.class, "red"), 128000);
+                new BCBoardNBT("buildcraft:boardRobotKnight", "knight", BoardRobotKnight.class, "red"),
+                128000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotBomber", "bomber", BoardRobotBomber.class, "red"), 128000);
+                new BCBoardNBT("buildcraft:boardRobotBomber", "bomber", BoardRobotBomber.class, "red"),
+                128000);
         RedstoneBoardRegistry.instance.registerBoardType(
-                new BCBoardNBT("buildcraft:boardRobotStripes", "stripes", BoardRobotStripes.class, "yellow"), 128000);
+                new BCBoardNBT("buildcraft:boardRobotStripes", "stripes", BoardRobotStripes.class, "yellow"),
+                128000);
 
         // Most expensive
         // Overpowered galore!
@@ -301,37 +317,53 @@ public class BuildCraftRobotics extends BuildCraftMod {
         PipeManager.registerPipePluggable(RobotStationPluggable.class, "robotStation");
         EntityRegistry.registerModEntity(EntityRobot.class, "bcRobot", EntityIds.ROBOT, instance, 50, 1, true);
 
-        BCRegistry.INSTANCE.registerTileEntity(
-                TileZonePlan.class, "net.minecraft.src.buildcraft.commander.TileZonePlan");
-        BCRegistry.INSTANCE.registerTileEntity(
-                TileRequester.class, "net.minecraft.src.buildcraft.commander.TileRequester");
+        BCRegistry.INSTANCE
+                .registerTileEntity(TileZonePlan.class, "net.minecraft.src.buildcraft.commander.TileZonePlan");
+        BCRegistry.INSTANCE
+                .registerTileEntity(TileRequester.class, "net.minecraft.src.buildcraft.commander.TileRequester");
 
         RobotManager.registryProvider = new RobotRegistryProvider();
 
         RobotManager.registerAIRobot(AIRobotMain.class, "aiRobotMain", "buildcraft.core.robots.AIRobotMain");
         RobotManager.registerAIRobot(BoardRobotEmpty.class, "boardRobotEmpty");
         RobotManager.registerAIRobot(
-                BoardRobotBomber.class, "boardRobotBomber", "buildcraft.core.robots.boards.BoardRobotBomber");
+                BoardRobotBomber.class,
+                "boardRobotBomber",
+                "buildcraft.core.robots.boards.BoardRobotBomber");
         if (Loader.isModLoaded("BuildCraft|Builders")) {
             RobotManager.registerAIRobot(
-                    BoardRobotBuilder.class, "boardRobotBuilder", "buildcraft.core.robots.boards.BoardRobotBuilder");
+                    BoardRobotBuilder.class,
+                    "boardRobotBuilder",
+                    "buildcraft.core.robots.boards.BoardRobotBuilder");
         }
         RobotManager.registerAIRobot(
-                BoardRobotButcher.class, "boardRobotButcher", "buildcraft.core.robots.boards.BoardRobotButcher");
+                BoardRobotButcher.class,
+                "boardRobotButcher",
+                "buildcraft.core.robots.boards.BoardRobotButcher");
         RobotManager.registerAIRobot(
-                BoardRobotCarrier.class, "boardRobotCarrier", "buildcraft.core.robots.boards.BoardRobotCarrier");
+                BoardRobotCarrier.class,
+                "boardRobotCarrier",
+                "buildcraft.core.robots.boards.BoardRobotCarrier");
         RobotManager.registerAIRobot(
-                BoardRobotDelivery.class, "boardRobotDelivery", "buildcraft.core.robots.boards.BoardRobotDelivery");
+                BoardRobotDelivery.class,
+                "boardRobotDelivery",
+                "buildcraft.core.robots.boards.BoardRobotDelivery");
         RobotManager.registerAIRobot(
-                BoardRobotFarmer.class, "boardRobotFarmer", "buildcraft.core.robots.boards.BoardRobotFarmer");
+                BoardRobotFarmer.class,
+                "boardRobotFarmer",
+                "buildcraft.core.robots.boards.BoardRobotFarmer");
         RobotManager.registerAIRobot(
                 BoardRobotFluidCarrier.class,
                 "boardRobotFluidCarrier",
                 "buildcraft.core.robots.boards.BoardRobotFluidCarrier");
         RobotManager.registerAIRobot(
-                BoardRobotHarvester.class, "boardRobotHarvester", "buildcraft.core.robots.boards.BoardRobotHarvester");
+                BoardRobotHarvester.class,
+                "boardRobotHarvester",
+                "buildcraft.core.robots.boards.BoardRobotHarvester");
         RobotManager.registerAIRobot(
-                BoardRobotKnight.class, "boardRobotKnight", "buildcraft.core.robots.boards.BoardRobotKnight");
+                BoardRobotKnight.class,
+                "boardRobotKnight",
+                "buildcraft.core.robots.boards.BoardRobotKnight");
         RobotManager.registerAIRobot(
                 BoardRobotLeaveCutter.class,
                 "boardRobotLeaveCutter",
@@ -341,17 +373,29 @@ public class BuildCraftRobotics extends BuildCraftMod {
                 "boardRobotLumberjack",
                 "buildcraft.core.robots.boards.BoardRobotLumberjack");
         RobotManager.registerAIRobot(
-                BoardRobotMiner.class, "boardRobotMiner", "buildcraft.core.robots.boards.BoardRobotMiner");
+                BoardRobotMiner.class,
+                "boardRobotMiner",
+                "buildcraft.core.robots.boards.BoardRobotMiner");
         RobotManager.registerAIRobot(
-                BoardRobotPicker.class, "boardRobotPicker", "buildcraft.core.robots.boards.BoardRobotPicker");
+                BoardRobotPicker.class,
+                "boardRobotPicker",
+                "buildcraft.core.robots.boards.BoardRobotPicker");
         RobotManager.registerAIRobot(
-                BoardRobotPlanter.class, "boardRobotPlanter", "buildcraft.core.robots.boards.BoardRobotPlanter");
+                BoardRobotPlanter.class,
+                "boardRobotPlanter",
+                "buildcraft.core.robots.boards.BoardRobotPlanter");
         RobotManager.registerAIRobot(
-                BoardRobotPump.class, "boardRobotPump", "buildcraft.core.robots.boards.BoardRobotPump");
+                BoardRobotPump.class,
+                "boardRobotPump",
+                "buildcraft.core.robots.boards.BoardRobotPump");
         RobotManager.registerAIRobot(
-                BoardRobotShovelman.class, "boardRobotShovelman", "buildcraft.core.robots.boards.BoardRobotShovelman");
+                BoardRobotShovelman.class,
+                "boardRobotShovelman",
+                "buildcraft.core.robots.boards.BoardRobotShovelman");
         RobotManager.registerAIRobot(
-                BoardRobotStripes.class, "boardRobotStripes", "buildcraft.core.robots.boards.BoardRobotStripes");
+                BoardRobotStripes.class,
+                "boardRobotStripes",
+                "buildcraft.core.robots.boards.BoardRobotStripes");
         RobotManager.registerAIRobot(AIRobotAttack.class, "aiRobotAttack", "buildcraft.core.robots.AIRobotAttack");
         RobotManager.registerAIRobot(AIRobotBreak.class, "aiRobotBreak", "buildcraft.core.robots.AIRobotBreak");
         RobotManager.registerAIRobot(
@@ -359,24 +403,28 @@ public class BuildCraftRobotics extends BuildCraftMod {
                 "aiRobotDeliverRequested",
                 "buildcraft.core.robots.AIRobotDeliverRequested");
         RobotManager.registerAIRobot(
-                AIRobotDisposeItems.class, "aiRobotDisposeItems", "buildcraft.core.robots.AIRobotDisposeItems");
+                AIRobotDisposeItems.class,
+                "aiRobotDisposeItems",
+                "buildcraft.core.robots.AIRobotDisposeItems");
         RobotManager.registerAIRobot(
                 AIRobotFetchAndEquipItemStack.class,
                 "aiRobotFetchAndEquipItemStack",
                 "buildcraft.core.robots.AIRobotFetchAndEquipItemStack");
-        RobotManager.registerAIRobot(
-                AIRobotFetchItem.class, "aiRobotFetchItem", "buildcraft.core.robots.AIRobotFetchItem");
+        RobotManager
+                .registerAIRobot(AIRobotFetchItem.class, "aiRobotFetchItem", "buildcraft.core.robots.AIRobotFetchItem");
         RobotManager.registerAIRobot(
                 AIRobotGoAndLinkToDock.class,
                 "aiRobotGoAndLinkToDock",
                 "buildcraft.core.robots.AIRobotGoAndLinkToDock");
         RobotManager.registerAIRobot(AIRobotGoto.class, "aiRobotGoto", "buildcraft.core.robots.AIRobotGoto");
+        RobotManager
+                .registerAIRobot(AIRobotGotoBlock.class, "aiRobotGotoBlock", "buildcraft.core.robots.AIRobotGotoBlock");
+        RobotManager
+                .registerAIRobot(AIRobotGotoSleep.class, "aiRobotGotoSleep", "buildcraft.core.robots.AIRobotGotoSleep");
         RobotManager.registerAIRobot(
-                AIRobotGotoBlock.class, "aiRobotGotoBlock", "buildcraft.core.robots.AIRobotGotoBlock");
-        RobotManager.registerAIRobot(
-                AIRobotGotoSleep.class, "aiRobotGotoSleep", "buildcraft.core.robots.AIRobotGotoSleep");
-        RobotManager.registerAIRobot(
-                AIRobotGotoStation.class, "aiRobotGotoStation", "buildcraft.core.robots.AIRobotGotoStation");
+                AIRobotGotoStation.class,
+                "aiRobotGotoStation",
+                "buildcraft.core.robots.AIRobotGotoStation");
         RobotManager.registerAIRobot(
                 AIRobotGotoStationAndLoad.class,
                 "aiRobotGotoStationAndLoad",
@@ -408,21 +456,27 @@ public class BuildCraftRobotics extends BuildCraftMod {
         RobotManager.registerAIRobot(AIRobotHarvest.class, "aiRobotHarvest");
         RobotManager.registerAIRobot(AIRobotLoad.class, "aiRobotLoad", "buildcraft.core.robots.AIRobotLoad");
         RobotManager.registerAIRobot(
-                AIRobotLoadFluids.class, "aiRobotLoadFluids", "buildcraft.core.robots.AIRobotLoadFluids");
+                AIRobotLoadFluids.class,
+                "aiRobotLoadFluids",
+                "buildcraft.core.robots.AIRobotLoadFluids");
         RobotManager.registerAIRobot(AIRobotPlant.class, "aiRobotPlant");
-        RobotManager.registerAIRobot(
-                AIRobotPumpBlock.class, "aiRobotPumpBlock", "buildcraft.core.robots.AIRobotPumpBlock");
-        RobotManager.registerAIRobot(
-                AIRobotRecharge.class, "aiRobotRecharge", "buildcraft.core.robots.AIRobotRecharge");
+        RobotManager
+                .registerAIRobot(AIRobotPumpBlock.class, "aiRobotPumpBlock", "buildcraft.core.robots.AIRobotPumpBlock");
+        RobotManager
+                .registerAIRobot(AIRobotRecharge.class, "aiRobotRecharge", "buildcraft.core.robots.AIRobotRecharge");
         RobotManager.registerAIRobot(AIRobotSearchAndGotoBlock.class, "aiRobotSearchAndGoToBlock");
         RobotManager.registerAIRobot(
                 AIRobotSearchAndGotoStation.class,
                 "aiRobotSearchAndGotoStation",
                 "buildcraft.core.robots.AIRobotSearchAndGotoStation");
         RobotManager.registerAIRobot(
-                AIRobotSearchBlock.class, "aiRobotSearchBlock", "buildcraft.core.robots.AIRobotSearchBlock");
+                AIRobotSearchBlock.class,
+                "aiRobotSearchBlock",
+                "buildcraft.core.robots.AIRobotSearchBlock");
         RobotManager.registerAIRobot(
-                AIRobotSearchEntity.class, "aiRobotSearchEntity", "buildcraft.core.robots.AIRobotSearchEntity");
+                AIRobotSearchEntity.class,
+                "aiRobotSearchEntity",
+                "buildcraft.core.robots.AIRobotSearchEntity");
         RobotManager.registerAIRobot(
                 AIRobotSearchRandomGroundBlock.class,
                 "aiRobotSearchRandomGroundBlock",
@@ -432,16 +486,24 @@ public class BuildCraftRobotics extends BuildCraftMod {
                 "aiRobotSearchStackRequest",
                 "buildcraft.core.robots.AIRobotSearchStackRequest");
         RobotManager.registerAIRobot(
-                AIRobotSearchStation.class, "aiRobotSearchStation", "buildcraft.core.robots.AIRobotSearchStation");
+                AIRobotSearchStation.class,
+                "aiRobotSearchStation",
+                "buildcraft.core.robots.AIRobotSearchStation");
         RobotManager.registerAIRobot(AIRobotShutdown.class, "aiRobotShutdown");
         RobotManager.registerAIRobot(AIRobotSleep.class, "aiRobotSleep", "buildcraft.core.robots.AIRobotSleep");
         RobotManager.registerAIRobot(
-                AIRobotStraightMoveTo.class, "aiRobotStraightMoveTo", "buildcraft.core.robots.AIRobotStraightMoveTo");
+                AIRobotStraightMoveTo.class,
+                "aiRobotStraightMoveTo",
+                "buildcraft.core.robots.AIRobotStraightMoveTo");
         RobotManager.registerAIRobot(AIRobotUnload.class, "aiRobotUnload", "buildcraft.core.robots.AIRobotUnload");
         RobotManager.registerAIRobot(
-                AIRobotUnloadFluids.class, "aiRobotUnloadFluids", "buildcraft.core.robots.AIRobotUnloadFluids");
+                AIRobotUnloadFluids.class,
+                "aiRobotUnloadFluids",
+                "buildcraft.core.robots.AIRobotUnloadFluids");
         RobotManager.registerAIRobot(
-                AIRobotUseToolOnBlock.class, "aiRobotUseToolOnBlock", "buildcraft.core.robots.AIRobotUseToolOnBlock");
+                AIRobotUseToolOnBlock.class,
+                "aiRobotUseToolOnBlock",
+                "buildcraft.core.robots.AIRobotUseToolOnBlock");
 
         RobotManager.registerDockingStation(DockingStationPipe.class, "dockingStationPipe");
 
@@ -464,7 +526,14 @@ public class BuildCraftRobotics extends BuildCraftMod {
                 ItemRedstoneChipset.Chipset.DIAMOND.getStack());
 
         BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(redstoneBoard), "PPP", "PRP", "PPP", 'R', "dustRedstone", 'P', Items.paper);
+                new ItemStack(redstoneBoard),
+                "PPP",
+                "PRP",
+                "PPP",
+                'R',
+                "dustRedstone",
+                'P',
+                Items.paper);
 
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(zonePlanBlock, 1, 0),
@@ -576,9 +645,8 @@ public class BuildCraftRobotics extends BuildCraftMod {
         if (restartType == ConfigManager.RestartRequirement.GAME) {
 
             blacklistedRobots = new ArrayList<String>();
-            blacklistedRobots.addAll(Arrays.asList(BuildCraftCore.mainConfigManager
-                    .get("general", "boards.blacklist")
-                    .getStringList()));
+            blacklistedRobots.addAll(
+                    Arrays.asList(BuildCraftCore.mainConfigManager.get("general", "boards.blacklist").getStringList()));
             reloadConfig(ConfigManager.RestartRequirement.WORLD);
         } else if (restartType == ConfigManager.RestartRequirement.WORLD) {
             reloadConfig(ConfigManager.RestartRequirement.NONE);
@@ -593,8 +661,7 @@ public class BuildCraftRobotics extends BuildCraftMod {
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if ("BuildCraft|Core".equals(event.modID)) {
             reloadConfig(
-                    event.isWorldRunning
-                            ? ConfigManager.RestartRequirement.NONE
+                    event.isWorldRunning ? ConfigManager.RestartRequirement.NONE
                             : ConfigManager.RestartRequirement.WORLD);
         }
     }

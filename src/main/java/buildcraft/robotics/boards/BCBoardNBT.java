@@ -1,16 +1,10 @@
 package buildcraft.robotics.boards;
 
-import buildcraft.api.boards.RedstoneBoardRobot;
-import buildcraft.api.boards.RedstoneBoardRobotNBT;
-import buildcraft.api.robots.EntityRobotBase;
-import buildcraft.core.DefaultProps;
-import buildcraft.core.lib.utils.StringUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,7 +13,16 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
+import buildcraft.api.boards.RedstoneBoardRobot;
+import buildcraft.api.boards.RedstoneBoardRobotNBT;
+import buildcraft.api.robots.EntityRobotBase;
+import buildcraft.core.DefaultProps;
+import buildcraft.core.lib.utils.StringUtils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BCBoardNBT extends RedstoneBoardRobotNBT {
+
     public static final Map<String, BCBoardNBT> REGISTRY = new HashMap<String, BCBoardNBT>();
     private final ResourceLocation texture;
     private final String id, upperName, boardType;

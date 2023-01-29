@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.render;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.IIconProvider;
 import buildcraft.api.transport.pluggable.IPipePluggableRenderer;
@@ -21,22 +27,15 @@ import buildcraft.transport.PipeRenderState;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.TransportProxy;
 import buildcraft.transport.pipes.PipeStructureCobblestone;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeRendererWorld extends BCSimpleBlockRenderingHandler {
 
     public static int renderPass = -1;
     public static float zFightOffset = 1F / 4096F;
-    private static final double[] CHEST_BB = new double[] {0, 0.0625F, 0.0625F, 0.875F, 0.9375F, 0.9375F};
+    private static final double[] CHEST_BB = new double[] { 0, 0.0625F, 0.0625F, 0.875F, 0.9375F, 0.9375F };
 
-    public boolean renderPipe(
-            RenderBlocks renderblocks, IBlockAccess iblockaccess, TileGenericPipe tile, int x, int y, int z) {
+    public boolean renderPipe(RenderBlocks renderblocks, IBlockAccess iblockaccess, TileGenericPipe tile, int x, int y,
+            int z) {
         PipeRenderState state = tile.renderState;
         IIconProvider icons = tile.getPipeIcons();
         FakeBlock fakeBlock = FakeBlock.INSTANCE;
@@ -69,8 +68,7 @@ public class PipeRendererWorld extends BCSimpleBlockRenderingHandler {
                 resetToCenterDimensions(dim);
 
                 if (renderPass == 0) {
-                    fakeBlock
-                            .getTextureState()
+                    fakeBlock.getTextureState()
                             .set(icons.getIcon(state.textureMatrix.getTextureIndex(ForgeDirection.UNKNOWN)));
                 } else {
                     fakeBlock.getTextureState().set(PipeIconProvider.TYPE.PipeStainedOverlay.getIcon());
@@ -105,10 +103,8 @@ public class PipeRendererWorld extends BCSimpleBlockRenderingHandler {
 
                 // render sub block
                 if (renderPass == 0) {
-                    fakeBlock
-                            .getTextureState()
-                            .set(icons.getIcon(
-                                    state.textureMatrix.getTextureIndex(ForgeDirection.VALID_DIRECTIONS[dir])));
+                    fakeBlock.getTextureState().set(
+                            icons.getIcon(state.textureMatrix.getTextureIndex(ForgeDirection.VALID_DIRECTIONS[dir])));
                 } else {
                     fakeBlock.getTextureState().set(PipeIconProvider.TYPE.PipeStainedOverlay.getIcon());
                 }
@@ -132,14 +128,9 @@ public class PipeRendererWorld extends BCSimpleBlockRenderingHandler {
                         } else {
                             block.setBlockBoundsBasedOnState(iblockaccess, px, py, pz);
 
-                            blockBB = new double[] {
-                                block.getBlockBoundsMinY(),
-                                block.getBlockBoundsMinX(),
-                                block.getBlockBoundsMinZ(),
-                                block.getBlockBoundsMaxY(),
-                                block.getBlockBoundsMaxX(),
-                                block.getBlockBoundsMaxZ()
-                            };
+                            blockBB = new double[] { block.getBlockBoundsMinY(), block.getBlockBoundsMinX(),
+                                    block.getBlockBoundsMinZ(), block.getBlockBoundsMaxY(), block.getBlockBoundsMaxX(),
+                                    block.getBlockBoundsMaxZ() };
                         }
 
                         if ((dir % 2 == 1 && blockBB[dir / 2] != 0) || (dir % 2 == 0 && blockBB[dir / 2 + 3] != 1)) {
@@ -206,11 +197,10 @@ public class PipeRendererWorld extends BCSimpleBlockRenderingHandler {
     }
 
     /**
-     * Render a block with normal and inverted vertex order so back face culling
-     * doesn't have any effect.
+     * Render a block with normal and inverted vertex order so back face culling doesn't have any effect.
      */
-    private void renderTwoWayBlock(
-            RenderBlocks renderblocks, FakeBlock stateHost, int x, int y, int z, float[] dim, int mask) {
+    private void renderTwoWayBlock(RenderBlocks renderblocks, FakeBlock stateHost, int x, int y, int z, float[] dim,
+            int mask) {
         assert mask != 0;
 
         int c = stateHost.getBlockColor();
@@ -235,8 +225,8 @@ public class PipeRendererWorld extends BCSimpleBlockRenderingHandler {
     }
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+            RenderBlocks renderer) {
         boolean rendered = false;
         TileEntity tile = world.getTileEntity(x, y, z);
 

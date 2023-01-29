@@ -1,6 +1,7 @@
 package buildcraft.api.crops;
 
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,8 +19,7 @@ public interface ICropHandler {
     boolean isSeed(ItemStack stack);
 
     /**
-     * Check if the item can be planted. You can assume canSustainPlant() will
-     * only be called if isSeed() returned true.
+     * Check if the item can be planted. You can assume canSustainPlant() will only be called if isSeed() returned true.
      *
      * @param world
      * @param seed
@@ -31,8 +31,7 @@ public interface ICropHandler {
     boolean canSustainPlant(World world, ItemStack seed, int x, int y, int z);
 
     /**
-     * Plant the item in the block. You can assume plantCrop() will only be
-     * called if canSustainPlant() returned true.
+     * Plant the item in the block. You can assume plantCrop() will only be called if canSustainPlant() returned true.
      *
      * @param world
      * @param player
@@ -58,15 +57,13 @@ public interface ICropHandler {
     boolean isMature(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z);
 
     /**
-     * Harvest the crop. You can assume harvestCrop() will only be called if
-     * isMature() returned true.
+     * Harvest the crop. You can assume harvestCrop() will only be called if isMature() returned true.
      *
      * @param world
      * @param x
      * @param y
      * @param z
-     * @param drops
-     *            a list to return the harvest's drops.
+     * @param drops a list to return the harvest's drops.
      * @return true if the block was successfully harvested.
      */
     boolean harvestCrop(World world, int x, int y, int z, List<ItemStack> drops);

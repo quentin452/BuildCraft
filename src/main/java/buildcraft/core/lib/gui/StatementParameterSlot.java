@@ -1,14 +1,16 @@
 package buildcraft.core.lib.gui;
 
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.StatementParameterItemStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.StatementParameterItemStack;
 
 /**
  * Created by asie on 1/24/15.
  */
 public abstract class StatementParameterSlot extends AdvancedSlot {
+
     public int slot;
     public StatementSlot statementSlot;
 
@@ -62,13 +64,11 @@ public abstract class StatementParameterSlot extends AdvancedSlot {
     public abstract IStatementParameter getParameter();
 
     public boolean isAllowed() {
-        return statementSlot.getStatement() != null
-                && slot < statementSlot.getStatement().maxParameters();
+        return statementSlot.getStatement() != null && slot < statementSlot.getStatement().maxParameters();
     }
 
     public boolean isRequired() {
-        return statementSlot.getStatement() != null
-                && slot < statementSlot.getStatement().minParameters();
+        return statementSlot.getStatement() != null && slot < statementSlot.getStatement().minParameters();
     }
 
     public abstract void setParameter(IStatementParameter param, boolean notifyServer);

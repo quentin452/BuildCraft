@@ -1,18 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.stripes;
 
-import buildcraft.api.transport.IStripesActivator;
-import buildcraft.api.transport.IStripesHandler;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityMinecartContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +17,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.transport.IStripesActivator;
+import buildcraft.api.transport.IStripesHandler;
 
 public class StripesHandlerMinecartDestroy implements IStripesHandler {
 
@@ -34,15 +34,8 @@ public class StripesHandlerMinecartDestroy implements IStripesHandler {
     }
 
     @Override
-    public boolean handle(
-            World world,
-            int x,
-            int y,
-            int z,
-            ForgeDirection direction,
-            ItemStack stack,
-            EntityPlayer player,
-            IStripesActivator activator) {
+    public boolean handle(World world, int x, int y, int z, ForgeDirection direction, ItemStack stack,
+            EntityPlayer player, IStripesActivator activator) {
         AxisAlignedBB box = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
         List<?> entities = world.getEntitiesWithinAABBExcludingEntity(null, box);
         if (entities.size() <= 0) {
@@ -73,11 +66,10 @@ public class StripesHandlerMinecartDestroy implements IStripesHandler {
                     }
                 }
             }
-            /* cart.captureDrops = true;
-            cart.killMinecart(DamageSource.generic);
-            for (EntityItem s : cart.capturedDrops) {
-            	activator.sendItem(s.getEntityItem(), direction.getOpposite());
-            } */
+            /*
+             * cart.captureDrops = true; cart.killMinecart(DamageSource.generic); for (EntityItem s :
+             * cart.capturedDrops) { activator.sendItem(s.getEntityItem(), direction.getOpposite()); }
+             */
             cart.setDead();
             activator.sendItem(cart.getCartItem(), direction.getOpposite());
             return true;

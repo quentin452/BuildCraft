@@ -1,20 +1,23 @@
 package buildcraft.robotics.render;
 
+import java.util.HashMap;
+
+import net.minecraft.block.material.MapColor;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+
+import org.lwjgl.opengl.GL11;
+
 import buildcraft.core.lib.block.BlockBuildCraft;
 import buildcraft.core.lib.render.DynamicTextureBC;
 import buildcraft.core.lib.render.FakeIcon;
 import buildcraft.core.lib.render.RenderEntityBlock;
 import buildcraft.robotics.TileZonePlan;
-import java.util.HashMap;
-import net.minecraft.block.material.MapColor;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.GL11;
 
 public class RenderZonePlan extends TileEntitySpecialRenderer {
+
     private static final float Z_OFFSET = 2049 / 2048.0F;
-    private static final HashMap<TileZonePlan, DynamicTextureBC> TEXTURES =
-            new HashMap<TileZonePlan, DynamicTextureBC>();
+    private static final HashMap<TileZonePlan, DynamicTextureBC> TEXTURES = new HashMap<TileZonePlan, DynamicTextureBC>();
 
     @Override
     public void renderTileEntityAt(TileEntity tile, double tx, double ty, double tz, float partialTicks) {
@@ -37,8 +40,7 @@ public class RenderZonePlan extends TileEntitySpecialRenderer {
                     int col = MapColor.mapColorArray[previewColors[y * 10 + x]].colorValue;
                     if ((x & 1) != (y & 1)) {
                         int ocol = col;
-                        col = (ocol & 0xFF) * 15 / 16
-                                | (((ocol & 0xFF00) >> 8) * 15 / 16) << 8
+                        col = (ocol & 0xFF) * 15 / 16 | (((ocol & 0xFF00) >> 8) * 15 / 16) << 8
                                 | (((ocol & 0xFF0000) >> 16) * 15 / 16) << 16;
                     }
                     textureBC.setColor(x + 3, y + 3, 0xFF000000 | col);

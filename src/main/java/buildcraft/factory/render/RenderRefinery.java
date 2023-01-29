@@ -1,19 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory.render;
 
-import buildcraft.core.lib.fluids.Tank;
-import buildcraft.core.lib.render.FluidRenderer;
-import buildcraft.core.lib.render.IInventoryRenderer;
-import buildcraft.core.lib.render.RenderUtils;
-import buildcraft.core.proxy.CoreProxy;
-import buildcraft.factory.TileRefinery;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -22,12 +14,20 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
+
+import buildcraft.core.lib.fluids.Tank;
+import buildcraft.core.lib.render.FluidRenderer;
+import buildcraft.core.lib.render.IInventoryRenderer;
+import buildcraft.core.lib.render.RenderUtils;
+import buildcraft.core.proxy.CoreProxy;
+import buildcraft.factory.TileRefinery;
 
 public class RenderRefinery extends TileEntitySpecialRenderer implements IInventoryRenderer {
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("buildcraftfactory:textures/blocks/refineryBlock/refinery.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "buildcraftfactory:textures/blocks/refineryBlock/refinery.png");
     private static final float pixel = (float) (1.0 / 16.0);
     private final ModelRenderer tank;
     private final ModelRenderer[] magnet = new ModelRenderer[4];

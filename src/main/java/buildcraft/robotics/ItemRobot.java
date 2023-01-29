@@ -1,12 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics;
+
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 import buildcraft.BuildCraftRobotics;
 import buildcraft.api.boards.RedstoneBoardNBT;
@@ -24,18 +36,6 @@ import buildcraft.transport.Pipe;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
 public class ItemRobot extends ItemBuildCraft implements IEnergyContainerItem {
 
@@ -102,12 +102,10 @@ public class ItemRobot extends ItemBuildCraft implements IEnergyContainerItem {
             } else if (energy == 0) {
                 enInfo = StringUtils.localize("tip.gate.nocharge");
             }
-            enInfo = (pct >= 80
-                            ? EnumChatFormatting.GREEN
-                            : (pct >= 50
-                                    ? EnumChatFormatting.YELLOW
-                                    : (pct >= 30
-                                            ? EnumChatFormatting.GOLD
+            enInfo = (pct
+                    >= 80 ? EnumChatFormatting.GREEN
+                            : (pct >= 50 ? EnumChatFormatting.YELLOW
+                                    : (pct >= 30 ? EnumChatFormatting.GOLD
                                             : (pct >= 20 ? EnumChatFormatting.RED : EnumChatFormatting.DARK_RED))))
                     + enInfo;
             list.add(enInfo);
@@ -128,7 +126,7 @@ public class ItemRobot extends ItemBuildCraft implements IEnergyContainerItem {
         return robot;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
@@ -185,17 +183,8 @@ public class ItemRobot extends ItemBuildCraft implements IEnergyContainerItem {
     }
 
     @Override
-    public boolean onItemUse(
-            ItemStack currentItem,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ) {
+    public boolean onItemUse(ItemStack currentItem, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             Block b = world.getBlock(x, y, z);
             if (!(b instanceof BlockGenericPipe)) {
@@ -210,11 +199,10 @@ public class ItemRobot extends ItemBuildCraft implements IEnergyContainerItem {
             BlockGenericPipe pipeBlock = (BlockGenericPipe) b;
             BlockGenericPipe.RaytraceResult rayTraceResult = pipeBlock.doRayTrace(world, x, y, z, player);
 
-            if (rayTraceResult != null
-                    && rayTraceResult.hitPart == BlockGenericPipe.Part.Pluggable
+            if (rayTraceResult != null && rayTraceResult.hitPart == BlockGenericPipe.Part.Pluggable
                     && pipe.container.getPipePluggable(rayTraceResult.sideHit) instanceof RobotStationPluggable) {
-                RobotStationPluggable pluggable =
-                        (RobotStationPluggable) pipe.container.getPipePluggable(rayTraceResult.sideHit);
+                RobotStationPluggable pluggable = (RobotStationPluggable) pipe.container
+                        .getPipePluggable(rayTraceResult.sideHit);
                 DockingStation station = pluggable.getStation();
 
                 if (!station.isTaken()) {

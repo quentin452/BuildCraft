@@ -1,12 +1,14 @@
 package buildcraft.silicon;
 
+import net.minecraft.item.ItemStack;
+
 import buildcraft.api.tiles.IHasWork;
 import buildcraft.core.lib.utils.StringUtils;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.item.ItemStack;
 
 public class TileChargingTable extends TileLaserTableBase implements IHasWork {
+
     @Override
     public boolean canUpdate() {
         return !FMLCommonHandler.instance().getEffectiveSide().isClient();

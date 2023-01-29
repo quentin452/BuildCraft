@@ -1,21 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.recipes;
 
-import buildcraft.api.core.BCLog;
-import buildcraft.api.recipes.IFlexibleRecipe;
-import buildcraft.api.recipes.IRefineryRecipeManager;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+
 import net.minecraftforge.fluids.FluidStack;
+
+import buildcraft.api.core.BCLog;
+import buildcraft.api.recipes.IFlexibleRecipe;
+import buildcraft.api.recipes.IRefineryRecipeManager;
 
 public final class RefineryRecipeManager implements IRefineryRecipeManager {
 
@@ -35,15 +35,20 @@ public final class RefineryRecipeManager implements IRefineryRecipeManager {
     }
 
     @Override
-    public void addRecipe(
-            String id, FluidStack ingredient1, FluidStack ingredient2, FluidStack result, int energy, int delay) {
+    public void addRecipe(String id, FluidStack ingredient1, FluidStack ingredient2, FluidStack result, int energy,
+            int delay) {
 
         if (ingredient1 == null || ingredient2 == null || result == null) {
             BCLog.logger.warn("Rejected refinery recipe " + id + " due to a null FluidStack!");
         }
 
-        FlexibleRecipe<FluidStack> recipe =
-                new FlexibleRecipe<FluidStack>(id, result, energy, delay, ingredient1, ingredient2);
+        FlexibleRecipe<FluidStack> recipe = new FlexibleRecipe<FluidStack>(
+                id,
+                result,
+                energy,
+                delay,
+                ingredient1,
+                ingredient2);
         recipes.put(id, recipe);
         validFluids1.add(ingredient1);
         validFluids2.add(ingredient2);

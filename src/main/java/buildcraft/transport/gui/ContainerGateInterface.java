@@ -1,12 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.gui;
+
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NavigableSet;
+import java.util.TreeSet;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.statements.IStatement;
@@ -24,18 +36,6 @@ import buildcraft.transport.Gate;
 import buildcraft.transport.gates.GateDefinition;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NavigableSet;
-import java.util.TreeSet;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ContainerGateInterface extends BuildCraftContainer implements ICommandReceiver {
 
@@ -46,6 +46,7 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
     private final IPipe pipe;
     private Gate gate;
     private final NavigableSet<IStatement> potentialTriggers = new TreeSet<IStatement>(new Comparator<IStatement>() {
+
         @Override
         public int compare(IStatement o1, IStatement o2) {
             return o1.getUniqueTag().compareTo(o2.getUniqueTag());
@@ -53,6 +54,7 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
     });
 
     private final NavigableSet<IStatement> potentialActions = new TreeSet<IStatement>(new Comparator<IStatement>() {
+
         @Override
         public int compare(IStatement o1, IStatement o2) {
             return o1.getUniqueTag().compareTo(o2.getUniqueTag());
@@ -156,16 +158,15 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
      * CLIENT SIDE *
      */
     /**
-     * Marks client side gate container as needing to be synchronized with the
-     * server.
+     * Marks client side gate container as needing to be synchronized with the server.
      */
     public void markDirty() {
         isSynchronized = false;
     }
 
     /**
-     * Initializes the list of triggers and actions on the gate and
-     * (re-)requests the current selection on the gate if needed.
+     * Initializes the list of triggers and actions on the gate and (re-)requests the current selection on the gate if
+     * needed.
      */
     public void synchronize() {
         if (!isNetInitialized && pipe.getTile().getWorld().isRemote) {
@@ -298,6 +299,7 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
     public Packet getStatementPacket(final String name, final int slot, final IStatement statement) {
         final String statementKind = statement != null ? statement.getUniqueTag() : null;
         return new PacketCommand(this, name, new CommandWriter() {
+
             public void write(ByteBuf data) {
                 data.writeByte(slot);
                 NetworkUtils.writeUTF(data, statementKind);
@@ -305,14 +307,15 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
         });
     }
 
-    public Packet getStatementParameterPacket(
-            final String name, final int slot, final int paramSlot, final IStatementParameter parameter) {
+    public Packet getStatementParameterPacket(final String name, final int slot, final int paramSlot,
+            final IStatementParameter parameter) {
         final String parameterName = parameter != null ? parameter.getUniqueTag() : null;
         final NBTTagCompound parameterNBT = new NBTTagCompound();
         if (parameter != null) {
             parameter.writeToNBT(parameterNBT);
         }
         return new PacketCommand(this, name, new CommandWriter() {
+
             public void write(ByteBuf data) {
                 data.writeByte(slot);
                 data.writeByte(paramSlot);
@@ -336,6 +339,7 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
                 final String[] actionStrings = statementsToStrings(potentialActions);
 
                 BuildCraftCore.instance.sendToPlayer(player, new PacketCommand(this, "init", new CommandWriter() {
+
                     public void write(ByteBuf data) {
                         data.writeByte(gate.getDirection().ordinal());
                         data.writeShort(triggerStrings.length);
@@ -358,13 +362,19 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
                         BuildCraftCore.instance.sendToPlayer(
                                 player,
                                 getStatementParameterPacket(
-                                        "setActionParameter", position, p, gate.getActionParameter(position, p)));
+                                        "setActionParameter",
+                                        position,
+                                        p,
+                                        gate.getActionParameter(position, p)));
                     }
                     for (int q = 0; q < gate.material.numTriggerParameters; ++q) {
                         BuildCraftCore.instance.sendToPlayer(
                                 player,
                                 getStatementParameterPacket(
-                                        "setTriggerParameter", position, q, gate.getTriggerParameter(position, q)));
+                                        "setTriggerParameter",
+                                        position,
+                                        q,
+                                        gate.getTriggerParameter(position, q)));
                     }
                 }
             }
@@ -452,8 +462,8 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
         gate.setActionParameter(action, param, parameter);
 
         if (pipe.getTile().getWorld().isRemote && notifyServer) {
-            BuildCraftCore.instance.sendToServer(
-                    getStatementParameterPacket("setActionParameter", action, param, parameter));
+            BuildCraftCore.instance
+                    .sendToServer(getStatementParameterPacket("setActionParameter", action, param, parameter));
         }
     }
 
@@ -465,8 +475,8 @@ public class ContainerGateInterface extends BuildCraftContainer implements IComm
         gate.setTriggerParameter(trigger, param, parameter);
 
         if (pipe.getTile().getWorld().isRemote && notifyServer) {
-            BuildCraftCore.instance.sendToServer(
-                    getStatementParameterPacket("setTriggerParameter", trigger, param, parameter));
+            BuildCraftCore.instance
+                    .sendToServer(getStatementParameterPacket("setTriggerParameter", trigger, param, parameter));
         }
     }
 

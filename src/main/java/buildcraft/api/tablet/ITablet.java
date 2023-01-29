@@ -1,9 +1,11 @@
 package buildcraft.api.tablet;
 
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.nbt.NBTTagCompound;
 
+import cpw.mods.fml.relauncher.Side;
+
 public interface ITablet {
+
     Side getSide();
 
     void refreshScreen(TabletBitmap data);

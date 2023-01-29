@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class TabletTextUtils {
+
     private TabletTextUtils() {}
 
     public static String[] split(String text, TabletFont font, int width, boolean justify) {

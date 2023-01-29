@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.robots.IRequestProvider;
@@ -19,12 +22,9 @@ import buildcraft.core.lib.network.command.PacketCommand;
 import buildcraft.core.lib.utils.NetworkUtils;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class TileRequester extends TileBuildCraft implements IInventory, IRequestProvider, ICommandReceiver {
+
     public static final int NB_ITEMS = 20;
 
     private SimpleInventory inv = new SimpleInventory(NB_ITEMS, "items", 64);
@@ -35,6 +35,7 @@ public class TileRequester extends TileBuildCraft implements IInventory, IReques
     public void setRequest(final int index, final ItemStack stack) {
         if (worldObj.isRemote) {
             BuildCraftCore.instance.sendToServer(new PacketCommand(this, "setRequest", new CommandWriter() {
+
                 public void write(ByteBuf data) {
                     data.writeByte(index);
                     NetworkUtils.writeStack(data, stack);

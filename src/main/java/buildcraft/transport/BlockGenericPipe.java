@@ -1,35 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport;
 
-import buildcraft.BuildCraftTransport;
-import buildcraft.api.blocks.IColorRemovable;
-import buildcraft.api.core.BCLog;
-import buildcraft.api.core.BlockIndex;
-import buildcraft.api.items.IMapLocation;
-import buildcraft.api.tools.IToolWrench;
-import buildcraft.api.transport.IPipe;
-import buildcraft.api.transport.IPipeTile;
-import buildcraft.api.transport.PipeWire;
-import buildcraft.api.transport.pluggable.IPipePluggableItem;
-import buildcraft.api.transport.pluggable.PipePluggable;
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.CoreConstants;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import buildcraft.core.lib.utils.MatrixTranformations;
-import buildcraft.core.lib.utils.Utils;
-import buildcraft.core.proxy.CoreProxy;
-import buildcraft.transport.gates.GatePluggable;
-import buildcraft.transport.render.PipeRendererWorld;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.material.Material;
@@ -63,6 +40,29 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.BlockEvent;
 
+import buildcraft.BuildCraftTransport;
+import buildcraft.api.blocks.IColorRemovable;
+import buildcraft.api.core.BCLog;
+import buildcraft.api.core.BlockIndex;
+import buildcraft.api.items.IMapLocation;
+import buildcraft.api.tools.IToolWrench;
+import buildcraft.api.transport.IPipe;
+import buildcraft.api.transport.IPipeTile;
+import buildcraft.api.transport.PipeWire;
+import buildcraft.api.transport.pluggable.IPipePluggableItem;
+import buildcraft.api.transport.pluggable.PipePluggable;
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.CoreConstants;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import buildcraft.core.lib.utils.MatrixTranformations;
+import buildcraft.core.lib.utils.Utils;
+import buildcraft.core.proxy.CoreProxy;
+import buildcraft.transport.gates.GatePluggable;
+import buildcraft.transport.render.PipeRendererWorld;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable {
 
     public static Map<Item, Class<? extends Pipe<?>>> pipes = new HashMap<Item, Class<? extends Pipe<?>>>();
@@ -78,15 +78,13 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
     }
 
     public static class RaytraceResult {
+
         public final Part hitPart;
         public final MovingObjectPosition movingObjectPosition;
         public final AxisAlignedBB boundingBox;
         public final ForgeDirection sideHit;
 
-        RaytraceResult(
-                Part hitPart,
-                MovingObjectPosition movingObjectPosition,
-                AxisAlignedBB boundingBox,
+        RaytraceResult(Part hitPart, MovingObjectPosition movingObjectPosition, AxisAlignedBB boundingBox,
                 ForgeDirection side) {
             this.hitPart = hitPart;
             this.movingObjectPosition = movingObjectPosition;
@@ -98,7 +96,8 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         public String toString() {
             return String.format(
                     "RayTraceResult: %s, %s",
-                    hitPart == null ? "null" : hitPart.name(), boundingBox == null ? "null" : boundingBox.toString());
+                    hitPart == null ? "null" : hitPart.name(),
+                    boundingBox == null ? "null" : boundingBox.toString());
         }
     }
 
@@ -163,8 +162,8 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void addCollisionBoxesToList(
-            World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist, Entity par7Entity) {
+    public void addCollisionBoxesToList(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist,
+            Entity par7Entity) {
         setBlockBounds(
                 CoreConstants.PIPE_MIN_POS,
                 CoreConstants.PIPE_MIN_POS,
@@ -321,12 +320,14 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
             reachDistance = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
         }
 
-        double eyeHeight =
-                world.isRemote ? player.getEyeHeight() - player.getDefaultEyeHeight() : player.getEyeHeight();
+        double eyeHeight = world.isRemote ? player.getEyeHeight() - player.getDefaultEyeHeight()
+                : player.getEyeHeight();
         Vec3 lookVec = player.getLookVec();
         Vec3 origin = Vec3.createVectorHelper(player.posX, player.posY + eyeHeight, player.posZ);
         Vec3 direction = origin.addVector(
-                lookVec.xCoord * reachDistance, lookVec.yCoord * reachDistance, lookVec.zCoord * reachDistance);
+                lookVec.xCoord * reachDistance,
+                lookVec.yCoord * reachDistance,
+                lookVec.zCoord * reachDistance);
 
         return doRayTrace(world, x, y, z, origin, direction);
     }
@@ -345,8 +346,7 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         }
 
         /**
-         * pipe hits along x, y, and z axis, gate (all 6 sides) [and
-         * wires+facades]
+         * pipe hits along x, y, and z axis, gate (all 6 sides) [and wires+facades]
          */
         MovingObjectPosition[] hits = new MovingObjectPosition[31];
         AxisAlignedBB[] boxes = new AxisAlignedBB[31];
@@ -419,7 +419,12 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
 
     private void setBlockBounds(AxisAlignedBB bb) {
         setBlockBounds(
-                (float) bb.minX, (float) bb.minY, (float) bb.minZ, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ);
+                (float) bb.minX,
+                (float) bb.minY,
+                (float) bb.minZ,
+                (float) bb.maxX,
+                (float) bb.maxY,
+                (float) bb.maxZ);
     }
 
     private AxisAlignedBB getPipeBoundingBox(ForgeDirection side) {
@@ -442,8 +447,8 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         bounds[2][1] = max;
 
         MatrixTranformations.transform(bounds, side);
-        return AxisAlignedBB.getBoundingBox(
-                bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
+        return AxisAlignedBB
+                .getBoundingBox(bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
     }
 
     public static void removePipe(Pipe<?> pipe) {
@@ -548,10 +553,7 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         if (clientPlayer != null) {
             return getPickBlock(target, world, x, y, z, clientPlayer);
         } else {
-            return new ItemStack(
-                    getPipe(world, x, y, z).item,
-                    1,
-                    getPipe(world, x, y, z).container.getItemMetadata());
+            return new ItemStack(getPipe(world, x, y, z).item, 1, getPipe(world, x, y, z).container.getItemMetadata());
         }
     }
 
@@ -656,16 +658,8 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world,
-            int x,
-            int y,
-            int z,
-            EntityPlayer player,
-            int side,
-            float xOffset,
-            float yOffset,
-            float zOffset) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xOffset,
+            float yOffset, float zOffset) {
         if (super.onBlockActivated(world, x, y, z, player, side, xOffset, yOffset, zOffset)) {
             return true;
         }
@@ -697,8 +691,8 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
                 // interface callbacks for the individual pipe/logic calls
                 RaytraceResult rayTraceResult = doRayTrace(world, x, y, z, player);
                 if (rayTraceResult != null) {
-                    ForgeDirection hitSide =
-                            rayTraceResult.hitPart == Part.Pipe ? rayTraceResult.sideHit : ForgeDirection.UNKNOWN;
+                    ForgeDirection hitSide = rayTraceResult.hitPart == Part.Pipe ? rayTraceResult.sideHit
+                            : ForgeDirection.UNKNOWN;
                     return pipe.blockActivated(player, hitSide);
                 } else {
                     return pipe.blockActivated(player, ForgeDirection.UNKNOWN);
@@ -729,7 +723,14 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
                 return true;
             } else if (currentItem.getItem() instanceof IPipePluggableItem) {
                 if (addOrStripPipePluggable(
-                        world, x, y, z, currentItem, player, ForgeDirection.getOrientation(side), pipe)) {
+                        world,
+                        x,
+                        y,
+                        z,
+                        currentItem,
+                        player,
+                        ForgeDirection.getOrientation(side),
+                        pipe)) {
                     return true;
                 }
             }
@@ -738,8 +739,7 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
 
             RaytraceResult rayTraceResult = doRayTrace(world, x, y, z, player);
 
-            if (rayTraceResult != null
-                    && rayTraceResult.hitPart == Part.Pluggable
+            if (rayTraceResult != null && rayTraceResult.hitPart == Part.Pluggable
                     && pipe.container.getPipePluggable(rayTraceResult.sideHit) instanceof GatePluggable) {
                 clickedGate = pipe.gates[rayTraceResult.sideHit.ordinal()];
             }
@@ -753,8 +753,8 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
                 }
 
                 if (rayTraceResult != null) {
-                    ForgeDirection hitSide =
-                            rayTraceResult.hitPart == Part.Pipe ? rayTraceResult.sideHit : ForgeDirection.UNKNOWN;
+                    ForgeDirection hitSide = rayTraceResult.hitPart == Part.Pipe ? rayTraceResult.sideHit
+                            : ForgeDirection.UNKNOWN;
                     return pipe.blockActivated(player, hitSide);
                 }
             }
@@ -763,8 +763,8 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         return false;
     }
 
-    private boolean addOrStripPipePluggable(
-            World world, int x, int y, int z, ItemStack stack, EntityPlayer player, ForgeDirection side, Pipe<?> pipe) {
+    private boolean addOrStripPipePluggable(World world, int x, int y, int z, ItemStack stack, EntityPlayer player,
+            ForgeDirection side, Pipe<?> pipe) {
         RaytraceResult rayTraceResult = doRayTrace(world, x, y, z, player);
 
         ForgeDirection placementSide = rayTraceResult != null && rayTraceResult.sideHit != ForgeDirection.UNKNOWN
@@ -779,8 +779,7 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         }
 
         if (player.isSneaking()) {
-            if (pipe.container.hasPipePluggable(side)
-                    && rayTraceResult != null
+            if (pipe.container.hasPipePluggable(side) && rayTraceResult != null
                     && rayTraceResult.hitPart == Part.Pluggable
                     && pluggable.getClass().isInstance(pipe.container.getPipePluggable(side))) {
                 return pipe.container.setPluggable(side, null, player);
@@ -850,8 +849,8 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         return false;
     }
 
-    private boolean stripEquipment(
-            World world, int x, int y, int z, EntityPlayer player, Pipe<?> pipe, ForgeDirection side) {
+    private boolean stripEquipment(World world, int x, int y, int z, EntityPlayer player, Pipe<?> pipe,
+            ForgeDirection side) {
         if (!world.isRemote) {
             // Try to strip pluggables first
             ForgeDirection nSide = side;
@@ -940,7 +939,7 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         }
     }
 
-    @SuppressWarnings({"all"})
+    @SuppressWarnings({ "all" })
     @Override
     public void randomDisplayTick(World world, int i, int j, int k, Random random) {
         Pipe pipe = getPipe(world, i, j, k);
@@ -979,32 +978,29 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
 
         } catch (Throwable t) {
             t.printStackTrace();
-            BCLog.logger.warn("Failed to create pipe with (" + key
-                    + "). No valid constructor found. Possibly a item ID conflit.");
+            BCLog.logger.warn(
+                    "Failed to create pipe with (" + key
+                            + "). No valid constructor found. Possibly a item ID conflit.");
         }
 
         return null;
     }
 
-    public static boolean placePipe(
-            Pipe<?> pipe,
-            World world,
-            int i,
-            int j,
-            int k,
-            Block block,
-            int meta,
-            EntityPlayer player,
-            ForgeDirection side) {
+    public static boolean placePipe(Pipe<?> pipe, World world, int i, int j, int k, Block block, int meta,
+            EntityPlayer player, ForgeDirection side) {
         if (world.isRemote) {
             return true;
         }
 
         if (player != null) {
             Block placedAgainst = world.getBlock(
-                    i + side.getOpposite().offsetX, j + side.getOpposite().offsetY, k + side.getOpposite().offsetZ);
-            BlockEvent.PlaceEvent placeEvent =
-                    new BlockEvent.PlaceEvent(new BlockSnapshot(world, i, j, k, block, meta), placedAgainst, player);
+                    i + side.getOpposite().offsetX,
+                    j + side.getOpposite().offsetY,
+                    k + side.getOpposite().offsetZ);
+            BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(
+                    new BlockSnapshot(world, i, j, k, block, meta),
+                    placedAgainst,
+                    player);
             MinecraftForge.EVENT_BUS.post(placeEvent);
             if (placeEvent.isCanceled()) {
                 return false;
@@ -1050,13 +1046,12 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
     public void registerBlockIcons(IIconRegister iconRegister) {}
 
     /**
-     * Spawn a digging particle effect in the world, this is a wrapper around
-     * EffectRenderer.addBlockHitEffects to allow the block more control over
-     * the particles. Useful when you have entirely different texture sheets for
-     * different sides/locations in the world.
+     * Spawn a digging particle effect in the world, this is a wrapper around EffectRenderer.addBlockHitEffects to allow
+     * the block more control over the particles. Useful when you have entirely different texture sheets for different
+     * sides/locations in the world.
      *
-     * @param worldObj The current world
-     * @param target The target the player is looking at {x/y/z/side/sub}
+     * @param worldObj       The current world
+     * @param target         The target the player is looking at {x/y/z/side/sub}
      * @param effectRenderer A reference to the current effect renderer.
      * @return True to prevent vanilla digging particles form spawning.
      */
@@ -1078,16 +1073,13 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
 
         Block block = BuildCraftTransport.genericPipeBlock;
         float b = 0.1F;
-        double px = x
-                + rand.nextDouble() * (block.getBlockBoundsMaxX() - block.getBlockBoundsMinX() - (b * 2.0F))
+        double px = x + rand.nextDouble() * (block.getBlockBoundsMaxX() - block.getBlockBoundsMinX() - (b * 2.0F))
                 + b
                 + block.getBlockBoundsMinX();
-        double py = y
-                + rand.nextDouble() * (block.getBlockBoundsMaxY() - block.getBlockBoundsMinY() - (b * 2.0F))
+        double py = y + rand.nextDouble() * (block.getBlockBoundsMaxY() - block.getBlockBoundsMinY() - (b * 2.0F))
                 + b
                 + block.getBlockBoundsMinY();
-        double pz = z
-                + rand.nextDouble() * (block.getBlockBoundsMaxZ() - block.getBlockBoundsMinZ() - (b * 2.0F))
+        double pz = z + rand.nextDouble() * (block.getBlockBoundsMaxZ() - block.getBlockBoundsMinZ() - (b * 2.0F))
                 + b
                 + block.getBlockBoundsMinZ();
 
@@ -1116,24 +1108,32 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         }
 
         EntityDiggingFX fx = new EntityDiggingFX(
-                worldObj, px, py, pz, 0.0D, 0.0D, 0.0D, block, sideHit, worldObj.getBlockMetadata(x, y, z));
+                worldObj,
+                px,
+                py,
+                pz,
+                0.0D,
+                0.0D,
+                0.0D,
+                block,
+                sideHit,
+                worldObj.getBlockMetadata(x, y, z));
         fx.setParticleIcon(icon);
-        effectRenderer.addEffect(
-                fx.applyColourMultiplier(x, y, z).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
+        effectRenderer
+                .addEffect(fx.applyColourMultiplier(x, y, z).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
         return true;
     }
 
     /**
-     * Spawn particles for when the block is destroyed. Due to the nature of how
-     * this is invoked, the x/y/z locations are not always guaranteed to host
-     * your block. So be sure to do proper sanity checks before assuming that
-     * the location is this block.
+     * Spawn particles for when the block is destroyed. Due to the nature of how this is invoked, the x/y/z locations
+     * are not always guaranteed to host your block. So be sure to do proper sanity checks before assuming that the
+     * location is this block.
      *
-     * @param worldObj The current world
-     * @param x X position to spawn the particle
-     * @param y Y position to spawn the particle
-     * @param z Z position to spawn the particle
-     * @param meta The metadata for the block before it was destroyed.
+     * @param worldObj       The current world
+     * @param x              X position to spawn the particle
+     * @param y              Y position to spawn the particle
+     * @param z              Z position to spawn the particle
+     * @param meta           The metadata for the block before it was destroyed.
      * @param effectRenderer A reference to the current effect renderer.
      * @return True to prevent vanilla break particles from spawning.
      */

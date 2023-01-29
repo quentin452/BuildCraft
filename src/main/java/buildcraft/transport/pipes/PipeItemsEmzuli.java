@@ -1,12 +1,23 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.pipes;
+
+import java.util.BitSet;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.EnumColor;
@@ -22,17 +33,6 @@ import buildcraft.transport.PipeIconProvider;
 import buildcraft.transport.TravelingItem;
 import buildcraft.transport.statements.ActionExtractionPreset;
 import io.netty.buffer.ByteBuf;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.LinkedList;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsEmzuli extends PipeItemsWood implements IGuiReturnHandler {
 
@@ -94,9 +94,8 @@ public class PipeItemsEmzuli extends PipeItemsWood implements IGuiReturnHandler 
     }
 
     /**
-     * Return the itemstack that can be if something can be extracted from this
-     * inventory, null if none. On certain cases, the extractable slot depends
-     * on the position of the pipe.
+     * Return the itemstack that can be if something can be extracted from this inventory, null if none. On certain
+     * cases, the extractable slot depends on the position of the pipe.
      */
     @Override
     public ItemStack[] checkExtract(IInventory inventory, boolean doRemove, ForgeDirection from) {
@@ -113,7 +112,7 @@ public class PipeItemsEmzuli extends PipeItemsWood implements IGuiReturnHandler 
         ItemStack result = checkExtractGeneric(inv, doRemove, from);
 
         if (result != null) {
-            return new ItemStack[] {result};
+            return new ItemStack[] { result };
         }
 
         return null;
@@ -236,8 +235,7 @@ public class PipeItemsEmzuli extends PipeItemsWood implements IGuiReturnHandler 
         currentFilter++;
 
         while (!(filters.getStackInSlot(currentFilter % filterCount) != null
-                        && activeFlags.get(currentFilter % filterCount))
-                && count < filterCount) {
+                && activeFlags.get(currentFilter % filterCount)) && count < filterCount) {
             currentFilter++;
             count++;
         }

@@ -1,12 +1,28 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftTransport;
@@ -23,31 +39,19 @@ import buildcraft.core.BlockSpring;
 import buildcraft.core.lib.items.ItemBuildCraft;
 import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.core.proxy.CoreProxy;
+
 import com.google.common.base.Strings;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePluggableItem {
+
     public static class FacadeState {
+
         public final Block block;
         public final int metadata;
         public final boolean transparent;
@@ -144,7 +148,7 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
     private static final Block NULL_BLOCK = null;
     private static final ItemStack NO_MATCH = new ItemStack(NULL_BLOCK, 0, 0);
 
-    private static final Block[] PREVIEW_FACADES = new Block[] {Blocks.planks, Blocks.stonebrick, Blocks.glass};
+    private static final Block[] PREVIEW_FACADES = new Block[] { Blocks.planks, Blocks.stonebrick, Blocks.glass };
     private static int RANDOM_FACADE_ID = -1;
 
     public ItemFacade() {
@@ -176,8 +180,7 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean debug) {
         for (FacadeState state : getFacadeStates(stack)) {
-            if (state != null
-                    && !state.transparent
+            if (state != null && !state.transparent
                     && state.block != null
                     && Item.getItemFromBlock(state.block) != null) {
                 Item.getItemFromBlock(state.block)
@@ -221,7 +224,7 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
         return s;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
@@ -342,14 +345,12 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
 
     private static boolean isBlockValidForFacade(Block block) {
         try {
-            if (block.getBlockBoundsMinX() != 0.0
-                    || block.getBlockBoundsMinY() != 0.0
+            if (block.getBlockBoundsMinX() != 0.0 || block.getBlockBoundsMinY() != 0.0
                     || block.getBlockBoundsMinZ() != 0.0) {
                 return false;
             }
 
-            if (block.getBlockBoundsMaxX() != 1.0
-                    || block.getBlockBoundsMaxY() != 1.0
+            if (block.getBlockBoundsMaxX() != 1.0 || block.getBlockBoundsMaxY() != 1.0
                     || block.getBlockBoundsMaxZ() != 1.0) {
                 return false;
             }
@@ -404,9 +405,9 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
             FacadeState mainState = FacadeState.create(block, metadata);
             if (blockAlt != null && wire != null) {
                 FacadeState altState = FacadeState.create(blockAlt, metadataAlt, wire);
-                states = new FacadeState[] {mainState, altState};
+                states = new FacadeState[] { mainState, altState };
             } else {
-                states = new FacadeState[] {mainState};
+                states = new FacadeState[] { mainState };
             }
             NBTTagCompound newNbt = getFacade(states).getTagCompound();
             stack.setTagCompound(newNbt);
@@ -467,8 +468,10 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
             return;
         }
 
-        String recipeId = "buildcraft:facade{" + Block.blockRegistry.getNameForObject(block) + "#"
-                + itemStack.getItemDamage() + "}";
+        String recipeId = "buildcraft:facade{" + Block.blockRegistry.getNameForObject(block)
+                + "#"
+                + itemStack.getItemDamage()
+                + "}";
 
         ItemStack facade = getFacadeForBlock(block, itemStack.getItemDamage());
 
@@ -507,7 +510,14 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
                 BuildcraftRecipeRegistry.assemblyTable.addRecipe(recipeId + ":fromHollow", 160, facade, facadeHollow);
             } else {
                 GameRegistry.addShapedRecipe(
-                        facade6, "t ", "ts", "t ", 't', itemStack, 's', BuildCraftTransport.pipeStructureCobblestone);
+                        facade6,
+                        "t ",
+                        "ts",
+                        "t ",
+                        't',
+                        itemStack,
+                        's',
+                        BuildCraftTransport.pipeStructureCobblestone);
                 GameRegistry.addShapedRecipe(
                         facade6Hollow,
                         "t ",
@@ -572,7 +582,7 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
             }
 
             if (slotmatch != null && slotmatch != NO_MATCH) {
-                return new Object[] {getBlocksForFacade(slotmatch), slotmatch};
+                return new Object[] { getBlocksForFacade(slotmatch), slotmatch };
             }
 
             return null;
@@ -634,8 +644,8 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
         return getFacade(FacadeState.create(block, metadata));
     }
 
-    public static ItemStack getAdvancedFacade(
-            PipeWire wire, Block block, int metadata, Block blockAlt, int metaDataAlt) {
+    public static ItemStack getAdvancedFacade(PipeWire wire, Block block, int metadata, Block blockAlt,
+            int metaDataAlt) {
         return getFacade(FacadeState.create(block, metadata), FacadeState.create(blockAlt, metaDataAlt, wire));
     }
 

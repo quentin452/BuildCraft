@@ -1,19 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.blueprints;
 
-import buildcraft.api.core.BlockIndex;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockLiquid;
@@ -24,24 +22,21 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.BlockFluidBase;
 
+import buildcraft.api.core.BlockIndex;
+
 public class SchematicBlock extends SchematicBlockBase {
-    public static final BlockIndex[] RELATIVE_INDEXES = new BlockIndex[] {
-        new BlockIndex(0, -1, 0),
-        new BlockIndex(0, 1, 0),
-        new BlockIndex(0, 0, -1),
-        new BlockIndex(0, 0, 1),
-        new BlockIndex(-1, 0, 0),
-        new BlockIndex(1, 0, 0),
-    };
+
+    public static final BlockIndex[] RELATIVE_INDEXES = new BlockIndex[] { new BlockIndex(0, -1, 0),
+            new BlockIndex(0, 1, 0), new BlockIndex(0, 0, -1), new BlockIndex(0, 0, 1), new BlockIndex(-1, 0, 0),
+            new BlockIndex(1, 0, 0), };
 
     public Block block = null;
     public int meta = 0;
     public BuildingPermission defaultPermission = BuildingPermission.ALL;
 
     /**
-     * This field contains requirements for a given block when stored in the
-     * blueprint. Modders can either rely on this list or compute their own int
-     * Schematic.
+     * This field contains requirements for a given block when stored in the blueprint. Modders can either rely on this
+     * list or compute their own int Schematic.
      */
     public ItemStack[] storedRequirements = new ItemStack[0];
 
@@ -60,8 +55,7 @@ public class SchematicBlock extends SchematicBlockBase {
 
     @Override
     public boolean isAlreadyBuilt(IBuilderContext context, int x, int y, int z) {
-        return block == context.world().getBlock(x, y, z)
-                && meta == context.world().getBlockMetadata(x, y, z);
+        return block == context.world().getBlock(x, y, z) && meta == context.world().getBlockMetadata(x, y, z);
     }
 
     @Override
@@ -76,8 +70,8 @@ public class SchematicBlock extends SchematicBlockBase {
         super.storeRequirements(context, x, y, z);
 
         if (block != null) {
-            ArrayList<ItemStack> req =
-                    block.getDrops(context.world(), x, y, z, context.world().getBlockMetadata(x, y, z), 0);
+            ArrayList<ItemStack> req = block
+                    .getDrops(context.world(), x, y, z, context.world().getBlockMetadata(x, y, z), 0);
 
             if (req != null) {
                 storedRequirements = new ItemStack[req.size()];
@@ -103,9 +97,9 @@ public class SchematicBlock extends SchematicBlockBase {
             readRequirementsFromNBT(nbt, registry);
         }
     }
+
     /**
-     * Get a list of relative block coordinates which have to be built before
-     * this block can be placed.
+     * Get a list of relative block coordinates which have to be built before this block can be placed.
      */
     public Set<BlockIndex> getPrerequisiteBlocks(IBuilderContext context) {
         Set<BlockIndex> indexes = new HashSet<BlockIndex>();

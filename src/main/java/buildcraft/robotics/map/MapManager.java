@@ -1,12 +1,8 @@
 package buildcraft.robotics.map;
 
-import buildcraft.core.lib.utils.Utils;
-import com.google.common.collect.HashBiMap;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
 import java.io.File;
 import java.util.Date;
+
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -17,7 +13,16 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
+import buildcraft.core.lib.utils.Utils;
+
+import com.google.common.collect.HashBiMap;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
+
 public class MapManager implements Runnable {
+
     private static final int UPDATE_DELAY = 60000;
     private final HashBiMap<World, MapWorld> worldMap = HashBiMap.create();
     private final File location;

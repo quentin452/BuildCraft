@@ -1,12 +1,35 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.blueprints;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map.Entry;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings.GameType;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 import buildcraft.api.blueprints.BuilderAPI;
 import buildcraft.api.blueprints.Schematic;
@@ -27,34 +50,11 @@ import buildcraft.core.builders.TileAbstractBuilder;
 import buildcraft.core.lib.inventory.InventoryCopy;
 import buildcraft.core.lib.inventory.InventoryIterator;
 import buildcraft.core.lib.utils.BlockUtils;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map.Entry;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldSettings.GameType;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class BptBuilderBlueprint extends BptBuilderBase {
+
     protected HashSet<Integer> builtEntities = new HashSet<Integer>();
-    protected HashMap<BuilderItemMetaPair, List<BuildingSlotBlock>> buildList =
-            new HashMap<BuilderItemMetaPair, List<BuildingSlotBlock>>();
+    protected HashMap<BuilderItemMetaPair, List<BuildingSlotBlock>> buildList = new HashMap<BuilderItemMetaPair, List<BuildingSlotBlock>>();
     protected int[] buildStageOccurences;
 
     private ArrayList<RequirementItemStack> neededItems = new ArrayList<RequirementItemStack>();
@@ -331,9 +331,8 @@ public class BptBuilderBlueprint extends BptBuilderBase {
     }
 
     /**
-     * Gets the next available block. If builder is not null, then building will
-     * be verified and performed. Otherwise, the next possible building slot is
-     * returned, possibly for reservation, with no building.
+     * Gets the next available block. If builder is not null, then building will be verified and performed. Otherwise,
+     * the next possible building slot is returned, possibly for reservation, with no building.
      */
     private BuildingSlot internalGetNextBlock(World world, TileAbstractBuilder builder) {
         if (!readyForSlotLookup(builder)) {
@@ -527,8 +526,8 @@ public class BptBuilderBlueprint extends BptBuilderBase {
 
         for (ItemStack reqStk : tmpReq) {
             boolean itemBlock = reqStk.getItem() instanceof ItemBlock;
-            Fluid fluid =
-                    itemBlock ? FluidRegistry.lookupFluidForBlock(((ItemBlock) reqStk.getItem()).field_150939_a) : null;
+            Fluid fluid = itemBlock ? FluidRegistry.lookupFluidForBlock(((ItemBlock) reqStk.getItem()).field_150939_a)
+                    : null;
 
             if (fluid != null
                     && builder.drainBuild(new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME), true)) {
@@ -546,8 +545,7 @@ public class BptBuilderBlueprint extends BptBuilderBase {
                 }
 
                 FluidStack fluidStack = fluid != null ? FluidContainerRegistry.getFluidForFilledItem(invStk) : null;
-                boolean compatibleContainer = fluidStack != null
-                        && fluidStack.getFluid() == fluid
+                boolean compatibleContainer = fluidStack != null && fluidStack.getFluid() == fluid
                         && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
 
                 if (slot.isItemMatchingRequirement(invStk, reqStk) || compatibleContainer) {
@@ -609,11 +607,10 @@ public class BptBuilderBlueprint extends BptBuilderBase {
             ItemStack usedStack = reqStk;
 
             boolean itemBlock = reqStk.getItem() instanceof ItemBlock;
-            Fluid fluid =
-                    itemBlock ? FluidRegistry.lookupFluidForBlock(((ItemBlock) reqStk.getItem()).field_150939_a) : null;
+            Fluid fluid = itemBlock ? FluidRegistry.lookupFluidForBlock(((ItemBlock) reqStk.getItem()).field_150939_a)
+                    : null;
 
-            if (fluid != null
-                    && inv instanceof TileAbstractBuilder
+            if (fluid != null && inv instanceof TileAbstractBuilder
                     && ((TileAbstractBuilder) inv)
                             .drainBuild(new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME), true)) {
                 continue;
@@ -632,8 +629,7 @@ public class BptBuilderBlueprint extends BptBuilderBase {
                 }
 
                 FluidStack fluidStack = fluid != null ? FluidContainerRegistry.getFluidForFilledItem(invStk) : null;
-                boolean fluidFound = fluidStack != null
-                        && fluidStack.getFluid() == fluid
+                boolean fluidFound = fluidStack != null && fluidStack.getFluid() == fluid
                         && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
 
                 if (fluidFound || slot.getSchematic().isItemMatchingRequirement(invStk, reqStk)) {
@@ -714,6 +710,7 @@ public class BptBuilderBlueprint extends BptBuilderBase {
 
     private void sortNeededItems() {
         Collections.sort(neededItems, new Comparator<RequirementItemStack>() {
+
             @Override
             public int compare(RequirementItemStack o1, RequirementItemStack o2) {
                 if (o1.size != o2.size) {

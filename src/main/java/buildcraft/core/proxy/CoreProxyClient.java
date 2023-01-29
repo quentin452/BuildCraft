@@ -1,12 +1,23 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.proxy;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.common.DimensionManager;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.core.LaserKind;
@@ -22,18 +33,6 @@ import buildcraft.core.render.RenderingMarkers;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.NetHandlerPlayServer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.DimensionManager;
 
 public class CoreProxyClient extends CoreProxy {
 
@@ -104,8 +103,8 @@ public class CoreProxyClient extends CoreProxy {
     }
 
     @Override
-    public EntityBlock newEntityBlock(
-            World world, double i, double j, double k, double iSize, double jSize, double kSize, LaserKind laserKind) {
+    public EntityBlock newEntityBlock(World world, double i, double j, double k, double iSize, double jSize,
+            double kSize, LaserKind laserKind) {
         EntityBlock eb = super.newEntityBlock(world, i, j, k, iSize, jSize, kSize, laserKind);
         switch (laserKind) {
             case Blue:
@@ -124,8 +123,8 @@ public class CoreProxyClient extends CoreProxy {
     }
 
     /**
-     * This function returns either the player from the handler if it's on the
-     * server, or directly from the minecraft instance if it's the client.
+     * This function returns either the player from the handler if it's on the server, or directly from the minecraft
+     * instance if it's the client.
      */
     @Override
     public EntityPlayer getPlayerFromNetHandler(INetHandler handler) {
@@ -138,8 +137,7 @@ public class CoreProxyClient extends CoreProxy {
 
     @Override
     public TileEntity getServerTile(TileEntity source) {
-        if (BuildCraftCore.useServerDataOnClient
-                && Minecraft.getMinecraft().isSingleplayer()
+        if (BuildCraftCore.useServerDataOnClient && Minecraft.getMinecraft().isSingleplayer()
                 && source.getWorldObj().isRemote) {
             WorldServer w = DimensionManager.getWorld(source.getWorldObj().provider.dimensionId);
             if (w != null && w.getChunkProvider() != null) {

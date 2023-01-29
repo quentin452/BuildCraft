@@ -1,13 +1,15 @@
 package buildcraft.core.lib.utils;
 
+import net.minecraft.world.World;
+
 import buildcraft.api.core.Position;
 import buildcraft.core.LaserData;
 import buildcraft.core.LaserKind;
 import buildcraft.core.lib.EntityBlock;
 import buildcraft.core.proxy.CoreProxy;
-import net.minecraft.world.World;
 
 public final class LaserUtils {
+
     private LaserUtils() {}
 
     public static EntityBlock createLaser(World world, Position p1, Position p2, LaserKind kind) {
@@ -54,8 +56,8 @@ public final class LaserUtils {
         return block;
     }
 
-    public static EntityBlock[] createLaserBox(
-            World world, double xMin, double yMin, double zMin, double xMax, double yMax, double zMax, LaserKind kind) {
+    public static EntityBlock[] createLaserBox(World world, double xMin, double yMin, double zMin, double xMax,
+            double yMax, double zMax, LaserKind kind) {
         EntityBlock[] lasers = new EntityBlock[12];
         Position[] p = new Position[8];
 
@@ -84,8 +86,8 @@ public final class LaserUtils {
         return lasers;
     }
 
-    public static LaserData[] createLaserDataBox(
-            double xMin, double yMin, double zMin, double xMax, double yMax, double zMax) {
+    public static LaserData[] createLaserDataBox(double xMin, double yMin, double zMin, double xMax, double yMax,
+            double zMax) {
         LaserData[] lasers = new LaserData[12];
         Position[] p = new Position[8];
 

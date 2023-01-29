@@ -1,5 +1,13 @@
 package buildcraft.transport;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.api.core.render.ITextureStates;
 import buildcraft.api.transport.IPipe;
 import buildcraft.api.transport.IPipeTile;
@@ -9,34 +17,28 @@ import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.core.lib.utils.MatrixTranformations;
 import buildcraft.transport.render.FacadeRenderHelper;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class FacadePluggable extends PipePluggable implements IFacadePluggable {
+
     public static final class FacadePluggableRenderer implements IPipePluggableRenderer {
+
         public static final IPipePluggableRenderer INSTANCE = new FacadePluggableRenderer();
 
         private FacadePluggableRenderer() {}
 
         @Override
-        public void renderPluggable(
-                RenderBlocks renderblocks,
-                IPipe pipe,
-                ForgeDirection side,
-                PipePluggable pipePluggable,
-                ITextureStates blockStateMachine,
-                int renderPass,
-                int x,
-                int y,
-                int z) {
+        public void renderPluggable(RenderBlocks renderblocks, IPipe pipe, ForgeDirection side,
+                PipePluggable pipePluggable, ITextureStates blockStateMachine, int renderPass, int x, int y, int z) {
             FacadeRenderHelper.pipeFacadeRenderer(
-                    renderblocks, blockStateMachine, pipe.getTile(), renderPass, x, y, z, side, (IFacadePluggable)
-                            pipePluggable);
+                    renderblocks,
+                    blockStateMachine,
+                    pipe.getTile(),
+                    renderPass,
+                    x,
+                    y,
+                    z,
+                    side,
+                    (IFacadePluggable) pipePluggable);
         }
     }
 
@@ -69,8 +71,7 @@ public class FacadePluggable extends PipePluggable implements IFacadePluggable {
     @Override
     public boolean requiresRenderUpdate(PipePluggable o) {
         FacadePluggable other = (FacadePluggable) o;
-        return other.block != block
-                || other.meta != meta
+        return other.block != block || other.meta != meta
                 || other.transparent != transparent
                 || other.renderAsHollow != renderAsHollow;
     }
@@ -92,12 +93,10 @@ public class FacadePluggable extends PipePluggable implements IFacadePluggable {
     @Override
     public ItemStack[] getDropItems(IPipeTile pipe) {
         if (states != null) {
-            return new ItemStack[] {ItemFacade.getFacade(states)};
+            return new ItemStack[] { ItemFacade.getFacade(states) };
         } else {
-            return new ItemStack[] {
-                ItemFacade.getFacade(
-                        new ItemFacade.FacadeState(getCurrentBlock(), getCurrentMetadata(), null, isHollow()))
-            };
+            return new ItemStack[] { ItemFacade
+                    .getFacade(new ItemFacade.FacadeState(getCurrentBlock(), getCurrentMetadata(), null, isHollow())) };
         }
     }
 
@@ -143,8 +142,8 @@ public class FacadePluggable extends PipePluggable implements IFacadePluggable {
         bounds[2][1] = 1.0F;
 
         MatrixTranformations.transform(bounds, side);
-        return AxisAlignedBB.getBoundingBox(
-                bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
+        return AxisAlignedBB
+                .getBoundingBox(bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
     }
 
     @Override
@@ -167,9 +166,10 @@ public class FacadePluggable extends PipePluggable implements IFacadePluggable {
             data.writeShort(Block.getIdFromBlock(activeState.block));
         }
 
-        data.writeByte((activeState != null && activeState.transparent ? 128 : 0)
-                | (activeState != null && activeState.hollow ? 64 : 0)
-                | (activeState == null ? 0 : activeState.metadata));
+        data.writeByte(
+                (activeState != null && activeState.transparent ? 128 : 0)
+                        | (activeState != null && activeState.hollow ? 64 : 0)
+                        | (activeState == null ? 0 : activeState.metadata));
     }
 
     @Override
@@ -211,8 +211,7 @@ public class FacadePluggable extends PipePluggable implements IFacadePluggable {
                 }
             }
 
-            activeState = activeStateId < 0
-                    ? (defaultStateId < 0 ? states[0] : states[defaultStateId])
+            activeState = activeStateId < 0 ? (defaultStateId < 0 ? states[0] : states[defaultStateId])
                     : states[activeStateId];
         } else if (activeState == null) {
             activeState = states != null && states.length > 0 ? states[0] : null;

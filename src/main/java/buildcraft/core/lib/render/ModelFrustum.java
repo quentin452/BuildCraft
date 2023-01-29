@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.render;
 
@@ -34,26 +32,15 @@ public class ModelFrustum {
     public final float posZ2;
 
     /**
-     * The (x,y,z) vertex positions and (u,v) texture coordinates for each of
-     * the 8 points on a cube
+     * The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube
      */
     private PositionTextureVertex[] vertexPositions;
 
     /** An array of 6 TexturedQuads, one for each face of a cube */
     private TexturedQuad[] quadList;
 
-    public ModelFrustum(
-            ModelRenderer par1ModelRenderer,
-            int textureOffsetX,
-            int textureOffsetY,
-            float originXI,
-            float originYI,
-            float originZI,
-            int bottomWidth,
-            int bottomDepth,
-            int topWidth,
-            int topDepth,
-            int height,
+    public ModelFrustum(ModelRenderer par1ModelRenderer, int textureOffsetX, int textureOffsetY, float originXI,
+            float originYI, float originZI, int bottomWidth, int bottomDepth, int topWidth, int topDepth, int height,
             float scaleFactor) {
 
         float originX = originXI;
@@ -94,23 +81,55 @@ public class ModelFrustum {
             originX = var14;
         }
 
-        PositionTextureVertex var23 =
-                new PositionTextureVertex(originX + bottomDeltaX, originY, originZ + bottomDeltaZ, 0.0F, 0.0F);
-        PositionTextureVertex var15 =
-                new PositionTextureVertex(targetX - bottomDeltaX, originY, originZ + bottomDeltaZ, 0.0F, 8.0F);
-        PositionTextureVertex var16 =
-                new PositionTextureVertex(targetX - topDeltaX, targetY, originZ + topDeltaZ, 8.0F, 8.0F);
-        PositionTextureVertex var17 =
-                new PositionTextureVertex(originX + topDeltaX, targetY, originZ + topDeltaZ, 8.0F, 0.0F);
+        PositionTextureVertex var23 = new PositionTextureVertex(
+                originX + bottomDeltaX,
+                originY,
+                originZ + bottomDeltaZ,
+                0.0F,
+                0.0F);
+        PositionTextureVertex var15 = new PositionTextureVertex(
+                targetX - bottomDeltaX,
+                originY,
+                originZ + bottomDeltaZ,
+                0.0F,
+                8.0F);
+        PositionTextureVertex var16 = new PositionTextureVertex(
+                targetX - topDeltaX,
+                targetY,
+                originZ + topDeltaZ,
+                8.0F,
+                8.0F);
+        PositionTextureVertex var17 = new PositionTextureVertex(
+                originX + topDeltaX,
+                targetY,
+                originZ + topDeltaZ,
+                8.0F,
+                0.0F);
 
-        PositionTextureVertex var18 =
-                new PositionTextureVertex(originX + bottomDeltaX, originY, targetZ - bottomDeltaZ, 0.0F, 0.0F);
-        PositionTextureVertex var19 =
-                new PositionTextureVertex(targetX - bottomDeltaX, originY, targetZ - bottomDeltaZ, 0.0F, 8.0F);
-        PositionTextureVertex var20 =
-                new PositionTextureVertex(targetX - topDeltaX, targetY, targetZ - topDeltaZ, 8.0F, 8.0F);
-        PositionTextureVertex var21 =
-                new PositionTextureVertex(originX + topDeltaX, targetY, targetZ - topDeltaZ, 8.0F, 0.0F);
+        PositionTextureVertex var18 = new PositionTextureVertex(
+                originX + bottomDeltaX,
+                originY,
+                targetZ - bottomDeltaZ,
+                0.0F,
+                0.0F);
+        PositionTextureVertex var19 = new PositionTextureVertex(
+                targetX - bottomDeltaX,
+                originY,
+                targetZ - bottomDeltaZ,
+                0.0F,
+                8.0F);
+        PositionTextureVertex var20 = new PositionTextureVertex(
+                targetX - topDeltaX,
+                targetY,
+                targetZ - topDeltaZ,
+                8.0F,
+                8.0F);
+        PositionTextureVertex var21 = new PositionTextureVertex(
+                originX + topDeltaX,
+                targetY,
+                targetZ - topDeltaZ,
+                8.0F,
+                0.0F);
         this.vertexPositions[0] = var23;
         this.vertexPositions[1] = var15;
         this.vertexPositions[2] = var16;
@@ -124,7 +143,7 @@ public class ModelFrustum {
         int width = Math.max(bottomWidth, topWidth);
 
         this.quadList[0] = new TexturedQuad(
-                new PositionTextureVertex[] {var19, var15, var16, var20},
+                new PositionTextureVertex[] { var19, var15, var16, var20 },
                 textureOffsetX + depth + width,
                 textureOffsetY + depth,
                 textureOffsetX + depth + width + depth,
@@ -132,7 +151,7 @@ public class ModelFrustum {
                 par1ModelRenderer.textureWidth,
                 par1ModelRenderer.textureHeight);
         this.quadList[1] = new TexturedQuad(
-                new PositionTextureVertex[] {var23, var18, var21, var17},
+                new PositionTextureVertex[] { var23, var18, var21, var17 },
                 textureOffsetX,
                 textureOffsetY + depth,
                 textureOffsetX + depth,
@@ -140,7 +159,7 @@ public class ModelFrustum {
                 par1ModelRenderer.textureWidth,
                 par1ModelRenderer.textureHeight);
         this.quadList[2] = new TexturedQuad(
-                new PositionTextureVertex[] {var19, var18, var23, var15},
+                new PositionTextureVertex[] { var19, var18, var23, var15 },
                 textureOffsetX + depth,
                 textureOffsetY,
                 textureOffsetX + depth + width,
@@ -148,7 +167,7 @@ public class ModelFrustum {
                 par1ModelRenderer.textureWidth,
                 par1ModelRenderer.textureHeight);
         this.quadList[3] = new TexturedQuad(
-                new PositionTextureVertex[] {var16, var17, var21, var20},
+                new PositionTextureVertex[] { var16, var17, var21, var20 },
                 textureOffsetX + depth + width,
                 textureOffsetY + depth,
                 textureOffsetX + depth + width + width,
@@ -156,7 +175,7 @@ public class ModelFrustum {
                 par1ModelRenderer.textureWidth,
                 par1ModelRenderer.textureHeight);
         this.quadList[4] = new TexturedQuad(
-                new PositionTextureVertex[] {var15, var23, var17, var16},
+                new PositionTextureVertex[] { var15, var23, var17, var16 },
                 textureOffsetX + depth,
                 textureOffsetY + depth,
                 textureOffsetX + depth + width,
@@ -164,7 +183,7 @@ public class ModelFrustum {
                 par1ModelRenderer.textureWidth,
                 par1ModelRenderer.textureHeight);
         this.quadList[5] = new TexturedQuad(
-                new PositionTextureVertex[] {var18, var19, var20, var21},
+                new PositionTextureVertex[] { var18, var19, var20, var21 },
                 textureOffsetX + depth + width + depth,
                 textureOffsetY + depth,
                 textureOffsetX + depth + width + depth + width,

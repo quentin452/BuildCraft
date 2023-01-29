@@ -1,12 +1,26 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryCraftResult;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.IInvSlot;
 import buildcraft.api.power.IRedstoneEngine;
@@ -24,20 +38,6 @@ import buildcraft.core.lib.inventory.StackHelper;
 import buildcraft.core.lib.utils.CraftingUtils;
 import buildcraft.core.lib.utils.Utils;
 import buildcraft.core.proxy.CoreProxy;
-import java.lang.ref.WeakReference;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.InventoryCraftResult;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.SlotCrafting;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileAutoWorkbench extends TileBuildCraft
         implements ISidedInventory, IHasWork, IRedstoneEngineReceiver, IDebuggable {
@@ -52,6 +52,7 @@ public class TileAutoWorkbench extends TileBuildCraft
 
     private SimpleInventory resultInv = new SimpleInventory(1, "Auto Workbench", 64);
     private SimpleInventory inputInv = new SimpleInventory(9, "Auto Workbench", 64) {
+
         @Override
         public void setInventorySlotContents(int slotId, ItemStack itemstack) {
             super.setInventorySlotContents(slotId, itemstack);
@@ -67,8 +68,7 @@ public class TileAutoWorkbench extends TileBuildCraft
         }
     };
 
-    private IInventory inv =
-            InventoryConcatenator.make().add(inputInv).add(resultInv).add(craftMatrix);
+    private IInventory inv = InventoryConcatenator.make().add(inputInv).add(resultInv).add(craftMatrix);
 
     private SlotCrafting craftSlot;
     private InventoryCraftResult craftResult = new InventoryCraftResult();
@@ -109,6 +109,7 @@ public class TileAutoWorkbench extends TileBuildCraft
     }
 
     public class LocalInventoryCrafting extends InventoryCrafting {
+
         public IRecipe currentRecipe;
         public boolean useBindings, isOutputJammed, isInputMissing;
 
@@ -162,9 +163,8 @@ public class TileAutoWorkbench extends TileBuildCraft
             ItemStack result = getRecipeOutput();
             ItemStack resultInto = resultInv.getStackInSlot(0);
 
-            if (resultInto != null
-                    && (!StackHelper.canStacksMerge(resultInto, result)
-                            || resultInto.stackSize + result.stackSize > resultInto.getMaxStackSize())) {
+            if (resultInto != null && (!StackHelper.canStacksMerge(resultInto, result)
+                    || resultInto.stackSize + result.stackSize > resultInto.getMaxStackSize())) {
                 isOutputJammed = true;
             } else {
                 isOutputJammed = false;

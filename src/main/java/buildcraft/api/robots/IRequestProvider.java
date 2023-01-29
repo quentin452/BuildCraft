@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.robots;
 
@@ -13,13 +11,12 @@ import net.minecraft.item.ItemStack;
 /**
  * Provide requests of items that need to be fulfilled.
  *
- * Requests are organized as an linear array, where null entries mark slots
- * without a requests. A request in a slot, or the amount of slots, is allowed
- * to change before a call to {@link #offerItem(int, ItemStack)}, but it is not
- * recommended that this is frequent, since the request delivery won't fail
- * until it is offered the previous request.
+ * Requests are organized as an linear array, where null entries mark slots without a requests. A request in a slot, or
+ * the amount of slots, is allowed to change before a call to {@link #offerItem(int, ItemStack)}, but it is not
+ * recommended that this is frequent, since the request delivery won't fail until it is offered the previous request.
  */
 public interface IRequestProvider {
+
     /**
      * Return the total number of request slots available from this provider.
      *

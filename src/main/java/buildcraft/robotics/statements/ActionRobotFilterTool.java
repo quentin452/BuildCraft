@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.statements;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
 
 import buildcraft.api.robots.DockingStation;
 import buildcraft.api.statements.IActionInternal;
@@ -19,10 +23,6 @@ import buildcraft.core.lib.inventory.filters.IStackFilter;
 import buildcraft.core.lib.inventory.filters.PassThroughStackFilter;
 import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.core.statements.BCStatement;
-import java.util.ArrayList;
-import java.util.Collection;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemStack;
 
 public class ActionRobotFilterTool extends BCStatement implements IActionInternal {
 

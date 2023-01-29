@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.commands;
 
@@ -20,6 +18,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public final class CommandHelpers {
+
     private CommandHelpers() {}
 
     public static World getWorld(ICommandSender sender, IModCommand command, String[] args, int worldArgIndex) {
@@ -54,16 +53,16 @@ public final class CommandHelpers {
         sender.addChatMessage(new ChatComponentTranslation(locTag, args));
     }
 
-    public static void sendLocalizedChatMessage(
-            ICommandSender sender, ChatStyle chatStyle, String locTag, Object... args) {
+    public static void sendLocalizedChatMessage(ICommandSender sender, ChatStyle chatStyle, String locTag,
+            Object... args) {
         ChatComponentTranslation chat = new ChatComponentTranslation(locTag, args);
         chat.setChatStyle(chatStyle);
         sender.addChatMessage(chat);
     }
 
     /**
-     * Avoid using this function if at all possible. Commands are processed on the server,
-     * which has no localization information.
+     * Avoid using this function if at all possible. Commands are processed on the server, which has no localization
+     * information.
      *
      * @param sender
      * @param message
@@ -73,8 +72,10 @@ public final class CommandHelpers {
     }
 
     public static void throwWrongUsage(ICommandSender sender, IModCommand command) throws WrongUsageException {
-        throw new WrongUsageException(String.format(
-                StatCollector.translateToLocal("command.buildcraft.help"), command.getCommandUsage(sender)));
+        throw new WrongUsageException(
+                String.format(
+                        StatCollector.translateToLocal("command.buildcraft.help"),
+                        command.getCommandUsage(sender)));
     }
 
     public static void processChildCommand(ICommandSender sender, SubCommand child, String[] args) {

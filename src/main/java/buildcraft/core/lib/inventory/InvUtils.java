@@ -1,17 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.inventory;
 
-import buildcraft.api.core.IInvSlot;
-import buildcraft.core.lib.inventory.filters.IStackFilter;
-import buildcraft.core.lib.utils.BlockUtils;
 import java.util.Iterator;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryLargeChest;
@@ -23,6 +19,10 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.core.IInvSlot;
+import buildcraft.core.lib.inventory.filters.IStackFilter;
+import buildcraft.core.lib.utils.BlockUtils;
 
 public final class InvUtils {
 
@@ -56,7 +56,7 @@ public final class InvUtils {
      * Checks if there is room for the ItemStack in the inventory.
      *
      * @param stack The ItemStack
-     * @param dest The IInventory
+     * @param dest  The IInventory
      * @return true if room for stack
      */
     public static boolean isRoomForStack(ItemStack stack, ForgeDirection side, IInventory dest) {
@@ -72,12 +72,11 @@ public final class InvUtils {
      *
      * @param source
      * @param dest
-     * @param filter
-     *            an IStackFilter to match against
+     * @param filter an IStackFilter to match against
      * @return null if nothing was moved, the stack moved otherwise
      */
-    public static ItemStack moveOneItem(
-            IInventory source, ForgeDirection output, IInventory dest, ForgeDirection intput, IStackFilter filter) {
+    public static ItemStack moveOneItem(IInventory source, ForgeDirection output, IInventory dest,
+            ForgeDirection intput, IStackFilter filter) {
         ITransactor imSource = Transactor.getTransactorFor(source);
         ItemStack stack = imSource.remove(filter, output, false);
         if (stack != null) {
@@ -210,8 +209,7 @@ public final class InvUtils {
     }
 
     /**
-     * Ensures that the given inventory is the full inventory, i.e. takes double
-     * chests into account.
+     * Ensures that the given inventory is the full inventory, i.e. takes double chests into account.
      *
      * @param inv
      * @return Modified inventory if double chest, unmodified otherwise.
@@ -239,11 +237,12 @@ public final class InvUtils {
 
     public static Iterable<IInvSlot> getItems(final IInventory inv, final IStackFilter filter) {
         return new Iterable<IInvSlot>() {
+
             @Override
             public Iterator<IInvSlot> iterator() {
                 return new Iterator<IInvSlot>() {
-                    private final Iterator<IInvSlot> parent =
-                            InventoryIterator.getIterable(inv).iterator();
+
+                    private final Iterator<IInvSlot> parent = InventoryIterator.getIterable(inv).iterator();
                     private boolean searched = false;
                     private IInvSlot next;
 

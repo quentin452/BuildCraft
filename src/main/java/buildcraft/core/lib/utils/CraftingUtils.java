@@ -1,15 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,7 +24,7 @@ public final class CraftingUtils {
      */
     private CraftingUtils() {}
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static IRecipe findMatchingRecipe(InventoryCrafting par1InventoryCrafting, World par2World) {
         // Begin repair recipe handler
         int itemNum = 0;
@@ -49,8 +48,7 @@ public final class CraftingUtils {
             }
         }
 
-        if (itemNum == 2
-                && item1 != null
+        if (itemNum == 2 && item1 != null
                 && item2 != null
                 && item1.getItem() == item2.getItem()
                 && item1.stackSize == 1

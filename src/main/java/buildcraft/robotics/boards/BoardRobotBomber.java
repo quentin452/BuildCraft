@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.boards;
+
+import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.boards.RedstoneBoardRobot;
 import buildcraft.api.boards.RedstoneBoardRobotNBT;
@@ -22,11 +26,6 @@ import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotGotoStationAndLoad;
 import buildcraft.robotics.ai.AIRobotLoad;
 import buildcraft.robotics.ai.AIRobotSearchRandomGroundBlock;
-import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class BoardRobotBomber extends RedstoneBoardRobot {
 
@@ -56,16 +55,13 @@ public class BoardRobotBomber extends RedstoneBoardRobot {
         if (!containItems) {
             startDelegateAI(new AIRobotGotoStationAndLoad(robot, TNT_FILTER, AIRobotLoad.ANY_QUANTITY));
         } else {
-            startDelegateAI(new AIRobotSearchRandomGroundBlock(
-                    robot,
-                    100,
-                    new IBlockFilter() {
-                        @Override
-                        public boolean matches(World world, int x, int y, int z) {
-                            return y < world.getHeight() - flyingHeight && !world.isAirBlock(x, y, z);
-                        }
-                    },
-                    robot.getZoneToWork()));
+            startDelegateAI(new AIRobotSearchRandomGroundBlock(robot, 100, new IBlockFilter() {
+
+                @Override
+                public boolean matches(World world, int x, int y, int z) {
+                    return y < world.getHeight() - flyingHeight && !world.isAirBlock(x, y, z);
+                }
+            }, robot.getZoneToWork()));
         }
     }
 
@@ -79,8 +75,12 @@ public class BoardRobotBomber extends RedstoneBoardRobot {
             if (ai.success()) {
                 AIRobotSearchRandomGroundBlock aiFind = (AIRobotSearchRandomGroundBlock) ai;
 
-                startDelegateAI(new AIRobotGotoBlock(
-                        robot, aiFind.blockFound.x, aiFind.blockFound.y + flyingHeight, aiFind.blockFound.z));
+                startDelegateAI(
+                        new AIRobotGotoBlock(
+                                robot,
+                                aiFind.blockFound.x,
+                                aiFind.blockFound.y + flyingHeight,
+                                aiFind.blockFound.z));
             } else {
                 startDelegateAI(new AIRobotGotoSleep(robot));
             }
@@ -91,7 +91,11 @@ public class BoardRobotBomber extends RedstoneBoardRobot {
 
                 if (stack != null && stack.stackSize > 0) {
                     EntityTNTPrimed tnt = new EntityTNTPrimed(
-                            robot.worldObj, robot.posX + 0.25, robot.posY - 1, robot.posZ + 0.25, robot);
+                            robot.worldObj,
+                            robot.posX + 0.25,
+                            robot.posY - 1,
+                            robot.posZ + 0.25,
+                            robot);
                     tnt.fuse = 37;
                     robot.worldObj.spawnEntityInWorld(tnt);
                     robot.worldObj.playSoundAtEntity(tnt, "game.tnt.primed", 1.0F, 1.0F);

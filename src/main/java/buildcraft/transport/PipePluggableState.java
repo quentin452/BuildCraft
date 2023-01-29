@@ -1,13 +1,15 @@
 package buildcraft.transport;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.api.core.ISerializable;
 import buildcraft.api.transport.PipeManager;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.transport.utils.ConnectionMatrix;
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipePluggableState implements ISerializable {
+
     private PipePluggable[] pluggables = new PipePluggable[6];
     private final ConnectionMatrix pluggableMatrix = new ConnectionMatrix();
 

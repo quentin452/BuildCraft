@@ -1,21 +1,25 @@
 package buildcraft.transport;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.BCLog;
 import buildcraft.api.gates.GateExpansions;
 import buildcraft.api.gates.IGateExpansion;
 import buildcraft.core.IMCHandler;
+
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.primitives.Ints;
+
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class IMCHandlerTransport extends IMCHandler {
+
     @Override
     public void processIMCEvent(IMCEvent event, IMCMessage m) {
         if (m.key.equals("add-facade")) {
@@ -57,17 +61,21 @@ public class IMCHandlerTransport extends IMCHandler {
 
                 String[] array = Iterables.toArray(splitter.split(m.getStringValue()), String.class);
                 if (array.length != 2) {
-                    BCLog.logger.info(String.format(
-                            "Received an invalid add-facade request %s from mod %s",
-                            m.getStringValue(), m.getSender()));
+                    BCLog.logger.info(
+                            String.format(
+                                    "Received an invalid add-facade request %s from mod %s",
+                                    m.getStringValue(),
+                                    m.getSender()));
                 } else {
                     String blockName = array[0];
                     Integer metaId = Ints.tryParse(array[1]);
 
                     if (Strings.isNullOrEmpty(blockName) || metaId == null) {
-                        BCLog.logger.info(String.format(
-                                "Received an invalid add-facade request %s from mod %s",
-                                m.getStringValue(), m.getSender()));
+                        BCLog.logger.info(
+                                String.format(
+                                        "Received an invalid add-facade request %s from mod %s",
+                                        m.getStringValue(),
+                                        m.getSender()));
                     } else {
                         Block block = (Block) Block.blockRegistry.getObject(blockName);
                         BuildCraftTransport.facadeItem.addFacade(new ItemStack(block, 1, metaId));
@@ -77,8 +85,7 @@ public class IMCHandlerTransport extends IMCHandler {
                 ItemStack modItemStack = m.getItemStackValue();
                 BuildCraftTransport.facadeItem.addFacade(modItemStack);
             }
-        } catch (Exception ex) {
-        }
+        } catch (Exception ex) {}
     }
 
     public static void processBlacklistFacadeIMC(IMCEvent event, IMCMessage message) {
@@ -92,11 +99,11 @@ public class IMCHandlerTransport extends IMCHandler {
                     ItemFacade.blacklistFacade(blockName);
                 }
             } else {
-                BCLog.logger.info(String.format(
-                        "Invalid blacklist-facade message from mod %s. Send an ItemStackMessage instead.",
-                        message.getSender()));
+                BCLog.logger.info(
+                        String.format(
+                                "Invalid blacklist-facade message from mod %s. Send an ItemStackMessage instead.",
+                                message.getSender()));
             }
-        } catch (Throwable e) {
-        }
+        } catch (Throwable e) {}
     }
 }

@@ -1,6 +1,7 @@
 package buildcraft.robotics.map;
 
 public final class MapUtils {
+
     private MapUtils() {}
 
     public static long getIDFromCoords(int x, int z) {

@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
 
@@ -30,8 +28,7 @@ public class AIRobotMain extends AIRobot {
     @Override
     public void preempt(AIRobot ai) {
         if (robot.getEnergy() <= EntityRobotBase.SHUTDOWN_ENERGY
-                && (robot.getDockingStation() == null
-                        || !robot.getDockingStation().providesPower())) {
+                && (robot.getDockingStation() == null || !robot.getDockingStation().providesPower())) {
             if (!(ai instanceof AIRobotShutdown)) {
                 BCLog.logger.info("Shutting down robot " + robot.toString() + " - no power");
                 startDelegateAI(new AIRobotShutdown(robot));

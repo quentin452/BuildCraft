@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.network;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
+
+import org.apache.logging.log4j.Level;
 
 import buildcraft.core.lib.network.command.PacketCommand;
 import cpw.mods.fml.common.FMLLog;
@@ -19,20 +22,16 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
 import io.netty.util.AttributeKey;
-import java.lang.ref.WeakReference;
-import java.util.List;
-import org.apache.logging.log4j.Level;
 
 /**
- * Code based on FMLIndexedMessageToMessageCodec, but since some of its fields
- * are private, I needed a custom version.
+ * Code based on FMLIndexedMessageToMessageCodec, but since some of its fields are private, I needed a custom version.
  */
 @io.netty.channel.ChannelHandler.Sharable
 public final class ChannelHandler extends MessageToMessageCodec<FMLProxyPacket, Packet> {
-    public static final AttributeKey<ThreadLocal<WeakReference<FMLProxyPacket>>> INBOUNDPACKETTRACKER =
-            new AttributeKey<ThreadLocal<WeakReference<FMLProxyPacket>>>("bc:inboundpacket");
-    private TByteObjectHashMap<Class<? extends Packet>> discriminators =
-            new TByteObjectHashMap<Class<? extends Packet>>();
+
+    public static final AttributeKey<ThreadLocal<WeakReference<FMLProxyPacket>>> INBOUNDPACKETTRACKER = new AttributeKey<ThreadLocal<WeakReference<FMLProxyPacket>>>(
+            "bc:inboundpacket");
+    private TByteObjectHashMap<Class<? extends Packet>> discriminators = new TByteObjectHashMap<Class<? extends Packet>>();
     private TObjectByteHashMap<Class<? extends Packet>> types = new TObjectByteHashMap<Class<? extends Packet>>();
     private int maxDiscriminator;
 
@@ -73,8 +72,7 @@ public final class ChannelHandler extends MessageToMessageCodec<FMLProxyPacket, 
         byte discriminator = types.get(clazz);
         buffer.writeByte(discriminator);
         msg.writeData(buffer);
-        FMLProxyPacket proxy = new FMLProxyPacket(
-                buffer.copy(), ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
+        FMLProxyPacket proxy = new FMLProxyPacket(buffer.copy(), ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
         WeakReference<FMLProxyPacket> ref = ctx.attr(INBOUNDPACKETTRACKER).get().get();
         FMLProxyPacket old = ref == null ? null : ref.get();
         if (old != null) {
@@ -100,8 +98,9 @@ public final class ChannelHandler extends MessageToMessageCodec<FMLProxyPacket, 
     }
 
     /**
-     * Called to verify the message received. This can be used to hard disconnect in case of an unexpected packet,
-     * say due to a weird protocol mismatch. Use with caution.
+     * Called to verify the message received. This can be used to hard disconnect in case of an unexpected packet, say
+     * due to a weird protocol mismatch. Use with caution.
+     * 
      * @param msg
      */
     protected void testMessageValidity(FMLProxyPacket msg) {}

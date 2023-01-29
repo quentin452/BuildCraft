@@ -1,12 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.pipes;
+
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.IIconProvider;
@@ -23,16 +30,10 @@ import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyProvider;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipePowerWood extends Pipe<PipeTransportPower>
         implements IPipeTransportPowerHook, IEnergyHandler, IRedstoneEngineReceiver, IDebuggable {
+
     public final boolean[] powerSources = new boolean[6];
 
     protected int standardIconIndex = PipeIconProvider.TYPE.PipePowerWood_Standard.ordinal();
@@ -103,8 +104,8 @@ public class PipePowerWood extends Pipe<PipeTransportPower>
         if (allowExtraction) {
             allowExtraction = false;
 
-            int energyMaxExtract =
-                    Math.min(transport.maxPower, battery.getMaxEnergyStored() - battery.getEnergyStored());
+            int energyMaxExtract = Math
+                    .min(transport.maxPower, battery.getMaxEnergyStored() - battery.getEnergyStored());
             energyMaxExtract /= sources;
 
             for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
@@ -121,7 +122,9 @@ public class PipePowerWood extends Pipe<PipeTransportPower>
                     ((IEnergyProvider) source).extractEnergy(o.getOpposite(), energyExtracted, false);
                 } else if (source instanceof IEnergyHandler) {
                     int energyExtracted = battery.addEnergy(
-                            0, ((IEnergyHandler) source).extractEnergy(o.getOpposite(), energyMaxExtract, true), false);
+                            0,
+                            ((IEnergyHandler) source).extractEnergy(o.getOpposite(), energyMaxExtract, true),
+                            false);
                     ((IEnergyHandler) source).extractEnergy(o.getOpposite(), energyExtracted, false);
                 }
             }
@@ -197,8 +200,7 @@ public class PipePowerWood extends Pipe<PipeTransportPower>
         }
         if (from.ordinal() < 6 && powerSources[from.ordinal()]) {
             return battery.receiveEnergy(
-                    simulate
-                            ? Math.min(maxReceive, lastRequestedEnergy)
+                    simulate ? Math.min(maxReceive, lastRequestedEnergy)
                             : Math.min(maxReceive, battery.getMaxEnergyStored() - battery.getEnergyStored()),
                     simulate);
         } else {

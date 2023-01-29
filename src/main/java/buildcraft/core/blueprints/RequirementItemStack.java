@@ -3,6 +3,7 @@ package buildcraft.core.blueprints;
 import net.minecraft.item.ItemStack;
 
 public class RequirementItemStack {
+
     public final ItemStack stack;
     public final int size;
 

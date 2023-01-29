@@ -1,28 +1,27 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.blueprints;
 
-import buildcraft.api.core.JavaTools;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
+import buildcraft.api.core.JavaTools;
+
 public class SchematicTile extends SchematicBlock {
 
     /**
-     * This tree contains additional data to be stored in the blueprint. By
-     * default, it will be initialized from Schematic.readFromWord with the
-     * standard readNBT function of the corresponding tile (if any) and will be
-     * loaded from BptBlock.writeToWorld using the standard writeNBT function.
+     * This tree contains additional data to be stored in the blueprint. By default, it will be initialized from
+     * Schematic.readFromWord with the standard readNBT function of the corresponding tile (if any) and will be loaded
+     * from BptBlock.writeToWorld using the standard writeNBT function.
      */
     public NBTTagCompound tileNBT = new NBTTagCompound();
 

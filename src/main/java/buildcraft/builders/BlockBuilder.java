@@ -1,20 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
 
-import buildcraft.BuildCraftBuilders;
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.GuiIds;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import buildcraft.core.lib.fluids.TankUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +16,16 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.BuildCraftBuilders;
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.GuiIds;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import buildcraft.core.lib.fluids.TankUtils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockBuilder extends BlockBuildCraft {
+
     @SideOnly(Side.CLIENT)
     public IIcon blockTopOn;
 
@@ -48,8 +48,8 @@ public class BlockBuilder extends BlockBuildCraft {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7,
+            float par8, float par9) {
         if (super.onBlockActivated(world, x, y, z, entityplayer, par6, par7, par8, par9)) {
             return true;
         }
@@ -61,8 +61,7 @@ public class BlockBuilder extends BlockBuildCraft {
         TileEntity tile = world.getTileEntity(x, y, z);
         TileBuilder builder = tile instanceof TileBuilder ? (TileBuilder) tile : null;
 
-        Item equipped = entityplayer.getCurrentEquippedItem() != null
-                ? entityplayer.getCurrentEquippedItem().getItem()
+        Item equipped = entityplayer.getCurrentEquippedItem() != null ? entityplayer.getCurrentEquippedItem().getItem()
                 : null;
         if (equipped instanceof ItemConstructionMarker) {
             if (ItemConstructionMarker.linkStarted(entityplayer.getCurrentEquippedItem())) {
@@ -72,14 +71,14 @@ public class BlockBuilder extends BlockBuildCraft {
             return true;
         } else if (builder != null
                 && TankUtils.handleRightClick(builder, ForgeDirection.UNKNOWN, entityplayer, true, false)) {
-            return true;
-        } else {
-            if (!world.isRemote) {
-                entityplayer.openGui(BuildCraftBuilders.instance, GuiIds.BUILDER, world, x, y, z);
-            }
+                    return true;
+                } else {
+                    if (!world.isRemote) {
+                        entityplayer.openGui(BuildCraftBuilders.instance, GuiIds.BUILDER, world, x, y, z);
+                    }
 
-            return true;
-        }
+                    return true;
+                }
     }
 
     @Override

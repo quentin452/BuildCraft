@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.gui;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.core.lib.gui.BuildCraftContainer;
@@ -17,10 +20,6 @@ import buildcraft.core.lib.utils.NetworkUtils;
 import buildcraft.robotics.TileRequester;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 public class ContainerRequester extends BuildCraftContainer implements ICommandReceiver {
 
@@ -72,7 +71,9 @@ public class ContainerRequester extends BuildCraftContainer implements ICommandR
             }
 
             BuildCraftCore.instance.sendToPlayer(
-                    (EntityPlayer) sender, new PacketCommand(this, "receiveRequestList", new CommandWriter() {
+                    (EntityPlayer) sender,
+                    new PacketCommand(this, "receiveRequestList", new CommandWriter() {
+
                         public void write(ByteBuf data) {
                             for (ItemStack s : stacks) {
                                 NetworkUtils.writeStack(data, s);

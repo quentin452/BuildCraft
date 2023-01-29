@@ -1,14 +1,16 @@
 package buildcraft.transport.stripes;
 
-import buildcraft.api.crops.CropManager;
-import buildcraft.api.transport.IStripesActivator;
-import buildcraft.api.transport.IStripesHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.crops.CropManager;
+import buildcraft.api.transport.IStripesActivator;
+import buildcraft.api.transport.IStripesHandler;
+
 public class StripesHandlerPlant implements IStripesHandler {
+
     @Override
     public StripesHandlerType getType() {
         return StripesHandlerType.ITEM_USE;
@@ -20,15 +22,8 @@ public class StripesHandlerPlant implements IStripesHandler {
     }
 
     @Override
-    public boolean handle(
-            World world,
-            int x,
-            int y,
-            int z,
-            ForgeDirection direction,
-            ItemStack stack,
-            EntityPlayer player,
-            IStripesActivator activator) {
+    public boolean handle(World world, int x, int y, int z, ForgeDirection direction, ItemStack stack,
+            EntityPlayer player, IStripesActivator activator) {
         if (CropManager.canSustainPlant(world, stack, x, y - 1, z)) {
             if (CropManager.plantCrop(world, player, stack, x, y - 1, z)) {
                 if (stack.stackSize > 0) {

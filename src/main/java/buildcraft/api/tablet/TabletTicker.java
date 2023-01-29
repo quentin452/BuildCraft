@@ -4,6 +4,7 @@ package buildcraft.api.tablet;
  * Utility class for capturing tablet ticks every X seconds.
  */
 public class TabletTicker {
+
     private final float tickTime;
     private float time = 0.0F;
     private int ticked = 0;

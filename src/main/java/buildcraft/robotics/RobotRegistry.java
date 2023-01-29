@@ -1,26 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics;
 
-import buildcraft.api.core.BCLog;
-import buildcraft.api.robots.DockingStation;
-import buildcraft.api.robots.EntityRobotBase;
-import buildcraft.api.robots.IRobotRegistry;
-import buildcraft.api.robots.ResourceId;
-import buildcraft.api.robots.RobotManager;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.LongHashMap;
@@ -29,6 +21,14 @@ import net.minecraft.world.WorldSavedData;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.ChunkEvent;
+
+import buildcraft.api.core.BCLog;
+import buildcraft.api.robots.DockingStation;
+import buildcraft.api.robots.EntityRobotBase;
+import buildcraft.api.robots.IRobotRegistry;
+import buildcraft.api.robots.ResourceId;
+import buildcraft.api.robots.RobotManager;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class RobotRegistry extends WorldSavedData implements IRobotRegistry {
 
@@ -206,8 +206,8 @@ public class RobotRegistry extends WorldSavedData implements IRobotRegistry {
         markDirty();
 
         if (resourcesTakenByRobot.containsItem(robot.getRobotId())) {
-            HashSet<ResourceId> resourceSet = (HashSet<ResourceId>)
-                    getResourcesTakenByRobot(robot.getRobotId()).clone();
+            HashSet<ResourceId> resourceSet = (HashSet<ResourceId>) getResourcesTakenByRobot(robot.getRobotId())
+                    .clone();
 
             for (ResourceId id : resourceSet) {
                 release(id);
@@ -217,8 +217,8 @@ public class RobotRegistry extends WorldSavedData implements IRobotRegistry {
         }
 
         if (stationsTakenByRobot.containsItem(robot.getRobotId())) {
-            HashSet<StationIndex> stationSet = (HashSet<StationIndex>)
-                    getStationsTakenByRobot(robot.getRobotId()).clone();
+            HashSet<StationIndex> stationSet = (HashSet<StationIndex>) getStationsTakenByRobot(robot.getRobotId())
+                    .clone();
 
             for (StationIndex s : stationSet) {
                 DockingStation d = stations.get(s);
@@ -333,9 +333,7 @@ public class RobotRegistry extends WorldSavedData implements IRobotRegistry {
         for (Map.Entry<StationIndex, DockingStation> e : stations.entrySet()) {
             NBTTagCompound cpt = new NBTTagCompound();
             e.getValue().writeToNBT(cpt);
-            cpt.setString(
-                    "stationType",
-                    RobotManager.getDockingStationName(e.getValue().getClass()));
+            cpt.setString("stationType", RobotManager.getDockingStationName(e.getValue().getClass()));
             stationList.appendTag(cpt);
         }
 
@@ -405,8 +403,7 @@ public class RobotRegistry extends WorldSavedData implements IRobotRegistry {
     }
 
     /**
-     * This function is a wrapper for markDirty(), done this way due to
-     * obfuscation issues.
+     * This function is a wrapper for markDirty(), done this way due to obfuscation issues.
      */
     @Override
     public void registryMarkDirty() {

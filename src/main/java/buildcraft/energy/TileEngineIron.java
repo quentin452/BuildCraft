@@ -1,12 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.energy;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 
 import buildcraft.BuildCraftEnergy;
 import buildcraft.api.core.StackKey;
@@ -22,19 +34,6 @@ import buildcraft.core.lib.fluids.TankManager;
 import buildcraft.core.lib.fluids.TankUtils;
 import buildcraft.core.lib.inventory.InvUtils;
 import buildcraft.core.statements.IBlockDefaultTriggers;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileEngineIron extends TileEngineWithInventory implements IFluidHandler, IBlockDefaultTriggers {
 
@@ -312,7 +311,7 @@ public class TileEngineIron extends TileEngineWithInventory implements IFluidHan
     public void getGUINetworkData(int id, int value) {
         super.getGUINetworkData(id, value);
         switch (id) {
-                // Fluid Fuel ID
+            // Fluid Fuel ID
             case 15:
                 if (FluidRegistry.getFluid(value) != null) {
                     tankFuel.setFluid(new FluidStack(FluidRegistry.getFluid(value), tankFuelAmountCache));
@@ -320,7 +319,7 @@ public class TileEngineIron extends TileEngineWithInventory implements IFluidHan
                     tankFuel.setFluid(null);
                 }
                 break;
-                // Fluid Coolant ID
+            // Fluid Coolant ID
             case 16:
                 if (FluidRegistry.getFluid(value) != null) {
                     tankCoolant.setFluid(new FluidStack(FluidRegistry.getFluid(value), tankCoolantAmountCache));
@@ -328,25 +327,25 @@ public class TileEngineIron extends TileEngineWithInventory implements IFluidHan
                     tankCoolant.setFluid(null);
                 }
                 break;
-                // Fluid Fuel amount
+            // Fluid Fuel amount
             case 17:
                 tankFuelAmountCache = value;
                 if (tankFuel.getFluid() != null) {
                     tankFuel.getFluid().amount = value;
                 }
                 break;
-                // Fluid Coolant amount
+            // Fluid Coolant amount
             case 18:
                 tankCoolantAmountCache = value;
                 if (tankCoolant.getFluid() != null) {
                     tankCoolant.getFluid().amount = value;
                 }
                 break;
-                // Fluid Fuel color
+            // Fluid Fuel color
             case 19:
                 tankFuel.colorRenderCache = value;
                 break;
-                // Fluid Coolant color
+            // Fluid Coolant color
             case 20:
                 tankCoolant.colorRenderCache = value;
                 break;
@@ -369,9 +368,13 @@ public class TileEngineIron extends TileEngineWithInventory implements IFluidHan
                         ? tankCoolant.getFluid().getFluid().getID()
                         : 0);
         iCrafting.sendProgressBarUpdate(
-                containerEngine, 17, tankFuel.getFluid() != null ? tankFuel.getFluid().amount : 0);
+                containerEngine,
+                17,
+                tankFuel.getFluid() != null ? tankFuel.getFluid().amount : 0);
         iCrafting.sendProgressBarUpdate(
-                containerEngine, 18, tankCoolant.getFluid() != null ? tankCoolant.getFluid().amount : 0);
+                containerEngine,
+                18,
+                tankCoolant.getFluid() != null ? tankCoolant.getFluid().amount : 0);
         iCrafting.sendProgressBarUpdate(containerEngine, 19, tankFuel.colorRenderCache);
         iCrafting.sendProgressBarUpdate(containerEngine, 20, tankCoolant.colorRenderCache);
     }
@@ -416,12 +419,10 @@ public class TileEngineIron extends TileEngineWithInventory implements IFluidHan
             return tankCoolant.fill(resource, doFill);
         } else if (BuildcraftFuelRegistry.fuel.getFuel(resource.getFluid()) != null) {
             int filled = tankFuel.fill(resource, doFill);
-            if (filled > 0
-                    && tankFuel.getFluid() != null
+            if (filled > 0 && tankFuel.getFluid() != null
                     && tankFuel.getFluid().getFluid() != null
                     && (currentFuel == null || tankFuel.getFluid().getFluid() != currentFuel.getFluid())) {
-                currentFuel =
-                        BuildcraftFuelRegistry.fuel.getFuel(tankFuel.getFluid().getFluid());
+                currentFuel = BuildcraftFuelRegistry.fuel.getFuel(tankFuel.getFluid().getFluid());
             }
             return filled;
         } else {
@@ -431,8 +432,7 @@ public class TileEngineIron extends TileEngineWithInventory implements IFluidHan
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return from != orientation
-                && fluid != null
+        return from != orientation && fluid != null
                 && (BuildcraftFuelRegistry.coolant.getCoolant(fluid) != null
                         || BuildcraftFuelRegistry.fuel.getFuel(fluid) != null);
     }

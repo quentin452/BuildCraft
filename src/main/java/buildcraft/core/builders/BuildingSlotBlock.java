@@ -1,12 +1,22 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.builders;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.Constants;
 
 import buildcraft.BuildCraftBuilders;
 import buildcraft.api.blueprints.BuildingPermission;
@@ -21,18 +31,9 @@ import buildcraft.api.core.BCLog;
 import buildcraft.api.core.Position;
 import buildcraft.core.blueprints.IndexRequirementMap;
 import buildcraft.core.lib.utils.BlockUtils;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.util.Constants;
 
 public class BuildingSlotBlock extends BuildingSlot {
+
     public int x, y, z;
     public SchematicBlockBase schematic;
 
@@ -81,22 +82,27 @@ public class BuildingSlotBlock extends BuildingSlot {
                 if (!getSchematic().isAlreadyBuilt(context, x, y, z)) {
                     if (context.world().isAirBlock(x, y, z)) {
                         return false;
-                    } else if (!(getSchematic() instanceof SchematicBlock)
-                            || context.world()
-                                    .getBlock(x, y, z)
-                                    .isAssociatedBlock(((SchematicBlock) getSchematic()).block)) {
-                        BCLog.logger.warn(
-                                "Placed block does not match expectations! Most likely a bug in BuildCraft or a supported mod. Removed mismatched block.");
-                        BCLog.logger.warn("Location: " + x + ", " + y + ", " + z + " - Block: "
-                                + Block.blockRegistry.getNameForObject(
-                                        context.world().getBlock(x, y, z)) + "@"
-                                + context.world().getBlockMetadata(x, y, z));
-                        context.world().removeTileEntity(x, y, z);
-                        context.world().setBlockToAir(x, y, z);
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    } else if (!(getSchematic() instanceof SchematicBlock) || context.world().getBlock(x, y, z)
+                            .isAssociatedBlock(((SchematicBlock) getSchematic()).block)) {
+                                BCLog.logger.warn(
+                                        "Placed block does not match expectations! Most likely a bug in BuildCraft or a supported mod. Removed mismatched block.");
+                                BCLog.logger.warn(
+                                        "Location: " + x
+                                                + ", "
+                                                + y
+                                                + ", "
+                                                + z
+                                                + " - Block: "
+                                                + Block.blockRegistry
+                                                        .getNameForObject(context.world().getBlock(x, y, z))
+                                                + "@"
+                                                + context.world().getBlockMetadata(x, y, z));
+                                context.world().removeTileEntity(x, y, z);
+                                context.world().setBlockToAir(x, y, z);
+                                return true;
+                            } else {
+                                return false;
+                            }
                 }
 
                 // This is slightly hackish, but it's a very important way to verify
@@ -225,8 +231,8 @@ public class BuildingSlotBlock extends BuildingSlot {
         z = nbt.getInteger("z");
 
         if (nbt.hasKey("schematic")) {
-            schematic = (SchematicBlockBase)
-                    SchematicFactory.createSchematicFromWorldNBT(nbt.getCompoundTag("schematic"), registry);
+            schematic = (SchematicBlockBase) SchematicFactory
+                    .createSchematicFromWorldNBT(nbt.getCompoundTag("schematic"), registry);
         }
 
         stackConsumed = new LinkedList<ItemStack>();

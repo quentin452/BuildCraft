@@ -1,17 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.energy.worldgen;
 
-import buildcraft.core.lib.utils.SimplexNoise;
 import java.util.Random;
+
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+
+import buildcraft.core.lib.utils.SimplexNoise;
 
 public abstract class GenLayerBiomeReplacer extends GenLayer {
 
@@ -27,19 +27,13 @@ public abstract class GenLayerBiomeReplacer extends GenLayer {
      * @param worldSeed
      * @param seed
      * @param parent
-     * @param noiseScale The scale of the noise field, smaller numbers zoom in
-     * the noise field.
-     * @param noiseThreshold The strength the field must reach to replace the
-     * biome. Larger numbers result in smaller patches.
+     * @param noiseScale     The scale of the noise field, smaller numbers zoom in the noise field.
+     * @param noiseThreshold The strength the field must reach to replace the biome. Larger numbers result in smaller
+     *                       patches.
      * @param newBiomeId
      */
-    public GenLayerBiomeReplacer(
-            final long worldSeed,
-            final long seed,
-            final GenLayer parent,
-            double noiseScale,
-            double noiseThreshold,
-            int newBiomeId) {
+    public GenLayerBiomeReplacer(final long worldSeed, final long seed, final GenLayer parent, double noiseScale,
+            double noiseThreshold, int newBiomeId) {
         super(seed);
         this.parent = parent;
         this.noiseScale = noiseScale;
@@ -64,7 +58,7 @@ public abstract class GenLayerBiomeReplacer extends GenLayer {
                         && SimplexNoise.noise((xIter + x + xOffset) * noiseScale, (zIter + z + zOffset) * noiseScale)
                                 > noiseThreshold) {
                     outputBiomeIDs[xIter + zIter * width] = newBiomeId;
-                    //					System.out.printf("Replaced Biome at %d, %d\n", xIter + x, zIter + z);
+                    // System.out.printf("Replaced Biome at %d, %d\n", xIter + x, zIter + z);
                 } else {
                     outputBiomeIDs[xIter + zIter * width] = currentBiomeId;
                 }

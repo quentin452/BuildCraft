@@ -1,23 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.blueprints;
 
-import buildcraft.api.core.BCLog;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ListMultimap;
-import cpw.mods.fml.common.FMLModContainer;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -26,7 +18,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagShort;
 import net.minecraftforge.common.util.Constants;
+
 import org.apache.logging.log4j.Level;
+
+import buildcraft.api.core.BCLog;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
+
+import cpw.mods.fml.common.FMLModContainer;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModContainer;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 
 public class MappingRegistry {
 
@@ -151,8 +154,7 @@ public class MappingRegistry {
     }
 
     /**
-     * Relocates a stack nbt from the world referential to the registry
-     * referential.
+     * Relocates a stack nbt from the world referential to the registry referential.
      */
     public void stackToRegistry(NBTTagCompound nbt) {
         Item item = Item.getItemById(nbt.getShort("id"));
@@ -160,8 +162,7 @@ public class MappingRegistry {
     }
 
     /**
-     * Relocates a stack nbt from the registry referential to the world
-     * referential.
+     * Relocates a stack nbt from the registry referential to the world referential.
      */
     public void stackToWorld(NBTTagCompound nbt) throws MappingNotFoundException {
         Item item = getItemForId(nbt.getShort("id"));
@@ -169,8 +170,7 @@ public class MappingRegistry {
     }
 
     private boolean isStackLayout(NBTTagCompound nbt) {
-        return nbt.hasKey("id")
-                && nbt.hasKey("Count")
+        return nbt.hasKey("id") && nbt.hasKey("Count")
                 && nbt.hasKey("Damage")
                 && nbt.getTag("id") instanceof NBTTagShort
                 && nbt.getTag("Count") instanceof NBTTagByte
@@ -249,8 +249,11 @@ public class MappingRegistry {
             if (b != null) {
                 String name = Block.blockRegistry.getNameForObject(b);
                 if (name == null || name.length() == 0) {
-                    BCLog.logger.error("Block " + b.getUnlocalizedName() + " ("
-                            + b.getClass().getName() + ") has an empty registry name! This is a bug!");
+                    BCLog.logger.error(
+                            "Block " + b.getUnlocalizedName()
+                                    + " ("
+                                    + b.getClass().getName()
+                                    + ") has an empty registry name! This is a bug!");
                 } else {
                     sub.setString("name", name);
                 }
@@ -267,8 +270,11 @@ public class MappingRegistry {
             if (i != null) {
                 String name = Item.itemRegistry.getNameForObject(i);
                 if (name == null || name.length() == 0) {
-                    BCLog.logger.error("Item " + i.getUnlocalizedName() + " ("
-                            + i.getClass().getName() + ") has an empty registry name! This is a bug!");
+                    BCLog.logger.error(
+                            "Item " + i.getUnlocalizedName()
+                                    + " ("
+                                    + i.getClass().getName()
+                                    + ") has an empty registry name! This is a bug!");
                 } else {
                     sub.setString("name", name);
                 }
@@ -288,20 +294,21 @@ public class MappingRegistry {
 
         nbt.setTag("entitiesMapping", entitiesMapping);
 
-        //		System.out.println("[W] idToItem size : " + idToItem.size());
-        //		for (Item i : idToItem) {
-        //			System.out.println("- " + (i != null ? i.toString() : "null"));
-        //		}
+        // System.out.println("[W] idToItem size : " + idToItem.size());
+        // for (Item i : idToItem) {
+        // System.out.println("- " + (i != null ? i.toString() : "null"));
+        // }
     }
 
     private Object getMissingMappingFromFML(boolean isBlock, String name, int i) {
         String modName = name.split(":")[0];
         if (Loader.isModLoaded(modName)) {
             try {
-                FMLMissingMappingsEvent.MissingMapping mapping =
-                        new FMLMissingMappingsEvent.MissingMapping((isBlock ? '\u0001' : '\u0020') + name, i);
-                ListMultimap<String, FMLMissingMappingsEvent.MissingMapping> missingMapping =
-                        ArrayListMultimap.create();
+                FMLMissingMappingsEvent.MissingMapping mapping = new FMLMissingMappingsEvent.MissingMapping(
+                        (isBlock ? '\u0001' : '\u0020') + name,
+                        i);
+                ListMultimap<String, FMLMissingMappingsEvent.MissingMapping> missingMapping = ArrayListMultimap
+                        .create();
                 missingMapping.put(modName, mapping);
                 FMLMissingMappingsEvent event = new FMLMissingMappingsEvent(missingMapping);
                 for (ModContainer container : Loader.instance().getModList()) {
@@ -413,9 +420,9 @@ public class MappingRegistry {
             }
         }
 
-        //		System.out.println("[R] idToItem size : " + idToItem.size());
-        //		for (Item i : idToItem) {
-        //			System.out.println("- " + (i != null ? i.toString() : "null"));
-        //		}
+        // System.out.println("[R] idToItem size : " + idToItem.size());
+        // for (Item i : idToItem) {
+        // System.out.println("- " + (i != null ? i.toString() : "null"));
+        // }
     }
 }

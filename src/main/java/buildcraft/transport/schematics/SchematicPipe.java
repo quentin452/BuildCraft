@@ -1,12 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.schematics;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.blueprints.BuildingPermission;
 import buildcraft.api.blueprints.IBuilderContext;
@@ -20,13 +27,6 @@ import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.Gate;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.TileGenericPipe.SideProperties;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class SchematicPipe extends SchematicTile {
 
@@ -75,9 +75,7 @@ public class SchematicPipe extends SchematicTile {
             }
 
             for (int i = 0; i < 6; ++i) {
-                int newI = ForgeDirection.values()[i]
-                        .getRotation(ForgeDirection.UP)
-                        .ordinal();
+                int newI = ForgeDirection.values()[i].getRotation(ForgeDirection.UP).ordinal();
 
                 if (gatesNBT[i] != null) {
                     rotateGateLeft(gatesNBT[i]);
@@ -131,9 +129,7 @@ public class SchematicPipe extends SchematicTile {
         if (gateNBT.hasKey("direction")) {
             gateNBT.setInteger(
                     "direction",
-                    ForgeDirection.values()[gateNBT.getInteger("direction")]
-                            .getRotation(ForgeDirection.UP)
-                            .ordinal());
+                    ForgeDirection.values()[gateNBT.getInteger("direction")].getRotation(ForgeDirection.UP).ordinal());
         }
     }
 
@@ -183,8 +179,8 @@ public class SchematicPipe extends SchematicTile {
             ArrayList<ItemStack> items = pipe.computeItemDrop();
             storedRequirements = new ItemStack[items.size() + 1];
             items.toArray(storedRequirements);
-            storedRequirements[storedRequirements.length - 1] =
-                    new ItemStack(pipe.item, 1, pipe.container.getItemMetadata());
+            storedRequirements[storedRequirements.length
+                    - 1] = new ItemStack(pipe.item, 1, pipe.container.getItemMetadata());
         }
     }
 

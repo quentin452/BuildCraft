@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.network;
+
+import java.io.IOException;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.INetHandler;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 import buildcraft.api.core.ISerializable;
 import buildcraft.core.lib.network.command.PacketCommand;
@@ -16,15 +22,10 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import java.io.IOException;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.INetHandler;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 @Sharable
 public class PacketHandler extends SimpleChannelInboundHandler<Packet> {
+
     private void onTileUpdate(EntityPlayer player, PacketTileUpdate packet) throws IOException {
         World world = player.worldObj;
 
@@ -62,8 +63,7 @@ public class PacketHandler extends SimpleChannelInboundHandler<Packet> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) {
         try {
-            INetHandler netHandler =
-                    ctx.channel().attr(NetworkRegistry.NET_HANDLER).get();
+            INetHandler netHandler = ctx.channel().attr(NetworkRegistry.NET_HANDLER).get();
             EntityPlayer player = CoreProxy.proxy.getPlayerFromNetHandler(netHandler);
 
             int packetID = packet.getID();

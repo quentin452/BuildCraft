@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.boards;
+
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 import buildcraft.api.boards.RedstoneBoardRobot;
 import buildcraft.api.boards.RedstoneBoardRobotNBT;
@@ -22,10 +25,6 @@ import buildcraft.robotics.ai.AIRobotFetchAndEquipItemStack;
 import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotSearchAndGotoBlock;
 import buildcraft.robotics.ai.AIRobotUseToolOnBlock;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 
 public class BoardRobotFarmer extends RedstoneBoardRobot {
 
@@ -45,6 +44,7 @@ public class BoardRobotFarmer extends RedstoneBoardRobot {
         final IWorldProperty isDirt = BuildCraftAPI.getWorldProperty("dirt");
         if (robot.getHeldItem() == null) {
             startDelegateAI(new AIRobotFetchAndEquipItemStack(robot, new IStackFilter() {
+
                 @Override
                 public boolean matches(ItemStack stack) {
                     return stack != null && stack.getItem() instanceof ItemHoe;
@@ -52,10 +52,10 @@ public class BoardRobotFarmer extends RedstoneBoardRobot {
             }));
         } else {
             startDelegateAI(new AIRobotSearchAndGotoBlock(robot, false, new IBlockFilter() {
+
                 @Override
                 public boolean matches(World world, int x, int y, int z) {
-                    return isDirt.get(world, x, y, z)
-                            && !robot.getRegistry().isTaken(new ResourceIdBlock(x, y, z))
+                    return isDirt.get(world, x, y, z) && !robot.getRegistry().isTaken(new ResourceIdBlock(x, y, z))
                             && isAirAbove(world, x, y, z);
                 }
             }));

@@ -3,6 +3,7 @@ package buildcraft.core.lib.render;
 import net.minecraft.util.IIcon;
 
 public class SubIcon implements IIcon {
+
     private final IIcon icon;
     private float u, v;
     private final int w, h;

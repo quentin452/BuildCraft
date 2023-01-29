@@ -1,12 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
 
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 import buildcraft.api.recipes.IIntegrationRecipe;
@@ -16,13 +21,9 @@ import buildcraft.core.lib.utils.NetworkUtils;
 import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.core.lib.utils.Utils;
 import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
 
 public class TileIntegrationTable extends TileLaserTableBase implements ISidedInventory {
+
     public static final int SLOT_OUTPUT = 9;
 
     private static final int CYCLE_LENGTH = 16;
@@ -171,8 +172,7 @@ public class TileIntegrationTable extends TileLaserTableBase implements ISidedIn
     }
 
     public int getMaxExpansionCount() {
-        return worldObj.isRemote
-                ? maxExpCountClient
+        return worldObj.isRemote ? maxExpCountClient
                 : (activeRecipe != null ? activeRecipe.getMaximumExpansionCount(getStackInSlot(0)) : 0);
     }
 

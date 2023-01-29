@@ -1,19 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.render;
 
-import buildcraft.BuildCraftCore;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+
+import buildcraft.BuildCraftCore;
 
 public class RenderingMarkers extends BCSimpleBlockRenderingHandler {
 
@@ -31,8 +30,8 @@ public class RenderingMarkers extends BCSimpleBlockRenderingHandler {
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {}
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+            RenderBlocks renderer) {
         Tessellator tessellator = Tessellator.instance;
         float f = block.getMixedBrightnessForBlock(world, x, y, z);
 
@@ -74,7 +73,7 @@ public class RenderingMarkers extends BCSimpleBlockRenderingHandler {
         metaToOld[4] = 2;
         metaToOld[5] = 1;
 
-        double[][] frontXBase = {{-0.0625, -0.0625, -0.0625, -0.0625}, {1, 0, 0, 1}, {-0.5, -0.5, 0.5, 0.5}};
+        double[][] frontXBase = { { -0.0625, -0.0625, -0.0625, -0.0625 }, { 1, 0, 0, 1 }, { -0.5, -0.5, 0.5, 0.5 } };
 
         frontX[3] = safeClone(frontXBase);
         rotateFace(frontX[3]);
@@ -90,7 +89,7 @@ public class RenderingMarkers extends BCSimpleBlockRenderingHandler {
         rotateFace(frontX[0]);
         rotateFace(frontX[0]);
 
-        double[][] frontZBase = {{-0.5, -0.5, 0.5, 0.5}, {1, 0, 0, 1}, {0.0625, 0.0625, 0.0625, 0.0625}};
+        double[][] frontZBase = { { -0.5, -0.5, 0.5, 0.5 }, { 1, 0, 0, 1 }, { 0.0625, 0.0625, 0.0625, 0.0625 } };
 
         frontZ[5] = safeClone(frontZBase);
 
@@ -106,7 +105,8 @@ public class RenderingMarkers extends BCSimpleBlockRenderingHandler {
         rotateFace(frontZ[0]);
         rotateFace(frontZ[0]);
 
-        double[][] frontYBase = {{-0.5, -0.5, 0.5, 0.5}, {-0.0625, -0.0625, -0.0625, -0.0625}, {0.5, -0.5, -0.5, 0.5}};
+        double[][] frontYBase = { { -0.5, -0.5, 0.5, 0.5 }, { -0.0625, -0.0625, -0.0625, -0.0625 },
+                { 0.5, -0.5, -0.5, 0.5 } };
 
         frontY[4] = safeClone(frontYBase);
         rotateFace(frontY[4]);
@@ -123,8 +123,8 @@ public class RenderingMarkers extends BCSimpleBlockRenderingHandler {
         rotateFace(frontY[1]);
     }
 
-    public void renderMarkerWithMeta(
-            IBlockAccess iblockaccess, Block block, double xi, double yi, double zi, int meta) {
+    public void renderMarkerWithMeta(IBlockAccess iblockaccess, Block block, double xi, double yi, double zi,
+            int meta) {
         Tessellator tessellator = Tessellator.instance;
         int metadata = meta;
 
@@ -219,23 +219,23 @@ public class RenderingMarkers extends BCSimpleBlockRenderingHandler {
         }
 
         if (m == 4 || m == 3 || m == 2 || m == 1) {
-            tessellator.addVertexWithUV(
-                    x + frontY[m][0][0], y + 0.5 + frontY[m][1][0], z + frontY[m][2][0], minU, minV);
-            tessellator.addVertexWithUV(
-                    x + frontY[m][0][1], y + 0.5 + frontY[m][1][1], z + frontY[m][2][1], minU, maxV);
-            tessellator.addVertexWithUV(
-                    x + frontY[m][0][2], y + 0.5 + frontY[m][1][2], z + frontY[m][2][2], maxU, maxV);
-            tessellator.addVertexWithUV(
-                    x + frontY[m][0][3], y + 0.5 + frontY[m][1][3], z + frontY[m][2][3], maxU, minV);
+            tessellator
+                    .addVertexWithUV(x + frontY[m][0][0], y + 0.5 + frontY[m][1][0], z + frontY[m][2][0], minU, minV);
+            tessellator
+                    .addVertexWithUV(x + frontY[m][0][1], y + 0.5 + frontY[m][1][1], z + frontY[m][2][1], minU, maxV);
+            tessellator
+                    .addVertexWithUV(x + frontY[m][0][2], y + 0.5 + frontY[m][1][2], z + frontY[m][2][2], maxU, maxV);
+            tessellator
+                    .addVertexWithUV(x + frontY[m][0][3], y + 0.5 + frontY[m][1][3], z + frontY[m][2][3], maxU, minV);
 
-            tessellator.addVertexWithUV(
-                    x + frontY[m][0][3], y + 0.5 - frontY[m][1][3], z + frontY[m][2][3], maxU, minV);
-            tessellator.addVertexWithUV(
-                    x + frontY[m][0][2], y + 0.5 - frontY[m][1][2], z + frontY[m][2][2], maxU, maxV);
-            tessellator.addVertexWithUV(
-                    x + frontY[m][0][1], y + 0.5 - frontY[m][1][1], z + frontY[m][2][1], minU, maxV);
-            tessellator.addVertexWithUV(
-                    x + frontY[m][0][0], y + 0.5 - frontY[m][1][0], z + frontY[m][2][0], minU, minV);
+            tessellator
+                    .addVertexWithUV(x + frontY[m][0][3], y + 0.5 - frontY[m][1][3], z + frontY[m][2][3], maxU, minV);
+            tessellator
+                    .addVertexWithUV(x + frontY[m][0][2], y + 0.5 - frontY[m][1][2], z + frontY[m][2][2], maxU, maxV);
+            tessellator
+                    .addVertexWithUV(x + frontY[m][0][1], y + 0.5 - frontY[m][1][1], z + frontY[m][2][1], minU, maxV);
+            tessellator
+                    .addVertexWithUV(x + frontY[m][0][0], y + 0.5 - frontY[m][1][0], z + frontY[m][2][0], minU, minV);
         }
     }
 

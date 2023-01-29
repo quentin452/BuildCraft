@@ -1,12 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.pipes;
+
+import java.util.List;
+import java.util.WeakHashMap;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.IIconProvider;
@@ -26,20 +38,9 @@ import buildcraft.transport.utils.TransportUtils;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.List;
-import java.util.WeakHashMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsObsidian extends Pipe<PipeTransportItems> implements IEnergyHandler {
+
     private final RFBattery battery = new RFBattery(2560, 640, 0);
     private final WeakHashMap<Entity, Long> entityDropTime = new WeakHashMap<Entity, Long>();
 
@@ -201,20 +202,12 @@ public class PipeItemsObsidian extends Pipe<PipeTransportItems> implements IEner
         ForgeDirection orientation = getOpenOrientation().getOpposite();
 
         if (orientation != ForgeDirection.UNKNOWN) {
-            container
-                    .getWorldObj()
-                    .playSoundAtEntity(
-                            entity,
-                            "random.pop",
-                            0.2F,
-                            ((container.getWorldObj().rand.nextFloat()
-                                                            - container
-                                                                    .getWorldObj()
-                                                                    .rand
-                                                                    .nextFloat())
-                                                    * 0.7F
-                                            + 1.0F)
-                                    * 2.0F);
+            container.getWorldObj().playSoundAtEntity(
+                    entity,
+                    "random.pop",
+                    0.2F,
+                    ((container.getWorldObj().rand.nextFloat() - container.getWorldObj().rand.nextFloat()) * 0.7F
+                            + 1.0F) * 2.0F);
 
             ItemStack stack;
 
@@ -241,8 +234,8 @@ public class PipeItemsObsidian extends Pipe<PipeTransportItems> implements IEner
 
                 battery.useEnergy(energyUsed, energyUsed, false);
 
-                speed = Math.sqrt(
-                        item.motionX * item.motionX + item.motionY * item.motionY + item.motionZ * item.motionZ);
+                speed = Math
+                        .sqrt(item.motionX * item.motionX + item.motionY * item.motionY + item.motionZ * item.motionZ);
                 speed = speed / 2F - 0.05;
 
                 if (speed < 0.01) {

@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.properties;
 
@@ -60,8 +58,8 @@ public class DimensionProperty implements IWorldAccess {
                         Block block = chunk.getBlock(x, y, z);
                         int meta = chunk.getBlockMetadata(x, y, z);
 
-                        boolean prop = worldProperty.get(
-                                world, block, meta, chunk.xPosition * 16 + x, y, chunk.zPosition * 16 + z);
+                        boolean prop = worldProperty
+                                .get(world, block, meta, chunk.xPosition * 16 + x, y, chunk.zPosition * 16 + z);
                         property.set(x, y, z, prop);
                     }
                 }
@@ -97,12 +95,12 @@ public class DimensionProperty implements IWorldAccess {
     public void playSound(String var1, double var2, double var4, double var6, float var8, float var9) {}
 
     @Override
-    public void playSoundToNearExcept(
-            EntityPlayer var1, String var2, double var3, double var5, double var7, float var9, float var10) {}
+    public void playSoundToNearExcept(EntityPlayer var1, String var2, double var3, double var5, double var7, float var9,
+            float var10) {}
 
     @Override
-    public void spawnParticle(
-            String var1, double var2, double var4, double var6, double var8, double var10, double var12) {}
+    public void spawnParticle(String var1, double var2, double var4, double var6, double var8, double var10,
+            double var12) {}
 
     @Override
     public void onEntityCreate(Entity var1) {}

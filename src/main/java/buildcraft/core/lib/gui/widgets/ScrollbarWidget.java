@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ScrollbarWidget extends Widget {
+
     private static final int HEIGHT = 14;
     private int pos, len;
     private boolean isClicking;

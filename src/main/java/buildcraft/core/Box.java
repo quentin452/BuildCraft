@@ -1,12 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.core.IAreaProvider;
@@ -15,15 +22,9 @@ import buildcraft.api.core.ISerializable;
 import buildcraft.api.core.Position;
 import buildcraft.core.lib.utils.LaserUtils;
 import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
 
 public class Box implements IBox, ISerializable {
+
     public enum Kind {
         LASER_RED,
         LASER_YELLOW,
@@ -92,8 +93,7 @@ public class Box implements IBox, ISerializable {
             this.zMax = zMin;
         }
 
-        initialized = !(xMin == Integer.MAX_VALUE
-                || yMin == Integer.MAX_VALUE
+        initialized = !(xMin == Integer.MAX_VALUE || yMin == Integer.MAX_VALUE
                 || zMin == Integer.MAX_VALUE
                 || xMax == Integer.MAX_VALUE
                 || yMax == Integer.MAX_VALUE

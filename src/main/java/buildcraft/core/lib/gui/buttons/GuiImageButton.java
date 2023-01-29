@@ -1,25 +1,27 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.gui.buttons;
+
+import java.util.ArrayList;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.core.lib.gui.tooltips.IToolTipProvider;
 import buildcraft.core.lib.gui.tooltips.ToolTip;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiImageButton extends GuiButton implements IButtonClickEventTrigger, IToolTipProvider {
+
     private final int size, u, v, baseU, baseV;
     private final ResourceLocation texture;
 
@@ -31,8 +33,8 @@ public class GuiImageButton extends GuiButton implements IButtonClickEventTrigge
         this(id, x, y, size, texture, 0, 0, u, v);
     }
 
-    public GuiImageButton(
-            int id, int x, int y, int size, ResourceLocation texture, int baseU, int baseV, int u, int v) {
+    public GuiImageButton(int id, int x, int y, int size, ResourceLocation texture, int baseU, int baseV, int u,
+            int v) {
         super(id, x, y, size, size, "");
         this.size = size;
         this.u = u;

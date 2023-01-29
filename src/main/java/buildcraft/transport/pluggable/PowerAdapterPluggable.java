@@ -1,5 +1,12 @@
 package buildcraft.transport.pluggable;
 
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.render.ITextureStates;
 import buildcraft.api.transport.IPipe;
@@ -11,31 +18,19 @@ import buildcraft.core.lib.utils.MatrixTranformations;
 import buildcraft.transport.PipeIconProvider;
 import cofh.api.energy.IEnergyHandler;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PowerAdapterPluggable extends PipePluggable implements IEnergyHandler {
+
     private static final int MAX_POWER = 40;
     private IPipeTile container;
 
     protected static final class PowerAdapterPluggableRenderer implements IPipePluggableRenderer {
+
         private float zFightOffset = 1 / 4096.0F;
 
         @Override
-        public void renderPluggable(
-                RenderBlocks renderblocks,
-                IPipe pipe,
-                ForgeDirection side,
-                PipePluggable pipePluggable,
-                ITextureStates blockStateMachine,
-                int renderPass,
-                int x,
-                int y,
-                int z) {
+        public void renderPluggable(RenderBlocks renderblocks, IPipe pipe, ForgeDirection side,
+                PipePluggable pipePluggable, ITextureStates blockStateMachine, int renderPass, int x, int y, int z) {
             if (renderPass != 0) {
                 return;
             }
@@ -47,8 +42,7 @@ public class PowerAdapterPluggable extends PipePluggable implements IEnergyHandl
 
             for (int i = 0; i < 6; i++) {
                 icons[i] = BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                        (i & 6) == (bottom & 6)
-                                ? PipeIconProvider.TYPE.PipePowerAdapterBottom.ordinal()
+                        (i & 6) == (bottom & 6) ? PipeIconProvider.TYPE.PipePowerAdapterBottom.ordinal()
                                 : PipeIconProvider.TYPE.PipePowerAdapterSide.ordinal());
             }
 
@@ -66,11 +60,16 @@ public class PowerAdapterPluggable extends PipePluggable implements IEnergyHandl
             MatrixTranformations.transform(rotated, side);
 
             renderblocks.setRenderBounds(
-                    rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                    rotated[0][0],
+                    rotated[1][0],
+                    rotated[2][0],
+                    rotated[0][1],
+                    rotated[1][1],
+                    rotated[2][1]);
             renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
 
-            icons[bottom] = icons[bottom ^ 1] = BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                    PipeIconProvider.TYPE.PipePowerAdapterTop.ordinal());
+            icons[bottom] = icons[bottom ^ 1] = BuildCraftTransport.instance.pipeIconProvider
+                    .getIcon(PipeIconProvider.TYPE.PipePowerAdapterTop.ordinal());
 
             // X START - END
             zeroState[0][0] = 0.25F + zFightOffset;
@@ -86,7 +85,12 @@ public class PowerAdapterPluggable extends PipePluggable implements IEnergyHandl
             MatrixTranformations.transform(rotated, side);
 
             renderblocks.setRenderBounds(
-                    rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                    rotated[0][0],
+                    rotated[1][0],
+                    rotated[2][0],
+                    rotated[0][1],
+                    rotated[1][1],
+                    rotated[2][1]);
             renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
 
             FakeBlock.INSTANCE.getTextureState().pushArray();
@@ -113,7 +117,7 @@ public class PowerAdapterPluggable extends PipePluggable implements IEnergyHandl
 
     @Override
     public ItemStack[] getDropItems(IPipeTile pipe) {
-        return new ItemStack[] {new ItemStack(BuildCraftTransport.powerAdapterItem)};
+        return new ItemStack[] { new ItemStack(BuildCraftTransport.powerAdapterItem) };
     }
 
     @Override
@@ -135,8 +139,8 @@ public class PowerAdapterPluggable extends PipePluggable implements IEnergyHandl
         bounds[2][1] = 0.8125F;
 
         MatrixTranformations.transform(bounds, side);
-        return AxisAlignedBB.getBoundingBox(
-                bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
+        return AxisAlignedBB
+                .getBoundingBox(bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
     }
 
     @Override

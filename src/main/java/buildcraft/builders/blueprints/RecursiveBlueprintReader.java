@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders.blueprints;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftBuilders;
 import buildcraft.api.blueprints.Translation;
@@ -22,10 +25,6 @@ import buildcraft.core.blueprints.BlueprintBase;
 import buildcraft.core.blueprints.BptContext;
 import buildcraft.core.blueprints.Template;
 import buildcraft.core.lib.utils.BlockScanner;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class RecursiveBlueprintReader {
 
@@ -117,9 +116,8 @@ public class RecursiveBlueprintReader {
                 } else if (subTile instanceof TileBuilder) {
                     TileBuilder builder = (TileBuilder) subTile;
                     blueprint = ItemBlueprint.loadBlueprint(builder.getStackInSlot(0));
-                    orientation = ForgeDirection.values()[
-                            architect.getWorldObj().getBlockMetadata(subBlock.x, subBlock.y, subBlock.z)]
-                            .getOpposite();
+                    orientation = ForgeDirection.values()[architect.getWorldObj()
+                            .getBlockMetadata(subBlock.x, subBlock.y, subBlock.z)].getOpposite();
                 }
 
                 if (blueprint != null) {
@@ -144,15 +142,10 @@ public class RecursiveBlueprintReader {
                         currentSubReader.architect.xCoord - architect.getBox().xMin,
                         currentSubReader.architect.yCoord - architect.getBox().yMin,
                         currentSubReader.architect.zCoord - architect.getBox().zMin,
-                        ForgeDirection.values()[
-                                currentSubReader
-                                        .architect
-                                        .getWorldObj()
-                                        .getBlockMetadata(
-                                                currentSubReader.architect.xCoord,
-                                                currentSubReader.architect.yCoord,
-                                                currentSubReader.architect.zCoord)]
-                                .getOpposite());
+                        ForgeDirection.values()[currentSubReader.architect.getWorldObj().getBlockMetadata(
+                                currentSubReader.architect.xCoord,
+                                currentSubReader.architect.yCoord,
+                                currentSubReader.architect.zCoord)].getOpposite());
 
                 currentSubReader = null;
                 subIndex++;
@@ -175,9 +168,8 @@ public class RecursiveBlueprintReader {
 
                 writingBlueprint.translateToBlueprint(transform);
 
-                ForgeDirection o = ForgeDirection.values()[
-                        architect.getWorldObj().getBlockMetadata(architect.xCoord, architect.yCoord, architect.zCoord)]
-                        .getOpposite();
+                ForgeDirection o = ForgeDirection.values()[architect.getWorldObj()
+                        .getBlockMetadata(architect.xCoord, architect.yCoord, architect.zCoord)].getOpposite();
 
                 writingBlueprint.rotate = architect.readConfiguration.rotate;
                 writingBlueprint.excavate = architect.readConfiguration.excavate;

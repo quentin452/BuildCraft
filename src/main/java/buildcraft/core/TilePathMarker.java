@@ -1,27 +1,28 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.core.IPathProvider;
 import buildcraft.api.core.Position;
 import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 public class TilePathMarker extends TileMarker implements IPathProvider {
+
     // A list with the pathMarkers that aren't fully connected
     // It only contains markers within the loaded chunks
     private static ArrayList<TilePathMarker> availableMarkers = new ArrayList<TilePathMarker>();
@@ -74,16 +75,14 @@ public class TilePathMarker extends TileMarker implements IPathProvider {
     }
 
     /**
-     * Searches the availableMarkers list for the nearest available that is
-     * within searchSize
+     * Searches the availableMarkers list for the nearest available that is within searchSize
      */
     private TilePathMarker findNearestAvailablePathMarker() {
         TilePathMarker nearestAvailable = null;
         double nearestDistance = 0, distance;
 
         for (TilePathMarker t : availableMarkers) {
-            if (t == this
-                    || t == this.links[0]
+            if (t == this || t == this.links[0]
                     || t == this.links[1]
                     || t.getWorldObj().provider.dimensionId != this.getWorldObj().provider.dimensionId) {
                 continue;
@@ -155,17 +154,15 @@ public class TilePathMarker extends TileMarker implements IPathProvider {
             visitedPaths.add(b);
             res.add(b);
 
-            if (nextTile.links[0] != null
-                    && !visitedPaths.contains(new BlockIndex(
-                            nextTile.links[0].xCoord, nextTile.links[0].yCoord, nextTile.links[0].zCoord))) {
+            if (nextTile.links[0] != null && !visitedPaths.contains(
+                    new BlockIndex(nextTile.links[0].xCoord, nextTile.links[0].yCoord, nextTile.links[0].zCoord))) {
                 nextTile = nextTile.links[0];
-            } else if (nextTile.links[1] != null
-                    && !visitedPaths.contains(new BlockIndex(
-                            nextTile.links[1].xCoord, nextTile.links[1].yCoord, nextTile.links[1].zCoord))) {
-                nextTile = nextTile.links[1];
-            } else {
-                nextTile = null;
-            }
+            } else if (nextTile.links[1] != null && !visitedPaths.contains(
+                    new BlockIndex(nextTile.links[1].xCoord, nextTile.links[1].yCoord, nextTile.links[1].zCoord))) {
+                        nextTile = nextTile.links[1];
+                    } else {
+                        nextTile = null;
+                    }
         }
 
         return res;
@@ -285,7 +282,7 @@ public class TilePathMarker extends TileMarker implements IPathProvider {
     }
 
     public static void clearAvailableMarkersList(World w) {
-        for (Iterator<TilePathMarker> it = availableMarkers.iterator(); it.hasNext(); ) {
+        for (Iterator<TilePathMarker> it = availableMarkers.iterator(); it.hasNext();) {
             TilePathMarker t = it.next();
             if (t.getWorldObj().provider.dimensionId == w.provider.dimensionId) {
                 it.remove();

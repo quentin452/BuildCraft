@@ -1,16 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.inventory;
 
-import buildcraft.api.items.IList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import buildcraft.api.items.IList;
 
 public class StackHelper {
 
@@ -63,11 +62,9 @@ public class StackHelper {
     /**
      * Merges mergeSource into mergeTarget
      *
-     * @param mergeSource - The stack to merge into mergeTarget, this stack is
-     * not modified
-     * @param mergeTarget - The target merge, this stack is modified if doMerge
-     * is set
-     * @param doMerge - To actually do the merge
+     * @param mergeSource - The stack to merge into mergeTarget, this stack is not modified
+     * @param mergeTarget - The target merge, this stack is modified if doMerge is set
+     * @param doMerge     - To actually do the merge
      * @return The number of items that was successfully merged.
      */
     public static int mergeStacks(ItemStack mergeSource, ItemStack mergeTarget, boolean doMerge) {
@@ -87,14 +84,12 @@ public class StackHelper {
     /* ITEM COMPARISONS */
 
     /**
-     * Determines whether the given ItemStack should be considered equivalent
-     * for crafting purposes.
+     * Determines whether the given ItemStack should be considered equivalent for crafting purposes.
      *
-     * @param base The stack to compare to.
-     * @param comparison The stack to compare.
+     * @param base          The stack to compare to.
+     * @param comparison    The stack to compare.
      * @param oreDictionary true to take the Forge OreDictionary into account.
-     * @return true if comparison should be considered a crafting equivalent for
-     * base.
+     * @return true if comparison should be considered a crafting equivalent for base.
      */
     public static boolean isCraftingEquivalent(ItemStack base, ItemStack comparison, boolean oreDictionary) {
         if (isMatchingItem(base, comparison, true, false)) {
@@ -152,10 +147,10 @@ public class StackHelper {
     }
 
     /**
-     * Compares item id, damage and NBT. Accepts wildcard damage. Ignores damage
-     * entirely if the item doesn't have subtypes.
+     * Compares item id, damage and NBT. Accepts wildcard damage. Ignores damage entirely if the item doesn't have
+     * subtypes.
      *
-     * @param base The stack to compare to.
+     * @param base       The stack to compare to.
      * @param comparison The stack to compare.
      * @return true if id, damage and NBT match.
      */
@@ -175,17 +170,17 @@ public class StackHelper {
     }
 
     /**
-     * Compares item id, and optionally damage and NBT. Accepts wildcard damage.
-     * Ignores damage entirely if the item doesn't have subtypes.
+     * Compares item id, and optionally damage and NBT. Accepts wildcard damage. Ignores damage entirely if the item
+     * doesn't have subtypes.
      *
-     * @param a ItemStack
-     * @param b ItemStack
+     * @param a           ItemStack
+     * @param b           ItemStack
      * @param matchDamage
      * @param matchNBT
      * @return true if matches
      */
-    public static boolean isMatchingItem(
-            final ItemStack a, final ItemStack b, final boolean matchDamage, final boolean matchNBT) {
+    public static boolean isMatchingItem(final ItemStack a, final ItemStack b, final boolean matchDamage,
+            final boolean matchNBT) {
         if (a == null || b == null) {
             return false;
         }

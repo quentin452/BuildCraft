@@ -1,20 +1,20 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.events;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 import buildcraft.api.robots.EntityRobotBase;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 public abstract class RobotEvent extends Event {
+
     public final EntityRobotBase robot;
 
     public RobotEvent(EntityRobotBase robot) {
@@ -23,6 +23,7 @@ public abstract class RobotEvent extends Event {
 
     @Cancelable
     public static class Place extends RobotEvent {
+
         public final EntityPlayer player;
 
         public Place(EntityRobotBase robot, EntityPlayer player) {
@@ -33,6 +34,7 @@ public abstract class RobotEvent extends Event {
 
     @Cancelable
     public static class Interact extends RobotEvent {
+
         public final EntityPlayer player;
         public final ItemStack item;
 
@@ -45,6 +47,7 @@ public abstract class RobotEvent extends Event {
 
     @Cancelable
     public static class Dismantle extends RobotEvent {
+
         public final EntityPlayer player;
 
         public Dismantle(EntityRobotBase robot, EntityPlayer player) {

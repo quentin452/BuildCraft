@@ -1,5 +1,7 @@
 package buildcraft.robotics.statements;
 
+import net.minecraft.item.ItemStack;
+
 import buildcraft.api.boards.RedstoneBoardRobotNBT;
 import buildcraft.api.items.IList;
 import buildcraft.api.robots.EntityRobotBase;
@@ -12,7 +14,6 @@ import buildcraft.core.lib.inventory.StackHelper;
 import buildcraft.robotics.EntityRobot;
 import buildcraft.robotics.ItemRobot;
 import buildcraft.robotics.RobotUtils;
-import net.minecraft.item.ItemStack;
 
 public class StatementParameterRobot extends StatementParameterItemStack {
 
@@ -41,7 +42,8 @@ public class StatementParameterRobot extends StatementParameterItemStack {
             if (stack.getItem() instanceof IList) {
                 IList list = (IList) stack.getItem();
                 if (list.matches(
-                        stack, ItemRobot.createRobotStack(robot.getBoard().getNBTHandler(), robot.getEnergy()))) {
+                        stack,
+                        ItemRobot.createRobotStack(robot.getBoard().getNBTHandler(), robot.getEnergy()))) {
                     return true;
                 }
                 for (ItemStack target : ((EntityRobot) robot).getWearables()) {

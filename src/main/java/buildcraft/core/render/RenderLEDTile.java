@@ -1,23 +1,27 @@
 package buildcraft.core.render;
 
-import buildcraft.core.internal.ICustomLEDBlock;
-import buildcraft.core.internal.ILEDProvider;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import buildcraft.core.lib.render.RenderEntityBlock;
-import buildcraft.core.lib.utils.ResourceUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.core.internal.ICustomLEDBlock;
+import buildcraft.core.internal.ILEDProvider;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import buildcraft.core.lib.render.RenderEntityBlock;
+import buildcraft.core.lib.utils.ResourceUtils;
+
 public class RenderLEDTile extends TileEntitySpecialRenderer {
+
     private static final Map<Block, IIcon[]> iconMap = new HashMap<Block, IIcon[]>();
     private static final float Z_OFFSET = 2049 / 2048.0F;
     private final Block block;

@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.gui;
+
+import net.minecraft.block.material.MapColor;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftRobotics;
@@ -22,12 +25,9 @@ import buildcraft.robotics.ZonePlan;
 import buildcraft.robotics.map.MapWorld;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.material.MapColor;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 
 public class ContainerZonePlan extends BuildCraftContainer implements ICommandReceiver {
+
     private static final int MAX_PACKET_LENGTH = 30000;
 
     public DynamicTextureBC mapTexture;
@@ -68,6 +68,7 @@ public class ContainerZonePlan extends BuildCraftContainer implements ICommandRe
 
     public void loadArea(final int index) {
         BuildCraftCore.instance.sendToServer(new PacketCommand(this, "loadArea", new CommandWriter() {
+
             public void write(ByteBuf data) {
                 data.writeByte(index);
             }
@@ -76,6 +77,7 @@ public class ContainerZonePlan extends BuildCraftContainer implements ICommandRe
 
     public void saveArea(final int index) {
         BuildCraftCore.instance.sendToServer(new PacketCommand(this, "saveArea", new CommandWriter() {
+
             public void write(ByteBuf data) {
                 data.writeByte(index);
                 currentAreaSelection.writeData(data);
@@ -95,15 +97,16 @@ public class ContainerZonePlan extends BuildCraftContainer implements ICommandRe
                 int pos = stream.readUnsignedMedium();
 
                 for (int i = 0; i < Math.min(size - pos, MAX_PACKET_LENGTH); ++i) {
-                    mapTexture.colorMap[pos + i] =
-                            0xFF000000 | MapColor.mapColorArray[stream.readUnsignedByte()].colorValue;
+                    mapTexture.colorMap[pos + i] = 0xFF000000
+                            | MapColor.mapColorArray[stream.readUnsignedByte()].colorValue;
                 }
             }
         } else if (side.isServer()) {
             if ("loadArea".equals(command)) {
                 final int index = stream.readUnsignedByte();
-                BuildCraftCore.instance.sendToPlayer(
-                        (EntityPlayer) sender, new PacketCommand(this, "areaLoaded", new CommandWriter() {
+                BuildCraftCore.instance
+                        .sendToPlayer((EntityPlayer) sender, new PacketCommand(this, "areaLoaded", new CommandWriter() {
+
                             public void write(ByteBuf data) {
                                 map.selectArea(index).writeData(data);
                             }
@@ -154,6 +157,7 @@ public class ContainerZonePlan extends BuildCraftContainer implements ICommandRe
         for (int i = 0; i < textureData.length; i += len) {
             final int pos = i;
             BuildCraftCore.instance.sendToPlayer(player, new PacketCommand(this, "receiveImage", new CommandWriter() {
+
                 public void write(ByteBuf data) {
                     data.writeMedium(textureData.length);
                     data.writeMedium(pos);

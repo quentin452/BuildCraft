@@ -1,5 +1,11 @@
 package buildcraft.transport.pluggable;
 
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.EnumColor;
 import buildcraft.api.core.render.ITextureStates;
@@ -14,35 +20,24 @@ import buildcraft.transport.PipeIconProvider;
 import buildcraft.transport.TravelingItem;
 import buildcraft.transport.pipes.events.PipeEventItem;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class LensPluggable extends PipePluggable {
+
     public int color;
     public boolean isFilter;
     protected IPipeTile container;
     private ForgeDirection side;
 
     private static final class LensPluggableRenderer implements IPipePluggableRenderer {
+
         public static final IPipePluggableRenderer INSTANCE = new LensPluggableRenderer();
         private static final float zFightOffset = 1 / 4096.0F;
 
         private LensPluggableRenderer() {}
 
         @Override
-        public void renderPluggable(
-                RenderBlocks renderblocks,
-                IPipe pipe,
-                ForgeDirection side,
-                PipePluggable pipePluggable,
-                ITextureStates blockStateMachine,
-                int renderPass,
-                int x,
-                int y,
-                int z) {
+        public void renderPluggable(RenderBlocks renderblocks, IPipe pipe, ForgeDirection side,
+                PipePluggable pipePluggable, ITextureStates blockStateMachine, int renderPass, int x, int y, int z) {
             float[][] zeroState = new float[3][2];
 
             // X START - END
@@ -66,30 +61,26 @@ public class LensPluggable extends PipePluggable {
                 }
 
                 if (color == -1) {
-                    blockStateMachine
-                            .getTextureState()
-                            .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                                    PipeIconProvider.TYPE.PipeLensClearOverlay.ordinal()));
+                    blockStateMachine.getTextureState().set(
+                            BuildCraftTransport.instance.pipeIconProvider
+                                    .getIcon(PipeIconProvider.TYPE.PipeLensClearOverlay.ordinal()));
                 } else {
-                    blockStateMachine
-                            .getTextureState()
-                            .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                                    PipeIconProvider.TYPE.PipeLensOverlay.ordinal()));
+                    blockStateMachine.getTextureState().set(
+                            BuildCraftTransport.instance.pipeIconProvider
+                                    .getIcon(PipeIconProvider.TYPE.PipeLensOverlay.ordinal()));
                     ((FakeBlock) blockStateMachine).setColor(ColorUtils.getRGBColor(15 - color));
                 }
 
                 blockStateMachine.setRenderAllSides();
             } else {
                 if (((LensPluggable) pipePluggable).isFilter) {
-                    blockStateMachine
-                            .getTextureState()
-                            .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                                    PipeIconProvider.TYPE.PipeFilter.ordinal()));
+                    blockStateMachine.getTextureState().set(
+                            BuildCraftTransport.instance.pipeIconProvider
+                                    .getIcon(PipeIconProvider.TYPE.PipeFilter.ordinal()));
                 } else {
-                    blockStateMachine
-                            .getTextureState()
-                            .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                                    PipeIconProvider.TYPE.PipeLens.ordinal()));
+                    blockStateMachine.getTextureState().set(
+                            BuildCraftTransport.instance.pipeIconProvider
+                                    .getIcon(PipeIconProvider.TYPE.PipeLens.ordinal()));
                 }
             }
 
@@ -97,7 +88,12 @@ public class LensPluggable extends PipePluggable {
             MatrixTranformations.transform(rotated, side);
 
             renderblocks.setRenderBounds(
-                    rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                    rotated[0][0],
+                    rotated[1][0],
+                    rotated[2][0],
+                    rotated[0][1],
+                    rotated[1][1],
+                    rotated[2][1]);
             renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
 
             ((FakeBlock) blockStateMachine).setColor(0xFFFFFF);
@@ -134,7 +130,7 @@ public class LensPluggable extends PipePluggable {
             meta = isFilter ? 33 : 32;
         }
 
-        return new ItemStack[] {new ItemStack(BuildCraftTransport.lensItem, 1, meta)};
+        return new ItemStack[] { new ItemStack(BuildCraftTransport.lensItem, 1, meta) };
     }
 
     @Override
@@ -156,8 +152,8 @@ public class LensPluggable extends PipePluggable {
         bounds[2][1] = 0.75F + 0.0625F;
 
         MatrixTranformations.transform(bounds, side);
-        return AxisAlignedBB.getBoundingBox(
-                bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
+        return AxisAlignedBB
+                .getBoundingBox(bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
     }
 
     @Override

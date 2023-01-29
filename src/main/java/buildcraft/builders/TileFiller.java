@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.core.IAreaProvider;
@@ -31,14 +35,10 @@ import buildcraft.core.lib.utils.NetworkUtils;
 import buildcraft.core.lib.utils.Utils;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 
 public class TileFiller extends TileAbstractBuilder
         implements IHasWork, IControllable, ICommandReceiver, IStatementContainer, ILEDProvider {
+
     private static int POWER_ACTIVATION = 500;
 
     public FillerPattern currentPattern = PatternFill.INSTANCE;
@@ -342,6 +342,7 @@ public class TileFiller extends TileAbstractBuilder
 
     public void rpcSetPatternFromString(final String name) {
         BuildCraftCore.instance.sendToServer(new PacketCommand(this, "setPattern", new CommandWriter() {
+
             public void write(ByteBuf data) {
                 NetworkUtils.writeUTF(data, name);
             }
@@ -405,6 +406,7 @@ public class TileFiller extends TileAbstractBuilder
 
     public void rpcSetParameter(int i, IStatementParameter patternParameter) {
         BuildCraftCore.instance.sendToServer(new PacketCommand(this, "setParameters", new CommandWriter() {
+
             public void write(ByteBuf data) {
                 NBTTagCompound parameterData = new NBTTagCompound();
                 writeParametersToNBT(parameterData);

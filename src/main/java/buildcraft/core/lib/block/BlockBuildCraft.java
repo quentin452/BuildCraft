@@ -1,25 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.block;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.core.IInvSlot;
-import buildcraft.api.events.BlockInteractionEvent;
-import buildcraft.api.tiles.IHasWork;
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.lib.inventory.InventoryIterator;
-import buildcraft.core.lib.utils.ResourceUtils;
-import buildcraft.core.lib.utils.Utils;
-import buildcraft.core.lib.utils.XorShift128Random;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -36,14 +22,24 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.api.core.IInvSlot;
+import buildcraft.api.events.BlockInteractionEvent;
+import buildcraft.api.tiles.IHasWork;
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.lib.inventory.InventoryIterator;
+import buildcraft.core.lib.utils.ResourceUtils;
+import buildcraft.core.lib.utils.Utils;
+import buildcraft.core.lib.utils.XorShift128Random;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public abstract class BlockBuildCraft extends BlockContainer {
+
     protected static boolean keepInventory = false;
-    private static final int[][] SIDE_TEXTURING_LOCATIONS = new int[][] {
-        {2, 3, 5, 4},
-        {3, 2, 4, 5},
-        {4, 5, 2, 3},
-        {5, 4, 3, 2}
-    };
+    private static final int[][] SIDE_TEXTURING_LOCATIONS = new int[][] { { 2, 3, 5, 4 }, { 3, 2, 4, 5 },
+            { 4, 5, 2, 3 }, { 5, 4, 3, 2 } };
 
     @SideOnly(Side.CLIENT)
     public IIcon[][] icons;
@@ -97,8 +93,7 @@ public abstract class BlockBuildCraft extends BlockContainer {
                     x,
                     y,
                     z,
-                    world.getBlockMetadata(x, y, z) & 8
-                            | orientation.getOpposite().ordinal(),
+                    world.getBlockMetadata(x, y, z) & 8 | orientation.getOpposite().ordinal(),
                     1);
         }
 
@@ -108,8 +103,8 @@ public abstract class BlockBuildCraft extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7,
+            float par8, float par9) {
         BlockInteractionEvent event = new BlockInteractionEvent(entityplayer, this);
         FMLCommonHandler.instance().bus().post(event);
         if (event.isCanceled()) {
@@ -188,7 +183,12 @@ public abstract class BlockBuildCraft extends BlockContainer {
             } else {
                 int front = metadata >= 2 && metadata <= 5 ? metadata : 3;
                 icon = getIconAbsolute(
-                        access, x, y, z, SIDE_TEXTURING_LOCATIONS[(front - 2) % 4][(side - 2) % 4], metadata & 8);
+                        access,
+                        x,
+                        y,
+                        z,
+                        SIDE_TEXTURING_LOCATIONS[(front - 2) % 4][(side - 2) % 4],
+                        metadata & 8);
             }
         } else {
             icon = getIconAbsolute(access, x, y, z, side, metadata);
@@ -215,21 +215,22 @@ public abstract class BlockBuildCraft extends BlockContainer {
     protected void registerIconsForMeta(int meta, String blockName, IIconRegister register) {
         icons[meta] = new IIcon[6];
         String name = ResourceUtils.getObjectPrefix(blockName);
-        icons[meta][0] = ResourceUtils.getIconPriority(register, name, new String[] {"bottom", "topbottom", "default"});
-        icons[meta][1] = ResourceUtils.getIconPriority(register, name, new String[] {"top", "topbottom", "default"});
-        icons[meta][2] =
-                ResourceUtils.getIconPriority(register, name, new String[] {"front", "frontback", "side", "default"});
-        icons[meta][3] =
-                ResourceUtils.getIconPriority(register, name, new String[] {"back", "frontback", "side", "default"});
-        icons[meta][4] =
-                ResourceUtils.getIconPriority(register, name, new String[] {"left", "leftright", "side", "default"});
-        icons[meta][5] =
-                ResourceUtils.getIconPriority(register, name, new String[] {"right", "leftright", "side", "default"});
+        icons[meta][0] = ResourceUtils
+                .getIconPriority(register, name, new String[] { "bottom", "topbottom", "default" });
+        icons[meta][1] = ResourceUtils.getIconPriority(register, name, new String[] { "top", "topbottom", "default" });
+        icons[meta][2] = ResourceUtils
+                .getIconPriority(register, name, new String[] { "front", "frontback", "side", "default" });
+        icons[meta][3] = ResourceUtils
+                .getIconPriority(register, name, new String[] { "back", "frontback", "side", "default" });
+        icons[meta][4] = ResourceUtils
+                .getIconPriority(register, name, new String[] { "left", "leftright", "side", "default" });
+        icons[meta][5] = ResourceUtils
+                .getIconPriority(register, name, new String[] { "right", "leftright", "side", "default" });
     }
 
     @SideOnly(Side.CLIENT)
     public String[] getIconBlockNames() {
-        return new String[] {Block.blockRegistry.getNameForObject(this)};
+        return new String[] { Block.blockRegistry.getNameForObject(this) };
     }
 
     @Override
@@ -292,17 +293,16 @@ public abstract class BlockBuildCraft extends BlockContainer {
             int count = 0;
             int countNonEmpty = 0;
             float power = 0.0F;
-            for (IInvSlot slot :
-                    InventoryIterator.getIterable((IInventory) tile, ForgeDirection.getOrientation(side))) {
+            for (IInvSlot slot : InventoryIterator
+                    .getIterable((IInventory) tile, ForgeDirection.getOrientation(side))) {
                 if (((IComparatorInventory) this)
                         .doesSlotCountComparator(tile, slot.getIndex(), slot.getStackInSlot())) {
                     count++;
                     if (slot.getStackInSlot() != null) {
                         countNonEmpty++;
-                        power += (float) slot.getStackInSlot().stackSize
-                                / (float) Math.min(
-                                        ((IInventory) tile).getInventoryStackLimit(),
-                                        slot.getStackInSlot().getMaxStackSize());
+                        power += (float) slot.getStackInSlot().stackSize / (float) Math.min(
+                                ((IInventory) tile).getInventoryStackLimit(),
+                                slot.getStackInSlot().getMaxStackSize());
                     }
                 }
             }

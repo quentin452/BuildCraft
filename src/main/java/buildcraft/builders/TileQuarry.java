@@ -1,12 +1,32 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.ForgeChunkManager.Type;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.IFluidBlock;
 
 import buildcraft.BuildCraftBuilders;
 import buildcraft.BuildCraftCore;
@@ -37,32 +57,14 @@ import buildcraft.core.lib.utils.BlockMiner;
 import buildcraft.core.lib.utils.BlockUtils;
 import buildcraft.core.lib.utils.Utils;
 import buildcraft.core.proxy.CoreProxy;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import io.netty.buffer.ByteBuf;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.ForgeChunkManager.Ticket;
-import net.minecraftforge.common.ForgeChunkManager.Type;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.IFluidBlock;
 
 public class TileQuarry extends TileAbstractBuilder
         implements IHasWork, ISidedInventory, IDropControlInventory, IPipeConnection, IControllable, ILEDProvider {
+
     private enum Stage {
         BUILDING,
         DIGGING,
@@ -101,10 +103,11 @@ public class TileQuarry extends TileAbstractBuilder
 
     public TileQuarry() {
         box.kind = Kind.STRIPES;
-        this.setBattery(new RFBattery(
-                (int) (2 * 64 * BuilderAPI.BREAK_ENERGY * BuildCraftCore.miningMultiplier),
-                (int) (1000 * BuildCraftCore.miningMultiplier),
-                0));
+        this.setBattery(
+                new RFBattery(
+                        (int) (2 * 64 * BuilderAPI.BREAK_ENERGY * BuildCraftCore.miningMultiplier),
+                        (int) (1000 * BuildCraftCore.miningMultiplier),
+                        0));
     }
 
     public void createUtilsIfNeeded() {
@@ -136,14 +139,15 @@ public class TileQuarry extends TileAbstractBuilder
     }
 
     private void createArm() {
-        worldObj.spawnEntityInWorld(new EntityMechanicalArm(
-                worldObj,
-                box.xMin + CoreConstants.PIPE_MAX_POS,
-                yCoord + box.sizeY() - 1 + CoreConstants.PIPE_MIN_POS,
-                box.zMin + CoreConstants.PIPE_MAX_POS,
-                box.sizeX() - 2 + CoreConstants.PIPE_MIN_POS * 2,
-                box.sizeZ() - 2 + CoreConstants.PIPE_MIN_POS * 2,
-                this));
+        worldObj.spawnEntityInWorld(
+                new EntityMechanicalArm(
+                        worldObj,
+                        box.xMin + CoreConstants.PIPE_MAX_POS,
+                        yCoord + box.sizeY() - 1 + CoreConstants.PIPE_MIN_POS,
+                        box.zMin + CoreConstants.PIPE_MAX_POS,
+                        box.sizeX() - 2 + CoreConstants.PIPE_MIN_POS * 2,
+                        box.sizeZ() - 2 + CoreConstants.PIPE_MIN_POS * 2,
+                        this));
     }
 
     // Callback from the arm once it's created
@@ -256,8 +260,8 @@ public class TileQuarry extends TileAbstractBuilder
         if (miner.hasMined()) {
             // Collect any lost items laying around.
             double[] head = getHead();
-            AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(
-                    head[0] - 2, head[1] - 2, head[2] - 2, head[0] + 3, head[1] + 3, head[2] + 3);
+            AxisAlignedBB axis = AxisAlignedBB
+                    .getBoundingBox(head[0] - 2, head[1] - 2, head[2] - 2, head[0] + 3, head[1] + 3, head[2] + 3);
             List<EntityItem> result = worldObj.getEntitiesWithinAABB(EntityItem.class, axis);
             for (EntityItem entity : result) {
                 if (entity.isDead) {
@@ -405,11 +409,10 @@ public class TileQuarry extends TileAbstractBuilder
 
                         if (!BlockUtils.canChangeBlock(block, worldObj, bx, by, bz)) {
                             blockedColumns[searchX][searchZ] = true;
-                        } else if (!BuildCraftAPI.isSoftBlock(worldObj, bx, by, bz)
-                                && !(block instanceof BlockLiquid)
+                        } else if (!BuildCraftAPI.isSoftBlock(worldObj, bx, by, bz) && !(block instanceof BlockLiquid)
                                 && !(block instanceof IFluidBlock)) {
-                            visitList.add(new int[] {bx, by, bz});
-                        }
+                                    visitList.add(new int[] { bx, by, bz });
+                                }
 
                         // Stop at two planes - generally any obstructions will have been found and will force a
                         // recompute prior to this
@@ -578,15 +581,15 @@ public class TileQuarry extends TileAbstractBuilder
         int xSize = a.xMax() - a.xMin() + 1;
         int zSize = a.zMax() - a.zMin() + 1;
 
-        if (xSize < 3
-                || zSize < 3
+        if (xSize < 3 || zSize < 3
                 || (chunkTicket != null && ((xSize * zSize) >> 8) >= chunkTicket.getMaxChunkListDepth())) {
             if (placedBy != null) {
-                placedBy.addChatMessage(new ChatComponentTranslation(
-                        "chat.buildcraft.quarry.tooSmall",
-                        xSize,
-                        zSize,
-                        chunkTicket != null ? chunkTicket.getMaxChunkListDepth() : 0));
+                placedBy.addChatMessage(
+                        new ChatComponentTranslation(
+                                "chat.buildcraft.quarry.tooSmall",
+                                xSize,
+                                zSize,
+                                chunkTicket != null ? chunkTicket.getMaxChunkListDepth() : 0));
             }
 
             a = new DefaultAreaProvider(xCoord, yCoord, zCoord, xCoord + 10, yCoord + 4, zCoord + 10);
@@ -849,11 +852,11 @@ public class TileQuarry extends TileAbstractBuilder
     }
 
     private double[] getHead() {
-        return new double[] {headPosX, headPosY, headPosZ};
+        return new double[] { headPosX, headPosY, headPosZ };
     }
 
     private int[] getTarget() {
-        return new int[] {targetX, targetY, targetZ};
+        return new int[] { targetX, targetY, targetZ };
     }
 
     private void setTarget(int x, int y, int z) {
@@ -881,8 +884,13 @@ public class TileQuarry extends TileAbstractBuilder
         }
 
         if (placedBy != null && !(placedBy instanceof FakePlayer)) {
-            placedBy.addChatMessage(new ChatComponentTranslation(
-                    "chat.buildcraft.quarry.chunkloadInfo", xCoord, yCoord, zCoord, chunks.size()));
+            placedBy.addChatMessage(
+                    new ChatComponentTranslation(
+                            "chat.buildcraft.quarry.chunkloadInfo",
+                            xCoord,
+                            yCoord,
+                            zCoord,
+                            chunks.size()));
         }
     }
 

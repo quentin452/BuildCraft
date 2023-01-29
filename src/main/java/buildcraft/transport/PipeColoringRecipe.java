@@ -1,13 +1,15 @@
 package buildcraft.transport;
 
-import buildcraft.core.lib.utils.ColorUtils;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
+import buildcraft.core.lib.utils.ColorUtils;
+
 public class PipeColoringRecipe implements IRecipe {
+
     private ItemStack getResult(InventoryCrafting crafting) {
         ItemStack oneColorPipeStack = null;
         ItemStack pipeStack = null;

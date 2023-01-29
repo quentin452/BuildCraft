@@ -1,12 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
+
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftFactory;
@@ -22,10 +23,9 @@ import buildcraft.core.lib.block.TileBuildCraft;
 import buildcraft.core.lib.utils.BlockMiner;
 import buildcraft.core.lib.utils.BlockUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileMiningWell extends TileBuildCraft implements IHasWork, IPipeConnection, IControllable, ILEDProvider {
+
     private boolean isDigging = true;
     private BlockMiner miner;
     private int ledState;
@@ -35,13 +35,16 @@ public class TileMiningWell extends TileBuildCraft implements IHasWork, IPipeCon
 
     public TileMiningWell() {
         super();
-        this.setBattery(new RFBattery(
-                2 * 64 * BuilderAPI.BREAK_ENERGY, BuilderAPI.BREAK_ENERGY * 4 + BuilderAPI.BUILD_ENERGY, 0));
+        this.setBattery(
+                new RFBattery(
+                        2 * 64 * BuilderAPI.BREAK_ENERGY,
+                        BuilderAPI.BREAK_ENERGY * 4 + BuilderAPI.BUILD_ENERGY,
+                        0));
     }
 
     /**
-     * Dig the next available piece of land if not done. As soon as it reaches
-     * bedrock, lava or goes below 0, it's considered done.
+     * Dig the next available piece of land if not done. As soon as it reaches bedrock, lava or goes below 0, it's
+     * considered done.
      */
     @Override
     public void updateEntity() {
@@ -79,8 +82,7 @@ public class TileMiningWell extends TileBuildCraft implements IHasWork, IPipeCon
                 depth = depth - 1;
             }
 
-            if (depth < 1
-                    || depth < yCoord - BuildCraftFactory.miningDepth
+            if (depth < 1 || depth < yCoord - BuildCraftFactory.miningDepth
                     || !BlockUtils.canChangeBlock(world, xCoord, depth, zCoord)) {
                 isDigging = false;
                 // Drain energy, because at 0 energy this will stop doing calculations.

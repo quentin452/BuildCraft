@@ -1,20 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.core.SafeTimeTracker;
-import buildcraft.core.lib.block.TileBuildCraft;
-import buildcraft.core.lib.fluids.Tank;
-import buildcraft.core.lib.fluids.TankManager;
-import buildcraft.core.lib.utils.BlockUtils;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.EnumSkyBlock;
@@ -27,7 +18,16 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.api.core.SafeTimeTracker;
+import buildcraft.core.lib.block.TileBuildCraft;
+import buildcraft.core.lib.fluids.Tank;
+import buildcraft.core.lib.fluids.TankManager;
+import buildcraft.core.lib.utils.BlockUtils;
+import io.netty.buffer.ByteBuf;
+
 public class TileTank extends TileBuildCraft implements IFluidHandler {
+
     public final Tank tank = new Tank("tank", FluidContainerRegistry.BUCKET_VOLUME * 16, this);
     public final TankManager<Tank> tankManager = new TankManager<Tank>(tank);
     public boolean hasUpdate = false;
@@ -258,7 +258,7 @@ public class TileTank extends TileBuildCraft implements IFluidHandler {
         if (tile != null && tile.tank.getFluid() != null) {
             compositeTank.setFluid(tile.tank.getFluid().copy());
         } else {
-            return new FluidTankInfo[] {compositeTank.getInfo()};
+            return new FluidTankInfo[] { compositeTank.getInfo() };
         }
 
         int capacity = tile.tank.getCapacity();
@@ -279,7 +279,7 @@ public class TileTank extends TileBuildCraft implements IFluidHandler {
         }
 
         compositeTank.setCapacity(capacity);
-        return new FluidTankInfo[] {compositeTank.getInfo()};
+        return new FluidTankInfo[] { compositeTank.getInfo() };
     }
 
     @Override
@@ -296,9 +296,7 @@ public class TileTank extends TileBuildCraft implements IFluidHandler {
 
     public int getFluidLightLevel() {
         FluidStack tankFluid = tank.getFluid();
-        return tankFluid == null || tankFluid.amount == 0
-                ? 0
-                : tankFluid.getFluid().getLuminosity(tankFluid);
+        return tankFluid == null || tankFluid.amount == 0 ? 0 : tankFluid.getFluid().getLuminosity(tankFluid);
     }
 
     public int calculateComparatorInputOverride() {

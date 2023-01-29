@@ -1,12 +1,15 @@
 package buildcraft.core.builders;
 
-import buildcraft.api.blueprints.IBuilderContext;
 import java.util.List;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import buildcraft.api.blueprints.IBuilderContext;
+
 public class BuilderItemMetaPair {
+
     public Item item;
     public int meta;
     public int position = 0;

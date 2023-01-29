@@ -5,6 +5,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 
 public class TabletManagerClient {
+
     public static final TabletManagerClient INSTANCE = new TabletManagerClient();
 
     private static TabletClient currentTablet;

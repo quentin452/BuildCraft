@@ -1,19 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon;
 
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import buildcraft.core.lib.render.ICustomHighlight;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,33 +20,27 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import buildcraft.core.lib.render.ICustomHighlight;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockLaser extends BlockBuildCraft implements ICustomHighlight {
 
     private static final AxisAlignedBB[][] boxes = {
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.75, 0.0, 1.0, 1.0, 1.0),
-            AxisAlignedBB.getBoundingBox(0.3125, 0.1875, 0.3125, 0.6875, 0.75, 0.6875)
-        }, // -Y
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 0.25, 1.0),
-            AxisAlignedBB.getBoundingBox(0.3125, 0.25, 0.3125, 0.6875, 0.8125, 0.6875)
-        }, // +Y
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.75, 1.0, 1.0, 1.0),
-            AxisAlignedBB.getBoundingBox(0.3125, 0.3125, 0.1875, 0.6875, 0.6875, 0.75)
-        }, // -Z
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 1.0, 0.25),
-            AxisAlignedBB.getBoundingBox(0.3125, 0.3125, 0.25, 0.6875, 0.6875, 0.8125)
-        }, // +Z
-        {
-            AxisAlignedBB.getBoundingBox(0.75, 0.0, 0.0, 1.0, 1.0, 1.0),
-            AxisAlignedBB.getBoundingBox(0.1875, 0.3125, 0.3125, 0.75, 0.6875, 0.6875)
-        }, // -X
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 0.25, 1.0, 1.0),
-            AxisAlignedBB.getBoundingBox(0.25, 0.3125, 0.3125, 0.8125, 0.6875, 0.6875)
-        } // +X
+            { AxisAlignedBB.getBoundingBox(0.0, 0.75, 0.0, 1.0, 1.0, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.3125, 0.1875, 0.3125, 0.6875, 0.75, 0.6875) }, // -Y
+            { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 0.25, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.3125, 0.25, 0.3125, 0.6875, 0.8125, 0.6875) }, // +Y
+            { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.75, 1.0, 1.0, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.3125, 0.3125, 0.1875, 0.6875, 0.6875, 0.75) }, // -Z
+            { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 1.0, 0.25),
+                    AxisAlignedBB.getBoundingBox(0.3125, 0.3125, 0.25, 0.6875, 0.6875, 0.8125) }, // +Z
+            { AxisAlignedBB.getBoundingBox(0.75, 0.0, 0.0, 1.0, 1.0, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.1875, 0.3125, 0.3125, 0.75, 0.6875, 0.6875) }, // -X
+            { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 0.25, 1.0, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.25, 0.3125, 0.3125, 0.8125, 0.6875, 0.6875) } // +X
     };
 
     public BlockLaser() {
@@ -94,7 +82,7 @@ public class BlockLaser extends BlockBuildCraft implements ICustomHighlight {
     }
 
     @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void addCollisionBoxesToList(World wrd, int x, int y, int z, AxisAlignedBB mask, List list, Entity ent) {
         AxisAlignedBB[] aabbs = boxes[wrd.getBlockMetadata(x, y, z)];
         for (AxisAlignedBB aabb : aabbs) {

@@ -1,25 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.utils;
 
-import buildcraft.api.core.BlockIndex;
-import buildcraft.api.core.BuildCraftAPI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+
 import net.minecraft.world.World;
 
+import buildcraft.api.core.BlockIndex;
+import buildcraft.api.core.BuildCraftAPI;
+
 /**
- * This class implements a 3D path finding based on the A* algorithm, following
- * guidelines documented on http://www.policyalmanac.org/games/aStarTutorial.htm
- * .
+ * This class implements a 3D path finding based on the A* algorithm, following guidelines documented on
+ * http://www.policyalmanac.org/games/aStarTutorial.htm .
  */
 public class PathFinding implements IIterableAlgorithm {
 
@@ -61,8 +60,8 @@ public class PathFinding implements IIterableAlgorithm {
         maxDistanceToEndSq = iMaxDistanceToEnd * iMaxDistanceToEnd;
     }
 
-    public PathFinding(
-            World iWorld, BlockIndex iStart, BlockIndex iEnd, double iMaxDistanceToEnd, float iMaxTotalDistance) {
+    public PathFinding(World iWorld, BlockIndex iStart, BlockIndex iEnd, double iMaxDistanceToEnd,
+            float iMaxTotalDistance) {
         this(iWorld, iStart, iEnd, iMaxDistanceToEnd);
 
         maxTotalDistanceSq = iMaxTotalDistance * iMaxTotalDistance;
@@ -187,6 +186,7 @@ public class PathFinding implements IIterableAlgorithm {
     }
 
     private static class Node {
+
         public Node parent;
         public double movementCost;
         public double destinationCost;

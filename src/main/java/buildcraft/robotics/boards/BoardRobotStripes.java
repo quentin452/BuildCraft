@@ -1,12 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.boards;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 import buildcraft.api.boards.RedstoneBoardRobot;
 import buildcraft.api.boards.RedstoneBoardRobotNBT;
@@ -20,9 +22,6 @@ import buildcraft.robotics.ai.AIRobotFetchAndEquipItemStack;
 import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotSearchAndGotoBlock;
 import buildcraft.robotics.ai.AIRobotStripesHandler;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 
 public class BoardRobotStripes extends RedstoneBoardRobot {
 
@@ -41,6 +40,7 @@ public class BoardRobotStripes extends RedstoneBoardRobot {
     public void update() {
         if (robot.getHeldItem() == null) {
             startDelegateAI(new AIRobotFetchAndEquipItemStack(robot, new IStackFilter() {
+
                 @Override
                 public boolean matches(ItemStack stack) {
                     return stack != null;
@@ -48,6 +48,7 @@ public class BoardRobotStripes extends RedstoneBoardRobot {
             }));
         } else {
             startDelegateAI(new AIRobotSearchAndGotoBlock(robot, true, new IBlockFilter() {
+
                 @Override
                 public boolean matches(World world, int x, int y, int z) {
                     return world.getBlock(x, y, z).isAir(world, x, y, z)

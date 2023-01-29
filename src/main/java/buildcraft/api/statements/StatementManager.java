@@ -1,30 +1,29 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.statements;
 
-import buildcraft.api.core.BCLog;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.core.BCLog;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public final class StatementManager {
 
     public static Map<String, IStatement> statements = new HashMap<String, IStatement>();
-    public static Map<String, Class<? extends IStatementParameter>> parameters =
-            new HashMap<String, Class<? extends IStatementParameter>>();
+    public static Map<String, Class<? extends IStatementParameter>> parameters = new HashMap<String, Class<? extends IStatementParameter>>();
     private static List<ITriggerProvider> triggerProviders = new LinkedList<ITriggerProvider>();
     private static List<IActionProvider> actionProviders = new LinkedList<IActionProvider>();
 
@@ -168,9 +167,8 @@ public final class StatementManager {
     }
 
     /**
-     * Generally, this function should be called by every mod implementing
-     * the Statements API ***as a container*** (that is, adding its own gates)
-     * on the client side from a given Item of choice.
+     * Generally, this function should be called by every mod implementing the Statements API ***as a container*** (that
+     * is, adding its own gates) on the client side from a given Item of choice.
      */
     @SideOnly(Side.CLIENT)
     public static void registerIcons(IIconRegister register) {

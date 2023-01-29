@@ -1,18 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
 
-import buildcraft.api.blueprints.BuilderAPI;
-import buildcraft.api.core.BlockIndex;
-import buildcraft.api.robots.AIRobot;
-import buildcraft.api.robots.EntityRobotBase;
-import buildcraft.core.lib.utils.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
@@ -21,7 +14,14 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 
+import buildcraft.api.blueprints.BuilderAPI;
+import buildcraft.api.core.BlockIndex;
+import buildcraft.api.robots.AIRobot;
+import buildcraft.api.robots.EntityRobotBase;
+import buildcraft.core.lib.utils.BlockUtils;
+
 public class AIRobotBreak extends AIRobot {
+
     private BlockIndex blockToBreak;
     private float blockDamage = 0;
 
@@ -48,7 +48,12 @@ public class AIRobotBreak extends AIRobot {
         block = robot.worldObj.getBlock(blockToBreak.x, blockToBreak.y, blockToBreak.z);
         meta = robot.worldObj.getBlockMetadata(blockToBreak.x, blockToBreak.y, blockToBreak.z);
         hardness = BlockUtils.getBlockHardnessMining(
-                robot.worldObj, blockToBreak.x, blockToBreak.y, blockToBreak.z, block, robot.getHeldItem());
+                robot.worldObj,
+                blockToBreak.x,
+                blockToBreak.y,
+                blockToBreak.z,
+                block,
+                robot.getHeldItem());
         speed = getBreakSpeed(robot, robot.getHeldItem(), block, meta);
     }
 
@@ -63,7 +68,12 @@ public class AIRobotBreak extends AIRobot {
             }
             meta = robot.worldObj.getBlockMetadata(blockToBreak.x, blockToBreak.y, blockToBreak.z);
             hardness = BlockUtils.getBlockHardnessMining(
-                    robot.worldObj, blockToBreak.x, blockToBreak.y, blockToBreak.z, block, robot.getHeldItem());
+                    robot.worldObj,
+                    blockToBreak.x,
+                    blockToBreak.y,
+                    blockToBreak.z,
+                    block,
+                    robot.getHeldItem());
             speed = getBreakSpeed(robot, robot.getHeldItem(), block, meta);
         }
 
@@ -82,7 +92,11 @@ public class AIRobotBreak extends AIRobot {
 
         if (blockDamage > 1.0F) {
             robot.worldObj.destroyBlockInWorldPartially(
-                    robot.getEntityId(), blockToBreak.x, blockToBreak.y, blockToBreak.z, -1);
+                    robot.getEntityId(),
+                    blockToBreak.x,
+                    blockToBreak.y,
+                    blockToBreak.z,
+                    -1);
             blockDamage = 0;
 
             if (BlockUtils.harvestBlock(
@@ -100,16 +114,14 @@ public class AIRobotBreak extends AIRobot {
                         Block.getIdFromBlock(block) + (meta << 12));
 
                 if (robot.getHeldItem() != null) {
-                    robot.getHeldItem()
-                            .getItem()
-                            .onBlockDestroyed(
-                                    robot.getHeldItem(),
-                                    robot.worldObj,
-                                    block,
-                                    blockToBreak.x,
-                                    blockToBreak.y,
-                                    blockToBreak.z,
-                                    robot);
+                    robot.getHeldItem().getItem().onBlockDestroyed(
+                            robot.getHeldItem(),
+                            robot.worldObj,
+                            block,
+                            blockToBreak.x,
+                            blockToBreak.y,
+                            blockToBreak.z,
+                            robot);
 
                     if (robot.getHeldItem().stackSize == 0) {
                         robot.setItemInUse(null);
@@ -133,8 +145,8 @@ public class AIRobotBreak extends AIRobot {
     @Override
     public void end() {
         robot.setItemActive(false);
-        robot.worldObj.destroyBlockInWorldPartially(
-                robot.getEntityId(), blockToBreak.x, blockToBreak.y, blockToBreak.z, -1);
+        robot.worldObj
+                .destroyBlockInWorldPartially(robot.getEntityId(), blockToBreak.x, blockToBreak.y, blockToBreak.z, -1);
     }
 
     private float getBreakSpeed(EntityRobotBase robot, ItemStack usingItem, Block block, int meta) {

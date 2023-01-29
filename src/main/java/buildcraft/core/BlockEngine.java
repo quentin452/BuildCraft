@@ -1,15 +1,18 @@
 package buildcraft.core;
 
-import buildcraft.core.lib.engines.BlockEngineBase;
-import buildcraft.core.lib.engines.TileEngineBase;
 import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import buildcraft.core.lib.engines.BlockEngineBase;
+import buildcraft.core.lib.engines.TileEngineBase;
+
 public class BlockEngine extends BlockEngineBase {
+
     private final Class[] engineTiles;
     private final String[] names;
     private final String[] texturePaths;
@@ -62,7 +65,7 @@ public class BlockEngine extends BlockEngineBase {
         }
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public void getSubBlocks(Item item, CreativeTabs par2CreativeTabs, List itemList) {
         for (int i = 0; i < 16; i++) {

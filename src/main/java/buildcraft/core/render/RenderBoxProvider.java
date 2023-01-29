@@ -1,35 +1,36 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.render;
 
-import buildcraft.core.Box;
-import buildcraft.core.internal.IBoxProvider;
-import buildcraft.core.internal.IBoxesProvider;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.core.Box;
+import buildcraft.core.internal.IBoxProvider;
+import buildcraft.core.internal.IBoxesProvider;
+
 public class RenderBoxProvider extends TileEntitySpecialRenderer {
-    private static final ResourceLocation LASER_RED =
-            new ResourceLocation("buildcraftcore:textures/laserBeams/laser_1.png");
-    private static final ResourceLocation LASER_YELLOW =
-            new ResourceLocation("buildcraftcore:textures/laserBeams/laser_2.png");
-    private static final ResourceLocation LASER_GREEN =
-            new ResourceLocation("buildcraftcore:textures/laserBeams/laser_3.png");
-    private static final ResourceLocation LASER_BLUE =
-            new ResourceLocation("buildcraftcore:textures/laserBeams/laser_4.png");
-    private static final ResourceLocation STRIPES =
-            new ResourceLocation("buildcraftcore:textures/laserBeams/stripes.png");
-    private static final ResourceLocation BLUE_STRIPES =
-            new ResourceLocation("buildcraftcore:textures/laserBeams/blue_stripes.png");
+
+    private static final ResourceLocation LASER_RED = new ResourceLocation(
+            "buildcraftcore:textures/laserBeams/laser_1.png");
+    private static final ResourceLocation LASER_YELLOW = new ResourceLocation(
+            "buildcraftcore:textures/laserBeams/laser_2.png");
+    private static final ResourceLocation LASER_GREEN = new ResourceLocation(
+            "buildcraftcore:textures/laserBeams/laser_3.png");
+    private static final ResourceLocation LASER_BLUE = new ResourceLocation(
+            "buildcraftcore:textures/laserBeams/laser_4.png");
+    private static final ResourceLocation STRIPES = new ResourceLocation(
+            "buildcraftcore:textures/laserBeams/stripes.png");
+    private static final ResourceLocation BLUE_STRIPES = new ResourceLocation(
+            "buildcraftcore:textures/laserBeams/blue_stripes.png");
 
     public RenderBoxProvider() {}
 

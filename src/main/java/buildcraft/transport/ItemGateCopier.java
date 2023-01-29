@@ -1,15 +1,5 @@
 package buildcraft.transport;
 
-import buildcraft.api.transport.IPipeTile;
-import buildcraft.api.transport.pluggable.PipePluggable;
-import buildcraft.core.lib.items.ItemBuildCraft;
-import buildcraft.core.lib.utils.NBTUtils;
-import buildcraft.transport.BlockGenericPipe.Part;
-import buildcraft.transport.BlockGenericPipe.RaytraceResult;
-import buildcraft.transport.gates.GateDefinition.GateMaterial;
-import buildcraft.transport.gates.GatePluggable;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,7 +10,19 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.transport.IPipeTile;
+import buildcraft.api.transport.pluggable.PipePluggable;
+import buildcraft.core.lib.items.ItemBuildCraft;
+import buildcraft.core.lib.utils.NBTUtils;
+import buildcraft.transport.BlockGenericPipe.Part;
+import buildcraft.transport.BlockGenericPipe.RaytraceResult;
+import buildcraft.transport.gates.GateDefinition.GateMaterial;
+import buildcraft.transport.gates.GatePluggable;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemGateCopier extends ItemBuildCraft {
+
     public ItemGateCopier() {
         super();
         setMaxStackSize(1);
@@ -36,17 +38,8 @@ public class ItemGateCopier extends ItemBuildCraft {
     }
 
     @Override
-    public boolean onItemUse(
-            ItemStack stack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         }
@@ -65,8 +58,7 @@ public class ItemGateCopier extends ItemBuildCraft {
             if (tile instanceof TileGenericPipe && block instanceof BlockGenericPipe) {
                 RaytraceResult rayTraceResult = ((BlockGenericPipe) block).doRayTrace(world, x, y, z, player);
 
-                if (rayTraceResult != null
-                        && rayTraceResult.boundingBox != null
+                if (rayTraceResult != null && rayTraceResult.boundingBox != null
                         && rayTraceResult.hitPart == Part.Pluggable) {
                     pluggable = ((TileGenericPipe) tile).getPipePluggable(rayTraceResult.sideHit);
                 }
@@ -134,6 +126,6 @@ public class ItemGateCopier extends ItemBuildCraft {
     }
 
     public String[] getIconNames() {
-        return new String[] {"gateCopier/empty", "gateCopier/full"};
+        return new String[] { "gateCopier/empty", "gateCopier/full" };
     }
 }

@@ -1,12 +1,30 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft;
+
+import java.io.File;
+import java.util.UUID;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.entity.EntityList;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraftforge.oredict.OreDictionary;
 
 import buildcraft.api.blueprints.BuilderAPI;
 import buildcraft.api.core.BCLog;
@@ -136,7 +154,9 @@ import buildcraft.core.tablet.PacketTabletMessage;
 import buildcraft.core.tablet.TabletProgramMenuFactory;
 import buildcraft.core.tablet.manager.TabletManagerClient;
 import buildcraft.core.tablet.manager.TabletManagerServer;
+
 import com.mojang.authlib.GameProfile;
+
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -151,24 +171,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.io.File;
-import java.util.UUID;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.entity.EntityList;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(
         name = "BuildCraft",
@@ -179,6 +181,7 @@ import net.minecraftforge.oredict.OreDictionary;
         dependencies = "required-after:Forge@[10.13.2.1236,)",
         guiFactory = "buildcraft.core.config.ConfigManager")
 public class BuildCraftCore extends BuildCraftMod {
+
     @Mod.Instance("BuildCraft|Core")
     public static BuildCraftCore instance;
 
@@ -251,24 +254,24 @@ public class BuildCraftCore extends BuildCraftMod {
     public static ITriggerExternal triggerSpaceInventory = new TriggerInventory(TriggerInventory.State.Space);
     public static ITriggerExternal triggerFullInventory = new TriggerInventory(TriggerInventory.State.Full);
     public static ITriggerExternal triggerEmptyFluid = new TriggerFluidContainer(TriggerFluidContainer.State.Empty);
-    public static ITriggerExternal triggerContainsFluid =
-            new TriggerFluidContainer(TriggerFluidContainer.State.Contains);
+    public static ITriggerExternal triggerContainsFluid = new TriggerFluidContainer(
+            TriggerFluidContainer.State.Contains);
     public static ITriggerExternal triggerSpaceFluid = new TriggerFluidContainer(TriggerFluidContainer.State.Space);
     public static ITriggerExternal triggerFullFluid = new TriggerFluidContainer(TriggerFluidContainer.State.Full);
     public static ITriggerInternal triggerRedstoneActive = new TriggerRedstoneInput(true);
     public static ITriggerInternal triggerRedstoneInactive = new TriggerRedstoneInput(false);
-    public static ITriggerExternal triggerInventoryBelow25 =
-            new TriggerInventoryLevel(TriggerInventoryLevel.TriggerType.BELOW25);
-    public static ITriggerExternal triggerInventoryBelow50 =
-            new TriggerInventoryLevel(TriggerInventoryLevel.TriggerType.BELOW50);
-    public static ITriggerExternal triggerInventoryBelow75 =
-            new TriggerInventoryLevel(TriggerInventoryLevel.TriggerType.BELOW75);
-    public static ITriggerExternal triggerFluidContainerBelow25 =
-            new TriggerFluidContainerLevel(TriggerFluidContainerLevel.TriggerType.BELOW25);
-    public static ITriggerExternal triggerFluidContainerBelow50 =
-            new TriggerFluidContainerLevel(TriggerFluidContainerLevel.TriggerType.BELOW50);
-    public static ITriggerExternal triggerFluidContainerBelow75 =
-            new TriggerFluidContainerLevel(TriggerFluidContainerLevel.TriggerType.BELOW75);
+    public static ITriggerExternal triggerInventoryBelow25 = new TriggerInventoryLevel(
+            TriggerInventoryLevel.TriggerType.BELOW25);
+    public static ITriggerExternal triggerInventoryBelow50 = new TriggerInventoryLevel(
+            TriggerInventoryLevel.TriggerType.BELOW50);
+    public static ITriggerExternal triggerInventoryBelow75 = new TriggerInventoryLevel(
+            TriggerInventoryLevel.TriggerType.BELOW75);
+    public static ITriggerExternal triggerFluidContainerBelow25 = new TriggerFluidContainerLevel(
+            TriggerFluidContainerLevel.TriggerType.BELOW25);
+    public static ITriggerExternal triggerFluidContainerBelow50 = new TriggerFluidContainerLevel(
+            TriggerFluidContainerLevel.TriggerType.BELOW50);
+    public static ITriggerExternal triggerFluidContainerBelow75 = new TriggerFluidContainerLevel(
+            TriggerFluidContainerLevel.TriggerType.BELOW75);
     public static IActionInternal actionRedstone = new ActionRedstoneOutput();
     public static IActionExternal[] actionControl;
 
@@ -287,8 +290,9 @@ public class BuildCraftCore extends BuildCraftMod {
     public static Achievement wrenchAchievement;
     public static Achievement engineRedstoneAchievement;
 
-    public static GameProfile gameProfile =
-            new GameProfile(UUID.nameUUIDFromBytes("buildcraft.core".getBytes()), "[BuildCraft]");
+    public static GameProfile gameProfile = new GameProfile(
+            UUID.nameUUIDFromBytes("buildcraft.core".getBytes()),
+            "[BuildCraft]");
 
     @Mod.EventHandler
     public void loadConfiguration(FMLPreInitializationEvent evt) {
@@ -312,8 +316,8 @@ public class BuildCraftCore extends BuildCraftMod {
 
         BCRegistry.INSTANCE.setRegistryConfig(new File(evt.getModConfigurationDirectory(), "buildcraft/objects.cfg"));
 
-        mainConfiguration =
-                new BuildCraftConfiguration(new File(evt.getModConfigurationDirectory(), "buildcraft/main.cfg"));
+        mainConfiguration = new BuildCraftConfiguration(
+                new File(evt.getModConfigurationDirectory(), "buildcraft/main.cfg"));
         mainConfigManager = new ConfigManager(mainConfiguration);
         mainConfiguration.load();
 
@@ -351,27 +355,21 @@ public class BuildCraftCore extends BuildCraftMod {
                 false,
                 "Should all fluid values (mB, mB/t) be hidden?",
                 ConfigManager.RestartRequirement.NONE);
-        mainConfigManager
-                .register(
-                        "general.itemLifespan",
-                        60,
-                        "How long, in seconds, should items stay on the ground? (Vanilla = 300, default = 60)",
-                        ConfigManager.RestartRequirement.NONE)
-                .setMinValue(5);
-        mainConfigManager
-                .register(
-                        "network.updateFactor",
-                        10,
-                        "How often, in ticks, should network update packets be sent? Increasing this might help network performance.",
-                        ConfigManager.RestartRequirement.GAME)
-                .setMinValue(1);
-        mainConfigManager
-                .register(
-                        "network.longUpdateFactor",
-                        40,
-                        "How often, in ticks, should full network sync packets be sent? Increasing this might help network performance.",
-                        ConfigManager.RestartRequirement.GAME)
-                .setMinValue(1);
+        mainConfigManager.register(
+                "general.itemLifespan",
+                60,
+                "How long, in seconds, should items stay on the ground? (Vanilla = 300, default = 60)",
+                ConfigManager.RestartRequirement.NONE).setMinValue(5);
+        mainConfigManager.register(
+                "network.updateFactor",
+                10,
+                "How often, in ticks, should network update packets be sent? Increasing this might help network performance.",
+                ConfigManager.RestartRequirement.GAME).setMinValue(1);
+        mainConfigManager.register(
+                "network.longUpdateFactor",
+                40,
+                "How often, in ticks, should full network sync packets be sent? Increasing this might help network performance.",
+                ConfigManager.RestartRequirement.GAME).setMinValue(1);
         mainConfigManager.register(
                 "general.canEnginesExplode",
                 false,
@@ -418,8 +416,7 @@ public class BuildCraftCore extends BuildCraftMod {
         BCRegistry.INSTANCE.registerItem(debuggerItem, false);
 
         if (BuildCraftCore.modifyWorld) {
-            BlockSpring.EnumSpring.WATER.canGen = BuildCraftCore.mainConfigManager
-                    .get("worldgen.generateWaterSprings")
+            BlockSpring.EnumSpring.WATER.canGen = BuildCraftCore.mainConfigManager.get("worldgen.generateWaterSprings")
                     .getBoolean();
             springBlock = new BlockSpring().setBlockName("eternalSpring");
             BCRegistry.INSTANCE.registerBlock(springBlock, ItemSpring.class, false);
@@ -470,8 +467,8 @@ public class BuildCraftCore extends BuildCraftMod {
                 0,
                 "tile.engineWood",
                 "buildcraftcore:engineWood");
-        BCRegistry.INSTANCE.registerTileEntity(
-                TileEngineWood.class, "net.minecraft.src.buildcraft.energy.TileEngineWood");
+        BCRegistry.INSTANCE
+                .registerTileEntity(TileEngineWood.class, "net.minecraft.src.buildcraft.energy.TileEngineWood");
 
         markerBlock = (BlockMarker) CompatHooks.INSTANCE.getBlock(BlockMarker.class);
         BCRegistry.INSTANCE.registerBlock(markerBlock.setBlockName("markerBlock"), false);
@@ -495,31 +492,56 @@ public class BuildCraftCore extends BuildCraftMod {
         ChannelHandler coreChannelHandler = new ChannelHandler();
         coreChannelHandler.registerPacketType(PacketTabletMessage.class);
 
-        channels = NetworkRegistry.INSTANCE.newChannel(
-                DefaultProps.NET_CHANNEL_NAME + "-CORE", coreChannelHandler, new PacketHandlerCore());
+        channels = NetworkRegistry.INSTANCE
+                .newChannel(DefaultProps.NET_CHANNEL_NAME + "-CORE", coreChannelHandler, new PacketHandlerCore());
 
         achievementManager = new AchievementManager("BuildCraft");
         FMLCommonHandler.instance().bus().register(achievementManager);
 
         woodenGearAchievement = achievementManager.registerAchievement(
                 new Achievement("achievement.woodenGear", "woodenGearAchievement", 0, 0, woodenGearItem, null));
-        stoneGearAchievement = achievementManager.registerAchievement(new Achievement(
-                "achievement.stoneGear", "stoneGearAchievement", 2, 0, stoneGearItem, woodenGearAchievement));
-        ironGearAchievement = achievementManager.registerAchievement(new Achievement(
-                "achievement.ironGear", "ironGearAchievement", 4, 0, ironGearItem, stoneGearAchievement));
-        goldGearAchievement = achievementManager.registerAchievement(new Achievement(
-                "achievement.goldGear", "goldGearAchievement", 6, 0, goldGearItem, ironGearAchievement));
-        diamondGearAchievement = achievementManager.registerAchievement(new Achievement(
-                "achievement.diamondGear", "diamondGearAchievement", 8, 0, diamondGearItem, goldGearAchievement));
+        stoneGearAchievement = achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.stoneGear",
+                        "stoneGearAchievement",
+                        2,
+                        0,
+                        stoneGearItem,
+                        woodenGearAchievement));
+        ironGearAchievement = achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.ironGear",
+                        "ironGearAchievement",
+                        4,
+                        0,
+                        ironGearItem,
+                        stoneGearAchievement));
+        goldGearAchievement = achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.goldGear",
+                        "goldGearAchievement",
+                        6,
+                        0,
+                        goldGearItem,
+                        ironGearAchievement));
+        diamondGearAchievement = achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.diamondGear",
+                        "diamondGearAchievement",
+                        8,
+                        0,
+                        diamondGearItem,
+                        goldGearAchievement));
         wrenchAchievement = achievementManager.registerAchievement(
                 new Achievement("achievement.wrench", "wrenchAchievement", 3, 2, wrenchItem, stoneGearAchievement));
-        engineRedstoneAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.redstoneEngine",
-                "engineAchievement1",
-                1,
-                -2,
-                new ItemStack(engineBlock, 1, 0),
-                BuildCraftCore.woodenGearAchievement));
+        engineRedstoneAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.redstoneEngine",
+                        "engineAchievement1",
+                        1,
+                        -2,
+                        new ItemStack(engineBlock, 1, 0),
+                        BuildCraftCore.woodenGearAchievement));
 
         // BuildCraft 6.1.4 and below - migration only
         StatementManager.registerParameterClass("buildcraft:stackTrigger", StatementParameterItemStack.class);
@@ -602,8 +624,11 @@ public class BuildCraftCore extends BuildCraftMod {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        BCLog.logger.info("BuildCraft's fake player: UUID = "
-                + gameProfile.getId().toString() + ", name = '" + gameProfile.getName() + "'!");
+        BCLog.logger.info(
+                "BuildCraft's fake player: UUID = " + gameProfile.getId().toString()
+                        + ", name = '"
+                        + gameProfile.getName()
+                        + "'!");
 
         BCRegistry.INSTANCE.save();
 
@@ -664,8 +689,9 @@ public class BuildCraftCore extends BuildCraftMod {
     public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(commandBuildcraft);
 
-        /* Increase the builder speed in singleplayer mode.
-        Singleplayer users generally run far fewer of them. */
+        /*
+         * Increase the builder speed in singleplayer mode. Singleplayer users generally run far fewer of them.
+         */
 
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             BuildingSlotMapIterator.MAX_PER_ITEM = builderMaxPerItemFactor * 4;
@@ -743,22 +769,15 @@ public class BuildCraftCore extends BuildCraftMod {
         } else if (restartType == ConfigManager.RestartRequirement.WORLD) {
             reloadConfig(ConfigManager.RestartRequirement.NONE);
         } else {
-            useServerDataOnClient =
-                    mainConfigManager.get("general.useServerDataOnClient").getBoolean(true);
-            builderMaxPerItemFactor = mainConfigManager
-                    .get("general.builderMaxIterationsPerItemFactor")
-                    .getInt();
+            useServerDataOnClient = mainConfigManager.get("general.useServerDataOnClient").getBoolean(true);
+            builderMaxPerItemFactor = mainConfigManager.get("general.builderMaxIterationsPerItemFactor").getInt();
             hideFluidNumbers = mainConfigManager.get("display.hideFluidValues").getBoolean();
             hidePowerNumbers = mainConfigManager.get("display.hidePowerValues").getBoolean();
             itemLifespan = mainConfigManager.get("general.itemLifespan").getInt();
-            canEnginesExplode =
-                    mainConfigManager.get("general.canEnginesExplode").getBoolean();
-            consumeWaterSources =
-                    mainConfigManager.get("general.pumpsConsumeWater").getBoolean();
-            miningMultiplier =
-                    (float) mainConfigManager.get("power.miningUsageMultiplier").getDouble();
-            miningAllowPlayerProtectedBlocks = mainConfigManager
-                    .get("general.miningBreaksPlayerProtectedBlocks")
+            canEnginesExplode = mainConfigManager.get("general.canEnginesExplode").getBoolean();
+            consumeWaterSources = mainConfigManager.get("general.pumpsConsumeWater").getBoolean();
+            miningMultiplier = (float) mainConfigManager.get("power.miningUsageMultiplier").getDouble();
+            miningAllowPlayerProtectedBlocks = mainConfigManager.get("general.miningBreaksPlayerProtectedBlocks")
                     .getBoolean();
 
             BuildingSlotMapIterator.MAX_PER_ITEM = builderMaxPerItemFactor;
@@ -781,26 +800,53 @@ public class BuildCraftCore extends BuildCraftMod {
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if ("BuildCraft|Core".equals(event.modID)) {
             reloadConfig(
-                    event.isWorldRunning
-                            ? ConfigManager.RestartRequirement.NONE
+                    event.isWorldRunning ? ConfigManager.RestartRequirement.NONE
                             : ConfigManager.RestartRequirement.WORLD);
         }
     }
 
     public void loadRecipes() {
-        BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(wrenchItem), "I I", " G ", " I ", 'I', "ingotIron", 'G', "gearStone");
+        BCRegistry.INSTANCE
+                .addCraftingRecipe(new ItemStack(wrenchItem), "I I", " G ", " I ", 'I', "ingotIron", 'G', "gearStone");
         BCRegistry.INSTANCE.addCraftingRecipe(new ItemStack(woodenGearItem), " S ", "S S", " S ", 'S', "stickWood");
         BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(stoneGearItem), " I ", "IGI", " I ", 'I', "cobblestone", 'G', "gearWood");
+                new ItemStack(stoneGearItem),
+                " I ",
+                "IGI",
+                " I ",
+                'I',
+                "cobblestone",
+                'G',
+                "gearWood");
         BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(ironGearItem), " I ", "IGI", " I ", 'I', "ingotIron", 'G', "gearStone");
+                new ItemStack(ironGearItem),
+                " I ",
+                "IGI",
+                " I ",
+                'I',
+                "ingotIron",
+                'G',
+                "gearStone");
+        BCRegistry.INSTANCE
+                .addCraftingRecipe(new ItemStack(goldGearItem), " I ", "IGI", " I ", 'I', "ingotGold", 'G', "gearIron");
         BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(goldGearItem), " I ", "IGI", " I ", 'I', "ingotGold", 'G', "gearIron");
+                new ItemStack(diamondGearItem),
+                " I ",
+                "IGI",
+                " I ",
+                'I',
+                "gemDiamond",
+                'G',
+                "gearGold");
         BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(diamondGearItem), " I ", "IGI", " I ", 'I', "gemDiamond", 'G', "gearGold");
-        BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(mapLocationItem), "ppp", "pYp", "ppp", 'p', Items.paper, 'Y', "dyeYellow");
+                new ItemStack(mapLocationItem),
+                "ppp",
+                "pYp",
+                "ppp",
+                'p',
+                Items.paper,
+                'Y',
+                "dyeYellow");
 
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(engineBlock, 1, 0),
@@ -826,7 +872,13 @@ public class BuildCraftCore extends BuildCraftMod {
                 Blocks.redstone_torch);
 
         BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(pathMarkerBlock, 1), "l ", "r ", 'l', "dyeGreen", 'r', Blocks.redstone_torch);
+                new ItemStack(pathMarkerBlock, 1),
+                "l ",
+                "r ",
+                'l',
+                "dyeGreen",
+                'r',
+                Blocks.redstone_torch);
 
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(paintbrushItem),
@@ -847,8 +899,7 @@ public class BuildCraftCore extends BuildCraftMod {
         for (int i = 0; i < 16; i++) {
             ItemStack outputStack = new ItemStack(paintbrushItem);
             NBTUtils.getItemData(outputStack).setByte("color", (byte) i);
-            BCRegistry.INSTANCE.addShapelessRecipe(
-                    outputStack, anyPaintbrush, EnumColor.fromId(i).getDye());
+            BCRegistry.INSTANCE.addShapelessRecipe(outputStack, anyPaintbrush, EnumColor.fromId(i).getDye());
         }
 
         // Convert old lists to new lists
@@ -858,7 +909,14 @@ public class BuildCraftCore extends BuildCraftMod {
             CoreSiliconRecipes.loadSiliconRecipes();
         } else {
             BCRegistry.INSTANCE.addCraftingRecipe(
-                    new ItemStack(listItem, 1, 1), "ppp", "pYp", "ppp", 'p', Items.paper, 'Y', "dyeGreen");
+                    new ItemStack(listItem, 1, 1),
+                    "ppp",
+                    "pYp",
+                    "ppp",
+                    'p',
+                    Items.paper,
+                    'Y',
+                    "dyeGreen");
         }
     }
 

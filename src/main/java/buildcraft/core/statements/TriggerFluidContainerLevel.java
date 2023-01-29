@@ -1,19 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.statements;
 
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerExternal;
-import buildcraft.api.statements.StatementParameterItemStack;
-import buildcraft.core.lib.utils.StringUtils;
 import java.util.Locale;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -22,9 +16,16 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.ITriggerExternal;
+import buildcraft.api.statements.StatementParameterItemStack;
+import buildcraft.core.lib.utils.StringUtils;
+
 public class TriggerFluidContainerLevel extends BCStatement implements ITriggerExternal {
 
     public enum TriggerType {
+
         BELOW25(0.25F),
         BELOW50(0.5F),
         BELOW75(0.75F);
@@ -56,18 +57,14 @@ public class TriggerFluidContainerLevel extends BCStatement implements ITriggerE
     }
 
     @Override
-    public boolean isTriggerActive(
-            TileEntity tile,
-            ForgeDirection side,
-            IStatementContainer statementContainer,
+    public boolean isTriggerActive(TileEntity tile, ForgeDirection side, IStatementContainer statementContainer,
             IStatementParameter[] parameters) {
         if (tile instanceof IFluidHandler) {
             IFluidHandler container = (IFluidHandler) tile;
 
             FluidStack searchedFluid = null;
 
-            if (parameters != null
-                    && parameters.length >= 1
+            if (parameters != null && parameters.length >= 1
                     && parameters[0] != null
                     && parameters[0].getItemStack() != null) {
                 searchedFluid = FluidContainerRegistry.getFluidForFilledItem(parameters[0].getItemStack());
@@ -105,8 +102,7 @@ public class TriggerFluidContainerLevel extends BCStatement implements ITriggerE
 
     @Override
     public void registerIcons(IIconRegister register) {
-        icon = register.registerIcon(
-                "buildcraftcore:triggers/trigger_liquidcontainer_" + type.name().toLowerCase());
+        icon = register.registerIcon("buildcraftcore:triggers/trigger_liquidcontainer_" + type.name().toLowerCase());
     }
 
     @Override

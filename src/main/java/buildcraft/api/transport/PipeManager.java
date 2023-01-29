@@ -1,31 +1,28 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.transport;
 
-import buildcraft.api.transport.pluggable.PipePluggable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.minecraft.world.World;
+
+import buildcraft.api.transport.pluggable.PipePluggable;
 
 public abstract class PipeManager {
 
     public static List<IStripesHandler> stripesHandlers = new ArrayList<IStripesHandler>();
-    public static ArrayList<Class<? extends PipePluggable>> pipePluggables =
-            new ArrayList<Class<? extends PipePluggable>>();
-    private static Map<String, Class<? extends PipePluggable>> pipePluggableNames =
-            new HashMap<String, Class<? extends PipePluggable>>();
-    private static Map<Class<? extends PipePluggable>, String> pipePluggableByNames =
-            new HashMap<Class<? extends PipePluggable>, String>();
+    public static ArrayList<Class<? extends PipePluggable>> pipePluggables = new ArrayList<Class<? extends PipePluggable>>();
+    private static Map<String, Class<? extends PipePluggable>> pipePluggableNames = new HashMap<String, Class<? extends PipePluggable>>();
+    private static Map<Class<? extends PipePluggable>, String> pipePluggableByNames = new HashMap<Class<? extends PipePluggable>, String>();
     private static Map<IStripesHandler, Integer> stripesHandlerPriorities = new HashMap<IStripesHandler, Integer>();
 
     @Deprecated
@@ -45,7 +42,8 @@ public abstract class PipeManager {
 
     /**
      * Register a Stripes Pipe handler.
-     * @param handler The handler.
+     * 
+     * @param handler  The handler.
      * @param priority The priority - 0 is normal, higher numbers have higher priority.
      */
     public static void registerStripesHandler(IStripesHandler handler, int priority) {
@@ -53,6 +51,7 @@ public abstract class PipeManager {
         stripesHandlerPriorities.put(handler, priority);
 
         Collections.sort(stripesHandlers, new Comparator<IStripesHandler>() {
+
             @Override
             public int compare(IStripesHandler o1, IStripesHandler o2) {
                 return stripesHandlerPriorities.get(o2) - stripesHandlerPriorities.get(o1);

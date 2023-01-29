@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
 public final class FluidUtils {
+
     private FluidUtils() {}
 
     public static FluidStack getFluidStackFromBlock(Block b) {
@@ -51,8 +52,7 @@ public final class FluidUtils {
     }
 
     public static boolean isFluidContainer(ItemStack stack) {
-        return stack != null
-                && stack.getItem() != null
+        return stack != null && stack.getItem() != null
                 && (stack.getItem() instanceof IFluidContainerItem || FluidContainerRegistry.isFilledContainer(stack));
     }
 }

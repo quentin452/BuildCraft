@@ -1,18 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
+
+import net.minecraft.entity.Entity;
 
 import buildcraft.api.blueprints.BuilderAPI;
 import buildcraft.api.robots.AIRobot;
 import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.robotics.EntityRobot;
-import net.minecraft.entity.Entity;
 
 public class AIRobotAttack extends AIRobot {
 
@@ -51,8 +50,11 @@ public class AIRobotAttack extends AIRobot {
 
         if (robot.getDistanceToEntity(target) > 2.0) {
             startDelegateAI(
-                    new AIRobotGotoBlock(robot, (int) Math.floor(target.posX), (int) Math.floor(target.posY), (int)
-                            Math.floor(target.posZ)));
+                    new AIRobotGotoBlock(
+                            robot,
+                            (int) Math.floor(target.posX),
+                            (int) Math.floor(target.posY),
+                            (int) Math.floor(target.posZ)));
             robot.setItemActive(false);
 
             return;
@@ -64,7 +66,9 @@ public class AIRobotAttack extends AIRobot {
             delay = 0;
             ((EntityRobot) robot).attackTargetEntityWithCurrentItem(target);
             robot.aimItemAt(
-                    (int) Math.floor(target.posX), (int) Math.floor(target.posY), (int) Math.floor(target.posZ));
+                    (int) Math.floor(target.posX),
+                    (int) Math.floor(target.posY),
+                    (int) Math.floor(target.posZ));
         }
     }
 

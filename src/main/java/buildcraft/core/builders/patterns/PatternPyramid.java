@@ -1,21 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.builders.patterns;
+
+import net.minecraft.world.World;
 
 import buildcraft.api.blueprints.SchematicMask;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.core.Box;
 import buildcraft.core.blueprints.Template;
-import net.minecraft.world.World;
 
 public class PatternPyramid extends FillerPattern {
-    private static final int[] MODIFIERS = {0x0101, 0x1101, 0x1001, 0x0111, 0x1111, 0x1011, 0x0110, 0x1110, 0x1010};
+
+    private static final int[] MODIFIERS = { 0x0101, 0x1101, 0x1001, 0x0111, 0x1111, 0x1011, 0x0110, 0x1110, 0x1010 };
 
     public PatternPyramid() {
         super("pyramid");

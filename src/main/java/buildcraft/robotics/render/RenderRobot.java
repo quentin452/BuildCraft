@@ -1,25 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.render;
 
-import buildcraft.BuildCraftRobotics;
-import buildcraft.api.robots.IRobotOverlayItem;
-import buildcraft.core.DefaultProps;
-import buildcraft.core.EntityLaser;
-import buildcraft.core.lib.render.RenderUtils;
-import buildcraft.core.render.RenderLaser;
-import buildcraft.robotics.EntityRobot;
-import buildcraft.robotics.ItemRobot;
-import com.mojang.authlib.GameProfile;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
@@ -41,13 +31,26 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.common.util.Constants.NBT;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.BuildCraftRobotics;
+import buildcraft.api.robots.IRobotOverlayItem;
+import buildcraft.core.DefaultProps;
+import buildcraft.core.EntityLaser;
+import buildcraft.core.lib.render.RenderUtils;
+import buildcraft.core.render.RenderLaser;
+import buildcraft.robotics.EntityRobot;
+import buildcraft.robotics.ItemRobot;
+
+import com.mojang.authlib.GameProfile;
+
 public class RenderRobot extends Render implements IItemRenderer {
-    private static final ResourceLocation overlay_red =
-            new ResourceLocation(DefaultProps.TEXTURE_PATH_ROBOTS + "/overlay_side.png");
-    private static final ResourceLocation overlay_cyan =
-            new ResourceLocation(DefaultProps.TEXTURE_PATH_ROBOTS + "/overlay_bottom.png");
+
+    private static final ResourceLocation overlay_red = new ResourceLocation(
+            DefaultProps.TEXTURE_PATH_ROBOTS + "/overlay_side.png");
+    private static final ResourceLocation overlay_cyan = new ResourceLocation(
+            DefaultProps.TEXTURE_PATH_ROBOTS + "/overlay_bottom.png");
 
     private final EntityItem dummyEntityItem = new EntityItem(null);
     private final RenderItem customRenderItem;
@@ -61,6 +64,7 @@ public class RenderRobot extends Render implements IItemRenderer {
 
     public RenderRobot() {
         customRenderItem = new RenderItem() {
+
             @Override
             public boolean shouldBob() {
                 return false;
@@ -293,8 +297,8 @@ public class RenderRobot extends Render implements IItemRenderer {
             }
         }
 
-        TileEntitySkullRenderer.field_147536_b.func_152674_a(
-                -0.5F, -0.25F, -0.5F, 1, -90.0F, wearable.getItemDamage(), gameProfile);
+        TileEntitySkullRenderer.field_147536_b
+                .func_152674_a(-0.5F, -0.25F, -0.5F, 1, -90.0F, wearable.getItemDamage(), gameProfile);
         if (gameProfile != null) {
             GL11.glTranslatef(0.0f, -0.25f, 0.0f);
             GL11.glRotatef(180F, 0, 0, 1);

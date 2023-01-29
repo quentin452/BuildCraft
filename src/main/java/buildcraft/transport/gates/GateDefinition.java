@@ -1,20 +1,20 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.gates;
+
+import java.util.Locale;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 
 import buildcraft.core.lib.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.Locale;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 
 public final class GateDefinition {
 
@@ -32,6 +32,7 @@ public final class GateDefinition {
     }
 
     public enum GateMaterial {
+
         REDSTONE("gate_interface_1.png", 146, 1, 0, 0, 1),
         IRON("gate_interface_2.png", 164, 2, 0, 0, 2),
         GOLD("gate_interface_3.png", 200, 4, 1, 0, 3),
@@ -53,12 +54,7 @@ public final class GateDefinition {
         @SideOnly(Side.CLIENT)
         private IIcon iconItem;
 
-        GateMaterial(
-                String guiFile,
-                int guiHeight,
-                int numSlots,
-                int triggerParameterSlots,
-                int actionParameterSlots,
+        GateMaterial(String guiFile, int guiHeight, int numSlots, int triggerParameterSlots, int actionParameterSlots,
                 int maxWireColor) {
             this.guiFile = new ResourceLocation("buildcrafttransport:textures/gui/" + guiFile);
             this.guiHeight = guiHeight;
@@ -105,8 +101,10 @@ public final class GateDefinition {
     }
 
     public enum GateLogic {
+
         AND,
         OR;
+
         public static final GateLogic[] VALUES = values();
 
         @SideOnly(Side.CLIENT)

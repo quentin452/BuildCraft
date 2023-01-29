@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
+
+import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.core.ISerializable;
@@ -17,12 +20,9 @@ import buildcraft.core.lib.block.TileBuildCraft;
 import buildcraft.core.lib.utils.LaserUtils;
 import buildcraft.core.proxy.CoreProxy;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 public class TileMarker extends TileBuildCraft implements ITileAreaProvider {
+
     public static class TileWrapper implements ISerializable {
 
         public int x, y, z;
@@ -86,8 +86,9 @@ public class TileMarker extends TileBuildCraft implements ITileAreaProvider {
     }
 
     public static class Origin implements ISerializable {
+
         public TileWrapper vectO = new TileWrapper();
-        public TileWrapper[] vect = {new TileWrapper(), new TileWrapper(), new TileWrapper()};
+        public TileWrapper[] vect = { new TileWrapper(), new TileWrapper(), new TileWrapper() };
         public int xMin, yMin, zMin, xMax, yMax, zMax;
 
         public boolean isSet() {
@@ -204,8 +205,8 @@ public class TileMarker extends TileBuildCraft implements ITileAreaProvider {
             for (int i = 0; i < 3; ++i) {
                 if (initVect[i] != null) {
                     linkTo(
-                            (TileMarker) worldObj.getTileEntity(
-                                    (int) initVect[i].x, (int) initVect[i].y, (int) initVect[i].z),
+                            (TileMarker) worldObj
+                                    .getTileEntity((int) initVect[i].x, (int) initVect[i].y, (int) initVect[i].z),
                             i);
                 }
             }
@@ -563,8 +564,7 @@ public class TileMarker extends TileBuildCraft implements ITileAreaProvider {
             return false;
         }
 
-        if (x < (xMin() - 1)
-                || x > (xMax() + 1)
+        if (x < (xMin() - 1) || x > (xMax() + 1)
                 || y < (yMin() - 1)
                 || y > (yMax() + 1)
                 || z < (zMin() - 1)

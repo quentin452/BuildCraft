@@ -1,8 +1,7 @@
 package buildcraft.core.crops;
 
-import buildcraft.api.crops.CropManager;
-import buildcraft.api.crops.ICropHandler;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -12,6 +11,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.crops.CropManager;
+import buildcraft.api.crops.ICropHandler;
 
 public class CropHandlerReeds implements ICropHandler {
 

@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory.gui;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.Slot;
+import net.minecraftforge.fluids.Fluid;
 
 import buildcraft.BuildCraftFactory;
 import buildcraft.core.lib.gui.BuildCraftContainer;
@@ -14,13 +18,9 @@ import buildcraft.core.lib.network.command.CommandWriter;
 import buildcraft.core.lib.network.command.PacketCommand;
 import buildcraft.factory.TileRefinery;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
-import net.minecraftforge.fluids.Fluid;
 
 public class ContainerRefinery extends BuildCraftContainer {
+
     public TileRefinery refinery;
 
     public ContainerRefinery(InventoryPlayer inventory, TileRefinery refinery) {
@@ -51,6 +51,7 @@ public class ContainerRefinery extends BuildCraftContainer {
 
         if (refinery.getWorldObj().isRemote) {
             CommandWriter payload = new CommandWriter() {
+
                 @Override
                 public void write(ByteBuf data) {
                     data.writeByte(slot);

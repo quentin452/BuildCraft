@@ -1,6 +1,5 @@
 package buildcraft.silicon;
 
-import buildcraft.BuildCraftSilicon;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -11,7 +10,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import buildcraft.BuildCraftSilicon;
+
 public class EntityPackage extends EntityThrowable {
+
     private ItemStack pkg;
 
     public EntityPackage(World world) {

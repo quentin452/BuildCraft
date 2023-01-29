@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.robots;
 
@@ -12,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class AIRobot {
+
     public EntityRobotBase robot;
 
     private AIRobot delegateAI;
@@ -39,12 +38,14 @@ public class AIRobot {
 
     /**
      * This gets called when a delegate AI ends work naturally.
+     * 
      * @param ai The delegate AI which ended work.
      */
     public void delegateAIEnded(AIRobot ai) {}
 
     /**
      * This gets called when a delegate AI is forcibly aborted.
+     * 
      * @param ai The delegate AI which was aborted.
      */
     public void delegateAIAborted(AIRobot ai) {}
@@ -70,8 +71,7 @@ public class AIRobot {
     }
 
     /**
-     * Tries to receive items in parameters, return items that are left after
-     * the operation.
+     * Tries to receive items in parameters, return items that are left after the operation.
      */
     public ItemStack receiveItem(ItemStack stack) {
         return stack;
@@ -178,8 +178,7 @@ public class AIRobot {
                     aiRobotClass = RobotManager.getAIRobotByName(sub.getString("aiName"));
                 }
                 if (aiRobotClass != null) {
-                    delegateAI = (AIRobot)
-                            aiRobotClass.getConstructor(EntityRobotBase.class).newInstance(robot);
+                    delegateAI = (AIRobot) aiRobotClass.getConstructor(EntityRobotBase.class).newInstance(robot);
                     delegateAI.parentAI = this;
 
                     if (delegateAI.canLoadFromNBT()) {
@@ -204,8 +203,7 @@ public class AIRobot {
                 aiRobotClass = RobotManager.getAIRobotByName(nbt.getString("aiName"));
             }
             if (aiRobotClass != null) {
-                ai = (AIRobot)
-                        aiRobotClass.getConstructor(EntityRobotBase.class).newInstance(robot);
+                ai = (AIRobot) aiRobotClass.getConstructor(EntityRobotBase.class).newInstance(robot);
                 ai.loadFromNBT(nbt);
             }
         } catch (Throwable e) {

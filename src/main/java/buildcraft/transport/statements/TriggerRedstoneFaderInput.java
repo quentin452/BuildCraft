@@ -1,12 +1,12 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.statements;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
 
 import buildcraft.api.gates.IGate;
 import buildcraft.api.statements.IStatementContainer;
@@ -18,7 +18,6 @@ import buildcraft.core.statements.StatementParameterRedstoneGateSideOnly;
 import buildcraft.transport.TileGenericPipe;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class TriggerRedstoneFaderInput extends BCStatement implements ITriggerInternal {
 
@@ -44,8 +43,7 @@ public class TriggerRedstoneFaderInput extends BCStatement implements ITriggerIn
         IGate gate = (IGate) container;
         TileGenericPipe tile = (TileGenericPipe) gate.getPipe().getTile();
         int inputLevel = tile.redstoneInput;
-        if (parameters.length > 0
-                && parameters[0] instanceof StatementParameterRedstoneGateSideOnly
+        if (parameters.length > 0 && parameters[0] instanceof StatementParameterRedstoneGateSideOnly
                 && ((StatementParameterRedstoneGateSideOnly) parameters[0]).isOn) {
             inputLevel = tile.redstoneInputSide[gate.getSide().ordinal()];
         }

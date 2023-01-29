@@ -1,5 +1,11 @@
 package buildcraft.transport.pluggable;
 
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.render.ITextureStates;
 import buildcraft.api.transport.IPipe;
@@ -9,28 +15,17 @@ import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.core.lib.utils.MatrixTranformations;
 import buildcraft.transport.PipeIconProvider;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PlugPluggable extends PipePluggable {
+
     protected static final class PlugPluggableRenderer implements IPipePluggableRenderer {
+
         public static final IPipePluggableRenderer INSTANCE = new PlugPluggableRenderer();
         private float zFightOffset = 1 / 4096.0F;
 
         @Override
-        public void renderPluggable(
-                RenderBlocks renderblocks,
-                IPipe pipe,
-                ForgeDirection side,
-                PipePluggable pipePluggable,
-                ITextureStates blockStateMachine,
-                int renderPass,
-                int x,
-                int y,
-                int z) {
+        public void renderPluggable(RenderBlocks renderblocks, IPipe pipe, ForgeDirection side,
+                PipePluggable pipePluggable, ITextureStates blockStateMachine, int renderPass, int x, int y, int z) {
             if (renderPass != 0) {
                 return;
             }
@@ -47,16 +42,20 @@ public class PlugPluggable extends PipePluggable {
             zeroState[2][0] = 0.25F + zFightOffset;
             zeroState[2][1] = 0.75F - zFightOffset;
 
-            blockStateMachine
-                    .getTextureState()
-                    .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                            PipeIconProvider.TYPE.PipePlug.ordinal())); // Structure Pipe
+            blockStateMachine.getTextureState().set(
+                    BuildCraftTransport.instance.pipeIconProvider.getIcon(PipeIconProvider.TYPE.PipePlug.ordinal())); // Structure
+                                                                                                                      // Pipe
 
             float[][] rotated = MatrixTranformations.deepClone(zeroState);
             MatrixTranformations.transform(rotated, side);
 
             renderblocks.setRenderBounds(
-                    rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                    rotated[0][0],
+                    rotated[1][0],
+                    rotated[2][0],
+                    rotated[0][1],
+                    rotated[1][1],
+                    rotated[2][1]);
             renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
 
             // X START - END
@@ -73,7 +72,12 @@ public class PlugPluggable extends PipePluggable {
             MatrixTranformations.transform(rotated, side);
 
             renderblocks.setRenderBounds(
-                    rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                    rotated[0][0],
+                    rotated[1][0],
+                    rotated[2][0],
+                    rotated[0][1],
+                    rotated[1][1],
+                    rotated[2][1]);
             renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
         }
     }
@@ -88,7 +92,7 @@ public class PlugPluggable extends PipePluggable {
 
     @Override
     public ItemStack[] getDropItems(IPipeTile pipe) {
-        return new ItemStack[] {new ItemStack(BuildCraftTransport.plugItem)};
+        return new ItemStack[] { new ItemStack(BuildCraftTransport.plugItem) };
     }
 
     @Override
@@ -110,8 +114,8 @@ public class PlugPluggable extends PipePluggable {
         bounds[2][1] = 0.75F;
 
         MatrixTranformations.transform(bounds, side);
-        return AxisAlignedBB.getBoundingBox(
-                bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
+        return AxisAlignedBB
+                .getBoundingBox(bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
     }
 
     @Override

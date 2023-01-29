@@ -1,12 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.IZone;
 import buildcraft.api.robots.AIRobot;
@@ -14,9 +16,6 @@ import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.core.lib.inventory.TransactorSimple;
 import buildcraft.core.lib.inventory.filters.IStackFilter;
 import buildcraft.robotics.boards.BoardRobotPicker;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class AIRobotFetchItem extends AIRobot {
 
@@ -56,8 +55,8 @@ public class AIRobotFetchItem extends AIRobot {
             if (pickTime > 5) {
                 TransactorSimple inventoryInsert = new TransactorSimple(robot);
 
-                target.getEntityItem().stackSize -=
-                        inventoryInsert.inject(target.getEntityItem(), ForgeDirection.UNKNOWN, true);
+                target.getEntityItem().stackSize -= inventoryInsert
+                        .inject(target.getEntityItem(), ForgeDirection.UNKNOWN, true);
 
                 if (target.getEntityItem().stackSize <= 0) {
                     target.setDead();
@@ -102,8 +101,7 @@ public class AIRobotFetchItem extends AIRobot {
         for (Object o : robot.worldObj.loadedEntityList) {
             Entity e = (Entity) o;
 
-            if (!e.isDead
-                    && e instanceof EntityItem
+            if (!e.isDead && e instanceof EntityItem
                     && !BoardRobotPicker.targettedItems.contains(e.getEntityId())
                     && !robot.isKnownUnreachable(e)
                     && (zone == null || zone.contains(e.posX, e.posY, e.posZ))) {
@@ -138,12 +136,14 @@ public class AIRobotFetchItem extends AIRobot {
 
         if (target != null) {
             BoardRobotPicker.targettedItems.add(target.getEntityId());
-            if (Math.floor(target.posX) != Math.floor(robot.posX)
-                    || Math.floor(target.posY) != Math.floor(robot.posY)
+            if (Math.floor(target.posX) != Math.floor(robot.posX) || Math.floor(target.posY) != Math.floor(robot.posY)
                     || Math.floor(target.posZ) != Math.floor(robot.posZ)) {
                 startDelegateAI(
-                        new AIRobotGotoBlock(robot, (int) Math.floor(target.posX), (int) Math.floor(target.posY), (int)
-                                Math.floor(target.posZ)));
+                        new AIRobotGotoBlock(
+                                robot,
+                                (int) Math.floor(target.posX),
+                                (int) Math.floor(target.posY),
+                                (int) Math.floor(target.posZ)));
             }
         } else {
             // No item was found, terminate this AI

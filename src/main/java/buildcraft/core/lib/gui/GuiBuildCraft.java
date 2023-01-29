@@ -1,23 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.gui;
 
-import buildcraft.core.lib.gui.slots.IPhantomSlot;
-import buildcraft.core.lib.gui.tooltips.IToolTipProvider;
-import buildcraft.core.lib.gui.tooltips.ToolTip;
-import buildcraft.core.lib.gui.tooltips.ToolTipLine;
-import buildcraft.core.lib.gui.widgets.Widget;
-import buildcraft.core.lib.render.RenderUtils;
-import buildcraft.core.lib.utils.SessionVars;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -31,12 +23,21 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
+
+import buildcraft.core.lib.gui.slots.IPhantomSlot;
+import buildcraft.core.lib.gui.tooltips.IToolTipProvider;
+import buildcraft.core.lib.gui.tooltips.ToolTip;
+import buildcraft.core.lib.gui.tooltips.ToolTipLine;
+import buildcraft.core.lib.gui.widgets.Widget;
+import buildcraft.core.lib.render.RenderUtils;
+import buildcraft.core.lib.utils.SessionVars;
 
 public abstract class GuiBuildCraft extends GuiContainer {
 
-    public static final ResourceLocation LEDGER_TEXTURE =
-            new ResourceLocation("buildcraftcore:textures/gui/ledger.png");
+    public static final ResourceLocation LEDGER_TEXTURE = new ResourceLocation(
+            "buildcraftcore:textures/gui/ledger.png");
     public final LedgerManager ledgerManager = new LedgerManager(this);
     public final TileEntity tile;
     public final BuildCraftContainer container;
@@ -121,9 +122,8 @@ public abstract class GuiBuildCraft extends GuiContainer {
         IIcon icon = fluid.getFluid().getIcon(fluid);
 
         if (icon == null) {
-            icon = ((TextureMap)
-                            Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture))
-                    .getAtlasSprite("missingno");
+            icon = ((TextureMap) Minecraft.getMinecraft().getTextureManager()
+                    .getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
         }
 
         mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -159,7 +159,11 @@ public abstract class GuiBuildCraft extends GuiContainer {
         tess.startDrawingQuads();
         tess.addVertexWithUV(x, y + height, zLevel, icon.getMinU(), icon.getInterpolatedV(height));
         tess.addVertexWithUV(
-                x + width, y + height, zLevel, icon.getInterpolatedU(width), icon.getInterpolatedV(height));
+                x + width,
+                y + height,
+                zLevel,
+                icon.getInterpolatedU(width),
+                icon.getInterpolatedV(height));
         tess.addVertexWithUV(x + width, y + cut, zLevel, icon.getInterpolatedU(width), icon.getInterpolatedV(cut));
         tess.addVertexWithUV(x, y + cut, zLevel, icon.getMinU(), icon.getInterpolatedV(cut));
         tess.draw();
@@ -220,8 +224,7 @@ public abstract class GuiBuildCraft extends GuiContainer {
         int top = this.guiTop;
         int realMouseX = mouseX - left;
         int realMouseY = mouseY - top;
-        return realMouseX >= slot.xDisplayPosition - 1
-                && realMouseX < slot.xDisplayPosition + 16 + 1
+        return realMouseX >= slot.xDisplayPosition - 1 && realMouseX < slot.xDisplayPosition + 16 + 1
                 && realMouseY >= slot.yDisplayPosition - 1
                 && realMouseY < slot.yDisplayPosition + 16 + 1;
     }
@@ -419,7 +422,12 @@ public abstract class GuiBuildCraft extends GuiContainer {
                 String tooltip = ledger.getTooltip();
                 int textWidth = fontRendererObj.getStringWidth(tooltip);
                 drawGradientRect(
-                        startX - 3, startY - 3, startX + textWidth + 3, startY + 8 + 3, 0xc0000000, 0xc0000000);
+                        startX - 3,
+                        startY - 3,
+                        startX + textWidth + 3,
+                        startY + 8 + 3,
+                        0xc0000000,
+                        0xc0000000);
                 fontRendererObj.drawStringWithShadow(tooltip, startX, startY, -1);
             }
         }
@@ -449,6 +457,7 @@ public abstract class GuiBuildCraft extends GuiContainer {
      * Side ledger for guis
      */
     protected abstract class Ledger {
+
         public int currentShiftX = 0;
         public int currentShiftY = 0;
         protected int overlayColor = 0xffffff;
@@ -505,8 +514,7 @@ public abstract class GuiBuildCraft extends GuiContainer {
 
         public boolean intersectsWith(int mouseX, int mouseY, int shiftX, int shiftY) {
 
-            if (mouseX >= shiftX
-                    && mouseX <= shiftX + currentWidth
+            if (mouseX >= shiftX && mouseX <= shiftX + currentWidth
                     && mouseY >= shiftY
                     && mouseY <= shiftY + getHeight()) {
                 return true;
@@ -554,7 +562,12 @@ public abstract class GuiBuildCraft extends GuiContainer {
             drawTexturedModalRect(x, y, 0, 0, 4, 4);
 
             drawTexturedModalRect(
-                    x + 4, y + 4, 256 - currentWidth + 4, 256 - currentHeight + 4, currentWidth - 4, currentHeight - 4);
+                    x + 4,
+                    y + 4,
+                    256 - currentWidth + 4,
+                    256 - currentHeight + 4,
+                    currentWidth - 4,
+                    currentHeight - 4);
 
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0F);
         }

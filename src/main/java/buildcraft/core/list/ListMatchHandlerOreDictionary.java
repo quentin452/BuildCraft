@@ -1,15 +1,18 @@
 package buildcraft.core.list;
 
-import buildcraft.api.lists.ListMatchHandler;
-import buildcraft.core.lib.inventory.StackHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import buildcraft.api.lists.ListMatchHandler;
+import buildcraft.core.lib.inventory.StackHelper;
+
 public class ListMatchHandlerOreDictionary extends ListMatchHandler {
+
     private int getUppercaseCount(String s) {
         int j = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -49,8 +52,7 @@ public class ListMatchHandlerOreDictionary extends ListMatchHandler {
             String s = getBestOreString(oreIds);
             if (s != null) {
                 Set<Integer> stackIds = ListOreDictionaryCache.INSTANCE.getListOfPartialMatches(
-                        type == Type.MATERIAL
-                                ? ListOreDictionaryCache.getMaterial(s)
+                        type == Type.MATERIAL ? ListOreDictionaryCache.getMaterial(s)
                                 : ListOreDictionaryCache.getType(s));
                 if (stackIds != null) {
                     for (int j : stackIds) {
@@ -119,8 +121,7 @@ public class ListMatchHandlerOreDictionary extends ListMatchHandler {
             String s = getBestOreString(oreIds);
             if (s != null) {
                 Set<Integer> stackIds = ListOreDictionaryCache.INSTANCE.getListOfPartialMatches(
-                        type == Type.MATERIAL
-                                ? ListOreDictionaryCache.getMaterial(s)
+                        type == Type.MATERIAL ? ListOreDictionaryCache.getMaterial(s)
                                 : ListOreDictionaryCache.getType(s));
                 if (stackIds != null) {
                     for (int j : stackIds) {

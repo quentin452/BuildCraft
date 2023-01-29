@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.statements;
+
+import java.util.List;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.items.IMapLocation;
@@ -23,10 +27,6 @@ import buildcraft.core.statements.BCStatement;
 import buildcraft.robotics.EntityRobot;
 import buildcraft.robotics.RobotUtils;
 import buildcraft.robotics.ai.AIRobotGoAndLinkToDock;
-import java.util.List;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ActionRobotGotoStation extends BCStatement implements IActionInternal {
 
@@ -46,8 +46,7 @@ public class ActionRobotGotoStation extends BCStatement implements IActionIntern
 
     @Override
     public void actionActivate(IStatementContainer container, IStatementParameter[] parameters) {
-        IRobotRegistry registry =
-                RobotManager.registryProvider.getRegistry(container.getTile().getWorldObj());
+        IRobotRegistry registry = RobotManager.registryProvider.getRegistry(container.getTile().getWorldObj());
 
         List<DockingStation> stations = RobotUtils.getStations(container.getTile());
 

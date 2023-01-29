@@ -1,10 +1,8 @@
 package buildcraft.transport.stripes;
 
-import buildcraft.api.core.Position;
-import buildcraft.api.transport.IStripesActivator;
-import buildcraft.api.transport.IStripesHandler;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
@@ -15,10 +13,16 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.core.Position;
+import buildcraft.api.transport.IStripesActivator;
+import buildcraft.api.transport.IStripesHandler;
+
 public class StripesHandlerDispenser implements IStripesHandler {
+
     public static final List<Object> items = new ArrayList<Object>();
 
     public class Source implements IBlockSource {
+
         private final World world;
         private final int x, y, z;
         private final ForgeDirection side;
@@ -99,21 +103,14 @@ public class StripesHandlerDispenser implements IStripesHandler {
     }
 
     @Override
-    public boolean handle(
-            World world,
-            int x,
-            int y,
-            int z,
-            ForgeDirection direction,
-            ItemStack stack,
-            EntityPlayer player,
-            IStripesActivator activator) {
+    public boolean handle(World world, int x, int y, int z, ForgeDirection direction, ItemStack stack,
+            EntityPlayer player, IStripesActivator activator) {
         Position origin = new Position(x, y, z, direction);
         origin.moveBackwards(1.0D);
 
         IBlockSource source = new Source(world, (int) origin.x, (int) origin.y, (int) origin.z, direction);
-        IBehaviorDispenseItem behaviour =
-                (IBehaviorDispenseItem) BlockDispenser.dispenseBehaviorRegistry.getObject(stack.getItem());
+        IBehaviorDispenseItem behaviour = (IBehaviorDispenseItem) BlockDispenser.dispenseBehaviorRegistry
+                .getObject(stack.getItem());
         if (behaviour != null) {
             ItemStack output = behaviour.dispense(source, stack.copy());
             if (output.stackSize > 0) {

@@ -1,12 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon;
+
+import java.util.List;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
@@ -19,13 +24,9 @@ import buildcraft.core.lib.utils.StringUtils;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import java.util.List;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class TileProgrammingTable extends TileLaserTableBase implements IInventory, ISidedInventory, ICommandReceiver {
+
     public static final int WIDTH = 6;
     public static final int HEIGHT = 4;
 
@@ -175,6 +176,7 @@ public class TileProgrammingTable extends TileLaserTableBase implements IInvento
 
     public void rpcSelectOption(final int pos) {
         BuildCraftCore.instance.sendToServer(new PacketCommand(this, "select", new CommandWriter() {
+
             public void write(ByteBuf data) {
                 data.writeByte(pos);
             }
@@ -217,7 +219,7 @@ public class TileProgrammingTable extends TileLaserTableBase implements IInvento
 
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return new int[] {0, 1};
+        return new int[] { 0, 1 };
     }
 
     @Override

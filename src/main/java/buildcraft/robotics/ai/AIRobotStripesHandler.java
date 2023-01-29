@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.core.Position;
@@ -18,12 +21,9 @@ import buildcraft.api.transport.IStripesHandler.StripesHandlerType;
 import buildcraft.api.transport.PipeManager;
 import buildcraft.core.lib.inventory.InvUtils;
 import buildcraft.core.proxy.CoreProxy;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class AIRobotStripesHandler extends AIRobot implements IStripesActivator {
+
     private BlockIndex useToBlock;
     private int useCycles = 0;
 
@@ -61,15 +61,14 @@ public class AIRobotStripesHandler extends AIRobot implements IStripesActivator 
             Position p = new Position(useToBlock.x, useToBlock.y, useToBlock.z);
 
             EntityPlayer player = CoreProxy.proxy
-                    .getBuildCraftPlayer((WorldServer) robot.worldObj, (int) p.x, (int) p.y, (int) p.z)
-                    .get();
+                    .getBuildCraftPlayer((WorldServer) robot.worldObj, (int) p.x, (int) p.y, (int) p.z).get();
             player.rotationPitch = 0;
             player.rotationYaw = 180;
 
             for (IStripesHandler handler : PipeManager.stripesHandlers) {
                 if (handler.getType() == StripesHandlerType.ITEM_USE && handler.shouldHandle(stack)) {
-                    if (handler.handle(
-                            robot.worldObj, (int) p.x, (int) p.y, (int) p.z, direction, stack, player, this)) {
+                    if (handler
+                            .handle(robot.worldObj, (int) p.x, (int) p.y, (int) p.z, direction, stack, player, this)) {
                         robot.setItemInUse(null);
                         terminate();
                         return;
@@ -92,8 +91,12 @@ public class AIRobotStripesHandler extends AIRobot implements IStripesActivator 
 
     @Override
     public void sendItem(ItemStack stack, ForgeDirection direction) {
-        InvUtils.dropItems(robot.worldObj, stack, (int) Math.floor(robot.posX), (int) Math.floor(robot.posY), (int)
-                Math.floor(robot.posZ));
+        InvUtils.dropItems(
+                robot.worldObj,
+                stack,
+                (int) Math.floor(robot.posX),
+                (int) Math.floor(robot.posY),
+                (int) Math.floor(robot.posZ));
     }
 
     @Override

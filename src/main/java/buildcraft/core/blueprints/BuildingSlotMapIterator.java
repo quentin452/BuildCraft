@@ -1,26 +1,27 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.blueprints;
 
-import buildcraft.core.builders.BuilderItemMetaPair;
-import buildcraft.core.builders.BuildingSlotBlock;
-import buildcraft.core.builders.TileAbstractBuilder;
-import buildcraft.core.lib.fluids.Tank;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.WorldSettings;
 
+import buildcraft.core.builders.BuilderItemMetaPair;
+import buildcraft.core.builders.BuildingSlotBlock;
+import buildcraft.core.builders.TileAbstractBuilder;
+import buildcraft.core.lib.fluids.Tank;
+
 public class BuildingSlotMapIterator {
+
     public static int MAX_PER_ITEM = 512;
     private final BptBuilderBlueprint builderBlueprint;
     private final Map<BuilderItemMetaPair, List<BuildingSlotBlock>> slotMap;
@@ -56,8 +57,7 @@ public class BuildingSlotMapIterator {
                 }
                 for (Tank t : builder.getFluidTanks()) {
                     if (t.getFluid() != null && t.getFluid().getFluid().getBlock() != null) {
-                        availablePairs.add(new BuilderItemMetaPair(
-                                new ItemStack(t.getFluid().getFluid().getBlock())));
+                        availablePairs.add(new BuilderItemMetaPair(new ItemStack(t.getFluid().getFluid().getBlock())));
                     }
                 }
             }

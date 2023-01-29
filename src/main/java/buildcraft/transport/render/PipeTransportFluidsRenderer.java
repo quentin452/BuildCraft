@@ -1,13 +1,5 @@
 package buildcraft.transport.render;
 
-import buildcraft.core.CoreConstants;
-import buildcraft.core.lib.render.RenderEntityBlock;
-import buildcraft.core.lib.render.RenderUtils;
-import buildcraft.transport.Pipe;
-import buildcraft.transport.PipeTransportFluids;
-import buildcraft.transport.utils.FluidRenderData;
-import gnu.trove.iterator.TIntIterator;
-import gnu.trove.set.hash.TIntHashSet;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
@@ -17,17 +9,29 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.core.CoreConstants;
+import buildcraft.core.lib.render.RenderEntityBlock;
+import buildcraft.core.lib.render.RenderUtils;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeTransportFluids;
+import buildcraft.transport.utils.FluidRenderData;
+import gnu.trove.iterator.TIntIterator;
+import gnu.trove.set.hash.TIntHashSet;
+
 public class PipeTransportFluidsRenderer extends PipeTransportRenderer<PipeTransportFluids> {
+
     private static final IntHashMap displayFluidLists = new IntHashMap();
     private static final TIntHashSet displayFluidListsSet = new TIntHashSet();
 
     private static final int LIQUID_STAGES = 40;
-    private static final int[] angleY = {0, 0, 270, 90, 0, 180};
-    private static final int[] angleZ = {90, 270, 0, 0, 0, 0};
+    private static final int[] angleY = { 0, 0, 270, 90, 0, 180 };
+    private static final int[] angleZ = { 90, 270, 0, 0, 0, 0 };
 
     private class DisplayFluidList {
+
         public int[] sideHorizontal = new int[LIQUID_STAGES];
         public int[] sideVertical = new int[LIQUID_STAGES];
         public int[] centerHorizontal = new int[LIQUID_STAGES];
@@ -193,14 +197,16 @@ public class PipeTransportFluidsRenderer extends PipeTransportRenderer<PipeTrans
 
         GL11.glTranslatef((float) x, (float) y, (float) z);
 
-        int skylight = pipe.container
-                .getWorld()
-                .getSkyBlockTypeBrightness(
-                        EnumSkyBlock.Sky, pipe.container.x(), pipe.container.y(), pipe.container.z());
-        int blocklight = pipe.container
-                .getWorld()
-                .getSkyBlockTypeBrightness(
-                        EnumSkyBlock.Block, pipe.container.x(), pipe.container.y(), pipe.container.z());
+        int skylight = pipe.container.getWorld().getSkyBlockTypeBrightness(
+                EnumSkyBlock.Sky,
+                pipe.container.x(),
+                pipe.container.y(),
+                pipe.container.z());
+        int blocklight = pipe.container.getWorld().getSkyBlockTypeBrightness(
+                EnumSkyBlock.Block,
+                pipe.container.x(),
+                pipe.container.y(),
+                pipe.container.z());
 
         boolean sides = false, above = false;
 
@@ -216,7 +222,11 @@ public class PipeTransportFluidsRenderer extends PipeTransportRenderer<PipeTrans
             }
 
             DisplayFluidList d = getDisplayFluidLists(
-                    renderData.fluidID, skylight, blocklight, renderData.flags, pipe.container.getWorldObj());
+                    renderData.fluidID,
+                    skylight,
+                    blocklight,
+                    renderData.flags,
+                    pipe.container.getWorldObj());
 
             if (d == null) {
                 continue;
@@ -258,7 +268,11 @@ public class PipeTransportFluidsRenderer extends PipeTransportRenderer<PipeTrans
 
         if (renderData.amount[6] > 0) {
             DisplayFluidList d = getDisplayFluidLists(
-                    renderData.fluidID, skylight, blocklight, renderData.flags, pipe.container.getWorldObj());
+                    renderData.fluidID,
+                    skylight,
+                    blocklight,
+                    renderData.flags,
+                    pipe.container.getWorldObj());
 
             if (d != null) {
                 int stage = (int) ((float) renderData.amount[6] / (float) (trans.getCapacity()) * (LIQUID_STAGES - 1));

@@ -1,10 +1,12 @@
 package buildcraft.robotics.map;
 
-import buildcraft.api.core.INBTStoreable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IntHashMap;
 
+import buildcraft.api.core.INBTStoreable;
+
 public class MapRegion implements INBTStoreable {
+
     private final IntHashMap chunks = new IntHashMap();
     private final int x, z;
 

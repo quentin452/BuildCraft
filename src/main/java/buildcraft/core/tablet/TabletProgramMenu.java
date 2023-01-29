@@ -10,6 +10,7 @@ import buildcraft.core.tablet.utils.TabletTextUtils;
 import cpw.mods.fml.relauncher.Side;
 
 public class TabletProgramMenu extends TabletProgram {
+
     private final ITablet tablet;
     private boolean init = false;
     private float t = 0.0F;
@@ -25,11 +26,9 @@ public class TabletProgramMenu extends TabletProgram {
             try {
                 TabletFont font = TabletFontManager.INSTANCE.register(
                         "DejaVu11",
-                        TabletProgramMenu.class
-                                .getClassLoader()
+                        TabletProgramMenu.class.getClassLoader()
                                 .getResourceAsStream("assets/buildcraftcore/tablet/11.pf2"));
-                String lorem =
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum, nulla in tincidunt finibus, dolor enim condimentum felis, vitae vulputate lorem turpis nec purus. Nulla iaculis sed turpis in lacinia. Aliquam consectetur leo sit amet placerat blandit. Maecenas euismod magna eros, quis efficitur quam luctus mollis. Nulla facilisi. Quisque tempor turpis ipsum, ut auctor diam hendrerit dictum. Phasellus id viverra purus. Ut sagittis felis eu odio sagittis, vitae mollis felis feugiat. Morbi mi elit, varius id fringilla vel, vehicula ac risus. Curabitur aliquam orci at mollis posuere.";
+                String lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum, nulla in tincidunt finibus, dolor enim condimentum felis, vitae vulputate lorem turpis nec purus. Nulla iaculis sed turpis in lacinia. Aliquam consectetur leo sit amet placerat blandit. Maecenas euismod magna eros, quis efficitur quam luctus mollis. Nulla facilisi. Quisque tempor turpis ipsum, ut auctor diam hendrerit dictum. Phasellus id viverra purus. Ut sagittis felis eu odio sagittis, vitae mollis felis feugiat. Morbi mi elit, varius id fringilla vel, vehicula ac risus. Curabitur aliquam orci at mollis posuere.";
                 TabletDrawUtils.drawRect(bitmap, 4, 4, 236, 280, 7);
                 int hxo = (244 - font.getStringWidth("Page 1")) / 2;
                 font.draw(bitmap, "Page 2/4", hxo, 287, 5);

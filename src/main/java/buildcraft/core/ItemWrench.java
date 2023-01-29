@@ -1,18 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
 
-import buildcraft.api.tools.IToolWrench;
-import buildcraft.core.lib.items.ItemBuildCraft;
-import buildcraft.core.lib.utils.BlockUtils;
 import java.util.HashSet;
 import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockButton;
@@ -23,7 +19,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.tools.IToolWrench;
+import buildcraft.core.lib.items.ItemBuildCraft;
+import buildcraft.core.lib.utils.BlockUtils;
+
 public class ItemWrench extends ItemBuildCraft implements IToolWrench {
+
     private final Set<Class<? extends Block>> shiftRotations = new HashSet<Class<? extends Block>>();
     private final Set<Class<? extends Block>> blacklistedRotations = new HashSet<Class<? extends Block>>();
 
@@ -49,17 +50,8 @@ public class ItemWrench extends ItemBuildCraft implements IToolWrench {
     }
 
     @Override
-    public boolean onItemUseFirst(
-            ItemStack stack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ) {
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
         Block block = world.getBlock(x, y, z);
 
         if (block == null || isClass(blacklistedRotations, block.getClass())) {

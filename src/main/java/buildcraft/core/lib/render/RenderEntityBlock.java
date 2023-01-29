@@ -1,15 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.render;
 
-import buildcraft.core.lib.EntityBlock;
 import java.util.Arrays;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -22,7 +20,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
+import buildcraft.core.lib.EntityBlock;
 
 public final class RenderEntityBlock extends Render {
 
@@ -49,7 +50,7 @@ public final class RenderEntityBlock extends Render {
         public Block baseBlock = Blocks.sand;
         public IIcon texture = null;
         public IIcon[] textureArray = null;
-        public boolean[] renderSide = new boolean[] {true, true, true, true, true, true};
+        public boolean[] renderSide = new boolean[] { true, true, true, true, true, true };
         public int light = -1;
         public int brightness = -1;
 
@@ -164,8 +165,7 @@ public final class RenderEntityBlock extends Render {
                     util.renderSide[4] = iBase == 0;
                     util.renderSide[5] = iBase == iMax;
 
-                    if (util.renderSide[0]
-                            || util.renderSide[1]
+                    if (util.renderSide[0] || util.renderSide[1]
                             || util.renderSide[2]
                             || util.renderSide[3]
                             || util.renderSide[4]

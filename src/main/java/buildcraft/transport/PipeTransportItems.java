@@ -1,12 +1,29 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.apache.logging.log4j.Level;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.BCLog;
@@ -21,22 +38,6 @@ import buildcraft.transport.network.PacketPipeTransportItemStackRequest;
 import buildcraft.transport.network.PacketPipeTransportTraveler;
 import buildcraft.transport.pipes.events.PipeEventItem;
 import buildcraft.transport.utils.TransportUtils;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.ForgeDirection;
-import org.apache.logging.log4j.Level;
 
 public class PipeTransportItems extends PipeTransport implements IDebuggable {
 
@@ -128,7 +129,10 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
                         Level.WARN,
                         String.format(
                                 "Pipe exploded at %d,%d,%d because it had too many stacks: %d",
-                                container.xCoord, container.yCoord, container.zCoord, items.size()));
+                                container.xCoord,
+                                container.yCoord,
+                                container.zCoord,
+                                items.size()));
                 destroyPipe();
                 return;
             }
@@ -140,7 +144,10 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
                         Level.WARN,
                         String.format(
                                 "Pipe exploded at %d,%d,%d because it had too many items: %d",
-                                container.xCoord, container.yCoord, container.zCoord, numItems));
+                                container.xCoord,
+                                container.yCoord,
+                                container.zCoord,
+                                numItems));
                 destroyPipe();
             }
         }
@@ -197,8 +204,7 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
     }
 
     /**
-     * Returns a list of all possible movements, that is to say adjacent
-     * implementers of IPipeEntry or TileEntityChest.
+     * Returns a list of all possible movements, that is to say adjacent implementers of IPipeEntry or TileEntityChest.
      */
     public List<ForgeDirection> getPossibleMovements(TravelingItem item) {
         LinkedList<ForgeDirection> result = new LinkedList<ForgeDirection>();
@@ -246,12 +252,13 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
 
             // return !pipe.pipe.isClosed() && pipe.pipe.transport instanceof PipeTransportItems;
             return pipe.inputOpen(o.getOpposite()) && pipe.transport instanceof PipeTransportItems;
-        } else if (entity instanceof IInventory
-                && item.getInsertionHandler().canInsertItem(item, (IInventory) entity)) {
-            if (Transactor.getTransactorFor(entity).add(item.getItemStack(), o.getOpposite(), false).stackSize > 0) {
-                return true;
+        } else
+            if (entity instanceof IInventory && item.getInsertionHandler().canInsertItem(item, (IInventory) entity)) {
+                if (Transactor.getTransactorFor(entity).add(item.getItemStack(), o.getOpposite(), false).stackSize
+                        > 0) {
+                    return true;
+                }
             }
-        }
 
         return false;
     }
@@ -326,8 +333,9 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
                 if (item.output == ForgeDirection.UNKNOWN) {
                     // TODO: Figure out why this is actually happening.
                     items.scheduleRemoval(item);
-                    BCLog.logger.warn("Glitched item [Output direction UNKNOWN] removed from world @ " + container.x()
-                            + ", " + container.y() + ", " + container.z() + "!");
+                    BCLog.logger.warn(
+                            "Glitched item [Output direction UNKNOWN] removed from world @ " + container
+                                    .x() + ", " + container.y() + ", " + container.z() + "!");
                     continue;
                 }
 
@@ -364,8 +372,8 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
         } else if (tile instanceof IInventory) {
             if (!container.getWorldObj().isRemote) {
                 if (item.getInsertionHandler().canInsertItem(item, (IInventory) tile)) {
-                    ItemStack added =
-                            Transactor.getTransactorFor(tile).add(item.getItemStack(), item.output.getOpposite(), true);
+                    ItemStack added = Transactor.getTransactorFor(tile)
+                            .add(item.getItemStack(), item.output.getOpposite(), true);
                     item.getItemStack().stackSize -= added.stackSize;
                 }
 
@@ -413,8 +421,7 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
     }
 
     protected boolean endReached(TravelingItem item) {
-        return item.xCoord > container.xCoord + 1
-                || item.xCoord < container.xCoord
+        return item.xCoord > container.xCoord + 1 || item.xCoord < container.xCoord
                 || item.yCoord > container.yCoord + 1
                 || item.yCoord < container.yCoord
                 || item.zCoord > container.zCoord + 1
@@ -422,8 +429,7 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
     }
 
     protected boolean outOfBounds(TravelingItem item) {
-        return item.xCoord > container.xCoord + 2
-                || item.xCoord < container.xCoord - 1
+        return item.xCoord > container.xCoord + 2 || item.xCoord < container.xCoord - 1
                 || item.yCoord > container.yCoord + 2
                 || item.yCoord < container.yCoord - 1
                 || item.zCoord > container.zCoord + 2
@@ -492,8 +498,8 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
         }
 
         if (packet.forceStackRefresh() || item.getItemStack() == null) {
-            BuildCraftTransport.instance.sendToServer(
-                    new PacketPipeTransportItemStackRequest(packet.getTravelingEntityId()));
+            BuildCraftTransport.instance
+                    .sendToServer(new PacketPipeTransportItemStackRequest(packet.getTravelingEntityId()));
         }
 
         item.setPosition(packet.getItemX(), packet.getItemY(), packet.getItemZ());
@@ -549,8 +555,7 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
         }
 
         if (tile instanceof ISidedInventory) {
-            int[] slots = ((ISidedInventory) tile)
-                    .getAccessibleSlotsFromSide(side.getOpposite().ordinal());
+            int[] slots = ((ISidedInventory) tile).getAccessibleSlotsFromSide(side.getOpposite().ordinal());
             return slots != null && slots.length > 0;
         }
 
@@ -558,8 +563,7 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
     }
 
     /**
-     * Group all items that are similar, that is to say same dmg, same id, same
-     * nbt and no contribution controlling them
+     * Group all items that are similar, that is to say same dmg, same id, same nbt and no contribution controlling them
      */
     public void groupEntities() {
         for (TravelingItem item : items) {
@@ -609,7 +613,14 @@ public class PipeTransportItems extends PipeTransport implements IDebuggable {
     @Override
     public void getDebugInfo(List<String> info, ForgeDirection side, ItemStack debugger, EntityPlayer player) {
         info.add("PipeTransportItems");
-        info.add("- Items: " + getNumberOfStacks() + "/" + MAX_PIPE_STACKS + " (" + getNumberOfItems() + "/"
-                + MAX_PIPE_ITEMS + ")");
+        info.add(
+                "- Items: " + getNumberOfStacks()
+                        + "/"
+                        + MAX_PIPE_STACKS
+                        + " ("
+                        + getNumberOfItems()
+                        + "/"
+                        + MAX_PIPE_ITEMS
+                        + ")");
     }
 }

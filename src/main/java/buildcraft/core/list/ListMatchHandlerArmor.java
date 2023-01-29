@@ -1,18 +1,18 @@
 package buildcraft.core.list;
 
-import buildcraft.api.lists.ListMatchHandler;
-import buildcraft.core.proxy.CoreProxy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.DimensionManager;
 
+import buildcraft.api.lists.ListMatchHandler;
+import buildcraft.core.proxy.CoreProxy;
+
 public class ListMatchHandlerArmor extends ListMatchHandler {
+
     private int getArmorTypeID(ItemStack stack) {
         EntityPlayer player = CoreProxy.proxy.getClientPlayer();
         if (player == null) {
-            player = CoreProxy.proxy
-                    .getBuildCraftPlayer(DimensionManager.getWorld(0))
-                    .get();
+            player = CoreProxy.proxy.getBuildCraftPlayer(DimensionManager.getWorld(0)).get();
         }
         int atID = 0;
 

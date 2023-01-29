@@ -1,12 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
+
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 import buildcraft.BuildCraftFactory;
 import buildcraft.core.lib.EntityBlock;
@@ -17,10 +18,9 @@ import buildcraft.factory.render.RenderHopper;
 import buildcraft.factory.render.RenderRefinery;
 import buildcraft.factory.render.RenderTank;
 import cpw.mods.fml.client.registry.ClientRegistry;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 
 public class FactoryProxyClient extends FactoryProxy {
+
     public static IIcon pumpTexture;
 
     @Override
@@ -33,18 +33,19 @@ public class FactoryProxyClient extends FactoryProxy {
 
         if (BuildCraftFactory.refineryBlock != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileRefinery.class, new RenderRefinery());
-            RenderingEntityBlocks.blockByEntityRenders.put(
-                    new EntityRenderIndex(BuildCraftFactory.refineryBlock, 0), new RenderRefinery());
+            RenderingEntityBlocks.blockByEntityRenders
+                    .put(new EntityRenderIndex(BuildCraftFactory.refineryBlock, 0), new RenderRefinery());
         }
 
         if (BuildCraftFactory.hopperBlock != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileHopper.class, new RenderHopper());
-            RenderingEntityBlocks.blockByEntityRenders.put(
-                    new EntityRenderIndex(BuildCraftFactory.hopperBlock, 0), new RenderHopper());
+            RenderingEntityBlocks.blockByEntityRenders
+                    .put(new EntityRenderIndex(BuildCraftFactory.hopperBlock, 0), new RenderHopper());
         }
 
         ClientRegistry.bindTileEntitySpecialRenderer(
-                TileMiningWell.class, new RenderLEDTile(BuildCraftFactory.miningWellBlock));
+                TileMiningWell.class,
+                new RenderLEDTile(BuildCraftFactory.miningWellBlock));
         ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderLEDTile(BuildCraftFactory.pumpBlock));
     }
 

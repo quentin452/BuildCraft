@@ -1,9 +1,11 @@
 package buildcraft.transport.pipes;
 
-import buildcraft.transport.PipeIconProvider;
 import net.minecraft.item.Item;
 
+import buildcraft.transport.PipeIconProvider;
+
 public class PipePowerEmerald extends PipePowerWood {
+
     public PipePowerEmerald(Item item) {
         super(item);
 

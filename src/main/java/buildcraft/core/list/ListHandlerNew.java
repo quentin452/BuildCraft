@@ -1,23 +1,27 @@
 package buildcraft.core.list;
 
-import buildcraft.api.lists.ListMatchHandler;
-import buildcraft.api.lists.ListRegistry;
-import buildcraft.core.lib.inventory.StackHelper;
-import buildcraft.core.lib.utils.NBTUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import buildcraft.api.lists.ListMatchHandler;
+import buildcraft.api.lists.ListRegistry;
+import buildcraft.core.lib.inventory.StackHelper;
+import buildcraft.core.lib.utils.NBTUtils;
+
 public final class ListHandlerNew {
+
     public static final int WIDTH = 9;
     public static final int HEIGHT = 2;
 
     public static class Line {
+
         public final ItemStack[] stacks;
         public boolean precise, byType, byMaterial;
 
@@ -79,8 +83,7 @@ public final class ListHandlerNew {
         }
 
         public ListMatchHandler.Type getSortingType() {
-            return byType
-                    ? (byMaterial ? ListMatchHandler.Type.CLASS : ListMatchHandler.Type.TYPE)
+            return byType ? (byMaterial ? ListMatchHandler.Type.CLASS : ListMatchHandler.Type.TYPE)
                     : ListMatchHandler.Type.MATERIAL;
         }
 

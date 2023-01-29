@@ -1,17 +1,19 @@
 package buildcraft.core.builders.patterns;
 
-import buildcraft.api.statements.IStatement;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.StatementMouseClick;
-import buildcraft.core.lib.utils.StringUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
+import buildcraft.api.statements.IStatement;
+import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.StatementMouseClick;
+import buildcraft.core.lib.utils.StringUtils;
+
 public class PatternParameterCenter implements IStatementParameter {
-    private static final int[] shiftLeft = {6, 3, 0, 7, 4, 1, 8, 5, 2};
+
+    private static final int[] shiftLeft = { 6, 3, 0, 7, 4, 1, 8, 5, 2 };
     private static IIcon[] icons;
     private int direction;
 

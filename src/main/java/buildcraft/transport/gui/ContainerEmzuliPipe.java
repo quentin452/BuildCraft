@@ -1,12 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.gui;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
+
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.EnumColor;
@@ -22,15 +31,6 @@ import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.transport.pipes.PipeItemsEmzuli;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 
 public class ContainerEmzuliPipe extends BuildCraftContainer {
 
@@ -111,13 +111,17 @@ public class ContainerEmzuliPipe extends BuildCraftContainer {
         private RevolvingList<EnumColor> colors = new RevolvingList<EnumColor>();
 
         private ToolTip toolTip = new ToolTip(500) {
+
             @Override
             public void refresh() {
                 toolTip.clear();
                 EnumColor color = colors.getCurrent();
                 if (color != null) {
-                    toolTip.add(new ToolTipLine(
-                            String.format(StringUtils.localize("gui.pipes.emzuli.paint"), color.getLocalizedName())));
+                    toolTip.add(
+                            new ToolTipLine(
+                                    String.format(
+                                            StringUtils.localize("gui.pipes.emzuli.paint"),
+                                            color.getLocalizedName())));
                 } else {
                     toolTip.add(new ToolTipLine(StringUtils.localize("gui.pipes.emzuli.nopaint")));
                 }
@@ -169,8 +173,7 @@ public class ContainerEmzuliPipe extends BuildCraftContainer {
                 data.writeByte(color == null ? 0 : color.ordinal() + 1);
                 PacketGuiReturn pkt = new PacketGuiReturn(pipe.getContainer(), bytes.toByteArray());
                 pkt.sendPacket();
-            } catch (IOException ex) {
-            }
+            } catch (IOException ex) {}
         }
 
         @Override

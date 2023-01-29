@@ -1,12 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.IInvSlot;
 import buildcraft.api.robots.AIRobot;
@@ -18,9 +20,6 @@ import buildcraft.core.lib.inventory.Transactor;
 import buildcraft.core.lib.inventory.filters.IStackFilter;
 import buildcraft.robotics.statements.ActionRobotFilter;
 import buildcraft.robotics.statements.ActionStationProvideItems;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class AIRobotLoad extends AIRobot {
 
@@ -55,10 +54,12 @@ public class AIRobotLoad extends AIRobot {
         }
     }
 
-    /** Similar method to {@link #load(EntityRobotBase, DockingStation, IStackFilter, int, boolean)} but returns the
+    /**
+     * Similar method to {@link #load(EntityRobotBase, DockingStation, IStackFilter, int, boolean)} but returns the
      * itemstack rather than loading it onto the robot.
      *
-     * Only loads a single stack at once. */
+     * Only loads a single stack at once.
+     */
     public static ItemStack takeSingle(DockingStation station, IStackFilter filter, boolean doTake) {
         if (station == null) {
             return null;
@@ -72,8 +73,7 @@ public class AIRobotLoad extends AIRobot {
         for (IInvSlot slot : InventoryIterator.getIterable(tileInventory, station.getItemInputSide())) {
             ItemStack stack = slot.getStackInSlot();
 
-            if (stack == null
-                    || !slot.canTakeStackFromSlot(stack)
+            if (stack == null || !slot.canTakeStackFromSlot(stack)
                     || !filter.matches(stack)
                     || !ActionStationProvideItems.canExtractItem(station, stack)
                     || !ActionRobotFilter.canInteractWithItem(station, filter, ActionStationProvideItems.class)) {
@@ -91,8 +91,8 @@ public class AIRobotLoad extends AIRobot {
         return null;
     }
 
-    public static boolean load(
-            EntityRobotBase robot, DockingStation station, IStackFilter filter, int quantity, boolean doLoad) {
+    public static boolean load(EntityRobotBase robot, DockingStation station, IStackFilter filter, int quantity,
+            boolean doLoad) {
         if (station == null) {
             return false;
         }
@@ -107,8 +107,7 @@ public class AIRobotLoad extends AIRobot {
         for (IInvSlot slot : InventoryIterator.getIterable(tileInventory, station.getItemInputSide())) {
             ItemStack stack = slot.getStackInSlot();
 
-            if (stack == null
-                    || !slot.canTakeStackFromSlot(stack)
+            if (stack == null || !slot.canTakeStackFromSlot(stack)
                     || !filter.matches(stack)
                     || !ActionStationProvideItems.canExtractItem(station, stack)
                     || !ActionRobotFilter.canInteractWithItem(station, filter, ActionStationProvideItems.class)) {

@@ -1,12 +1,20 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.block;
+
+import java.util.HashSet;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.core.ISerializable;
@@ -19,22 +27,14 @@ import buildcraft.core.lib.network.PacketTileUpdate;
 import buildcraft.core.lib.utils.Utils;
 import cofh.api.energy.IEnergyHandler;
 import io.netty.buffer.ByteBuf;
-import java.util.HashSet;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
- * For future maintainers: This class intentionally does not implement
- * just every interface out there. For some of them (such as IControllable),
- * we expect the tiles supporting it to implement it - but TileBuildCraft
- * provides all the underlying functionality to stop code repetition.
+ * For future maintainers: This class intentionally does not implement just every interface out there. For some of them
+ * (such as IControllable), we expect the tiles supporting it to implement it - but TileBuildCraft provides all the
+ * underlying functionality to stop code repetition.
  */
 public abstract class TileBuildCraft extends TileEntity implements IEnergyHandler, ISerializable {
+
     protected TileBuffer[] cache;
     protected HashSet<EntityPlayer> guiWatchers = new HashSet<EntityPlayer>();
     protected IControllable.Mode mode;
@@ -102,8 +102,8 @@ public abstract class TileBuildCraft extends TileEntity implements IEnergyHandle
 
     public void sendNetworkUpdate() {
         if (worldObj != null && !worldObj.isRemote) {
-            BuildCraftCore.instance.sendToPlayers(
-                    getPacketUpdate(), worldObj, xCoord, yCoord, zCoord, getNetworkUpdateRange());
+            BuildCraftCore.instance
+                    .sendToPlayers(getPacketUpdate(), worldObj, xCoord, yCoord, zCoord, getNetworkUpdateRange());
         }
     }
 
@@ -174,8 +174,8 @@ public abstract class TileBuildCraft extends TileEntity implements IEnergyHandle
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
         if (battery != null && this.canConnectEnergy(from)) {
-            int received =
-                    battery.receiveEnergy(Math.min(maxReceive, battery.getMaxEnergyReceive() - receivedTick), simulate);
+            int received = battery
+                    .receiveEnergy(Math.min(maxReceive, battery.getMaxEnergyReceive() - receivedTick), simulate);
             if (!simulate) {
                 receivedTick += received;
                 worldTimeEnergyReceive = worldObj.getTotalWorldTime();
@@ -191,8 +191,8 @@ public abstract class TileBuildCraft extends TileEntity implements IEnergyHandle
      */
     public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
         if (battery != null && this.canConnectEnergy(from)) {
-            int extracted = battery.extractEnergy(
-                    Math.min(maxExtract, battery.getMaxEnergyExtract() - extractedTick), simulate);
+            int extracted = battery
+                    .extractEnergy(Math.min(maxExtract, battery.getMaxEnergyExtract() - extractedTick), simulate);
             if (!simulate) {
                 extractedTick += extracted;
             }

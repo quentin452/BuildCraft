@@ -1,16 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.engines;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.BuildCraftCore.RenderMode;
-import buildcraft.core.lib.render.IInventoryRenderer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -18,7 +13,12 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
+
+import buildcraft.BuildCraftCore;
+import buildcraft.BuildCraftCore.RenderMode;
+import buildcraft.core.lib.render.IInventoryRenderer;
 
 public class RenderEngine extends TileEntitySpecialRenderer implements IInventoryRenderer {
 
@@ -95,10 +95,10 @@ public class RenderEngine extends TileEntitySpecialRenderer implements IInventor
         TileEngineBase engine = (TileEngineBase) tileentity;
 
         if (engine != null) {
-            /* float progress = engine.progress + (engine.progressPart != 0 ? f * engine.getPistonSpeed() : 0);
-            if (progress > 1) {
-            	progress = 0;
-            } -- uncomment out for smooth engine rendering */
+            /*
+             * float progress = engine.progress + (engine.progressPart != 0 ? f * engine.getPistonSpeed() : 0); if
+             * (progress > 1) { progress = 0; } -- uncomment out for smooth engine rendering
+             */
 
             render(
                     engine.progress,
@@ -112,15 +112,8 @@ public class RenderEngine extends TileEntitySpecialRenderer implements IInventor
         }
     }
 
-    private void render(
-            float progress,
-            ForgeDirection orientation,
-            ResourceLocation baseTexture,
-            ResourceLocation chamberTexture,
-            ResourceLocation trunkTexture,
-            double x,
-            double y,
-            double z) {
+    private void render(float progress, ForgeDirection orientation, ResourceLocation baseTexture,
+            ResourceLocation chamberTexture, ResourceLocation trunkTexture, double x, double y, double z) {
         if (BuildCraftCore.render == RenderMode.NoDynamic) {
             return;
         }
@@ -144,8 +137,8 @@ public class RenderEngine extends TileEntitySpecialRenderer implements IInventor
 
         float translatefact = step / 16;
 
-        float[] angle = {0, 0, 0};
-        float[] translate = {orientation.offsetX, orientation.offsetY, orientation.offsetZ};
+        float[] angle = { 0, 0, 0 };
+        float[] translate = { orientation.offsetX, orientation.offsetY, orientation.offsetZ };
 
         switch (orientation) {
             case EAST:

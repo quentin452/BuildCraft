@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.boards;
+
+import java.util.ArrayList;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import buildcraft.api.boards.RedstoneBoardRobot;
 import buildcraft.api.boards.RedstoneBoardRobotNBT;
@@ -21,9 +24,6 @@ import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotGotoStationAndLoad;
 import buildcraft.robotics.ai.AIRobotSearchStackRequest;
 import buildcraft.robotics.statements.ActionRobotFilter;
-import java.util.ArrayList;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class BoardRobotDelivery extends RedstoneBoardRobot {
 
@@ -48,19 +48,19 @@ public class BoardRobotDelivery extends RedstoneBoardRobot {
         }
 
         if (currentRequest == null) {
-            startDelegateAI(new AIRobotSearchStackRequest(
-                    robot, ActionRobotFilter.getGateFilter(robot.getLinkedStation()), deliveryBlacklist));
+            startDelegateAI(
+                    new AIRobotSearchStackRequest(
+                            robot,
+                            ActionRobotFilter.getGateFilter(robot.getLinkedStation()),
+                            deliveryBlacklist));
         } else {
-            startDelegateAI(new AIRobotGotoStationAndLoad(
-                    robot,
-                    new IStackFilter() {
-                        @Override
-                        public boolean matches(ItemStack stack) {
-                            return currentRequest != null
-                                    && StackHelper.isMatchingItemOrList(stack, currentRequest.getStack());
-                        }
-                    },
-                    currentRequest.getStack().stackSize));
+            startDelegateAI(new AIRobotGotoStationAndLoad(robot, new IStackFilter() {
+
+                @Override
+                public boolean matches(ItemStack stack) {
+                    return currentRequest != null && StackHelper.isMatchingItemOrList(stack, currentRequest.getStack());
+                }
+            }, currentRequest.getStack().stackSize));
         }
     }
 

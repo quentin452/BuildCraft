@@ -1,24 +1,23 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.gui;
 
-import buildcraft.core.lib.gui.AdvancedSlot;
-import buildcraft.core.lib.gui.GuiAdvancedInterface;
-import buildcraft.robotics.TileRequester;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import buildcraft.core.lib.gui.AdvancedSlot;
+import buildcraft.core.lib.gui.GuiAdvancedInterface;
+import buildcraft.robotics.TileRequester;
+
 public class GuiRequester extends GuiAdvancedInterface {
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("buildcraftrobotics:textures/gui/requester_gui.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "buildcraftrobotics:textures/gui/requester_gui.png");
 
     private TileRequester requester;
 

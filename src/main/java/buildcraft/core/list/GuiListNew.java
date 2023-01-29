@@ -1,12 +1,22 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.list;
+
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.lists.ListMatchHandler;
@@ -17,28 +27,19 @@ import buildcraft.core.lib.gui.buttons.GuiImageButton;
 import buildcraft.core.lib.gui.buttons.IButtonClickEventListener;
 import buildcraft.core.lib.gui.buttons.IButtonClickEventTrigger;
 import buildcraft.core.lib.inventory.StackHelper;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 public class GuiListNew extends GuiAdvancedInterface implements IButtonClickEventListener {
-    private static final ResourceLocation TEXTURE_BASE =
-            new ResourceLocation("buildcraftcore:textures/gui/list_new.png");
+
+    private static final ResourceLocation TEXTURE_BASE = new ResourceLocation(
+            "buildcraftcore:textures/gui/list_new.png");
     private static final int BUTTON_COUNT = 3;
 
-    private final Map<Integer, Map<ListMatchHandler.Type, List<ItemStack>>> exampleCache =
-            new HashMap<Integer, Map<ListMatchHandler.Type, List<ItemStack>>>();
+    private final Map<Integer, Map<ListMatchHandler.Type, List<ItemStack>>> exampleCache = new HashMap<Integer, Map<ListMatchHandler.Type, List<ItemStack>>>();
     private GuiTextField textField;
     private EntityPlayer player;
 
     private static class ListSlot extends AdvancedSlot {
+
         public int lineIndex;
         public int slotIndex;
 
@@ -55,8 +56,8 @@ public class GuiListNew extends GuiAdvancedInterface implements IButtonClickEven
             if (slotIndex == 0 || !container.lines[lineIndex].isOneStackMode()) {
                 return container.lines[lineIndex].getStack(slotIndex);
             } else {
-                List<ItemStack> data =
-                        ((GuiListNew) gui).getExamplesList(lineIndex, container.lines[lineIndex].getSortingType());
+                List<ItemStack> data = ((GuiListNew) gui)
+                        .getExamplesList(lineIndex, container.lines[lineIndex].getSortingType());
                 if (data.size() >= slotIndex) {
                     return data.get(slotIndex - 1);
                 } else {
@@ -207,7 +208,9 @@ public class GuiListNew extends GuiAdvancedInterface implements IButtonClickEven
 
         if (slot instanceof ListSlot) {
             container.setStack(
-                    ((ListSlot) slot).lineIndex, ((ListSlot) slot).slotIndex, mc.thePlayer.inventory.getItemStack());
+                    ((ListSlot) slot).lineIndex,
+                    ((ListSlot) slot).slotIndex,
+                    mc.thePlayer.inventory.getItemStack());
             clearExamplesCache(((ListSlot) slot).lineIndex);
         }
 

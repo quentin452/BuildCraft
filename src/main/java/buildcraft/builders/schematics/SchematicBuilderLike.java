@@ -3,8 +3,9 @@ package buildcraft.builders.schematics;
 import buildcraft.core.builders.schematics.SchematicRotateMeta;
 
 public class SchematicBuilderLike extends SchematicRotateMeta {
+
     public SchematicBuilderLike() {
-        super(new int[] {2, 5, 3, 4}, true);
+        super(new int[] { 2, 5, 3, 4 }, true);
     }
 
     @Override

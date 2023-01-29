@@ -1,20 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.BuildCraftFactory;
-import buildcraft.api.tools.IToolWrench;
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.GuiIds;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import buildcraft.core.lib.fluids.TankUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -25,7 +16,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.BuildCraftFactory;
+import buildcraft.api.tools.IToolWrench;
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.GuiIds;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import buildcraft.core.lib.fluids.TankUtils;
+
 public class BlockRefinery extends BlockBuildCraft {
+
     public BlockRefinery() {
         super(Material.iron);
 
@@ -55,8 +55,8 @@ public class BlockRefinery extends BlockBuildCraft {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+            float hitY, float hitZ) {
         if (super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ)) {
             return true;
         }
@@ -69,8 +69,7 @@ public class BlockRefinery extends BlockBuildCraft {
 
         ItemStack current = player.getCurrentEquippedItem();
         Item equipped = current != null ? current.getItem() : null;
-        if (player.isSneaking()
-                && equipped instanceof IToolWrench
+        if (player.isSneaking() && equipped instanceof IToolWrench
                 && ((IToolWrench) equipped).canWrench(player, x, y, z)) {
             ((TileRefinery) tile).resetFilters();
             ((IToolWrench) equipped).wrenchUsed(player, x, y, z);
@@ -80,7 +79,11 @@ public class BlockRefinery extends BlockBuildCraft {
         if (current != null && current.getItem() != Items.bucket) {
             if (!world.isRemote) {
                 if (TankUtils.handleRightClick(
-                        (TileRefinery) tile, ForgeDirection.getOrientation(side), player, true, false)) {
+                        (TileRefinery) tile,
+                        ForgeDirection.getOrientation(side),
+                        player,
+                        true,
+                        false)) {
                     return true;
                 }
             } else if (FluidContainerRegistry.isContainer(current)) {

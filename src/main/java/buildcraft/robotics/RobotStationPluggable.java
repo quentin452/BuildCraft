@@ -1,5 +1,14 @@
 package buildcraft.robotics;
 
+import java.util.List;
+
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.BuildCraftRobotics;
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.render.ITextureStates;
@@ -16,30 +25,17 @@ import buildcraft.core.lib.utils.MatrixTranformations;
 import buildcraft.transport.PipeIconProvider;
 import cofh.api.energy.IEnergyReceiver;
 import io.netty.buffer.ByteBuf;
-import java.util.List;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class RobotStationPluggable extends PipePluggable
         implements IPipePluggableItem, IEnergyReceiver, IDebuggable, IDockingStationProvider {
+
     public class RobotStationPluggableRenderer implements IPipePluggableRenderer {
+
         private float zFightOffset = 1 / 4096.0F;
 
         @Override
-        public void renderPluggable(
-                RenderBlocks renderblocks,
-                IPipe pipe,
-                ForgeDirection side,
-                PipePluggable pipePluggable,
-                ITextureStates blockStateMachine,
-                int renderPass,
-                int x,
-                int y,
-                int z) {
+        public void renderPluggable(RenderBlocks renderblocks, IPipe pipe, ForgeDirection side,
+                PipePluggable pipePluggable, ITextureStates blockStateMachine, int renderPass, int x, int y, int z) {
             if (renderPass != 0) {
                 return;
             }
@@ -49,22 +45,19 @@ public class RobotStationPluggable extends PipePluggable
             switch (state) {
                 case None:
                 case Available:
-                    blockStateMachine
-                            .getTextureState()
-                            .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                                    PipeIconProvider.TYPE.PipeRobotStation.ordinal()));
+                    blockStateMachine.getTextureState().set(
+                            BuildCraftTransport.instance.pipeIconProvider
+                                    .getIcon(PipeIconProvider.TYPE.PipeRobotStation.ordinal()));
                     break;
                 case Reserved:
-                    blockStateMachine
-                            .getTextureState()
-                            .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                                    PipeIconProvider.TYPE.PipeRobotStationReserved.ordinal()));
+                    blockStateMachine.getTextureState().set(
+                            BuildCraftTransport.instance.pipeIconProvider
+                                    .getIcon(PipeIconProvider.TYPE.PipeRobotStationReserved.ordinal()));
                     break;
                 case Linked:
-                    blockStateMachine
-                            .getTextureState()
-                            .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                                    PipeIconProvider.TYPE.PipeRobotStationLinked.ordinal()));
+                    blockStateMachine.getTextureState().set(
+                            BuildCraftTransport.instance.pipeIconProvider
+                                    .getIcon(PipeIconProvider.TYPE.PipeRobotStationLinked.ordinal()));
                     break;
             }
 
@@ -83,7 +76,12 @@ public class RobotStationPluggable extends PipePluggable
             MatrixTranformations.transform(rotated, side);
 
             renderblocks.setRenderBounds(
-                    rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                    rotated[0][0],
+                    rotated[1][0],
+                    rotated[2][0],
+                    rotated[0][1],
+                    rotated[1][1],
+                    rotated[2][1]);
             renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
 
             // X START - END
@@ -100,7 +98,12 @@ public class RobotStationPluggable extends PipePluggable
             MatrixTranformations.transform(rotated, side);
 
             renderblocks.setRenderBounds(
-                    rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                    rotated[0][0],
+                    rotated[1][0],
+                    rotated[2][0],
+                    rotated[0][1],
+                    rotated[1][1],
+                    rotated[2][1]);
             renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
         }
     }
@@ -126,7 +129,7 @@ public class RobotStationPluggable extends PipePluggable
 
     @Override
     public ItemStack[] getDropItems(IPipeTile pipe) {
-        return new ItemStack[] {new ItemStack(BuildCraftRobotics.robotStationItem)};
+        return new ItemStack[] { new ItemStack(BuildCraftRobotics.robotStationItem) };
     }
 
     @Override
@@ -150,8 +153,7 @@ public class RobotStationPluggable extends PipePluggable
     @Override
     public void validate(IPipeTile pipe, ForgeDirection direction) {
         if (!isValid && !pipe.getWorld().isRemote) {
-            station = (DockingStationPipe) RobotManager.registryProvider
-                    .getRegistry(pipe.getWorld())
+            station = (DockingStationPipe) RobotManager.registryProvider.getRegistry(pipe.getWorld())
                     .getStation(pipe.x(), pipe.y(), pipe.z(), direction);
 
             if (station == null) {
@@ -177,8 +179,8 @@ public class RobotStationPluggable extends PipePluggable
         bounds[2][1] = 0.75F;
 
         MatrixTranformations.transform(bounds, side);
-        return AxisAlignedBB.getBoundingBox(
-                bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
+        return AxisAlignedBB
+                .getBoundingBox(bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
     }
 
     private void refreshRenderState() {
@@ -226,8 +228,7 @@ public class RobotStationPluggable extends PipePluggable
 
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-        if (station != null
-                && station.robotTaking() != null
+        if (station != null && station.robotTaking() != null
                 && station.robotTaking().getBattery() != null
                 && station.robotTaking().getDockingStation() == station) {
             return ((EntityRobot) station.robotTaking()).receiveEnergy(maxReceive, simulate);
@@ -256,8 +257,7 @@ public class RobotStationPluggable extends PipePluggable
             info.add("RobotStationPluggable: No station found!");
         } else {
             refreshRenderState();
-            info.add("Docking Station (side " + side.name() + ", "
-                    + getRenderState().name() + ")");
+            info.add("Docking Station (side " + side.name() + ", " + getRenderState().name() + ")");
             if (station.robotTaking() != null && station.robotTaking() instanceof IDebuggable) {
                 ((IDebuggable) station.robotTaking()).getDebugInfo(info, ForgeDirection.UNKNOWN, debugger, player);
             }

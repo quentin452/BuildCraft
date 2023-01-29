@@ -1,22 +1,22 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
+
+import java.util.LinkedList;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.core.BuildCraftAPI;
 import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.core.lib.utils.IterableAlgorithmRunner;
 import buildcraft.core.lib.utils.PathFinding;
-import java.util.LinkedList;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants;
 
 public class AIRobotGotoBlock extends AIRobotGoto {
 
@@ -73,7 +73,9 @@ public class AIRobotGotoBlock extends AIRobotGoto {
             pathSearch = new PathFinding(
                     robot.worldObj,
                     new BlockIndex(
-                            (int) Math.floor(robot.posX), (int) Math.floor(robot.posY), (int) Math.floor(robot.posZ)),
+                            (int) Math.floor(robot.posX),
+                            (int) Math.floor(robot.posY),
+                            (int) Math.floor(robot.posZ)),
                     new BlockIndex((int) Math.floor(finalX), (int) Math.floor(finalY), (int) Math.floor(finalZ)),
                     maxDistance,
                     96);

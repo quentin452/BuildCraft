@@ -1,15 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.fluids;
 
-import buildcraft.core.lib.TileBuffer;
-import buildcraft.core.lib.inventory.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -23,6 +19,9 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 
+import buildcraft.core.lib.TileBuffer;
+import buildcraft.core.lib.inventory.InvUtils;
+
 public final class TankUtils {
 
     /**
@@ -30,8 +29,8 @@ public final class TankUtils {
      */
     private TankUtils() {}
 
-    public static boolean handleRightClick(
-            IFluidHandler tank, ForgeDirection side, EntityPlayer player, boolean fill, boolean drain) {
+    public static boolean handleRightClick(IFluidHandler tank, ForgeDirection side, EntityPlayer player, boolean fill,
+            boolean drain) {
         if (player == null || tank == null) {
             return false;
         }
@@ -45,8 +44,8 @@ public final class TankUtils {
 
                 if (used > 0) {
                     if (!player.capabilities.isCreativeMode) {
-                        player.inventory.setInventorySlotContents(
-                                player.inventory.currentItem, InvUtils.consumeItem(current));
+                        player.inventory
+                                .setInventorySlotContents(player.inventory.currentItem, InvUtils.consumeItem(current));
                         player.inventory.markDirty();
                     }
                     return true;
@@ -66,11 +65,13 @@ public final class TankUtils {
                                 return false;
                             }
                             player.inventory.setInventorySlotContents(
-                                    player.inventory.currentItem, InvUtils.consumeItem(current));
+                                    player.inventory.currentItem,
+                                    InvUtils.consumeItem(current));
                             player.inventory.markDirty();
                         } else {
                             player.inventory.setInventorySlotContents(
-                                    player.inventory.currentItem, InvUtils.consumeItem(current));
+                                    player.inventory.currentItem,
+                                    InvUtils.consumeItem(current));
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, filled);
                             player.inventory.markDirty();
                         }

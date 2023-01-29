@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.gui;
+
+import java.util.Iterator;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
@@ -20,13 +26,9 @@ import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.transport.ActionActiveState;
 import buildcraft.transport.Gate;
 import buildcraft.transport.gates.GateDefinition.GateMaterial;
-import java.util.Iterator;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 
 public class GuiGateInterface extends GuiAdvancedInterface {
+
     IInventory playerInventory;
     private final ContainerGateInterface container;
     private final GuiGateInterface instance;
@@ -34,6 +36,7 @@ public class GuiGateInterface extends GuiAdvancedInterface {
     private Gate gate;
 
     private class TriggerSlot extends StatementSlot {
+
         public TriggerSlot(int x, int y, IPipe pipe, int slot) {
             super(instance, x, y, slot);
         }
@@ -45,6 +48,7 @@ public class GuiGateInterface extends GuiAdvancedInterface {
     }
 
     private class ActionSlot extends StatementSlot {
+
         public ActionSlot(int x, int y, IPipe pipe, int slot) {
             super(instance, x, y, slot);
         }
@@ -56,6 +60,7 @@ public class GuiGateInterface extends GuiAdvancedInterface {
     }
 
     class TriggerParameterSlot extends StatementParameterSlot {
+
         public TriggerParameterSlot(int x, int y, IPipe pipe, int slot, StatementSlot iStatementSlot) {
             super(instance, x, y, slot, iStatementSlot);
         }
@@ -72,6 +77,7 @@ public class GuiGateInterface extends GuiAdvancedInterface {
     }
 
     class ActionParameterSlot extends StatementParameterSlot {
+
         public ActionParameterSlot(int x, int y, IPipe pipe, int slot, StatementSlot iStatementSlot) {
             super(instance, x, y, slot, iStatementSlot);
         }
@@ -175,8 +181,13 @@ public class GuiGateInterface extends GuiAdvancedInterface {
                 position++;
 
                 for (int x = 0; x < 3; ++x) {
-                    slots.add(new TriggerParameterSlot(
-                            8 + 18 * (x + 1), 26 + 18 * y, pipe, x, (TriggerSlot) slots.get(lastPos)));
+                    slots.add(
+                            new TriggerParameterSlot(
+                                    8 + 18 * (x + 1),
+                                    26 + 18 * y,
+                                    pipe,
+                                    x,
+                                    (TriggerSlot) slots.get(lastPos)));
 
                     position++;
                 }
@@ -186,8 +197,13 @@ public class GuiGateInterface extends GuiAdvancedInterface {
                 position++;
 
                 for (int x = 0; x < 3; ++x) {
-                    slots.add(new ActionParameterSlot(
-                            98 + 18 * (x + 1), 26 + 18 * y, pipe, x, (ActionSlot) slots.get(lastPos)));
+                    slots.add(
+                            new ActionParameterSlot(
+                                    98 + 18 * (x + 1),
+                                    26 + 18 * y,
+                                    pipe,
+                                    x,
+                                    (ActionSlot) slots.get(lastPos)));
                     position++;
                 }
             }
@@ -277,7 +293,7 @@ public class GuiGateInterface extends GuiAdvancedInterface {
                 } else {
                     Iterator<IStatement> it = container.getTriggerIterator(k != 0);
 
-                    for (; it.hasNext(); ) {
+                    for (; it.hasNext();) {
                         IStatement trigger = it.next();
 
                         if (!it.hasNext()) {
@@ -324,7 +340,7 @@ public class GuiGateInterface extends GuiAdvancedInterface {
                 } else {
                     Iterator<IStatement> it = container.getActionIterator(k != 0);
 
-                    for (; it.hasNext(); ) {
+                    for (; it.hasNext();) {
                         IStatement action = it.next();
 
                         if (!it.hasNext()) {

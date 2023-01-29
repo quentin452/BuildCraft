@@ -1,5 +1,16 @@
 package buildcraft.transport.render;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+
+import org.lwjgl.opengl.GL11;
+
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.EnumColor;
 import buildcraft.api.core.Position;
@@ -10,23 +21,16 @@ import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeIconProvider;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.TravelingItem;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
 
 public class PipeTransportItemsRenderer extends PipeTransportRenderer<PipeTransportItems> {
+
     private static final EntityItem dummyEntityItem = new EntityItem(null);
     private static final RenderItem customRenderItem;
     private static final int MAX_ITEMS_TO_RENDER = 10;
 
     static {
         customRenderItem = new RenderItem() {
+
             @Override
             public boolean shouldBob() {
                 return false;
@@ -94,8 +98,8 @@ public class PipeTransportItemsRenderer extends PipeTransportRenderer<PipeTransp
             bindTexture(TextureMap.locationBlocksTexture);
             RenderEntityBlock.RenderInfo block = new RenderEntityBlock.RenderInfo();
 
-            block.texture =
-                    BuildCraftTransport.instance.pipeIconProvider.getIcon(PipeIconProvider.TYPE.ItemBox.ordinal());
+            block.texture = BuildCraftTransport.instance.pipeIconProvider
+                    .getIcon(PipeIconProvider.TYPE.ItemBox.ordinal());
 
             float pix = 0.0625F;
             float min = -4 * pix;

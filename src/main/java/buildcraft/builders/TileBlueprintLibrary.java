@@ -1,12 +1,20 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
+
+import java.io.IOException;
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTSizeTracker;
+import net.minecraft.nbt.NBTTagCompound;
 
 import buildcraft.BuildCraftBuilders;
 import buildcraft.BuildCraftCore;
@@ -24,21 +32,13 @@ import buildcraft.core.lib.utils.NBTUtils;
 import buildcraft.core.lib.utils.NetworkUtils;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import java.io.IOException;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTSizeTracker;
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
- * In this implementation, the blueprint library is the interface to the
- * *local* player blueprint. The player will be able to load blueprint on his
- * environment, and save blueprints to the server environment.
+ * In this implementation, the blueprint library is the interface to the *local* player blueprint. The player will be
+ * able to load blueprint on his environment, and save blueprints to the server environment.
  */
 public class TileBlueprintLibrary extends TileBuildCraft implements IInventory, ICommandReceiver {
+
     private static final int PROGRESS_TIME = 100;
     private static final int CHUNK_SIZE = 16384;
 
@@ -249,7 +249,9 @@ public class TileBlueprintLibrary extends TileBuildCraft implements IInventory, 
 
             if (uploadingPlayer != null) {
                 BuildCraftCore.instance.sendToPlayer(
-                        uploadingPlayer, new PacketCommand(this, "downloadBlueprintToClient", new CommandWriter() {
+                        uploadingPlayer,
+                        new PacketCommand(this, "downloadBlueprintToClient", new CommandWriter() {
+
                             public void write(ByteBuf data) {
                                 id.generateUniqueId(dataOut);
                                 id.writeData(data);
@@ -261,8 +263,8 @@ public class TileBlueprintLibrary extends TileBuildCraft implements IInventory, 
         }
 
         if (progressOut == 100 && getStackInSlot(3) == null) {
-            BuildCraftCore.instance.sendToPlayer(
-                    downloadingPlayer, new PacketCommand(this, "requestSelectedBlueprint", null));
+            BuildCraftCore.instance
+                    .sendToPlayer(downloadingPlayer, new PacketCommand(this, "requestSelectedBlueprint", null));
             progressOut = 0;
         }
     }
@@ -284,8 +286,9 @@ public class TileBlueprintLibrary extends TileBuildCraft implements IInventory, 
                         final byte[] bptData = NBTUtils.save(compound);
                         final int chunks = (bptData.length + CHUNK_SIZE - 1) / CHUNK_SIZE;
 
-                        BuildCraftCore.instance.sendToServer(
-                                new PacketCommand(this, "uploadServerBegin", new CommandWriter() {
+                        BuildCraftCore.instance
+                                .sendToServer(new PacketCommand(this, "uploadServerBegin", new CommandWriter() {
+
                                     public void write(ByteBuf data) {
                                         entries.get(selected).writeData(data);
                                         data.writeShort(chunks);
@@ -296,8 +299,9 @@ public class TileBlueprintLibrary extends TileBuildCraft implements IInventory, 
                             final int chunk = i;
                             final int start = CHUNK_SIZE * chunk;
                             final int length = Math.min(CHUNK_SIZE, bptData.length - start);
-                            BuildCraftCore.instance.sendToServer(
-                                    new PacketCommand(this, "uploadServerChunk", new CommandWriter() {
+                            BuildCraftCore.instance
+                                    .sendToServer(new PacketCommand(this, "uploadServerChunk", new CommandWriter() {
+
                                         public void write(ByteBuf data) {
                                             data.writeShort(chunk);
                                             data.writeShort(length);
@@ -355,8 +359,8 @@ public class TileBlueprintLibrary extends TileBuildCraft implements IInventory, 
                         ItemStack output = null;
 
                         if (handler instanceof LibraryTypeHandlerNBT) {
-                            NBTTagCompound nbt = CompressedStreamTools.func_152457_a(
-                                    blueprintDownload, NBTSizeTracker.field_152451_a);
+                            NBTTagCompound nbt = CompressedStreamTools
+                                    .func_152457_a(blueprintDownload, NBTSizeTracker.field_152451_a);
                             output = ((LibraryTypeHandlerNBT) handler).load(getStackInSlot(2), nbt);
                         } else if (handler instanceof LibraryTypeHandlerByteArray) {
                             output = ((LibraryTypeHandlerByteArray) handler).load(getStackInSlot(2), blueprintDownload);
@@ -383,6 +387,7 @@ public class TileBlueprintLibrary extends TileBuildCraft implements IInventory, 
     public void selectBlueprint(int index) {
         selected = index;
         BuildCraftCore.instance.sendToServer(new PacketCommand(this, "selectBlueprint", new CommandWriter() {
+
             @Override
             public void write(ByteBuf data) {
                 data.writeInt(selected);

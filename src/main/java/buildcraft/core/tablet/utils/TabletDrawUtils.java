@@ -3,6 +3,7 @@ package buildcraft.core.tablet.utils;
 import buildcraft.api.tablet.TabletBitmap;
 
 public final class TabletDrawUtils {
+
     private TabletDrawUtils() {}
 
     public static void drawRect(TabletBitmap bitmap, int x, int y, int w, int h, int shade) {

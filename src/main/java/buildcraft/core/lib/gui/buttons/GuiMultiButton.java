@@ -1,19 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.gui.buttons;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.core.lib.gui.tooltips.ToolTip;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiMultiButton extends GuiBetterButton {
@@ -49,19 +49,36 @@ public class GuiMultiButton extends GuiBetterButton {
         int hoverState = getHoverState(flag);
         drawTexturedModalRect(xPosition, yPosition, xOffset, yOffset + hoverState * h, width / 2, h);
         drawTexturedModalRect(
-                xPosition + width / 2, yPosition, xOffset + w - width / 2, yOffset + hoverState * h, width / 2, h);
+                xPosition + width / 2,
+                yPosition,
+                xOffset + w - width / 2,
+                yOffset + hoverState * h,
+                width / 2,
+                h);
         mouseDragged(minecraft, x, y);
         displayString = state.getLabel();
         if (!"".equals(displayString)) {
             if (!enabled) {
                 drawCenteredString(
-                        fontrenderer, displayString, xPosition + width / 2, yPosition + (h - 8) / 2, 0xffa0a0a0);
+                        fontrenderer,
+                        displayString,
+                        xPosition + width / 2,
+                        yPosition + (h - 8) / 2,
+                        0xffa0a0a0);
             } else if (flag) {
                 drawCenteredString(
-                        fontrenderer, displayString, xPosition + width / 2, yPosition + (h - 8) / 2, 0xffffa0);
+                        fontrenderer,
+                        displayString,
+                        xPosition + width / 2,
+                        yPosition + (h - 8) / 2,
+                        0xffffa0);
             } else {
                 drawCenteredString(
-                        fontrenderer, displayString, xPosition + width / 2, yPosition + (h - 8) / 2, 0xe0e0e0);
+                        fontrenderer,
+                        displayString,
+                        xPosition + width / 2,
+                        yPosition + (h - 8) / 2,
+                        0xe0e0e0);
             }
         }
     }

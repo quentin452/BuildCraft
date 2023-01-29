@@ -1,5 +1,17 @@
 package buildcraft.silicon;
 
+import java.util.EnumMap;
+import java.util.Map;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftSilicon;
 import buildcraft.api.core.BCLog;
@@ -11,19 +23,11 @@ import buildcraft.core.lib.inventory.StackHelper;
 import buildcraft.core.lib.utils.NBTUtils;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import io.netty.buffer.ByteBuf;
-import java.util.EnumMap;
-import java.util.Map;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TilePackager extends TileBuildCraft implements ISidedInventory {
+
     private class Requirement {
+
         public final IInventory location;
         public final int slot;
 
@@ -63,7 +67,7 @@ public class TilePackager extends TileBuildCraft implements ISidedInventory {
     }
 
     // Slot 10 is currently missing. Left in for backwards compat.
-    private static final int[] SLOTS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11};
+    private static final int[] SLOTS = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 };
 
     public SimpleInventory inventoryPublic = new SimpleInventory(12, "Packager", 64);
     public SimpleInventory inventoryPattern = new SimpleInventory(9, "Packager", 64);
@@ -101,8 +105,7 @@ public class TilePackager extends TileBuildCraft implements ISidedInventory {
             // Check if same type used elsewhere
             for (int j = 0; j < 9; j++) {
                 ItemStack comparedStack = inventoryPattern.getStackInSlot(j);
-                if (isPatternSlotSet(j)
-                        && comparedStack != null
+                if (isPatternSlotSet(j) && comparedStack != null
                         && StackHelper.isMatchingItem(inputStack, comparedStack, true, false)) {
                     return false;
                 }
@@ -119,8 +122,7 @@ public class TilePackager extends TileBuildCraft implements ISidedInventory {
             return false;
         }
 
-        if (input == null
-                || input.stackSize == 0
+        if (input == null || input.stackSize == 0
                 || !(input.getItem() == Items.paper || input.getItem() instanceof ItemPackage)) {
             return false;
         }
@@ -289,8 +291,7 @@ public class TilePackager extends TileBuildCraft implements ISidedInventory {
                 if (validMissing(r, missingCount)) {
                     foundMissing = true;
                     for (int j = 0; j < 9; j++) {
-                        if (requirements[j] == null
-                                && isPatternSlotSet(j)
+                        if (requirements[j] == null && isPatternSlotSet(j)
                                 && inventoryPattern.getStackInSlot(j) == null) {
                             requirements[j] = r;
                         }
@@ -320,8 +321,7 @@ public class TilePackager extends TileBuildCraft implements ISidedInventory {
                     if (validMissing(r, missingCount)) {
                         foundMissing = true;
                         for (int j = 0; j < 9; j++) {
-                            if (requirements[j] == null
-                                    && isPatternSlotSet(j)
+                            if (requirements[j] == null && isPatternSlotSet(j)
                                     && inventoryPattern.getStackInSlot(j) == null) {
                                 requirements[j] = r;
                             }
@@ -352,15 +352,29 @@ public class TilePackager extends TileBuildCraft implements ISidedInventory {
         for (int i = 0; i < 9; i++) {
             if (isPatternSlotSet(i)) {
                 if (requirements[i] == null) {
-                    BCLog.logger.error("(Recipe Packager) At " + xCoord + ", " + yCoord + ", " + zCoord
-                            + " requirement " + i + " was null! THIS SHOULD NOT HAPPEN!");
+                    BCLog.logger.error(
+                            "(Recipe Packager) At " + xCoord
+                                    + ", "
+                                    + yCoord
+                                    + ", "
+                                    + zCoord
+                                    + " requirement "
+                                    + i
+                                    + " was null! THIS SHOULD NOT HAPPEN!");
                     broken = true;
                     continue;
                 }
                 ItemStack usedStack = requirements[i].decrStackSize(1);
                 if (usedStack == null) {
-                    BCLog.logger.error("(Recipe Packager) At " + xCoord + ", " + yCoord + ", " + zCoord
-                            + " stack at slot " + i + " was too small! THIS SHOULD NOT HAPPEN!");
+                    BCLog.logger.error(
+                            "(Recipe Packager) At " + xCoord
+                                    + ", "
+                                    + yCoord
+                                    + ", "
+                                    + zCoord
+                                    + " stack at slot "
+                                    + i
+                                    + " was too small! THIS SHOULD NOT HAPPEN!");
                     broken = true;
                     continue;
                 }

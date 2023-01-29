@@ -1,18 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
 
-import buildcraft.core.lib.utils.XorShift128Random;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -22,13 +18,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import buildcraft.core.lib.utils.XorShift128Random;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockSpring extends Block {
 
     public static final XorShift128Random rand = new XorShift128Random();
 
     public enum EnumSpring {
+
         WATER(5, -1, Blocks.water),
         OIL(6000, 8, null); // Set in BuildCraftEnergy
+
         public static final EnumSpring[] VALUES = values();
         public final int tickRate, chance;
         public Block liquidBlock;
@@ -76,10 +78,10 @@ public class BlockSpring extends Block {
         assertSpring(world, x, y, z);
     }
 
-    //	@Override
-    //	public void onNeighborBlockChange(World world, int x, int y, int z, int blockid) {
-    //		assertSpring(world, x, y, z);
-    //	}
+    // @Override
+    // public void onNeighborBlockChange(World world, int x, int y, int z, int blockid) {
+    // assertSpring(world, x, y, z);
+    // }
     @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         super.onBlockAdded(world, x, y, z);

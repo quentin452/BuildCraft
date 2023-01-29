@@ -1,15 +1,18 @@
 package buildcraft.core.blueprints;
 
+import java.util.Set;
+
 import buildcraft.api.blueprints.IBuilderContext;
 import buildcraft.api.blueprints.SchematicBlock;
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.core.Position;
 import buildcraft.core.builders.BuildingSlotBlock;
+
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import java.util.Set;
 
 public class IndexRequirementMap {
+
     private final Multimap<BlockIndex, BlockIndex> requirements = HashMultimap.create();
     private final Multimap<BlockIndex, BlockIndex> requirementsInv = HashMultimap.create();
 
@@ -25,8 +28,7 @@ public class IndexRequirementMap {
                 Position max = context.surroundingBox().pMax();
                 for (BlockIndex i : prereqs) {
                     BlockIndex ia = new BlockIndex(i.x + index.x, i.y + index.y, i.z + index.z);
-                    if (ia.equals(index)
-                            || ia.x < min.x
+                    if (ia.equals(index) || ia.x < min.x
                             || ia.y < min.y
                             || ia.z < min.z
                             || ia.x > max.x

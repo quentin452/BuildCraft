@@ -1,17 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
 
-import buildcraft.api.core.BCLog;
-import buildcraft.api.library.LibraryAPI;
-import buildcraft.core.blueprints.LibraryId;
-import buildcraft.core.lib.utils.NBTUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,9 +18,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
+
 import net.minecraft.nbt.NBTTagCompound;
 
+import buildcraft.api.core.BCLog;
+import buildcraft.api.library.LibraryAPI;
+import buildcraft.core.blueprints.LibraryId;
+import buildcraft.core.lib.utils.NBTUtils;
+
 public class LibraryDatabase {
+
     protected Set<LibraryId> blueprintIds;
     protected LibraryId[] pages = new LibraryId[0];
 
@@ -123,6 +124,7 @@ public class LibraryDatabase {
 
     private void loadIndex(File directory) {
         FilenameFilter filter = new FilenameFilter() {
+
             @Override
             public boolean accept(File dir, String name) {
                 int dotIndex = name.lastIndexOf('.') + 1;
@@ -153,8 +155,8 @@ public class LibraryDatabase {
                         String suffix = fileName.substring(sepIndex + 1);
 
                         id.name = prefix;
-                        id.uniqueId =
-                                LibraryId.toBytes(suffix.substring(0, suffix.length() - (extension.length() + 1)));
+                        id.uniqueId = LibraryId
+                                .toBytes(suffix.substring(0, suffix.length() - (extension.length() + 1)));
                     } else {
                         id.name = fileName.substring(0, dotIndex);
                         id.uniqueId = new byte[0];

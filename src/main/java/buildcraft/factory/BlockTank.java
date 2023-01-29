@@ -1,19 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import buildcraft.core.lib.inventory.InvUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -29,7 +21,15 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import buildcraft.core.lib.inventory.InvUtils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockTank extends BlockBuildCraft {
+
     private static final boolean DEBUG_MODE = false;
     private IIcon textureStackedSide;
 
@@ -77,7 +77,7 @@ public class BlockTank extends BlockBuildCraft {
         return new TileTank();
     }
 
-    @SuppressWarnings({"all"})
+    @SuppressWarnings({ "all" })
     @Override
     public IIcon getIconAbsolute(IBlockAccess iblockaccess, int i, int j, int k, int side, int metadata) {
         if (side >= 2 && iblockaccess.getBlock(i, j - 1, k) instanceof BlockTank) {
@@ -88,8 +88,8 @@ public class BlockTank extends BlockBuildCraft {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7,
+            float par8, float par9) {
         if (super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9)) {
             return true;
         }
@@ -110,14 +110,16 @@ public class BlockTank extends BlockBuildCraft {
 
                         if (qty != 0 && !BuildCraftCore.debugWorldgen && !entityplayer.capabilities.isCreativeMode) {
                             if (current.stackSize > 1) {
-                                if (!entityplayer.inventory.addItemStackToInventory(
-                                        FluidContainerRegistry.drainFluidContainer(current))) {
+                                if (!entityplayer.inventory
+                                        .addItemStackToInventory(FluidContainerRegistry.drainFluidContainer(current))) {
                                     entityplayer.dropPlayerItemWithRandomChoice(
-                                            FluidContainerRegistry.drainFluidContainer(current), false);
+                                            FluidContainerRegistry.drainFluidContainer(current),
+                                            false);
                                 }
 
                                 entityplayer.inventory.setInventorySlotContents(
-                                        entityplayer.inventory.currentItem, InvUtils.consumeItem(current));
+                                        entityplayer.inventory.currentItem,
+                                        InvUtils.consumeItem(current));
                             } else {
                                 entityplayer.inventory.setInventorySlotContents(
                                         entityplayer.inventory.currentItem,
@@ -143,13 +145,15 @@ public class BlockTank extends BlockBuildCraft {
                                             return false;
                                         } else {
                                             entityplayer.inventory.setInventorySlotContents(
-                                                    entityplayer.inventory.currentItem, InvUtils.consumeItem(current));
+                                                    entityplayer.inventory.currentItem,
+                                                    InvUtils.consumeItem(current));
                                         }
                                     } else {
                                         entityplayer.inventory.setInventorySlotContents(
-                                                entityplayer.inventory.currentItem, InvUtils.consumeItem(current));
-                                        entityplayer.inventory.setInventorySlotContents(
-                                                entityplayer.inventory.currentItem, filled);
+                                                entityplayer.inventory.currentItem,
+                                                InvUtils.consumeItem(current));
+                                        entityplayer.inventory
+                                                .setInventorySlotContents(entityplayer.inventory.currentItem, filled);
                                     }
                                 }
 
@@ -193,8 +197,9 @@ public class BlockTank extends BlockBuildCraft {
             if (tile instanceof TileTank) {
                 TileTank tank = (TileTank) tile;
                 if (tank.getTankInfo(ForgeDirection.UNKNOWN)[0].fluid != null) {
-                    entityplayer.addChatComponentMessage(new ChatComponentText(
-                            "Amount: " + tank.getTankInfo(ForgeDirection.UNKNOWN)[0].fluid.amount + " mB"));
+                    entityplayer.addChatComponentMessage(
+                            new ChatComponentText(
+                                    "Amount: " + tank.getTankInfo(ForgeDirection.UNKNOWN)[0].fluid.amount + " mB"));
                 }
             }
         }

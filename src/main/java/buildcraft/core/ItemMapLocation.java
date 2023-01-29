@@ -1,12 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.core.IAreaProvider;
@@ -20,20 +32,9 @@ import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.robotics.ZonePlan;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemMapLocation extends ItemBuildCraft implements IMapLocation {
+
     public ItemMapLocation() {
         super(BCCreativeTab.get("main"));
     }
@@ -73,8 +74,20 @@ public class ItemMapLocation extends ItemBuildCraft implements IMapLocation {
                     int yLength = cpt.getInteger("yMax") - y + 1;
                     int zLength = cpt.getInteger("zMax") - z + 1;
 
-                    list.add(StringUtils.localize("{" + x + ", " + y + ", " + z + "} + {" + xLength + " x " + yLength
-                            + " x " + zLength + "}"));
+                    list.add(
+                            StringUtils.localize(
+                                    "{" + x
+                                            + ", "
+                                            + y
+                                            + ", "
+                                            + z
+                                            + "} + {"
+                                            + xLength
+                                            + " x "
+                                            + yLength
+                                            + " x "
+                                            + zLength
+                                            + "}"));
                     break;
                 }
                 case 2: {
@@ -85,8 +98,9 @@ public class ItemMapLocation extends ItemBuildCraft implements IMapLocation {
                     int y = first.y;
                     int z = first.z;
 
-                    list.add(StringUtils.localize(
-                            "{" + x + ", " + y + ", " + z + "} + " + pathNBT.tagCount() + " elements"));
+                    list.add(
+                            StringUtils.localize(
+                                    "{" + x + ", " + y + ", " + z + "} + " + pathNBT.tagCount() + " elements"));
                     break;
                 }
                 case 3: {
@@ -109,9 +123,8 @@ public class ItemMapLocation extends ItemBuildCraft implements IMapLocation {
 
     @Override
     public String[] getIconNames() {
-        return new String[] {
-            "mapLocation/clean", "mapLocation/spot", "mapLocation/area", "mapLocation/path", "mapLocation/zone"
-        };
+        return new String[] { "mapLocation/clean", "mapLocation/spot", "mapLocation/area", "mapLocation/path",
+                "mapLocation/zone" };
     }
 
     @Override
@@ -121,17 +134,8 @@ public class ItemMapLocation extends ItemBuildCraft implements IMapLocation {
     }
 
     @Override
-    public boolean onItemUse(
-            ItemStack stack,
-            EntityPlayer par2EntityPlayer,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float par8,
-            float par9,
-            float par10) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer par2EntityPlayer, World world, int x, int y, int z, int side,
+            float par8, float par9, float par10) {
         TileEntity tile = world.getTileEntity(x, y, z);
         NBTTagCompound cpt = NBTUtils.getItemData(stack);
 

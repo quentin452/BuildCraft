@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders.gui;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.api.library.LibraryAPI;
 import buildcraft.builders.TileBlueprintLibrary;
@@ -14,14 +18,11 @@ import buildcraft.core.DefaultProps;
 import buildcraft.core.blueprints.LibraryId;
 import buildcraft.core.lib.gui.GuiBuildCraft;
 import buildcraft.core.lib.utils.StringUtils;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GuiBlueprintLibrary extends GuiBuildCraft {
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("buildcraftbuilders:textures/gui/library_rw.png");
+
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "buildcraftbuilders:textures/gui/library_rw.png");
     private GuiButton deleteButton;
     private TileBlueprintLibrary library;
 
@@ -78,11 +79,8 @@ public class GuiBlueprintLibrary extends GuiBuildCraft {
                 name = name.substring(0, name.length() - 1);
             }
 
-            fontRendererObj.drawString(
-                    name,
-                    9,
-                    23 + 9 * (i - off),
-                    LibraryAPI.getHandlerFor(bpt.extension).getTextColor());
+            fontRendererObj
+                    .drawString(name, 9, 23 + 9 * (i - off), LibraryAPI.getHandlerFor(bpt.extension).getTextColor());
         }
     }
 

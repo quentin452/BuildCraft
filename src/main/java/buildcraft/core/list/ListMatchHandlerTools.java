@@ -1,10 +1,13 @@
 package buildcraft.core.list;
 
-import buildcraft.api.lists.ListMatchHandler;
 import java.util.Set;
+
 import net.minecraft.item.ItemStack;
 
+import buildcraft.api.lists.ListMatchHandler;
+
 public class ListMatchHandlerTools extends ListMatchHandler {
+
     @Override
     public boolean matches(Type type, ItemStack stack, ItemStack target, boolean precise) {
         if (type == Type.TYPE) {

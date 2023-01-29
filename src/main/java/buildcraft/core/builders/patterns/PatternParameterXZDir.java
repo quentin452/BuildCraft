@@ -1,19 +1,21 @@
 package buildcraft.core.builders.patterns;
 
-import buildcraft.api.statements.IStatement;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.StatementMouseClick;
-import buildcraft.core.lib.utils.StringUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
+import buildcraft.api.statements.IStatement;
+import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.StatementMouseClick;
+import buildcraft.core.lib.utils.StringUtils;
+
 public class PatternParameterXZDir implements IStatementParameter {
-    private static final String[] names = {"west", "east", "north", "south"};
-    private static final int[] shiftLeft = {3, 2, 0, 1};
-    private static final int[] shiftRight = {2, 3, 1, 0};
+
+    private static final String[] names = { "west", "east", "north", "south" };
+    private static final int[] shiftLeft = { 3, 2, 0, 1 };
+    private static final int[] shiftRight = { 2, 3, 1, 0 };
     private static IIcon[] icons;
     private int direction;
 
@@ -43,12 +45,10 @@ public class PatternParameterXZDir implements IStatementParameter {
 
     @Override
     public void registerIcons(IIconRegister iconRegister) {
-        icons = new IIcon[] {
-            iconRegister.registerIcon("buildcraftcore:fillerParameters/arrow_left"),
-            iconRegister.registerIcon("buildcraftcore:fillerParameters/arrow_right"),
-            iconRegister.registerIcon("buildcraftcore:fillerParameters/arrow_up"),
-            iconRegister.registerIcon("buildcraftcore:fillerParameters/arrow_down")
-        };
+        icons = new IIcon[] { iconRegister.registerIcon("buildcraftcore:fillerParameters/arrow_left"),
+                iconRegister.registerIcon("buildcraftcore:fillerParameters/arrow_right"),
+                iconRegister.registerIcon("buildcraftcore:fillerParameters/arrow_up"),
+                iconRegister.registerIcon("buildcraftcore:fillerParameters/arrow_down") };
     }
 
     @Override

@@ -1,10 +1,12 @@
 package buildcraft.api.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public interface IItemCustomPipeRender {
+
     float getPipeRenderScale(ItemStack stack);
 
     /**

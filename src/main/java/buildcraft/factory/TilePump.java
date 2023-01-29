@@ -1,12 +1,27 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory;
+
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.TreeMap;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftFactory;
@@ -26,21 +41,6 @@ import buildcraft.core.lib.utils.BlockUtils;
 import buildcraft.core.lib.utils.Utils;
 import buildcraft.core.proxy.CoreProxy;
 import io.netty.buffer.ByteBuf;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.TreeMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 
 public class TilePump extends TileBuildCraft implements IHasWork, IFluidHandler, IRedstoneEngineReceiver, ILEDProvider {
 
@@ -112,13 +112,12 @@ public class TilePump extends TileBuildCraft implements IHasWork, IFluidHandler,
 
         BlockIndex index = getNextIndexToPump(false);
 
-        FluidStack fluidToPump =
-                index != null ? BlockUtils.drainBlock(worldObj, index.x, index.y, index.z, false) : null;
+        FluidStack fluidToPump = index != null ? BlockUtils.drainBlock(worldObj, index.x, index.y, index.z, false)
+                : null;
         if (fluidToPump != null) {
             if (isFluidAllowed(fluidToPump.getFluid()) && tank.fill(fluidToPump, false) == fluidToPump.amount) {
                 if (getBattery().useEnergy(100, 100, false) > 0) {
-                    if (fluidToPump.getFluid() != FluidRegistry.WATER
-                            || BuildCraftCore.consumeWaterSources
+                    if (fluidToPump.getFluid() != FluidRegistry.WATER || BuildCraftCore.consumeWaterSources
                             || numFluidBlocksFound < 9) {
                         index = getNextIndexToPump(true);
                         BlockUtils.drainBlock(worldObj, index.x, index.y, index.z, true);
@@ -267,7 +266,7 @@ public class TilePump extends TileBuildCraft implements IHasWork, IFluidHandler,
 
         queueForPumping(x, y, z, visitedBlocks, fluidsFound, pumpingFluid);
 
-        //		long timeoutTime = System.nanoTime() + 10000;
+        // long timeoutTime = System.nanoTime() + 10000;
 
         while (!fluidsFound.isEmpty()) {
             Deque<BlockIndex> fluidsToExpand = fluidsFound;
@@ -280,20 +279,19 @@ public class TilePump extends TileBuildCraft implements IHasWork, IFluidHandler,
                 queueForPumping(index.x, index.y, index.z + 1, visitedBlocks, fluidsFound, pumpingFluid);
                 queueForPumping(index.x, index.y, index.z - 1, visitedBlocks, fluidsFound, pumpingFluid);
 
-                if (pumpingFluid == FluidRegistry.WATER
-                        && !BuildCraftCore.consumeWaterSources
+                if (pumpingFluid == FluidRegistry.WATER && !BuildCraftCore.consumeWaterSources
                         && numFluidBlocksFound >= 9) {
                     return;
                 }
 
-                //				if (System.nanoTime() > timeoutTime)
-                //					return;
+                // if (System.nanoTime() > timeoutTime)
+                // return;
             }
         }
     }
 
-    public void queueForPumping(
-            int x, int y, int z, Set<BlockIndex> visitedBlocks, Deque<BlockIndex> fluidsFound, Fluid pumpingFluid) {
+    public void queueForPumping(int x, int y, int z, Set<BlockIndex> visitedBlocks, Deque<BlockIndex> fluidsFound,
+            Fluid pumpingFluid) {
         BlockIndex index = new BlockIndex(x, y, z);
         if (visitedBlocks.add(index)) {
             if ((x - xCoord) * (x - xCoord) + (z - zCoord) * (z - zCoord) > 64 * 64) {
@@ -481,7 +479,7 @@ public class TilePump extends TileBuildCraft implements IHasWork, IFluidHandler,
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[] {tank.getInfo()};
+        return new FluidTankInfo[] { tank.getInfo() };
     }
 
     @Override

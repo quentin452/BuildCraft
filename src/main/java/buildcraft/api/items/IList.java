@@ -3,6 +3,7 @@ package buildcraft.api.items;
 import net.minecraft.item.ItemStack;
 
 public interface IList extends INamedItem {
+
     @Deprecated
     String getLabel(ItemStack stack);
 

@@ -1,12 +1,38 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.item.EntityMinecartChest;
+import net.minecraft.entity.item.EntityMinecartEmpty;
+import net.minecraft.entity.item.EntityMinecartFurnace;
+import net.minecraft.entity.item.EntityMinecartHopper;
+import net.minecraft.entity.item.EntityMinecartTNT;
+import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.launchwrapper.Launch;
+import net.minecraft.stats.Achievement;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Property;
 
 import buildcraft.api.blueprints.BlueprintDeployer;
 import buildcraft.api.blueprints.BuilderAPI;
@@ -95,7 +121,9 @@ import buildcraft.core.builders.schematics.SchematicRotateMeta;
 import buildcraft.core.builders.schematics.SchematicRotateMetaSupported;
 import buildcraft.core.builders.schematics.SchematicTileCreative;
 import buildcraft.core.config.ConfigManager;
+
 import com.google.common.collect.Lists;
+
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -111,32 +139,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.item.EntityMinecartChest;
-import net.minecraft.entity.item.EntityMinecartEmpty;
-import net.minecraft.entity.item.EntityMinecartFurnace;
-import net.minecraft.entity.item.EntityMinecartHopper;
-import net.minecraft.entity.item.EntityMinecartTNT;
-import net.minecraft.entity.item.EntityPainting;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraft.stats.Achievement;
-import net.minecraft.world.World;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Property;
 
 @Mod(
         name = "BuildCraft Builders",
@@ -178,6 +180,7 @@ public class BuildCraftBuilders extends BuildCraftMod {
     private String oldBlueprintServerDir, blueprintClientDir;
 
     public class QuarryChunkloadCallback implements ForgeChunkManager.OrderedLoadingCallback {
+
         @Override
         public void ticketsLoaded(List<ForgeChunkManager.Ticket> tickets, World world) {
             for (ForgeChunkManager.Ticket ticket : tickets) {
@@ -194,8 +197,8 @@ public class BuildCraftBuilders extends BuildCraftMod {
         }
 
         @Override
-        public List<ForgeChunkManager.Ticket> ticketsLoaded(
-                List<ForgeChunkManager.Ticket> tickets, World world, int maxTicketCount) {
+        public List<ForgeChunkManager.Ticket> ticketsLoaded(List<ForgeChunkManager.Ticket> tickets, World world,
+                int maxTicketCount) {
             List<ForgeChunkManager.Ticket> validTickets = Lists.newArrayList();
             for (ForgeChunkManager.Ticket ticket : tickets) {
                 int quarryX = ticket.getModData().getInteger("quarryX");
@@ -215,8 +218,14 @@ public class BuildCraftBuilders extends BuildCraftMod {
     public void loadConfiguration(FMLPreInitializationEvent evt) {
         BuildCraftCore.mainConfigManager.register(
                 "blueprints.serverDatabaseDirectory",
-                "\"$MINECRAFT" + File.separator + "config" + File.separator + "buildcraft" + File.separator
-                        + "blueprints" + File.separator + "server\"",
+                "\"$MINECRAFT" + File.separator
+                        + "config"
+                        + File.separator
+                        + "buildcraft"
+                        + File.separator
+                        + "blueprints"
+                        + File.separator
+                        + "server\"",
                 "DEPRECATED - USED ONLY FOR COMPATIBILITY",
                 ConfigManager.RestartRequirement.GAME);
         BuildCraftCore.mainConfigManager.register(
@@ -226,7 +235,10 @@ public class BuildCraftBuilders extends BuildCraftMod {
                 ConfigManager.RestartRequirement.NONE);
 
         BuildCraftCore.mainConfigManager.register(
-                "general.markerRange", 64, "Set the maximum marker range.", ConfigManager.RestartRequirement.NONE);
+                "general.markerRange",
+                64,
+                "Set the maximum marker range.",
+                ConfigManager.RestartRequirement.NONE);
         BuildCraftCore.mainConfigManager.register(
                 "general.quarry.oneTimeUse",
                 false,
@@ -244,21 +256,16 @@ public class BuildCraftBuilders extends BuildCraftMod {
                 "Should the builder and filler drop the cleared blocks?",
                 ConfigManager.RestartRequirement.NONE);
 
-        BuildCraftCore.mainConfigManager
-                .get("blueprints.serverDatabaseDirectory")
-                .setShowInGui(false);
-        BuildCraftCore.mainConfigManager
-                .get("general.markerRange")
-                .setMinValue(8)
-                .setMaxValue(64);
+        BuildCraftCore.mainConfigManager.get("blueprints.serverDatabaseDirectory").setShowInGui(false);
+        BuildCraftCore.mainConfigManager.get("general.markerRange").setMinValue(8).setMaxValue(64);
 
         serverDB = new BlueprintServerDatabase();
         clientDB = new LibraryDatabase();
 
         reloadConfig(ConfigManager.RestartRequirement.GAME);
 
-        Property printSchematicList =
-                BuildCraftCore.mainConfiguration.get("debug", "printBlueprintSchematicList", false);
+        Property printSchematicList = BuildCraftCore.mainConfiguration
+                .get("debug", "printBlueprintSchematicList", false);
         debugPrintSchematicList = printSchematicList.getBoolean();
     }
 
@@ -266,32 +273,22 @@ public class BuildCraftBuilders extends BuildCraftMod {
         if (restartType == ConfigManager.RestartRequirement.GAME) {
             reloadConfig(ConfigManager.RestartRequirement.WORLD);
         } else if (restartType == ConfigManager.RestartRequirement.WORLD) {
-            oldBlueprintServerDir = BuildCraftCore.mainConfigManager
-                    .get("blueprints.serverDatabaseDirectory")
+            oldBlueprintServerDir = BuildCraftCore.mainConfigManager.get("blueprints.serverDatabaseDirectory")
                     .getString();
             oldBlueprintServerDir = JavaTools.stripSurroundingQuotes(replacePathVariables(oldBlueprintServerDir));
 
             reloadConfig(ConfigManager.RestartRequirement.NONE);
         } else {
-            quarryOneTimeUse = BuildCraftCore.mainConfigManager
-                    .get("general.quarry.oneTimeUse")
-                    .getBoolean();
-            quarryLoadsChunks = BuildCraftCore.mainConfigManager
-                    .get("general.quarry.doChunkLoading")
-                    .getBoolean();
+            quarryOneTimeUse = BuildCraftCore.mainConfigManager.get("general.quarry.oneTimeUse").getBoolean();
+            quarryLoadsChunks = BuildCraftCore.mainConfigManager.get("general.quarry.doChunkLoading").getBoolean();
 
-            blueprintClientDir = BuildCraftCore.mainConfigManager
-                    .get("blueprints.clientDatabaseDirectory")
-                    .getString();
+            blueprintClientDir = BuildCraftCore.mainConfigManager.get("blueprints.clientDatabaseDirectory").getString();
             blueprintClientDir = JavaTools.stripSurroundingQuotes(replacePathVariables(blueprintClientDir));
-            clientDB.init(new String[] {blueprintClientDir, getDownloadsDir()}, blueprintClientDir);
+            clientDB.init(new String[] { blueprintClientDir, getDownloadsDir() }, blueprintClientDir);
 
-            DefaultProps.MARKER_RANGE =
-                    BuildCraftCore.mainConfigManager.get("general.markerRange").getInt();
+            DefaultProps.MARKER_RANGE = BuildCraftCore.mainConfigManager.get("general.markerRange").getInt();
 
-            dropBrokenBlocks = BuildCraftCore.mainConfigManager
-                    .get("builders.dropBrokenBlocks")
-                    .getBoolean();
+            dropBrokenBlocks = BuildCraftCore.mainConfigManager.get("builders.dropBrokenBlocks").getBoolean();
 
             if (BuildCraftCore.mainConfiguration.hasChanged()) {
                 BuildCraftCore.mainConfiguration.save();
@@ -303,8 +300,7 @@ public class BuildCraftBuilders extends BuildCraftMod {
     public void onConfigChanged(ConfigChangedEvent.PostConfigChangedEvent event) {
         if ("BuildCraft|Core".equals(event.modID)) {
             reloadConfig(
-                    event.isWorldRunning
-                            ? ConfigManager.RestartRequirement.NONE
+                    event.isWorldRunning ? ConfigManager.RestartRequirement.NONE
                             : ConfigManager.RestartRequirement.WORLD);
         }
     }
@@ -317,7 +313,7 @@ public class BuildCraftBuilders extends BuildCraftMod {
             // According XDG specification every user-specified folder can be localized
             // or even moved to any destination, so we obtain real path with xdg-user-dir
             try {
-                Process process = Runtime.getRuntime().exec(new String[] {"xdg-user-dir", "DOWNLOAD"});
+                Process process = Runtime.getRuntime().exec(new String[] { "xdg-user-dir", "DOWNLOAD" });
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), "utf-8"));
                 process.waitFor();
                 String line = reader.readLine().trim();
@@ -412,26 +408,30 @@ public class BuildCraftBuilders extends BuildCraftMod {
 
         schemes.registerSchematicBlock(Blocks.skull, SchematicSkull.class);
 
-        schemes.registerSchematicBlock(Blocks.ladder, SchematicRotateMetaSupported.class, new int[] {2, 5, 3, 4}, true);
-        schemes.registerSchematicBlock(Blocks.fence_gate, SchematicRotateMeta.class, new int[] {0, 1, 2, 3}, true);
-        schemes.registerSchematicBlock(Blocks.log, SchematicRotateMeta.class, new int[] {8, 4, 8, 4}, true);
-        schemes.registerSchematicBlock(Blocks.log2, SchematicRotateMeta.class, new int[] {8, 4, 8, 4}, true);
-        schemes.registerSchematicBlock(Blocks.hay_block, SchematicRotateMeta.class, new int[] {8, 4, 8, 4}, true);
-        schemes.registerSchematicBlock(Blocks.quartz_block, SchematicRotateMeta.class, new int[] {4, 3, 4, 3}, true);
-        schemes.registerSchematicBlock(Blocks.hopper, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
-        schemes.registerSchematicBlock(Blocks.anvil, SchematicRotateMeta.class, new int[] {0, 1, 2, 3}, true);
+        schemes.registerSchematicBlock(
+                Blocks.ladder,
+                SchematicRotateMetaSupported.class,
+                new int[] { 2, 5, 3, 4 },
+                true);
+        schemes.registerSchematicBlock(Blocks.fence_gate, SchematicRotateMeta.class, new int[] { 0, 1, 2, 3 }, true);
+        schemes.registerSchematicBlock(Blocks.log, SchematicRotateMeta.class, new int[] { 8, 4, 8, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.log2, SchematicRotateMeta.class, new int[] { 8, 4, 8, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.hay_block, SchematicRotateMeta.class, new int[] { 8, 4, 8, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.quartz_block, SchematicRotateMeta.class, new int[] { 4, 3, 4, 3 }, true);
+        schemes.registerSchematicBlock(Blocks.hopper, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.anvil, SchematicRotateMeta.class, new int[] { 0, 1, 2, 3 }, true);
 
-        schemes.registerSchematicBlock(Blocks.furnace, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
-        schemes.registerSchematicBlock(Blocks.lit_furnace, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
-        schemes.registerSchematicBlock(Blocks.chest, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
-        schemes.registerSchematicBlock(Blocks.trapped_chest, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
-        schemes.registerSchematicBlock(Blocks.dispenser, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
-        schemes.registerSchematicBlock(Blocks.dropper, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
+        schemes.registerSchematicBlock(Blocks.furnace, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.lit_furnace, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.chest, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.trapped_chest, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.dispenser, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
+        schemes.registerSchematicBlock(Blocks.dropper, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
 
         schemes.registerSchematicBlock(Blocks.ender_chest, SchematicEnderChest.class);
 
-        schemes.registerSchematicBlock(Blocks.vine, SchematicRotateMeta.class, new int[] {1, 4, 8, 2}, false);
-        schemes.registerSchematicBlock(Blocks.trapdoor, SchematicRotateMeta.class, new int[] {0, 1, 2, 3}, false);
+        schemes.registerSchematicBlock(Blocks.vine, SchematicRotateMeta.class, new int[] { 1, 4, 8, 2 }, false);
+        schemes.registerSchematicBlock(Blocks.trapdoor, SchematicRotateMeta.class, new int[] { 0, 1, 2, 3 }, false);
 
         schemes.registerSchematicBlock(Blocks.stone, SchematicStone.class);
         schemes.registerSchematicBlock(Blocks.coal_ore, SchematicStone.class);
@@ -450,7 +450,9 @@ public class BuildCraftBuilders extends BuildCraftMod {
         schemes.registerSchematicBlock(Blocks.gravel, SchematicGravel.class);
 
         schemes.registerSchematicBlock(
-                Blocks.redstone_wire, SchematicRedstoneWire.class, new ItemStack(Items.redstone));
+                Blocks.redstone_wire,
+                SchematicRedstoneWire.class,
+                new ItemStack(Items.redstone));
         schemes.registerSchematicBlock(Blocks.cake, SchematicCustomStack.class, new ItemStack(Items.cake));
         schemes.registerSchematicBlock(Blocks.glowstone, SchematicCustomStack.class, new ItemStack(Blocks.glowstone));
 
@@ -513,10 +515,10 @@ public class BuildCraftBuilders extends BuildCraftMod {
         schemes.registerSchematicEntity(EntityItemFrame.class, SchematicHanging.class, Items.item_frame);
 
         // BuildCraft blocks
-        schemes.registerSchematicBlock(architectBlock, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
+        schemes.registerSchematicBlock(architectBlock, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
         schemes.registerSchematicBlock(builderBlock, SchematicBuilderLike.class);
         schemes.registerSchematicBlock(fillerBlock, SchematicBuilderLike.class);
-        schemes.registerSchematicBlock(libraryBlock, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
+        schemes.registerSchematicBlock(libraryBlock, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
         schemes.registerSchematicBlock(quarryBlock, SchematicBuilderLike.class);
 
         if (constructionMarkerBlock != null) {
@@ -537,48 +539,54 @@ public class BuildCraftBuilders extends BuildCraftMod {
 
         BlueprintDeployer.instance = new RealBlueprintDeployer();
 
-        architectAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.architect",
-                "architectAchievement",
-                11,
-                2,
-                BuildCraftBuilders.architectBlock,
-                BuildCraftCore.goldGearAchievement));
-        builderAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.builder",
-                "builderAchievement",
-                13,
-                2,
-                BuildCraftBuilders.builderBlock,
-                architectAchievement));
-        blueprintAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.blueprint",
-                "blueprintAchievement",
-                11,
-                4,
-                BuildCraftBuilders.blueprintItem,
-                architectAchievement));
-        templateAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.template",
-                "templateAchievement",
-                13,
-                4,
-                BuildCraftBuilders.templateItem,
-                blueprintAchievement));
-        libraryAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.blueprintLibrary",
-                "blueprintLibraryAchievement",
-                15,
-                2,
-                BuildCraftBuilders.libraryBlock,
-                builderAchievement));
-        chunkDestroyerAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.chunkDestroyer",
-                "chunkDestroyerAchievement",
-                9,
-                2,
-                quarryBlock,
-                BuildCraftCore.diamondGearAchievement));
+        architectAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.architect",
+                        "architectAchievement",
+                        11,
+                        2,
+                        BuildCraftBuilders.architectBlock,
+                        BuildCraftCore.goldGearAchievement));
+        builderAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.builder",
+                        "builderAchievement",
+                        13,
+                        2,
+                        BuildCraftBuilders.builderBlock,
+                        architectAchievement));
+        blueprintAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.blueprint",
+                        "blueprintAchievement",
+                        11,
+                        4,
+                        BuildCraftBuilders.blueprintItem,
+                        architectAchievement));
+        templateAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.template",
+                        "templateAchievement",
+                        13,
+                        4,
+                        BuildCraftBuilders.templateItem,
+                        blueprintAchievement));
+        libraryAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.blueprintLibrary",
+                        "blueprintLibraryAchievement",
+                        15,
+                        2,
+                        BuildCraftBuilders.libraryBlock,
+                        builderAchievement));
+        chunkDestroyerAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.chunkDestroyer",
+                        "chunkDestroyerAchievement",
+                        9,
+                        2,
+                        quarryBlock,
+                        BuildCraftCore.diamondGearAchievement));
 
         if (BuildCraftCore.loadDefaultRecipes) {
             loadRecipes();
@@ -621,16 +629,18 @@ public class BuildCraftBuilders extends BuildCraftMod {
         BCRegistry.INSTANCE.registerTileEntity(TileBuilder.class, "net.minecraft.src.builders.TileBuilder");
         BCRegistry.INSTANCE.registerTileEntity(TileArchitect.class, "net.minecraft.src.builders.TileTemplate");
         BCRegistry.INSTANCE.registerTileEntity(TilePathMarker.class, "net.minecraft.src.builders.TilePathMarker");
-        BCRegistry.INSTANCE.registerTileEntity(
-                TileBlueprintLibrary.class, "net.minecraft.src.builders.TileBlueprintLibrary");
+        BCRegistry.INSTANCE
+                .registerTileEntity(TileBlueprintLibrary.class, "net.minecraft.src.builders.TileBlueprintLibrary");
 
-        constructionMarkerBlock =
-                (BlockConstructionMarker) CompatHooks.INSTANCE.getBlock(BlockConstructionMarker.class);
+        constructionMarkerBlock = (BlockConstructionMarker) CompatHooks.INSTANCE
+                .getBlock(BlockConstructionMarker.class);
         BCRegistry.INSTANCE.registerBlock(
-                constructionMarkerBlock.setBlockName("constructionMarkerBlock"), ItemConstructionMarker.class, false);
+                constructionMarkerBlock.setBlockName("constructionMarkerBlock"),
+                ItemConstructionMarker.class,
+                false);
 
-        BCRegistry.INSTANCE.registerTileEntity(
-                TileConstructionMarker.class, "net.minecraft.src.builders.TileConstructionMarker");
+        BCRegistry.INSTANCE
+                .registerTileEntity(TileConstructionMarker.class, "net.minecraft.src.builders.TileConstructionMarker");
 
         SchematicRegistry.INSTANCE.readConfiguration(BuildCraftCore.mainConfiguration);
 
@@ -662,14 +672,34 @@ public class BuildCraftBuilders extends BuildCraftMod {
                 Items.diamond_pickaxe);
 
         BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(templateItem, 1), "ppp", "pip", "ppp", 'i', "dyeBlack", 'p', Items.paper);
+                new ItemStack(templateItem, 1),
+                "ppp",
+                "pip",
+                "ppp",
+                'i',
+                "dyeBlack",
+                'p',
+                Items.paper);
 
         BCRegistry.INSTANCE.addCraftingRecipe(
-                new ItemStack(blueprintItem, 1), "ppp", "pip", "ppp", 'i', "gemLapis", 'p', Items.paper);
+                new ItemStack(blueprintItem, 1),
+                "ppp",
+                "pip",
+                "ppp",
+                'i',
+                "gemLapis",
+                'p',
+                Items.paper);
 
         if (constructionMarkerBlock != null) {
             BCRegistry.INSTANCE.addCraftingRecipe(
-                    new ItemStack(constructionMarkerBlock, 1), "l ", "r ", 'l', "gearGold", 'r', Blocks.redstone_torch);
+                    new ItemStack(constructionMarkerBlock, 1),
+                    "l ",
+                    "r ",
+                    'l',
+                    "gearGold",
+                    'r',
+                    Blocks.redstone_torch);
         }
 
         BCRegistry.INSTANCE.addCraftingRecipe(
@@ -756,9 +786,9 @@ public class BuildCraftBuilders extends BuildCraftMod {
     @Mod.EventHandler
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {
         String blueprintPath = new File(
-                        DimensionManager.getCurrentSaveRootDirectory(), "buildcraft" + File.separator + "blueprints")
-                .getPath();
-        serverDB.init(new String[] {oldBlueprintServerDir, blueprintPath}, blueprintPath);
+                DimensionManager.getCurrentSaveRootDirectory(),
+                "buildcraft" + File.separator + "blueprints").getPath();
+        serverDB.init(new String[] { oldBlueprintServerDir, blueprintPath }, blueprintPath);
     }
 
     @SubscribeEvent
@@ -767,17 +797,17 @@ public class BuildCraftBuilders extends BuildCraftMod {
         if (evt.map.getTextureType() == 0) {
             TextureMap terrainTextures = evt.map;
             BuilderProxyClient.drillTexture = terrainTextures.registerIcon("buildcraftbuilders:machineBlock/drill");
-            BuilderProxyClient.drillSideTexture =
-                    terrainTextures.registerIcon("buildcraftbuilders:machineBlock/drill_xz");
-            BuilderProxyClient.drillHeadTexture =
-                    terrainTextures.registerIcon("buildcraftbuilders:machineBlock/drill_head");
+            BuilderProxyClient.drillSideTexture = terrainTextures
+                    .registerIcon("buildcraftbuilders:machineBlock/drill_xz");
+            BuilderProxyClient.drillHeadTexture = terrainTextures
+                    .registerIcon("buildcraftbuilders:machineBlock/drill_head");
         }
     }
 
     @Mod.EventHandler
     public void whiteListAppliedEnergetics(FMLInitializationEvent event) {
-        FMLInterModComms.sendMessage(
-                "appliedenergistics2", "whitelist-spatial", TileBlueprintLibrary.class.getCanonicalName());
+        FMLInterModComms
+                .sendMessage("appliedenergistics2", "whitelist-spatial", TileBlueprintLibrary.class.getCanonicalName());
     }
 
     @Mod.EventHandler

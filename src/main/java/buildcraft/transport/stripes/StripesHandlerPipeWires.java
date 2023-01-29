@@ -1,17 +1,19 @@
 package buildcraft.transport.stripes;
 
-import buildcraft.api.core.Position;
-import buildcraft.api.transport.IStripesActivator;
-import buildcraft.api.transport.IStripesHandler;
-import buildcraft.transport.ItemPipeWire;
-import buildcraft.transport.TileGenericPipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.core.Position;
+import buildcraft.api.transport.IStripesActivator;
+import buildcraft.api.transport.IStripesHandler;
+import buildcraft.transport.ItemPipeWire;
+import buildcraft.transport.TileGenericPipe;
+
 public class StripesHandlerPipeWires implements IStripesHandler {
+
     @Override
     public StripesHandlerType getType() {
         return StripesHandlerType.ITEM_USE;
@@ -23,15 +25,8 @@ public class StripesHandlerPipeWires implements IStripesHandler {
     }
 
     @Override
-    public boolean handle(
-            World world,
-            int x,
-            int y,
-            int z,
-            ForgeDirection direction,
-            ItemStack stack,
-            EntityPlayer player,
-            IStripesActivator activator) {
+    public boolean handle(World world, int x, int y, int z, ForgeDirection direction, ItemStack stack,
+            EntityPlayer player, IStripesActivator activator) {
         int pipesToTry = 8;
         int pipeWireColor = stack.getItemDamage();
 
@@ -52,7 +47,10 @@ public class StripesHandlerPipeWires implements IStripesHandler {
                     pipeTile.pipe.updateSignalState();
                     pipeTile.scheduleRenderUpdate();
                     world.notifyBlocksOfNeighborChange(
-                            pipeTile.xCoord, pipeTile.yCoord, pipeTile.zCoord, pipeTile.getBlock());
+                            pipeTile.xCoord,
+                            pipeTile.yCoord,
+                            pipeTile.zCoord,
+                            pipeTile.getBlock());
                     return true;
                 } else {
                     pipesToTry--;

@@ -1,12 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
+
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
 
 import buildcraft.BuildCraftBuilders;
 import buildcraft.api.blueprints.BuildingPermission;
@@ -19,13 +24,9 @@ import buildcraft.core.blueprints.Template;
 import buildcraft.core.lib.items.ItemBuildCraft;
 import buildcraft.core.lib.utils.NBTUtils;
 import buildcraft.core.lib.utils.StringUtils;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
 
 public abstract class ItemBlueprint extends ItemBuildCraft implements IBlueprintItem {
+
     public ItemBlueprint() {
         super(BCCreativeTab.get("main"));
     }
@@ -52,16 +53,15 @@ public abstract class ItemBlueprint extends ItemBuildCraft implements IBlueprint
                 list.add(name);
             }
 
-            list.add(StringUtils.localize("item.blueprint.author")
-                    + " "
-                    + NBTUtils.getItemData(stack).getString("author"));
+            list.add(
+                    StringUtils.localize("item.blueprint.author") + " "
+                            + NBTUtils.getItemData(stack).getString("author"));
         } else {
             list.add(StringUtils.localize("item.blueprint.blank"));
         }
 
         if (NBTUtils.getItemData(stack).hasKey("permission")) {
-            BuildingPermission p =
-                    BuildingPermission.values()[NBTUtils.getItemData(stack).getByte("permission")];
+            BuildingPermission p = BuildingPermission.values()[NBTUtils.getItemData(stack).getByte("permission")];
 
             if (p == BuildingPermission.CREATIVE_ONLY) {
                 list.add(StringUtils.localize("item.blueprint.creative_only"));
@@ -88,7 +88,7 @@ public abstract class ItemBlueprint extends ItemBuildCraft implements IBlueprint
 
     @Override
     public String[] getIconNames() {
-        return new String[] {getIconType() + "/clean", getIconType() + "/used"};
+        return new String[] { getIconType() + "/clean", getIconType() + "/used" };
     }
 
     @Override

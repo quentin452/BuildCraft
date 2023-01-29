@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 public class TabletFontManager {
+
     public static final TabletFontManager INSTANCE = new TabletFontManager();
 
     public HashMap<String, TabletFont> fonts = new HashMap<String, TabletFont>();

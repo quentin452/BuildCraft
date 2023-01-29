@@ -1,16 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.items.IMapLocation;
-import buildcraft.core.lib.block.BlockBuildCraft;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +14,10 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.BuildCraftCore;
+import buildcraft.api.items.IMapLocation;
+import buildcraft.core.lib.block.BlockBuildCraft;
 
 public class BlockMarker extends BlockBuildCraft {
 
@@ -70,7 +69,12 @@ public class BlockMarker extends BlockBuildCraft {
         int meta = world.getBlockMetadata(x, y, z);
         AxisAlignedBB bb = getBoundingBox(meta);
         setBlockBounds(
-                (float) bb.minX, (float) bb.minY, (float) bb.minZ, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ);
+                (float) bb.minX,
+                (float) bb.minY,
+                (float) bb.minZ,
+                (float) bb.maxX,
+                (float) bb.maxY,
+                (float) bb.maxZ);
     }
 
     @Override
@@ -84,8 +88,8 @@ public class BlockMarker extends BlockBuildCraft {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7,
+            float par8, float par9) {
         if (super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9)) {
             return true;
         }

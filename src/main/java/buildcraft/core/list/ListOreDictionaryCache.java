@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import net.minecraftforge.oredict.OreDictionary;
 
 public final class ListOreDictionaryCache {
+
     public static final ListOreDictionaryCache INSTANCE = new ListOreDictionaryCache();
-    private static final String[] TYPE_KEYWORDS = {"Tiny", "Dense", "Small"};
+    private static final String[] TYPE_KEYWORDS = { "Tiny", "Dense", "Small" };
     private final Map<String, Set<Integer>> namingCache = new HashMap<String, Set<Integer>>();
     private final Set<String> registeredNames = new HashSet<String>();
 
@@ -45,16 +47,15 @@ public final class ListOreDictionaryCache {
                 splitLocation--;
             }
         }
-        return splitLocation >= 0
-                ? name.substring(0, splitLocation)
-                : name; // No null - this handles things like "record".
+        return splitLocation >= 0 ? name.substring(0, splitLocation) : name; // No null - this handles things like
+                                                                             // "record".
     }
 
     public static String getMaterial(String name) {
         // Rules for finding material:
         // - For every uppercase character, check if the character is not in
-        //   TYPE_KEYWORDS. This is used to skip things like "plate[DenseIron]"
-        //   or "dust[TinyRedstone]". That part should be the material still.
+        // TYPE_KEYWORDS. This is used to skip things like "plate[DenseIron]"
+        // or "dust[TinyRedstone]". That part should be the material still.
         int splitLocation = 0;
         String t = null;
         while (splitLocation < name.length()) {

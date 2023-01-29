@@ -1,12 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.gui;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.core.EnumColor;
@@ -25,24 +37,14 @@ import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.robotics.TileZonePlan;
 import buildcraft.robotics.ZonePlan;
 import io.netty.buffer.ByteBuf;
-import java.util.LinkedList;
-import java.util.List;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 
 public class GuiZonePlan extends GuiAdvancedInterface {
+
     public static final int WINDOWED_MAP_WIDTH = 213;
     public static final int WINDOWED_MAP_HEIGHT = 100;
 
-    private static final ResourceLocation TMP_TEXTURE =
-            new ResourceLocation("buildcraftrobotics:textures/gui/zone_planner_gui.png");
+    private static final ResourceLocation TMP_TEXTURE = new ResourceLocation(
+            "buildcraftrobotics:textures/gui/zone_planner_gui.png");
 
     private int mapWidth = WINDOWED_MAP_WIDTH;
     private int mapHeight = WINDOWED_MAP_HEIGHT;
@@ -154,6 +156,7 @@ public class GuiZonePlan extends GuiAdvancedInterface {
 
     private void uploadMap() {
         BuildCraftCore.instance.sendToServer(new PacketCommand(getContainer(), "computeMap", new CommandWriter() {
+
             public void write(ByteBuf data) {
                 data.writeInt(cx);
                 data.writeInt(cz);
@@ -217,8 +220,13 @@ public class GuiZonePlan extends GuiAdvancedInterface {
 
             GL11.glEnable(GL11.GL_ALPHA_TEST);
             drawTexturedModalRect(guiLeft + colorSelected.x, guiTop + colorSelected.y, 0, 228, 16, 16);
-            drawTexturedModalRect(guiLeft + 236, guiTop + 27, 16, 228, 8, (int)
-                    ((zonePlan.progress / (float) TileZonePlan.CRAFT_TIME) * 27));
+            drawTexturedModalRect(
+                    guiLeft + 236,
+                    guiTop + 27,
+                    16,
+                    228,
+                    8,
+                    (int) ((zonePlan.progress / (float) TileZonePlan.CRAFT_TIME) * 27));
         }
     }
 
@@ -238,8 +246,7 @@ public class GuiZonePlan extends GuiAdvancedInterface {
         int blockStartX = Math.round(cx - mapWidth * blocksPerPixel / 2);
         int blockStartZ = Math.round(cz - mapHeight * blocksPerPixel / 2);
 
-        boolean clickOnMap = mouseX >= mapXMin
-                && mouseX <= mapXMin + getContainer().mapTexture.width
+        boolean clickOnMap = mouseX >= mapXMin && mouseX <= mapXMin + getContainer().mapTexture.width
                 && mouseY >= mapYMin
                 && mouseY <= mapYMin + getContainer().mapTexture.height;
 
@@ -278,8 +285,7 @@ public class GuiZonePlan extends GuiAdvancedInterface {
     protected void mouseClickMove(int mouseX, int mouseY, int lastButtonBlicked, long time) {
         super.mouseClickMove(mouseX, mouseY, lastButtonBlicked, time);
 
-        if (inSelection
-                && mouseX >= mapXMin
+        if (inSelection && mouseX >= mapXMin
                 && mouseX <= mapXMin + getContainer().mapTexture.width
                 && mouseY >= mapYMin
                 && mouseY <= mapYMin + getContainer().mapTexture.height) {
@@ -402,6 +408,7 @@ public class GuiZonePlan extends GuiAdvancedInterface {
                 textField.textboxKeyTyped(carac, val);
                 final String text = textField.getText();
                 BuildCraftCore.instance.sendToServer(new PacketCommand(getContainer(), "setName", new CommandWriter() {
+
                     public void write(ByteBuf data) {
                         NetworkUtils.writeUTF(data, text);
                     }
@@ -498,8 +505,7 @@ public class GuiZonePlan extends GuiAdvancedInterface {
         int mouseX = Mouse.getEventX() * this.width / this.mc.displayWidth;
         int mouseY = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
 
-        if (mouseX >= mapXMin
-                && mouseX <= mapXMin + getContainer().mapTexture.width
+        if (mouseX >= mapXMin && mouseX <= mapXMin + getContainer().mapTexture.width
                 && mouseY >= mapYMin
                 && mouseY <= mapYMin + getContainer().mapTexture.height) {
             int wheel = Mouse.getEventDWheel();

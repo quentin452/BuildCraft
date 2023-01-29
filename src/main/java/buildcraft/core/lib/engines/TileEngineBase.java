@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.engines;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.power.IEngine;
@@ -23,34 +29,30 @@ import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyReceiver;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class TileEngineBase extends TileBuildCraft
         implements IPipeConnection, IEnergyHandler, IEngine, IHeatable {
+
     // TEMP
-    public static final ResourceLocation TRUNK_BLUE_TEXTURE =
-            new ResourceLocation("buildcraftcore:textures/blocks/engine/trunk_blue.png");
-    public static final ResourceLocation TRUNK_GREEN_TEXTURE =
-            new ResourceLocation("buildcraftcore:textures/blocks/engine/trunk_green.png");
-    public static final ResourceLocation TRUNK_YELLOW_TEXTURE =
-            new ResourceLocation("buildcraftcore:textures/blocks/engine/trunk_yellow.png");
-    public static final ResourceLocation TRUNK_RED_TEXTURE =
-            new ResourceLocation("buildcraftcore:textures/blocks/engine/trunk_red.png");
-    public static final ResourceLocation TRUNK_OVERHEAT_TEXTURE =
-            new ResourceLocation("buildcraftcore:textures/blocks/engine/trunk_overheat.png");
+    public static final ResourceLocation TRUNK_BLUE_TEXTURE = new ResourceLocation(
+            "buildcraftcore:textures/blocks/engine/trunk_blue.png");
+    public static final ResourceLocation TRUNK_GREEN_TEXTURE = new ResourceLocation(
+            "buildcraftcore:textures/blocks/engine/trunk_green.png");
+    public static final ResourceLocation TRUNK_YELLOW_TEXTURE = new ResourceLocation(
+            "buildcraftcore:textures/blocks/engine/trunk_yellow.png");
+    public static final ResourceLocation TRUNK_RED_TEXTURE = new ResourceLocation(
+            "buildcraftcore:textures/blocks/engine/trunk_red.png");
+    public static final ResourceLocation TRUNK_OVERHEAT_TEXTURE = new ResourceLocation(
+            "buildcraftcore:textures/blocks/engine/trunk_overheat.png");
 
     public enum EnergyStage {
+
         BLUE,
         GREEN,
         YELLOW,
         RED,
         OVERHEAT;
+
         public static final EnergyStage[] VALUES = values();
     }
 
@@ -136,8 +138,7 @@ public abstract class TileEngineBase extends TileBuildCraft
     }
 
     public boolean onBlockActivated(EntityPlayer player, ForgeDirection side) {
-        if (!player.worldObj.isRemote
-                && player.getCurrentEquippedItem() != null
+        if (!player.worldObj.isRemote && player.getCurrentEquippedItem() != null
                 && player.getCurrentEquippedItem().getItem() instanceof IToolWrench) {
             IToolWrench wrench = (IToolWrench) player.getCurrentEquippedItem().getItem();
             if (wrench.canWrench(player, xCoord, yCoord, zCoord)) {
@@ -408,7 +409,10 @@ public abstract class TileEngineBase extends TileBuildCraft
                 orientation = o;
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 worldObj.notifyBlocksOfNeighborChange(
-                        xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+                        xCoord,
+                        yCoord,
+                        zCoord,
+                        worldObj.getBlock(xCoord, yCoord, zCoord));
 
                 return true;
             }

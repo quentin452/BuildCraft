@@ -1,20 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon;
 
-import buildcraft.BuildCraftSilicon;
-import buildcraft.core.lib.items.ItemBuildCraft;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Locale;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -22,9 +16,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.OreDictionary;
 
+import buildcraft.BuildCraftSilicon;
+import buildcraft.core.lib.items.ItemBuildCraft;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemRedstoneChipset extends ItemBuildCraft {
 
     public enum Chipset {
+
         RED,
         IRON,
         GOLD,
@@ -33,6 +34,7 @@ public class ItemRedstoneChipset extends ItemBuildCraft {
         QUARTZ,
         COMP,
         EMERALD;
+
         public static final Chipset[] VALUES = values();
         private IIcon icon;
 
@@ -72,7 +74,7 @@ public class ItemRedstoneChipset extends ItemBuildCraft {
         return "item." + Chipset.fromOrdinal(stack.getItemDamage()).getChipsetName();
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List itemList) {

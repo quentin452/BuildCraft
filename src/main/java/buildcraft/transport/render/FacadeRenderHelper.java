@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.render;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.render.ITextureStates;
@@ -18,11 +22,6 @@ import buildcraft.core.lib.render.TextureStateManager;
 import buildcraft.core.lib.utils.MatrixTranformations;
 import buildcraft.transport.PipeIconProvider;
 import buildcraft.transport.TransportConstants;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public final class FacadeRenderHelper {
 
@@ -92,16 +91,8 @@ public final class FacadeRenderHelper {
                 rotated[2][1] - zOffsets[side.ordinal()]);
     }
 
-    public static void pipeFacadeRenderer(
-            RenderBlocks renderblocks,
-            ITextureStates blockStateMachine,
-            IPipeTile tile,
-            int renderPass,
-            int x,
-            int y,
-            int z,
-            ForgeDirection direction,
-            IFacadePluggable pluggable) {
+    public static void pipeFacadeRenderer(RenderBlocks renderblocks, ITextureStates blockStateMachine, IPipeTile tile,
+            int renderPass, int x, int y, int z, ForgeDirection direction, IFacadePluggable pluggable) {
         ITextureStates textureManager = blockStateMachine;
         IIcon[] textures = ((TextureStateManager) textureManager.getTextureState()).popArray();
 
@@ -115,8 +106,8 @@ public final class FacadeRenderHelper {
                 int renderMeta = pluggable.getCurrentMetadata();
 
                 for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-                    textures[side.ordinal()] =
-                            renderBlock.getIcon(facadeBlockAccess, tile.x(), tile.y(), tile.z(), side.ordinal());
+                    textures[side.ordinal()] = renderBlock
+                            .getIcon(facadeBlockAccess, tile.x(), tile.y(), tile.z(), side.ordinal());
                     if (textures[side.ordinal()] == null) {
                         textures[side.ordinal()] = renderBlock.getIcon(side.ordinal(), renderMeta);
                     }
@@ -156,7 +147,13 @@ public final class FacadeRenderHelper {
                     MatrixTranformations.transform(rotated, direction);
                     setRenderBounds(renderblocks, rotated, direction);
                     renderblocks.renderStandardBlockWithColorMultiplier(
-                            blockStateMachine.getBlock(), x, y, z, 1.0f, 1.0f, 1.0f);
+                            blockStateMachine.getBlock(),
+                            x,
+                            y,
+                            z,
+                            1.0f,
+                            1.0f,
+                            1.0f);
 
                     rotated = MatrixTranformations.deepClone(zeroStateFacade);
                     rotated[0][0] = CoreConstants.PIPE_MIN_POS - zFightOffset * 4;
@@ -165,7 +162,13 @@ public final class FacadeRenderHelper {
                     MatrixTranformations.transform(rotated, direction);
                     setRenderBounds(renderblocks, rotated, direction);
                     renderblocks.renderStandardBlockWithColorMultiplier(
-                            blockStateMachine.getBlock(), x, y, z, 1.0f, 1.0f, 1.0f);
+                            blockStateMachine.getBlock(),
+                            x,
+                            y,
+                            z,
+                            1.0f,
+                            1.0f,
+                            1.0f);
 
                     rotated = MatrixTranformations.deepClone(zeroStateFacade);
                     rotated[0][0] = 0.0F;
@@ -173,7 +176,13 @@ public final class FacadeRenderHelper {
                     MatrixTranformations.transform(rotated, direction);
                     setRenderBounds(renderblocks, rotated, direction);
                     renderblocks.renderStandardBlockWithColorMultiplier(
-                            blockStateMachine.getBlock(), x, y, z, 1.0f, 1.0f, 1.0f);
+                            blockStateMachine.getBlock(),
+                            x,
+                            y,
+                            z,
+                            1.0f,
+                            1.0f,
+                            1.0f);
 
                     rotated = MatrixTranformations.deepClone(zeroStateFacade);
                     rotated[0][0] = CoreConstants.PIPE_MAX_POS + zFightOffset * 2;
@@ -181,7 +190,13 @@ public final class FacadeRenderHelper {
                     MatrixTranformations.transform(rotated, direction);
                     setRenderBounds(renderblocks, rotated, direction);
                     renderblocks.renderStandardBlockWithColorMultiplier(
-                            blockStateMachine.getBlock(), x, y, z, 1.0f, 1.0f, 1.0f);
+                            blockStateMachine.getBlock(),
+                            x,
+                            y,
+                            z,
+                            1.0f,
+                            1.0f,
+                            1.0f);
                     renderblocks.field_152631_f = false;
                 } else { // Solid facade
                     float[][] rotated = MatrixTranformations.deepClone(zeroStateFacade);
@@ -207,21 +222,22 @@ public final class FacadeRenderHelper {
         ((TextureStateManager) textureManager.getTextureState()).pushArray();
         blockStateMachine.setRenderAllSides();
 
-        textureManager
-                .getTextureState()
-                .set(BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                        PipeIconProvider.TYPE.PipeStructureCobblestone.ordinal())); // Structure Pipe
+        textureManager.getTextureState().set(
+                BuildCraftTransport.instance.pipeIconProvider
+                        .getIcon(PipeIconProvider.TYPE.PipeStructureCobblestone.ordinal())); // Structure Pipe
 
         // Always render connectors in pass 0
-        if (renderPass == 0
-                && !pluggable.isHollow()
-                && renderBlock != null
-                && renderBlock.getMaterial().isOpaque()) {
+        if (renderPass == 0 && !pluggable.isHollow() && renderBlock != null && renderBlock.getMaterial().isOpaque()) {
             float[][] rotated = MatrixTranformations.deepClone(zeroStateSupport);
             MatrixTranformations.transform(rotated, direction);
 
             renderblocks.setRenderBounds(
-                    rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                    rotated[0][0],
+                    rotated[1][0],
+                    rotated[2][0],
+                    rotated[0][1],
+                    rotated[1][1],
+                    rotated[2][1]);
             renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
         }
     }

@@ -1,12 +1,31 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.WorldSettings.GameType;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.core.BCLog;
@@ -43,25 +62,6 @@ import buildcraft.core.lib.network.command.PacketCommand;
 import buildcraft.core.lib.utils.NetworkUtils;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.WorldSettings.GameType;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileBuilder extends TileAbstractBuilder
         implements IHasWork, IFluidHandler, IRequestProvider, IControllable {
@@ -70,12 +70,10 @@ public class TileBuilder extends TileAbstractBuilder
 
     public Box box = new Box();
     public PathIterator currentPathIterator;
-    public Tank[] fluidTanks = new Tank[] {
-        new Tank("fluid1", FluidContainerRegistry.BUCKET_VOLUME * 8, this),
-        new Tank("fluid2", FluidContainerRegistry.BUCKET_VOLUME * 8, this),
-        new Tank("fluid3", FluidContainerRegistry.BUCKET_VOLUME * 8, this),
-        new Tank("fluid4", FluidContainerRegistry.BUCKET_VOLUME * 8, this)
-    };
+    public Tank[] fluidTanks = new Tank[] { new Tank("fluid1", FluidContainerRegistry.BUCKET_VOLUME * 8, this),
+            new Tank("fluid2", FluidContainerRegistry.BUCKET_VOLUME * 8, this),
+            new Tank("fluid3", FluidContainerRegistry.BUCKET_VOLUME * 8, this),
+            new Tank("fluid4", FluidContainerRegistry.BUCKET_VOLUME * 8, this) };
     public TankManager<Tank> fluidTank = new TankManager<Tank>(fluidTanks);
 
     private SafeTimeTracker networkUpdateTracker = new SafeTimeTracker(BuildCraftCore.updateFactor / 2);
@@ -223,7 +221,9 @@ public class TileBuilder extends TileAbstractBuilder
 
                 while (!done && currentBuilder != null && currentPathIterator != null) {
                     BlockIndex bi = new BlockIndex(
-                            (int) currentPathIterator.ix, (int) currentPathIterator.iy, (int) currentPathIterator.iz);
+                            (int) currentPathIterator.ix,
+                            (int) currentPathIterator.iy,
+                            (int) currentPathIterator.iz);
 
                     if (bi.equals(expectedTo)) {
                         break;
@@ -615,8 +615,7 @@ public class TileBuilder extends TileAbstractBuilder
     }
 
     public List<RequirementItemStack> getNeededItems() {
-        return worldObj.isRemote
-                ? requiredToBuild
+        return worldObj.isRemote ? requiredToBuild
                 : (currentBuilder instanceof BptBuilderBlueprint
                         ? ((BptBuilderBlueprint) currentBuilder).getNeededItems()
                         : null);
@@ -647,7 +646,9 @@ public class TileBuilder extends TileAbstractBuilder
                     } else {
                         BCLog.logger.error(
                                 "Corrupt ItemStack in TileBuilder.receiveCommand! This should not happen! (ID " + itemId
-                                        + ", damage " + itemDamage + ")");
+                                        + ", damage "
+                                        + itemDamage
+                                        + ")");
                     }
                 }
             }
@@ -672,6 +673,7 @@ public class TileBuilder extends TileAbstractBuilder
             items.addAll(itemsIn);
 
             return new PacketCommand(this, "setItemRequirements", new CommandWriter() {
+
                 public void write(ByteBuf data) {
                     data.writeMedium(items.size());
                     for (RequirementItemStack rb : items) {

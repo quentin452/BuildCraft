@@ -1,12 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 import buildcraft.BuildCraftBuilders;
 import buildcraft.builders.render.RenderArchitect;
@@ -21,11 +23,9 @@ import buildcraft.core.render.RenderBuilder;
 import buildcraft.core.render.RenderLEDTile;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 
 public class BuilderProxyClient extends BuilderProxy {
+
     public static IIcon drillTexture, drillSideTexture;
     public static IIcon drillHeadTexture;
 
@@ -40,19 +40,22 @@ public class BuilderProxyClient extends BuilderProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileConstructionMarker.class, new RenderConstructionMarker());
 
         ClientRegistry.bindTileEntitySpecialRenderer(
-                TileFiller.class, new RenderMultiTESR(new TileEntitySpecialRenderer[] {
-                    new RenderLEDTile(BuildCraftBuilders.fillerBlock), new RenderFiller()
-                }));
+                TileFiller.class,
+                new RenderMultiTESR(
+                        new TileEntitySpecialRenderer[] { new RenderLEDTile(BuildCraftBuilders.fillerBlock),
+                                new RenderFiller() }));
 
         ClientRegistry.bindTileEntitySpecialRenderer(
-                TileQuarry.class, new RenderMultiTESR(new TileEntitySpecialRenderer[] {
-                    new RenderLEDTile(BuildCraftBuilders.quarryBlock), new RenderBuilder()
-                }));
+                TileQuarry.class,
+                new RenderMultiTESR(
+                        new TileEntitySpecialRenderer[] { new RenderLEDTile(BuildCraftBuilders.quarryBlock),
+                                new RenderBuilder() }));
 
         ClientRegistry.bindTileEntitySpecialRenderer(
-                TileArchitect.class, new RenderMultiTESR(new TileEntitySpecialRenderer[] {
-                    new RenderLEDTile(BuildCraftBuilders.architectBlock), new RenderArchitect()
-                }));
+                TileArchitect.class,
+                new RenderMultiTESR(
+                        new TileEntitySpecialRenderer[] { new RenderLEDTile(BuildCraftBuilders.architectBlock),
+                                new RenderArchitect() }));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityMechanicalArm.class, new RenderVoid());
 

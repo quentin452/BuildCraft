@@ -1,23 +1,25 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.blueprints;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+
+import net.minecraft.nbt.NBTTagCompound;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 import buildcraft.api.core.ISerializable;
 import buildcraft.core.lib.utils.NetworkUtils;
 import io.netty.buffer.ByteBuf;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import net.minecraft.nbt.NBTTagCompound;
-import org.apache.commons.lang3.ArrayUtils;
 
 public final class LibraryId implements Comparable<LibraryId>, ISerializable {
+
     public static final char BPT_SEP_CHARACTER = '-';
 
     public byte[] uniqueId;
@@ -124,8 +126,8 @@ public final class LibraryId implements Comparable<LibraryId>, ISerializable {
         byte[] result = new byte[suffix.length() / 2];
 
         for (int i = 0; i < result.length; ++i) {
-            result[i] =
-                    (byte) ((byte) (fromHex(suffix.charAt(i * 2 + 1))) + (byte) (fromHex(suffix.charAt(i * 2)) << 4));
+            result[i] = (byte) ((byte) (fromHex(suffix.charAt(i * 2 + 1)))
+                    + (byte) (fromHex(suffix.charAt(i * 2)) << 4));
 
             result[i] -= 128;
         }

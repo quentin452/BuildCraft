@@ -1,13 +1,10 @@
 package buildcraft.core.list;
 
-import buildcraft.core.lib.inventory.StackHelper;
-import buildcraft.core.lib.utils.NBTUtils;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.WeakHashMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -16,10 +13,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 
+import buildcraft.core.lib.inventory.StackHelper;
+import buildcraft.core.lib.utils.NBTUtils;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+
 public final class ListHandlerOld {
+
     private static final WeakHashMap<ItemStack, StackLine[]> LINE_CACHE = new WeakHashMap<ItemStack, StackLine[]>();
 
     public static class StackLine {
+
         public boolean oreWildcard = false;
         public boolean subitemsWildcard = false;
         public boolean isOre;
@@ -155,14 +159,12 @@ public final class ListHandlerOld {
                     for (Object ol : list) {
                         ItemStack stack = (ItemStack) ol;
 
-                        if (classMatch
-                                && relatedItems.size() <= 7
+                        if (classMatch && relatedItems.size() <= 7
                                 && !StackHelper.isMatchingItemOrList(stacks[0], stack)) {
                             relatedItems.add(stack);
                         }
 
-                        if (isOre
-                                && ores.size() <= 7
+                        if (isOre && ores.size() <= 7
                                 && !StackHelper.isMatchingItemOrList(stacks[0], stack)
                                 && oreMatch(stacks[0], stack)) {
                             ores.add(stack);

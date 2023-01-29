@@ -1,21 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.blueprints;
 
-import buildcraft.api.core.BuildCraftAPI;
 import java.util.LinkedList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.core.BuildCraftAPI;
 
 public class SchematicMask extends SchematicBlockBase {
 
@@ -34,9 +34,7 @@ public class SchematicMask extends SchematicBlockBase {
                 return;
             } else {
                 ItemStack stack = stacks.getFirst();
-                EntityPlayer player = BuildCraftAPI.proxy
-                        .getBuildCraftPlayer((WorldServer) context.world())
-                        .get();
+                EntityPlayer player = BuildCraftAPI.proxy.getBuildCraftPlayer((WorldServer) context.world()).get();
 
                 // force the block to be air block, in case it's just a soft
                 // block which replacement is not straightforward
@@ -44,9 +42,8 @@ public class SchematicMask extends SchematicBlockBase {
 
                 // Find nearest solid surface to place on
                 ForgeDirection dir = ForgeDirection.DOWN;
-                while (dir != ForgeDirection.UNKNOWN
-                        && BuildCraftAPI.isSoftBlock(
-                                context.world(), x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ)) {
+                while (dir != ForgeDirection.UNKNOWN && BuildCraftAPI
+                        .isSoftBlock(context.world(), x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ)) {
                     dir = ForgeDirection.getOrientation(dir.ordinal() + 1);
                 }
 

@@ -1,19 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.energy;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.tools.IToolWrench;
-import buildcraft.core.PowerMode;
-import buildcraft.core.lib.engines.TileEngineBase;
-import buildcraft.core.lib.utils.StringUtils;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,7 +13,15 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.api.tools.IToolWrench;
+import buildcraft.core.PowerMode;
+import buildcraft.core.lib.engines.TileEngineBase;
+import buildcraft.core.lib.utils.StringUtils;
+import io.netty.buffer.ByteBuf;
+
 public class TileEngineCreative extends TileEngineBase {
+
     private PowerMode powerMode = PowerMode.M2;
 
     @Override
@@ -32,9 +32,7 @@ public class TileEngineCreative extends TileEngineBase {
     @Override
     public boolean onBlockActivated(EntityPlayer player, ForgeDirection side) {
         if (!getWorldObj().isRemote) {
-            Item equipped = player.getCurrentEquippedItem() != null
-                    ? player.getCurrentEquippedItem().getItem()
-                    : null;
+            Item equipped = player.getCurrentEquippedItem() != null ? player.getCurrentEquippedItem().getItem() : null;
 
             if (equipped instanceof IToolWrench && ((IToolWrench) equipped).canWrench(player, xCoord, yCoord, zCoord)) {
                 powerMode = powerMode.getNext();
@@ -42,9 +40,10 @@ public class TileEngineCreative extends TileEngineBase {
 
                 if (!(player instanceof FakePlayer)) {
                     if (BuildCraftCore.hidePowerNumbers) {
-                        player.addChatMessage(new ChatComponentTranslation(
-                                "chat.pipe.power.iron.mode.numberless",
-                                StringUtils.localize("chat.pipe.power.iron.level." + powerMode.maxPower)));
+                        player.addChatMessage(
+                                new ChatComponentTranslation(
+                                        "chat.pipe.power.iron.mode.numberless",
+                                        StringUtils.localize("chat.pipe.power.iron.level." + powerMode.maxPower)));
                     } else {
                         player.addChatMessage(
                                 new ChatComponentTranslation("chat.pipe.power.iron.mode", powerMode.maxPower));

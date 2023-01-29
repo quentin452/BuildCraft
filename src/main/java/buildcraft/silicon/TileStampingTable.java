@@ -1,16 +1,7 @@
 package buildcraft.silicon;
 
-import buildcraft.api.tiles.IHasWork;
-import buildcraft.core.lib.gui.ContainerDummy;
-import buildcraft.core.lib.inventory.InvUtils;
-import buildcraft.core.lib.inventory.StackHelper;
-import buildcraft.core.lib.utils.CraftingUtils;
-import buildcraft.core.lib.utils.NBTUtils;
-import buildcraft.core.lib.utils.StringUtils;
-import buildcraft.core.lib.utils.Utils;
-import buildcraft.core.proxy.CoreProxy;
-import cpw.mods.fml.common.FMLCommonHandler;
 import java.lang.ref.WeakReference;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -22,8 +13,21 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.WorldServer;
 
+import buildcraft.api.tiles.IHasWork;
+import buildcraft.core.lib.gui.ContainerDummy;
+import buildcraft.core.lib.inventory.InvUtils;
+import buildcraft.core.lib.inventory.StackHelper;
+import buildcraft.core.lib.utils.CraftingUtils;
+import buildcraft.core.lib.utils.NBTUtils;
+import buildcraft.core.lib.utils.StringUtils;
+import buildcraft.core.lib.utils.Utils;
+import buildcraft.core.proxy.CoreProxy;
+import cpw.mods.fml.common.FMLCommonHandler;
+
 public class TileStampingTable extends TileLaserTableBase implements IHasWork, ISidedInventory {
+
     private class LocalInventoryCrafting extends InventoryCrafting {
+
         public LocalInventoryCrafting() {
             super(new ContainerDummy(), 3, 3);
         }
@@ -132,8 +136,7 @@ public class TileStampingTable extends TileLaserTableBase implements IHasWork, I
             }
 
             IRecipe recipe = crafting.findRecipe();
-            ItemStack result =
-                    recipe != null ? recipe.getCraftingResult(crafting).copy() : null;
+            ItemStack result = recipe != null ? recipe.getCraftingResult(crafting).copy() : null;
 
             addEnergy(-getRequiredEnergy());
 
@@ -159,8 +162,12 @@ public class TileStampingTable extends TileLaserTableBase implements IHasWork, I
                 }
 
                 if (result.stackSize > 0) {
-                    EntityItem entityitem =
-                            new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.7, zCoord + 0.5, result.copy());
+                    EntityItem entityitem = new EntityItem(
+                            worldObj,
+                            xCoord + 0.5,
+                            yCoord + 0.7,
+                            zCoord + 0.5,
+                            result.copy());
 
                     worldObj.spawnEntityInWorld(entityitem);
                     result.stackSize = 0;

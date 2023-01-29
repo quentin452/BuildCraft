@@ -1,19 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.block;
 
-import buildcraft.core.lib.render.EntityDropParticleFX;
-import buildcraft.core.lib.utils.ResourceUtils;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -28,6 +22,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+
+import buildcraft.core.lib.render.EntityDropParticleFX;
+import buildcraft.core.lib.utils.ResourceUtils;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockBuildCraftFluid extends BlockFluidClassic {
 
@@ -59,10 +59,8 @@ public class BlockBuildCraftFluid extends BlockFluidClassic {
     public void registerBlockIcons(IIconRegister iconRegister) {
         String prefix = ResourceUtils.getObjectPrefix(Block.blockRegistry.getNameForObject(this));
         prefix = prefix.substring(0, prefix.indexOf(":") + 1) + "fluids/";
-        this.theIcon = new IIcon[] {
-            iconRegister.registerIcon(prefix + fluidName + "_still"),
-            iconRegister.registerIcon(prefix + fluidName + "_flow")
-        };
+        this.theIcon = new IIcon[] { iconRegister.registerIcon(prefix + fluidName + "_still"),
+                iconRegister.registerIcon(prefix + fluidName + "_flow") };
     }
 
     public static boolean isFluidExplosive(World world, int x, int z) {
@@ -157,8 +155,7 @@ public class BlockBuildCraftFluid extends BlockFluidClassic {
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
         super.randomDisplayTick(world, x, y, z, rand);
 
-        if (rand.nextInt(10) == 0
-                && World.doesBlockHaveSolidTopSurface(world, x, y - 1, z)
+        if (rand.nextInt(10) == 0 && World.doesBlockHaveSolidTopSurface(world, x, y - 1, z)
                 && !world.getBlock(x, y - 2, z).getMaterial().blocksMovement()) {
 
             double px = x + rand.nextFloat();

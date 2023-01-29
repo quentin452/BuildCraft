@@ -1,12 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.statements;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
@@ -19,12 +21,11 @@ import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TriggerEnergy extends BCStatement implements ITriggerInternal {
+
     public static class Neighbor {
+
         public TileEntity tile;
         public ForgeDirection side;
 
@@ -127,11 +128,10 @@ public class TriggerEnergy extends BCStatement implements ITriggerInternal {
             }
         } else {
             for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
-                TileEntity tile = parent.getWorldObj()
-                        .getTileEntity(
-                                parent.xCoord + side.offsetX,
-                                parent.yCoord + side.offsetY,
-                                parent.zCoord + side.offsetZ);
+                TileEntity tile = parent.getWorldObj().getTileEntity(
+                        parent.xCoord + side.offsetX,
+                        parent.yCoord + side.offsetY,
+                        parent.zCoord + side.offsetZ);
                 if (tile != null && isTriggered(tile, side)) {
                     return new Neighbor(tile, side);
                 }

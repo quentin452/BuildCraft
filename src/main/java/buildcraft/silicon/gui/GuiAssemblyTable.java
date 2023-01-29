@@ -1,12 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon.gui;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.recipes.CraftingResult;
@@ -15,22 +27,11 @@ import buildcraft.core.lib.gui.AdvancedSlot;
 import buildcraft.core.lib.gui.GuiAdvancedInterface;
 import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.silicon.TileAssemblyTable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GuiAssemblyTable extends GuiAdvancedInterface {
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("buildcraftsilicon:textures/gui/assembly_table.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "buildcraftsilicon:textures/gui/assembly_table.png");
 
     private class LaserTableLedger extends Ledger {
 
@@ -59,15 +60,24 @@ public class GuiAssemblyTable extends GuiAdvancedInterface {
 
             fontRendererObj.drawStringWithShadow(StringUtils.localize("gui.energy"), x + 22, y + 8, headerColour);
             fontRendererObj.drawStringWithShadow(
-                    StringUtils.localize("gui.assemblyCurrentRequired") + ":", x + 22, y + 20, subheaderColour);
+                    StringUtils.localize("gui.assemblyCurrentRequired") + ":",
+                    x + 22,
+                    y + 20,
+                    subheaderColour);
             fontRendererObj.drawString(String.format("%d RF", table.clientRequiredEnergy), x + 22, y + 32, textColour);
-            fontRendererObj.drawStringWithShadow(
-                    StringUtils.localize("gui.stored") + ":", x + 22, y + 44, subheaderColour);
+            fontRendererObj
+                    .drawStringWithShadow(StringUtils.localize("gui.stored") + ":", x + 22, y + 44, subheaderColour);
             fontRendererObj.drawString(String.format("%d RF", table.getEnergy()), x + 22, y + 56, textColour);
             fontRendererObj.drawStringWithShadow(
-                    StringUtils.localize("gui.assemblyRate") + ":", x + 22, y + 68, subheaderColour);
+                    StringUtils.localize("gui.assemblyRate") + ":",
+                    x + 22,
+                    y + 68,
+                    subheaderColour);
             fontRendererObj.drawString(
-                    String.format("%.1f RF/t", table.getRecentEnergyAverage() / 100.0f), x + 22, y + 80, textColour);
+                    String.format("%.1f RF/t", table.getRecentEnergyAverage() / 100.0f),
+                    x + 22,
+                    y + 80,
+                    textColour);
         }
 
         @Override
@@ -79,6 +89,7 @@ public class GuiAssemblyTable extends GuiAdvancedInterface {
     private final TileAssemblyTable table;
 
     class RecipeSlot extends AdvancedSlot {
+
         public CraftingResult<ItemStack> crafting;
         public boolean craftable;
 

@@ -1,12 +1,14 @@
 package buildcraft.core.lib.render;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class DynamicTextureBC {
+
     public final int width, height;
     public int[] colorMap;
 
@@ -77,12 +79,16 @@ public class DynamicTextureBC {
         float f1 = 1F / height;
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
+        tessellator
+                .addVertexWithUV(screenX + 0, screenY + clipHeight, zLevel, (clipX + 0) * f, (clipY + clipHeight) * f1);
         tessellator.addVertexWithUV(
-                screenX + 0, screenY + clipHeight, zLevel, (clipX + 0) * f, (clipY + clipHeight) * f1);
-        tessellator.addVertexWithUV(
-                screenX + clipWidth, screenY + clipHeight, zLevel, (clipX + clipWidth) * f, (clipY + clipHeight) * f1);
-        tessellator.addVertexWithUV(
-                screenX + clipWidth, screenY + 0, zLevel, (clipX + clipWidth) * f, (clipY + 0) * f1);
+                screenX + clipWidth,
+                screenY + clipHeight,
+                zLevel,
+                (clipX + clipWidth) * f,
+                (clipY + clipHeight) * f1);
+        tessellator
+                .addVertexWithUV(screenX + clipWidth, screenY + 0, zLevel, (clipX + clipWidth) * f, (clipY + 0) * f1);
         tessellator.addVertexWithUV(screenX + 0, screenY + 0, zLevel, (clipX + 0) * f, (clipY + 0) * f1);
         tessellator.draw();
     }

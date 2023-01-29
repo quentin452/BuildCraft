@@ -1,6 +1,7 @@
 package buildcraft.core.lib.utils;
 
 import java.io.IOException;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -9,6 +10,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 public final class ResourceUtils {
+
     private ResourceUtils() {}
 
     public static IIcon getIconPriority(IIconRegister register, String prefix, String[] suffixes) {
@@ -31,7 +33,10 @@ public final class ResourceUtils {
 
         if (register instanceof TextureMap) {
             String dir = ((TextureMap) register).getTextureType() == 1 ? "items" : "blocks";
-            return name.substring(0, splitLocation) + ":textures/" + dir + "/" + name.substring(splitLocation + 1)
+            return name.substring(0, splitLocation) + ":textures/"
+                    + dir
+                    + "/"
+                    + name.substring(splitLocation + 1)
                     + ".png";
         } else {
             // ???

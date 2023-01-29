@@ -3,6 +3,7 @@ package buildcraft.api.library;
 import net.minecraft.item.ItemStack;
 
 public abstract class LibraryTypeHandler {
+
     public enum HandlerType {
         LOAD,
         STORE

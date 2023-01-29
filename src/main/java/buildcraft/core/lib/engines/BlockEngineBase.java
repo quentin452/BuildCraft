@@ -1,23 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.engines;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.events.BlockInteractionEvent;
-import buildcraft.api.transport.IItemPipe;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import buildcraft.core.lib.render.ICustomHighlight;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -32,32 +23,30 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.api.events.BlockInteractionEvent;
+import buildcraft.api.transport.IItemPipe;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import buildcraft.core.lib.render.ICustomHighlight;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public abstract class BlockEngineBase extends BlockBuildCraft implements ICustomHighlight {
+
     private static final AxisAlignedBB[][] boxes = {
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.5, 0.0, 1.0, 1.0, 1.0),
-            AxisAlignedBB.getBoundingBox(0.25, 0.0, 0.25, 0.75, 0.5, 0.75)
-        }, // -Y
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 0.5, 1.0),
-            AxisAlignedBB.getBoundingBox(0.25, 0.5, 0.25, 0.75, 1.0, 0.75)
-        }, // +Y
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.5, 1.0, 1.0, 1.0),
-            AxisAlignedBB.getBoundingBox(0.25, 0.25, 0.0, 0.75, 0.75, 0.5)
-        }, // -Z
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 1.0, 0.5),
-            AxisAlignedBB.getBoundingBox(0.25, 0.25, 0.5, 0.75, 0.75, 1.0)
-        }, // +Z
-        {
-            AxisAlignedBB.getBoundingBox(0.5, 0.0, 0.0, 1.0, 1.0, 1.0),
-            AxisAlignedBB.getBoundingBox(0.0, 0.25, 0.25, 0.5, 0.75, 0.75)
-        }, // -X
-        {
-            AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 0.5, 1.0, 1.0),
-            AxisAlignedBB.getBoundingBox(0.5, 0.25, 0.25, 1.0, 0.75, 0.75)
-        } // +X
+            { AxisAlignedBB.getBoundingBox(0.0, 0.5, 0.0, 1.0, 1.0, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.25, 0.0, 0.25, 0.75, 0.5, 0.75) }, // -Y
+            { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 0.5, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.25, 0.5, 0.25, 0.75, 1.0, 0.75) }, // +Y
+            { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.5, 1.0, 1.0, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.25, 0.25, 0.0, 0.75, 0.75, 0.5) }, // -Z
+            { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 1.0, 0.5),
+                    AxisAlignedBB.getBoundingBox(0.25, 0.25, 0.5, 0.75, 0.75, 1.0) }, // +Z
+            { AxisAlignedBB.getBoundingBox(0.5, 0.0, 0.0, 1.0, 1.0, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.0, 0.25, 0.25, 0.5, 0.75, 0.75) }, // -X
+            { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 0.5, 1.0, 1.0),
+                    AxisAlignedBB.getBoundingBox(0.5, 0.25, 0.25, 1.0, 0.75, 0.75) } // +X
     };
 
     public BlockEngineBase() {
@@ -123,8 +112,8 @@ public abstract class BlockEngineBase extends BlockBuildCraft implements ICustom
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int i, int j, int k, EntityPlayer player, int side, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int side, float par7,
+            float par8, float par9) {
         TileEntity tile = world.getTileEntity(i, j, k);
 
         BlockInteractionEvent event = new BlockInteractionEvent(player, this, world.getBlockMetadata(i, j, k));
@@ -170,7 +159,7 @@ public abstract class BlockEngineBase extends BlockBuildCraft implements ICustom
         if (tile instanceof TileEngineBase) {
             return boxes[((TileEngineBase) tile).orientation.ordinal()];
         } else {
-            return new AxisAlignedBB[] {AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 1.0, 1.0)};
+            return new AxisAlignedBB[] { AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 1.0, 1.0) };
         }
     }
 
@@ -223,7 +212,7 @@ public abstract class BlockEngineBase extends BlockBuildCraft implements ICustom
         return i;
     }
 
-    @SuppressWarnings({"all"})
+    @SuppressWarnings({ "all" })
     @Override
     public void randomDisplayTick(World world, int i, int j, int k, Random random) {
         TileEntity tile = world.getTileEntity(i, j, k);

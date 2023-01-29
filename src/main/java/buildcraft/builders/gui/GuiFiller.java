@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders.gui;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.filler.FillerManager;
@@ -30,13 +33,11 @@ import buildcraft.core.lib.network.command.CommandWriter;
 import buildcraft.core.lib.network.command.PacketCommand;
 import buildcraft.core.lib.utils.StringUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 
 public class GuiFiller extends GuiAdvancedInterface {
+
     class FillerParameterSlot extends StatementParameterSlot {
+
         public FillerParameterSlot(int x, int y, int slot) {
             super(instance, x, y, slot, fakeStatementSlot);
         }
@@ -68,6 +69,7 @@ public class GuiFiller extends GuiAdvancedInterface {
         this.filler = filler;
         this.instance = this;
         this.fakeStatementSlot = new StatementSlot(instance, -1, -1, 0) {
+
             @Override
             public IStatement getStatement() {
                 return instance.filler.currentPattern;
@@ -82,11 +84,12 @@ public class GuiFiller extends GuiAdvancedInterface {
     }
 
     private GuiBetterButton getExcavateButton() {
-        return new GuiBetterButton(2, guiLeft + 150, guiTop + 30, 16, getExcavateTexture(), "")
-                .setToolTip(new ToolTip(
+        return new GuiBetterButton(2, guiLeft + 150, guiTop + 30, 16, getExcavateTexture(), "").setToolTip(
+                new ToolTip(
                         500,
-                        new ToolTipLine(StatCollector.translateToLocal(
-                                "tip.filler.excavate." + (filler.isExcavate() ? "on" : "off")))));
+                        new ToolTipLine(
+                                StatCollector.translateToLocal(
+                                        "tip.filler.excavate." + (filler.isExcavate() ? "on" : "off")))));
     }
 
     @Override
@@ -96,8 +99,14 @@ public class GuiFiller extends GuiAdvancedInterface {
 
         buttonList.add(
                 new GuiBetterButton(0, guiLeft + 38 - 18, guiTop + 30, 10, StandardButtonTextureSets.LEFT_BUTTON, ""));
-        buttonList.add(new GuiBetterButton(
-                1, guiLeft + 38 + 16 + 8, guiTop + 30, 10, StandardButtonTextureSets.RIGHT_BUTTON, ""));
+        buttonList.add(
+                new GuiBetterButton(
+                        1,
+                        guiLeft + 38 + 16 + 8,
+                        guiTop + 30,
+                        10,
+                        StandardButtonTextureSets.RIGHT_BUTTON,
+                        ""));
         buttonList.add(getExcavateButton());
 
         slots.clear();
@@ -120,6 +129,7 @@ public class GuiFiller extends GuiAdvancedInterface {
             buttonList.set(2, getExcavateButton());
 
             BuildCraftCore.instance.sendToServer(new PacketCommand(filler, "setFlags", new CommandWriter() {
+
                 public void write(ByteBuf data) {
                     data.writeBoolean(filler.isExcavate());
                 }

@@ -1,12 +1,22 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.builders;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.MathHelper;
+import net.minecraftforge.common.util.Constants;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.blueprints.IBuilderContext;
@@ -18,16 +28,6 @@ import buildcraft.core.BlockBuildTool;
 import buildcraft.core.StackAtPosition;
 import buildcraft.core.lib.inventory.InvUtils;
 import io.netty.buffer.ByteBuf;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.MathHelper;
-import net.minecraftforge.common.util.Constants;
 
 public class BuildingItem implements IBuildingItem, ISerializable {
 
@@ -90,9 +90,9 @@ public class BuildingItem implements IBuildingItem, ISerializable {
             double d1 = Math.sqrt(
                     originToTop.x * originToTop.x + originToTop.y * originToTop.y + originToTop.z * originToTop.z);
 
-            double d2 = Math.sqrt(destinationToTop.x * destinationToTop.x
-                    + destinationToTop.y * destinationToTop.y
-                    + destinationToTop.z * destinationToTop.z);
+            double d2 = Math.sqrt(
+                    destinationToTop.x * destinationToTop.x + destinationToTop.y * destinationToTop.y
+                            + destinationToTop.z * destinationToTop.z);
 
             d1 = d1 / size * maxLifetime;
             d2 = d2 / size * maxLifetime;
@@ -162,11 +162,11 @@ public class BuildingItem implements IBuildingItem, ISerializable {
 
     private void build() {
         if (slotToBuild != null) {
-            /*if (BlockUtil.isToughBlock(context.world(), destX, destY, destZ)) {
-            	BlockUtil.breakBlock(context.world(), destX, destY, destZ, BuildCraftBuilders.fillerLifespanTough);
-            } else {
-            	BlockUtil.breakBlock(context.world(), destX, destY, destZ, BuildCraftBuilders.fillerLifespanNormal);
-            }*/
+            /*
+             * if (BlockUtil.isToughBlock(context.world(), destX, destY, destZ)) { BlockUtil.breakBlock(context.world(),
+             * destX, destY, destZ, BuildCraftBuilders.fillerLifespanTough); } else {
+             * BlockUtil.breakBlock(context.world(), destX, destY, destZ, BuildCraftBuilders.fillerLifespanNormal); }
+             */
 
             int destX = (int) Math.floor(destination.x);
             int destY = (int) Math.floor(destination.y);
@@ -175,14 +175,17 @@ public class BuildingItem implements IBuildingItem, ISerializable {
             int oldMeta = context.world().getBlockMetadata(destX, destY, destZ);
 
             if (slotToBuild.writeToWorld(context)) {
-                context.world()
-                        .playAuxSFXAtEntity(
-                                null, 2001, destX, destY, destZ, Block.getIdFromBlock(oldBlock) + (oldMeta << 12));
+                context.world().playAuxSFXAtEntity(
+                        null,
+                        2001,
+                        destX,
+                        destY,
+                        destZ,
+                        Block.getIdFromBlock(oldBlock) + (oldMeta << 12));
             } else if (slotToBuild.stackConsumed != null) {
                 for (ItemStack s : slotToBuild.stackConsumed) {
-                    if (s != null
-                            && !(s.getItem() instanceof ItemBlock
-                                    && Block.getBlockFromItem(s.getItem()) instanceof BlockBuildTool)) {
+                    if (s != null && !(s.getItem() instanceof ItemBlock
+                            && Block.getBlockFromItem(s.getItem()) instanceof BlockBuildTool)) {
                         InvUtils.dropItems(context.world(), s, destX, destY, destZ);
                     }
                 }

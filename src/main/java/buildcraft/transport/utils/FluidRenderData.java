@@ -3,6 +3,7 @@ package buildcraft.transport.utils;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidRenderData {
+
     public int fluidID, color, flags;
     public int[] amount = new int[7];
 

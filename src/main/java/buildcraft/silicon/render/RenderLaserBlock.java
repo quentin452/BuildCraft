@@ -1,24 +1,25 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon.render;
 
-import buildcraft.core.lib.render.RenderUtils;
-import buildcraft.core.render.BCSimpleBlockRenderingHandler;
-import buildcraft.silicon.SiliconProxy;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.core.lib.render.RenderUtils;
+import buildcraft.core.render.BCSimpleBlockRenderingHandler;
+import buildcraft.silicon.SiliconProxy;
+
 public class RenderLaserBlock extends BCSimpleBlockRenderingHandler {
+
     @Override
     public int getRenderId() {
         return SiliconProxy.laserBlockModel;
@@ -30,8 +31,8 @@ public class RenderLaserBlock extends BCSimpleBlockRenderingHandler {
     }
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess iblockaccess, int x, int y, int z, Block block, int l, RenderBlocks renderblocks) {
+    public boolean renderWorldBlock(IBlockAccess iblockaccess, int x, int y, int z, Block block, int l,
+            RenderBlocks renderblocks) {
         int meta = iblockaccess.getBlockMetadata(x, y, z);
 
         if (meta == ForgeDirection.EAST.ordinal()) {

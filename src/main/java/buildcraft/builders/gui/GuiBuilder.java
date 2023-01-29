@@ -1,12 +1,22 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders.gui;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.builders.TileBuilder;
@@ -18,21 +28,13 @@ import buildcraft.core.lib.network.command.CommandWriter;
 import buildcraft.core.lib.network.command.PacketCommand;
 import buildcraft.core.lib.utils.StringUtils;
 import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
 
 public class GuiBuilder extends GuiAdvancedInterface {
-    private static final ResourceLocation REGULAR_TEXTURE =
-            new ResourceLocation("buildcraftbuilders:textures/gui/builder.png");
-    private static final ResourceLocation BLUEPRINT_TEXTURE =
-            new ResourceLocation("buildcraftbuilders:textures/gui/builder_blueprint.png");
+
+    private static final ResourceLocation REGULAR_TEXTURE = new ResourceLocation(
+            "buildcraftbuilders:textures/gui/builder.png");
+    private static final ResourceLocation BLUEPRINT_TEXTURE = new ResourceLocation(
+            "buildcraftbuilders:textures/gui/builder_blueprint.png");
     private TileBuilder builder;
     private GuiButton selectedButton;
 
@@ -80,8 +82,11 @@ public class GuiBuilder extends GuiAdvancedInterface {
                 if (tank.getFluid() != null && tank.getFluid().amount > 0) {
                     fluidTip.add(tank.getFluid().getLocalizedName());
                     if (!BuildCraftCore.hideFluidNumbers) {
-                        fluidTip.add(EnumChatFormatting.GRAY + "" + EnumChatFormatting.ITALIC + tank.getFluid().amount
-                                + " mB");
+                        fluidTip.add(
+                                EnumChatFormatting.GRAY + ""
+                                        + EnumChatFormatting.ITALIC
+                                        + tank.getFluid().amount
+                                        + " mB");
                     }
                 } else {
                     fluidTip.add(StatCollector.translateToLocal("gui.fluidtank.empty"));
@@ -184,6 +189,7 @@ public class GuiBuilder extends GuiAdvancedInterface {
     }
 
     private class BuilderEraseButton extends GuiButton {
+
         private boolean clicked;
 
         public BuilderEraseButton(int id, int x, int y, int width, int height) {
@@ -196,6 +202,7 @@ public class GuiBuilder extends GuiAdvancedInterface {
                 selectedButton = this;
                 clicked = true;
                 BuildCraftCore.instance.sendToServer(new PacketCommand(builder, "eraseFluidTank", new CommandWriter() {
+
                     public void write(ByteBuf data) {
                         data.writeInt(id);
                     }
@@ -218,8 +225,7 @@ public class GuiBuilder extends GuiAdvancedInterface {
                 return;
             }
             // hovered
-            this.field_146123_n = x >= this.xPosition
-                    && y >= this.yPosition
+            this.field_146123_n = x >= this.xPosition && y >= this.yPosition
                     && x < this.xPosition + this.width
                     && y < this.yPosition + this.height;
 

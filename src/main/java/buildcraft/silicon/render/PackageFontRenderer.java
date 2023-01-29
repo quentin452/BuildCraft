@@ -1,8 +1,8 @@
 package buildcraft.silicon.render;
 
-import buildcraft.core.lib.utils.NBTUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -10,9 +10,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.core.lib.utils.NBTUtils;
+
 public class PackageFontRenderer extends FontRenderer {
+
     private static final RenderItem itemRender = new RenderItem();
     private static final Minecraft mc = Minecraft.getMinecraft();
     private static final FontRenderer realRenderer = mc.fontRenderer;

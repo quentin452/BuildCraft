@@ -1,17 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.factory.render;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.BuildCraftCore.RenderMode;
-import buildcraft.core.lib.render.IInventoryRenderer;
-import buildcraft.core.lib.render.ModelFrustum;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -19,14 +13,20 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
+import buildcraft.BuildCraftCore;
+import buildcraft.BuildCraftCore.RenderMode;
+import buildcraft.core.lib.render.IInventoryRenderer;
+import buildcraft.core.lib.render.ModelFrustum;
 
 public class RenderHopper extends TileEntitySpecialRenderer implements IInventoryRenderer {
 
-    private static final ResourceLocation HOPPER_TEXTURE =
-            new ResourceLocation("buildcraftfactory:textures/blocks/hopperBlock/top.png");
-    private static final ResourceLocation HOPPER_MIDDLE_TEXTURE =
-            new ResourceLocation("buildcraftfactory:textures/blocks/hopperBlock/middle.png");
+    private static final ResourceLocation HOPPER_TEXTURE = new ResourceLocation(
+            "buildcraftfactory:textures/blocks/hopperBlock/top.png");
+    private static final ResourceLocation HOPPER_MIDDLE_TEXTURE = new ResourceLocation(
+            "buildcraftfactory:textures/blocks/hopperBlock/middle.png");
     private ModelBase model = new ModelBase() {};
     private final ModelRenderer top;
     private final ModelFrustum middle;

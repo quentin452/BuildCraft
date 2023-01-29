@@ -1,9 +1,11 @@
 package buildcraft.api.lists;
 
 import java.util.List;
+
 import net.minecraft.item.ItemStack;
 
 public abstract class ListMatchHandler {
+
     public enum Type {
         TYPE,
         MATERIAL,
@@ -16,9 +18,11 @@ public abstract class ListMatchHandler {
 
     /**
      * Get custom client examples.
+     * 
      * @param type
      * @param stack
-     * @return A List (even empty!) if the examples satisfy this handler, null if iteration and .matches should be used instead.
+     * @return A List (even empty!) if the examples satisfy this handler, null if iteration and .matches should be used
+     *         instead.
      */
     public List<ItemStack> getClientExamples(Type type, ItemStack stack) {
         return null;

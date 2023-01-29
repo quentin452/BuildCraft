@@ -1,25 +1,27 @@
 package buildcraft.core.tablet;
 
-import buildcraft.api.tablet.TabletBitmap;
-import buildcraft.core.lib.render.DynamicTextureBC;
-import buildcraft.core.tablet.manager.TabletManagerClient;
-import buildcraft.core.tablet.manager.TabletThread;
 import java.util.Date;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.api.tablet.TabletBitmap;
+import buildcraft.core.lib.render.DynamicTextureBC;
+import buildcraft.core.tablet.manager.TabletManagerClient;
+import buildcraft.core.tablet.manager.TabletThread;
+
 public class GuiTablet extends GuiScreen {
+
     private static final boolean ENABLE_HIGHLIGHT = false;
 
-    private static final int[] PALETTE = new int[] {
-        0x00000000, 0x1c000000, 0x30000000, 0x48000000,
-        0x60000000, 0x78000000, 0x9a000000, 0xbc000000
-    };
+    private static final int[] PALETTE = new int[] { 0x00000000, 0x1c000000, 0x30000000, 0x48000000, 0x60000000,
+            0x78000000, 0x9a000000, 0xbc000000 };
     private static final ResourceLocation TEXTURE = new ResourceLocation("buildcraftcore", "textures/gui/tablet.png");
     private static final int X_SIZE = 142;
     private static final int Y_SIZE = 180;

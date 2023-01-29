@@ -1,9 +1,7 @@
 package buildcraft.core;
 
-import buildcraft.core.lib.items.ItemBlockBuildCraft;
-import buildcraft.core.lib.utils.Utils;
-import cpw.mods.fml.common.registry.GameRegistry;
 import java.io.File;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -12,7 +10,12 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import buildcraft.core.lib.items.ItemBlockBuildCraft;
+import buildcraft.core.lib.utils.Utils;
+import cpw.mods.fml.common.registry.GameRegistry;
+
 public final class BCRegistry {
+
     public static final BCRegistry INSTANCE = new BCRegistry();
     private Configuration regCfg;
 
@@ -83,7 +86,7 @@ public final class BCRegistry {
         return false;
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void registerTileEntity(Class clas, String ident) {
         GameRegistry.registerTileEntity(CompatHooks.INSTANCE.getTile(clas), ident);
     }

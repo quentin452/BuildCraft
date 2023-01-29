@@ -1,7 +1,5 @@
 package buildcraft.transport;
 
-import buildcraft.transport.pipes.events.PipeEvent;
-import buildcraft.transport.pipes.events.PipeEventPriority;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,8 +9,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import buildcraft.transport.pipes.events.PipeEvent;
+import buildcraft.transport.pipes.events.PipeEventPriority;
+
 public class PipeEventBus {
+
     private class EventHandler {
+
         public Method method;
         public Object owner;
 
@@ -33,6 +36,7 @@ public class PipeEventBus {
     }
 
     private static class EventHandlerCompare implements Comparator<EventHandler> {
+
         private int getPriority(EventHandler eh) {
             PipeEventPriority p = eh.method.getAnnotation(PipeEventPriority.class);
             return p != null ? p.priority() : 0;
@@ -50,10 +54,8 @@ public class PipeEventBus {
     private static final HashSet<Object> globalHandlers = new HashSet<Object>();
 
     private final HashSet<Object> registeredHandlers = new HashSet<Object>();
-    private final HashMap<Object, Map<Method, Class<? extends PipeEvent>>> handlerMethods =
-            new HashMap<Object, Map<Method, Class<? extends PipeEvent>>>();
-    private final HashMap<Class<? extends PipeEvent>, List<EventHandler>> eventHandlers =
-            new HashMap<Class<? extends PipeEvent>, List<EventHandler>>();
+    private final HashMap<Object, Map<Method, Class<? extends PipeEvent>>> handlerMethods = new HashMap<Object, Map<Method, Class<? extends PipeEvent>>>();
+    private final HashMap<Class<? extends PipeEvent>, List<EventHandler>> eventHandlers = new HashMap<Class<? extends PipeEvent>, List<EventHandler>>();
 
     public PipeEventBus() {
         for (Object o : globalHandlers) {

@@ -1,13 +1,15 @@
 package buildcraft.robotics.statements;
 
+import net.minecraft.item.ItemStack;
+
 import buildcraft.api.items.IMapLocation;
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.StatementMouseClick;
 import buildcraft.api.statements.StatementParameterItemStack;
-import net.minecraft.item.ItemStack;
 
 public class StatementParameterMapLocation extends StatementParameterItemStack {
+
     @Override
     public String getUniqueTag() {
         return "buildcraft:maplocation";

@@ -1,22 +1,23 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.gates;
 
-import com.google.common.collect.HashBiMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import net.minecraft.item.ItemStack;
 
+import com.google.common.collect.HashBiMap;
+
 public final class GateExpansions {
+
     private static final Map<String, IGateExpansion> expansions = new HashMap<String, IGateExpansion>();
     private static final ArrayList<IGateExpansion> expansionIDs = new ArrayList<IGateExpansion>();
     private static final Map<IGateExpansion, ItemStack> recipes = HashBiMap.create();

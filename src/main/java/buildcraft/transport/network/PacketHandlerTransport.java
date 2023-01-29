@@ -1,12 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.network;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.INetHandler;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 import buildcraft.api.transport.IPipeTile;
 import buildcraft.core.lib.network.Packet;
@@ -23,25 +26,19 @@ import buildcraft.transport.pipes.PipeItemsEmerald;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.INetHandler;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 @Sharable
 public class PacketHandlerTransport extends PacketHandler {
+
     /**
-     * TODO: A lot of this is based on the player to retrieve the world.
-     * Passing a dimension id would be more appropriate. More generally, it
-     * seems like a lot of these packets could be replaced with tile-based
-     * RPCs.
+     * TODO: A lot of this is based on the player to retrieve the world. Passing a dimension id would be more
+     * appropriate. More generally, it seems like a lot of these packets could be replaced with tile-based RPCs.
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) {
         super.channelRead0(ctx, packet);
         try {
-            INetHandler netHandler =
-                    ctx.channel().attr(NetworkRegistry.NET_HANDLER).get();
+            INetHandler netHandler = ctx.channel().attr(NetworkRegistry.NET_HANDLER).get();
             EntityPlayer player = CoreProxy.proxy.getPlayerFromNetHandler(netHandler);
 
             int packetID = packet.getID();
@@ -62,9 +59,9 @@ public class PacketHandlerTransport extends PacketHandler {
                     break;
                 }
 
-                    /**
-                     * SERVER SIDE *
-                     */
+                /**
+                 * SERVER SIDE *
+                 */
                 case PacketIds.DIAMOND_PIPE_SELECT: {
                     onDiamondPipeSelect(player, (PacketSlotChange) packet);
                     break;

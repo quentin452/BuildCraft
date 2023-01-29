@@ -1,12 +1,23 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fluids.FluidStack;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.recipes.CraftingResult;
@@ -22,23 +33,12 @@ import buildcraft.core.recipes.AssemblyRecipeManager;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fluids.FluidStack;
 
 public class TileAssemblyTable extends TileLaserTableBase implements IInventory, IFlexibleCrafter, ICommandReceiver {
+
     public String currentRecipeId = "";
     public IFlexibleRecipe<ItemStack> currentRecipe;
-    public HashMap<String, CraftingResult<ItemStack>> plannedOutputIcons =
-            new HashMap<String, CraftingResult<ItemStack>>();
+    public HashMap<String, CraftingResult<ItemStack>> plannedOutputIcons = new HashMap<String, CraftingResult<ItemStack>>();
     private HashSet<String> plannedOutput = new HashSet<String>();
     private boolean queuedNetworkUpdate = false;
 
@@ -276,8 +276,7 @@ public class TileAssemblyTable extends TileLaserTableBase implements IInventory,
         plannedOutput.remove(recipe.getId());
 
         if (!plannedOutput.isEmpty()) {
-            setCurrentRecipe(AssemblyRecipeManager.INSTANCE.getRecipe(
-                    plannedOutput.iterator().next()));
+            setCurrentRecipe(AssemblyRecipeManager.INSTANCE.getRecipe(plannedOutput.iterator().next()));
         }
 
         queueNetworkUpdate();
@@ -319,6 +318,7 @@ public class TileAssemblyTable extends TileLaserTableBase implements IInventory,
 
     public void rpcSelectRecipe(final String id, final boolean select) {
         BuildCraftCore.instance.sendToServer(new PacketCommand(this, "select", new CommandWriter() {
+
             public void write(ByteBuf data) {
                 NetworkUtils.writeUTF(data, id);
                 data.writeBoolean(select);

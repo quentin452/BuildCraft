@@ -1,12 +1,29 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.utils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.IAreaProvider;
 import buildcraft.api.core.Position;
@@ -28,29 +45,13 @@ import buildcraft.core.lib.network.Packet;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public final class Utils {
+
     public static final boolean CAULDRON_DETECTED;
     public static final XorShift128Random RANDOM = new XorShift128Random();
-    private static final List<ForgeDirection> directions =
-            new ArrayList<ForgeDirection>(Arrays.asList(ForgeDirection.VALID_DIRECTIONS));
+    private static final List<ForgeDirection> directions = new ArrayList<ForgeDirection>(
+            Arrays.asList(ForgeDirection.VALID_DIRECTIONS));
 
     static {
         boolean cauldron = false;
@@ -89,8 +90,7 @@ public final class Utils {
     }
 
     /**
-     * Tries to add the passed stack to any valid inventories around the given
-     * coordinates.
+     * Tries to add the passed stack to any valid inventories around the given coordinates.
      *
      * @param stack
      * @param world
@@ -107,8 +107,7 @@ public final class Utils {
 
             TileEntity tileInventory = BlockUtils.getTileEntity(world, (int) pos.x, (int) pos.y, (int) pos.z);
             ITransactor transactor = Transactor.getTransactorFor(tileInventory);
-            if (transactor != null
-                    && !(tileInventory instanceof IEngine)
+            if (transactor != null && !(tileInventory instanceof IEngine)
                     && !(tileInventory instanceof ILaserTarget)
                     && transactor.add(stack, orientation.getOpposite(), false).stackSize > 0) {
                 return transactor.add(stack, orientation.getOpposite(), true).stackSize;
@@ -118,26 +117,22 @@ public final class Utils {
     }
 
     /**
-     * Returns the cardinal direction of the entity depending on its
-     * rotationYaw
+     * Returns the cardinal direction of the entity depending on its rotationYaw
      */
     public static ForgeDirection get2dOrientation(EntityLivingBase entityliving) {
-        ForgeDirection[] orientationTable = {
-            ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST
-        };
+        ForgeDirection[] orientationTable = { ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH,
+                ForgeDirection.EAST };
         int orientationIndex = MathHelper.floor_double((entityliving.rotationYaw + 45.0) / 90.0) & 3;
         return orientationTable[orientationIndex];
     }
 
     /**
-     * Look around the tile given in parameter in all 6 position, tries to add
-     * the items to a random injectable tile around. Will make sure that the location
-     * from which the items are coming from (identified by the from parameter)
-     * isn't used again so that entities doesn't go backwards. Returns true if
-     * successful, false otherwise.
+     * Look around the tile given in parameter in all 6 position, tries to add the items to a random injectable tile
+     * around. Will make sure that the location from which the items are coming from (identified by the from parameter)
+     * isn't used again so that entities doesn't go backwards. Returns true if successful, false otherwise.
      */
-    public static int addToRandomInjectableAround(
-            World world, int x, int y, int z, ForgeDirection from, ItemStack stack) {
+    public static int addToRandomInjectableAround(World world, int x, int y, int z, ForgeDirection from,
+            ItemStack stack) {
         List<IInjectable> possiblePipes = new ArrayList<IInjectable>();
         List<ForgeDirection> pipeDirections = new ArrayList<ForgeDirection>();
 
@@ -178,8 +173,8 @@ public final class Utils {
         return 0;
     }
 
-    public static void dropTryIntoPlayerInventory(
-            World world, int x, int y, int z, ItemStack stack, EntityPlayer player) {
+    public static void dropTryIntoPlayerInventory(World world, int x, int y, int z, ItemStack stack,
+            EntityPlayer player) {
         if (player != null && player.inventory.addItemStackToInventory(stack)) {
             if (player instanceof EntityPlayerMP) {
                 ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
@@ -263,8 +258,8 @@ public final class Utils {
         return true;
     }
 
-    public static boolean checkLegacyPipesConnections(
-            IBlockAccess blockAccess, int x1, int y1, int z1, int x2, int y2, int z2) {
+    public static boolean checkLegacyPipesConnections(IBlockAccess blockAccess, int x1, int y1, int z1, int x2, int y2,
+            int z2) {
 
         Block b1 = blockAccess.getBlock(x1, y1, z1);
         Block b2 = blockAccess.getBlock(x2, y2, z2);
@@ -286,11 +281,10 @@ public final class Utils {
         return true;
     }
 
-    public static boolean isPipeConnected(
-            IBlockAccess access, int x, int y, int z, ForgeDirection dir, IPipeTile.PipeType type) {
+    public static boolean isPipeConnected(IBlockAccess access, int x, int y, int z, ForgeDirection dir,
+            IPipeTile.PipeType type) {
         TileEntity tile = access.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-        return tile instanceof IPipeTile
-                && ((IPipeTile) tile).getPipeType() == type
+        return tile instanceof IPipeTile && ((IPipeTile) tile).getPipeType() == type
                 && ((IPipeTile) tile).isPipeConnected(dir.getOpposite());
     }
 
@@ -303,14 +297,12 @@ public final class Utils {
     }
 
     /**
-     * This subprogram transforms a packet into a FML packet to be send in the
-     * minecraft default packet mechanism. This always use BC-CORE as a
-     * channel, and as a result, should use discriminators declared there.
+     * This subprogram transforms a packet into a FML packet to be send in the minecraft default packet mechanism. This
+     * always use BC-CORE as a channel, and as a result, should use discriminators declared there.
      *
-     * WARNING! The implementation of this subprogram relies on the internal
-     * behavior of #FMLIndexedMessageToMessageCodec (in particular the encode
-     * member). It is probably opening a maintenance issue and should be
-     * replaced eventually by some more solid mechanism.
+     * WARNING! The implementation of this subprogram relies on the internal behavior of
+     * #FMLIndexedMessageToMessageCodec (in particular the encode member). It is probably opening a maintenance issue
+     * and should be replaced eventually by some more solid mechanism.
      */
     public static FMLProxyPacket toPacket(Packet packet, int discriminator) {
         ByteBuf buf = Unpooled.buffer();

@@ -1,12 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.pipes;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.EnumColor;
@@ -26,15 +35,6 @@ import buildcraft.transport.statements.ActionPipeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsDaizuli extends Pipe<PipeTransportItems> implements ISerializable {
 
@@ -42,6 +42,7 @@ public class PipeItemsDaizuli extends Pipe<PipeTransportItems> implements ISeria
     private int solidIconIndex = PipeIconProvider.TYPE.PipeAllDaizuli_Solid.ordinal();
     private int color = EnumColor.BLACK.ordinal();
     private PipeLogicIron logic = new PipeLogicIron(this) {
+
         @Override
         protected boolean isValidConnectingTile(TileEntity tile) {
             if (tile instanceof IPipeTile) {
@@ -81,12 +82,9 @@ public class PipeItemsDaizuli extends Pipe<PipeTransportItems> implements ISeria
     @Override
     public boolean blockActivated(EntityPlayer player, ForgeDirection side) {
         if (player.isSneaking()) {
-            Item equipped = player.getCurrentEquippedItem() != null
-                    ? player.getCurrentEquippedItem().getItem()
-                    : null;
-            if (equipped instanceof IToolWrench
-                    && ((IToolWrench) equipped)
-                            .canWrench(player, container.xCoord, container.yCoord, container.zCoord)) {
+            Item equipped = player.getCurrentEquippedItem() != null ? player.getCurrentEquippedItem().getItem() : null;
+            if (equipped instanceof IToolWrench && ((IToolWrench) equipped)
+                    .canWrench(player, container.xCoord, container.yCoord, container.zCoord)) {
                 setColor(getColor().getNext());
                 ((IToolWrench) equipped).wrenchUsed(player, container.xCoord, container.yCoord, container.zCoord);
                 return true;

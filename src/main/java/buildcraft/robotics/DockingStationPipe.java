@@ -1,5 +1,14 @@
 package buildcraft.robotics;
 
+import java.util.List;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.IFluidHandler;
+
 import buildcraft.BuildCraftRobotics;
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.core.EnumColor;
@@ -19,17 +28,11 @@ import buildcraft.transport.TravelingItem;
 import buildcraft.transport.gates.ActionIterator;
 import buildcraft.transport.pipes.PipeFluidsWood;
 import buildcraft.transport.pipes.PipeItemsWood;
-import java.util.List;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.IFluidHandler;
 
 public class DockingStationPipe extends DockingStation implements IRequestProvider {
 
     private IInjectable injectablePipe = new IInjectable() {
+
         @Override
         public boolean canInjectItems(ForgeDirection from) {
             return true;
@@ -113,8 +116,8 @@ public class DockingStationPipe extends DockingStation implements IRequestProvid
         int meta = ((TileEntity) getPipe()).getBlockMetadata();
         ForgeDirection dir = ForgeDirection.getOrientation(meta);
 
-        TileEntity connectedTile =
-                getPipe().getWorld().getTileEntity(x() + dir.offsetX, y() + dir.offsetY, z() + dir.offsetZ);
+        TileEntity connectedTile = getPipe().getWorld()
+                .getTileEntity(x() + dir.offsetX, y() + dir.offsetY, z() + dir.offsetZ);
         if (connectedTile instanceof IInventory) {
             return InventoryWrapper.getWrappedInventory(connectedTile);
         }
@@ -149,8 +152,8 @@ public class DockingStationPipe extends DockingStation implements IRequestProvid
         int meta = ((TileEntity) getPipe()).getBlockMetadata();
         ForgeDirection dir = ForgeDirection.getOrientation(meta);
 
-        TileEntity connectedTile =
-                getPipe().getWorld().getTileEntity(x() + dir.offsetX, y() + dir.offsetY, z() + dir.offsetZ);
+        TileEntity connectedTile = getPipe().getWorld()
+                .getTileEntity(x() + dir.offsetX, y() + dir.offsetY, z() + dir.offsetZ);
         if (connectedTile instanceof IFluidHandler) {
             return (IFluidHandler) connectedTile;
         }
@@ -194,8 +197,8 @@ public class DockingStationPipe extends DockingStation implements IRequestProvid
     @Override
     public IRequestProvider getRequestProvider() {
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            TileEntity nearbyTile =
-                    getPipe().getWorld().getTileEntity(x() + dir.offsetX, y() + dir.offsetY, z() + dir.offsetZ);
+            TileEntity nearbyTile = getPipe().getWorld()
+                    .getTileEntity(x() + dir.offsetX, y() + dir.offsetY, z() + dir.offsetZ);
             if (nearbyTile instanceof IRequestProvider) {
                 return (IRequestProvider) nearbyTile;
             }

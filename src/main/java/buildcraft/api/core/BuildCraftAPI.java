@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.core;
 
@@ -12,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
@@ -43,8 +42,11 @@ public final class BuildCraftAPI {
 
     public static void registerWorldProperty(String name, IWorldProperty property) {
         if (worldProperties.containsKey(name)) {
-            BCLog.logger.warn("The WorldProperty key '" + name + "' is being overidden with "
-                    + property.getClass().getSimpleName() + "!");
+            BCLog.logger.warn(
+                    "The WorldProperty key '" + name
+                            + "' is being overidden with "
+                            + property.getClass().getSimpleName()
+                            + "!");
         }
         worldProperties.put(name, property);
     }

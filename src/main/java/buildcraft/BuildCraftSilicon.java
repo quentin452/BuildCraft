@@ -1,12 +1,19 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
+import net.minecraftforge.oredict.OreDictionary;
 
 import buildcraft.api.blueprints.BuilderAPI;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
@@ -50,14 +57,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
-import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(
         name = "BuildCraft Silicon",
@@ -66,6 +65,7 @@ import net.minecraftforge.oredict.OreDictionary;
         modid = "BuildCraft|Silicon",
         dependencies = DefaultProps.DEPENDENCY_CORE)
 public class BuildCraftSilicon extends BuildCraftMod {
+
     @Mod.Instance("BuildCraft|Silicon")
     public static BuildCraftSilicon instance;
 
@@ -89,9 +89,7 @@ public class BuildCraftSilicon extends BuildCraftMod {
                 "The cost multiplier for Chipsets",
                 ConfigManager.RestartRequirement.GAME);
         BuildCraftCore.mainConfiguration.save();
-        chipsetCostMultiplier = (float) BuildCraftCore.mainConfigManager
-                .get("power.chipsetCostMultiplier")
-                .getDouble();
+        chipsetCostMultiplier = (float) BuildCraftCore.mainConfigManager.get("power.chipsetCostMultiplier").getDouble();
 
         if (BuildCraftCore.mainConfiguration.hasChanged()) {
             BuildCraftCore.mainConfiguration.save();
@@ -125,41 +123,59 @@ public class BuildCraftSilicon extends BuildCraftMod {
         }
 
         EntityRegistry.registerModEntity(
-                EntityPackage.class, "bcPackageThrowable", EntityIds.PACKAGE_THROWABLE, instance, 48, 10, true);
+                EntityPackage.class,
+                "bcPackageThrowable",
+                EntityIds.PACKAGE_THROWABLE,
+                instance,
+                48,
+                10,
+                true);
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent evt) {
         channels = NetworkRegistry.INSTANCE.newChannel(
-                DefaultProps.NET_CHANNEL_NAME + "-SILICON", new ChannelHandler(), new PacketHandlerSilicon());
+                DefaultProps.NET_CHANNEL_NAME + "-SILICON",
+                new ChannelHandler(),
+                new PacketHandlerSilicon());
 
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new SiliconGuiHandler());
         BCRegistry.INSTANCE.registerTileEntity(TileLaser.class, "net.minecraft.src.buildcraft.factory.TileLaser");
+        BCRegistry.INSTANCE
+                .registerTileEntity(TileAssemblyTable.class, "net.minecraft.src.buildcraft.factory.TileAssemblyTable");
         BCRegistry.INSTANCE.registerTileEntity(
-                TileAssemblyTable.class, "net.minecraft.src.buildcraft.factory.TileAssemblyTable");
+                TileAdvancedCraftingTable.class,
+                "net.minecraft.src.buildcraft.factory.TileAssemblyAdvancedWorkbench");
         BCRegistry.INSTANCE.registerTileEntity(
-                TileAdvancedCraftingTable.class, "net.minecraft.src.buildcraft.factory.TileAssemblyAdvancedWorkbench");
+                TileIntegrationTable.class,
+                "net.minecraft.src.buildcraft.factory.TileIntegrationTable");
+        BCRegistry.INSTANCE
+                .registerTileEntity(TileChargingTable.class, "net.minecraft.src.buildcraft.factory.TileChargingTable");
         BCRegistry.INSTANCE.registerTileEntity(
-                TileIntegrationTable.class, "net.minecraft.src.buildcraft.factory.TileIntegrationTable");
-        BCRegistry.INSTANCE.registerTileEntity(
-                TileChargingTable.class, "net.minecraft.src.buildcraft.factory.TileChargingTable");
-        BCRegistry.INSTANCE.registerTileEntity(
-                TileProgrammingTable.class, "net.minecraft.src.buildcraft.factory.TileProgrammingTable");
+                TileProgrammingTable.class,
+                "net.minecraft.src.buildcraft.factory.TileProgrammingTable");
         BCRegistry.INSTANCE.registerTileEntity(TilePackager.class, "buildcraft.TilePackager");
         BCRegistry.INSTANCE.registerTileEntity(TileStampingTable.class, "buildcraft.TileStampingTable");
 
-        BuilderAPI.schematicRegistry.registerSchematicBlock(
-                laserBlock, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
+        BuilderAPI.schematicRegistry
+                .registerSchematicBlock(laserBlock, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
 
-        timeForSomeLogicAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.timeForSomeLogic",
-                "timeForSomeLogicAchievement",
-                9,
-                -2,
-                assemblyTableBlock,
-                BuildCraftCore.diamondGearAchievement));
-        tinglyLaserAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.tinglyLaser", "tinglyLaserAchievement", 11, -2, laserBlock, timeForSomeLogicAchievement));
+        timeForSomeLogicAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.timeForSomeLogic",
+                        "timeForSomeLogicAchievement",
+                        9,
+                        -2,
+                        assemblyTableBlock,
+                        BuildCraftCore.diamondGearAchievement));
+        tinglyLaserAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.tinglyLaser",
+                        "tinglyLaserAchievement",
+                        11,
+                        -2,
+                        laserBlock,
+                        timeForSomeLogicAchievement));
 
         if (BuildCraftCore.loadDefaultRecipes) {
             loadRecipes();
@@ -390,12 +406,14 @@ public class BuildCraftSilicon extends BuildCraftMod {
     @Mod.EventHandler
     public void whiteListAppliedEnergetics(FMLInitializationEvent event) {
         FMLInterModComms.sendMessage("appliedenergistics2", "whitelist-spatial", TileLaser.class.getCanonicalName());
+        FMLInterModComms
+                .sendMessage("appliedenergistics2", "whitelist-spatial", TileAssemblyTable.class.getCanonicalName());
         FMLInterModComms.sendMessage(
-                "appliedenergistics2", "whitelist-spatial", TileAssemblyTable.class.getCanonicalName());
-        FMLInterModComms.sendMessage(
-                "appliedenergistics2", "whitelist-spatial", TileAdvancedCraftingTable.class.getCanonicalName());
-        FMLInterModComms.sendMessage(
-                "appliedenergistics2", "whitelist-spatial", TileIntegrationTable.class.getCanonicalName());
+                "appliedenergistics2",
+                "whitelist-spatial",
+                TileAdvancedCraftingTable.class.getCanonicalName());
+        FMLInterModComms
+                .sendMessage("appliedenergistics2", "whitelist-spatial", TileIntegrationTable.class.getCanonicalName());
     }
 
     @Mod.EventHandler

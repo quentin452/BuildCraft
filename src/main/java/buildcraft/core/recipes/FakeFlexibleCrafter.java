@@ -1,13 +1,15 @@
 package buildcraft.core.recipes;
 
-import buildcraft.api.recipes.IFlexibleCrafter;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+
+import buildcraft.api.recipes.IFlexibleCrafter;
 
 /**
  * Use this class for simulated crafts.
  */
 public class FakeFlexibleCrafter implements IFlexibleCrafter {
+
     private final IFlexibleCrafter original;
     private int[] usedItems, usedFluids;
 

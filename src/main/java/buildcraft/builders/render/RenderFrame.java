@@ -1,19 +1,21 @@
 package buildcraft.builders.render;
 
-import buildcraft.builders.BuilderProxy;
-import buildcraft.core.CoreConstants;
-import buildcraft.core.lib.render.FakeBlock;
-import buildcraft.core.lib.render.RenderUtils;
-import buildcraft.core.render.BCSimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.builders.BuilderProxy;
+import buildcraft.core.CoreConstants;
+import buildcraft.core.lib.render.FakeBlock;
+import buildcraft.core.lib.render.RenderUtils;
+import buildcraft.core.render.BCSimpleBlockRenderingHandler;
+
 public class RenderFrame extends BCSimpleBlockRenderingHandler {
-    private void renderTwoWayBlock(
-            RenderBlocks renderblocks, FakeBlock stateHost, int x, int y, int z, float[] dim, int mask) {
+
+    private void renderTwoWayBlock(RenderBlocks renderblocks, FakeBlock stateHost, int x, int y, int z, float[] dim,
+            int mask) {
         assert mask != 0;
 
         stateHost.setRenderMask(mask);
@@ -41,8 +43,8 @@ public class RenderFrame extends BCSimpleBlockRenderingHandler {
     }
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+            RenderBlocks renderer) {
         FakeBlock fakeBlock = FakeBlock.INSTANCE;
         fakeBlock.getTextureState().set(block.getIcon(0, 0));
 

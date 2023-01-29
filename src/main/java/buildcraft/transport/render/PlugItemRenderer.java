@@ -1,32 +1,32 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.render;
 
-import buildcraft.BuildCraftTransport;
-import buildcraft.transport.PipeIconProvider;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
+import buildcraft.BuildCraftTransport;
+import buildcraft.transport.PipeIconProvider;
 
 public class PlugItemRenderer implements IItemRenderer {
 
-    private void renderPlugItem(
-            RenderBlocks render, ItemStack item, float translateX, float translateY, float translateZ) {
+    private void renderPlugItem(RenderBlocks render, ItemStack item, float translateX, float translateY,
+            float translateZ) {
         // Render StructurePipe
         Block block = BuildCraftTransport.genericPipeBlock;
         Tessellator tessellator = Tessellator.instance;
-        IIcon textureID = BuildCraftTransport.instance.pipeIconProvider.getIcon(
-                PipeIconProvider.TYPE.PipeStructureCobblestone.ordinal()); // Structure pipe
+        IIcon textureID = BuildCraftTransport.instance.pipeIconProvider
+                .getIcon(PipeIconProvider.TYPE.PipeStructureCobblestone.ordinal()); // Structure pipe
 
         block.setBlockBounds(0.25F, 0.25F, 0.25F, 0.75F, 0.375F, 0.75F);
         block.setBlockBoundsForItemRender();

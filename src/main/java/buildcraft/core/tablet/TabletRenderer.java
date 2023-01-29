@@ -4,6 +4,7 @@ import buildcraft.api.tablet.TabletBitmap;
 import buildcraft.api.tablet.TabletTicker;
 
 class TabletRenderer {
+
     private TabletBitmap currDisplay, newDisplay;
     private final TabletTicker refreshRate = new TabletTicker(0.035F);
     private boolean changed = false;

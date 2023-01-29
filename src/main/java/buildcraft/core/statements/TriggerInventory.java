@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.statements;
+
+import java.util.Locale;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.IInvSlot;
 import buildcraft.api.statements.IStatementContainer;
@@ -17,12 +23,6 @@ import buildcraft.core.ItemList;
 import buildcraft.core.lib.inventory.InventoryIterator;
 import buildcraft.core.lib.inventory.StackHelper;
 import buildcraft.core.lib.utils.StringUtils;
-import java.util.Locale;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TriggerInventory extends BCStatement implements ITriggerExternal {
 
@@ -54,8 +54,8 @@ public class TriggerInventory extends BCStatement implements ITriggerExternal {
     }
 
     @Override
-    public boolean isTriggerActive(
-            TileEntity tile, ForgeDirection side, IStatementContainer container, IStatementParameter[] parameters) {
+    public boolean isTriggerActive(TileEntity tile, ForgeDirection side, IStatementContainer container,
+            IStatementParameter[] parameters) {
         ItemStack searchedStack = null;
 
         if (parameters != null && parameters.length >= 1 && parameters[0] != null) {
@@ -74,11 +74,9 @@ public class TriggerInventory extends BCStatement implements ITriggerExternal {
                 foundItems |= stack != null
                         && (searchedStack == null || StackHelper.canStacksOrListsMerge(stack, searchedStack));
 
-                foundSpace |= (stack == null
-                                || (StackHelper.canStacksOrListsMerge(stack, searchedStack)
-                                        && stack.stackSize < stack.getMaxStackSize()))
-                        && (searchedStack == null
-                                || searchedStack.getItem() instanceof ItemList
+                foundSpace |= (stack == null || (StackHelper.canStacksOrListsMerge(stack, searchedStack)
+                        && stack.stackSize < stack.getMaxStackSize()))
+                        && (searchedStack == null || searchedStack.getItem() instanceof ItemList
                                 || slot.canPutStackInSlot(searchedStack));
                 // On the test above, we deactivate item list as inventories
                 // typically don't check for lists possibility. This is a
@@ -107,8 +105,7 @@ public class TriggerInventory extends BCStatement implements ITriggerExternal {
 
     @Override
     public void registerIcons(IIconRegister register) {
-        icon = register.registerIcon(
-                "buildcraftcore:triggers/trigger_inventory_" + state.name().toLowerCase());
+        icon = register.registerIcon("buildcraftcore:triggers/trigger_inventory_" + state.name().toLowerCase());
     }
 
     @Override

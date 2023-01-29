@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.boards;
+
+import java.util.LinkedList;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.WorldSettings;
 
 import buildcraft.api.boards.RedstoneBoardRobot;
 import buildcraft.api.boards.RedstoneBoardRobotNBT;
@@ -22,10 +26,6 @@ import buildcraft.robotics.ai.AIRobotGotoBlock;
 import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotGotoStationAndLoad;
 import buildcraft.robotics.ai.AIRobotRecharge;
-import java.util.LinkedList;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.WorldSettings;
 
 public class BoardRobotBuilder extends RedstoneBoardRobot {
 
@@ -106,10 +106,11 @@ public class BoardRobotBuilder extends RedstoneBoardRobot {
         }
 
         if (requirementsToLookFor.size() > 0) {
-            startDelegateAI(new AIRobotGotoStationAndLoad(
-                    robot,
-                    new ArrayStackFilter(requirementsToLookFor.getFirst()),
-                    requirementsToLookFor.getFirst().stackSize));
+            startDelegateAI(
+                    new AIRobotGotoStationAndLoad(
+                            robot,
+                            new ArrayStackFilter(requirementsToLookFor.getFirst()),
+                            requirementsToLookFor.getFirst().stackSize));
             return;
         }
 
@@ -123,12 +124,13 @@ public class BoardRobotBuilder extends RedstoneBoardRobot {
             if (!hasEnoughEnergy()) {
                 startDelegateAI(new AIRobotRecharge(robot));
             } else {
-                startDelegateAI(new AIRobotGotoBlock(
-                        robot,
-                        (int) currentBuildingSlot.getDestination().x,
-                        (int) currentBuildingSlot.getDestination().y,
-                        (int) currentBuildingSlot.getDestination().z,
-                        8));
+                startDelegateAI(
+                        new AIRobotGotoBlock(
+                                robot,
+                                (int) currentBuildingSlot.getDestination().x,
+                                (int) currentBuildingSlot.getDestination().y,
+                                (int) currentBuildingSlot.getDestination().z,
+                                8));
             }
             // TODO: take into account cases where the robot can't reach the
             // destination - go to work on another block

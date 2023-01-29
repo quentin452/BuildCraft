@@ -1,19 +1,14 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.lib.utils;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.api.blueprints.BuilderAPI;
-import buildcraft.core.proxy.CoreProxy;
-import cpw.mods.fml.common.FMLCommonHandler;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.entity.item.EntityItem;
@@ -39,7 +34,13 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.api.blueprints.BuilderAPI;
+import buildcraft.core.proxy.CoreProxy;
+import cpw.mods.fml.common.FMLCommonHandler;
+
 public final class BlockUtils {
+
     /**
      * Deactivate constructor
      */
@@ -95,8 +96,7 @@ public final class BlockUtils {
     }
 
     public static EntityPlayer getFakePlayerWithTool(WorldServer world, int x, int y, int z, ItemStack tool) {
-        EntityPlayer player =
-                CoreProxy.proxy.getBuildCraftPlayer(world, x, y, z).get();
+        EntityPlayer player = CoreProxy.proxy.getBuildCraftPlayer(world, x, y, z).get();
         int i = 0;
 
         while (player.getHeldItem() != tool && i < 9) {
@@ -117,8 +117,14 @@ public final class BlockUtils {
 
         EntityPlayer player = getFakePlayerWithTool(world, x, y, z, tool);
 
-        BreakEvent breakEvent =
-                new BreakEvent(x, y, z, world, world.getBlock(x, y, z), world.getBlockMetadata(x, y, z), player);
+        BreakEvent breakEvent = new BreakEvent(
+                x,
+                y,
+                z,
+                world,
+                world.getBlock(x, y, z),
+                world.getBlockMetadata(x, y, z),
+                player);
         MinecraftForge.EVENT_BUS.post(breakEvent);
 
         if (breakEvent.isCanceled()) {
@@ -155,8 +161,7 @@ public final class BlockUtils {
             return false;
         }
 
-        if (!world.isAirBlock(x, y, z)
-                && !world.isRemote
+        if (!world.isAirBlock(x, y, z) && !world.isRemote
                 && world.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
             drops.addAll(getItemStackFromBlock(world, x, y, z));
         }
@@ -206,10 +211,14 @@ public final class BlockUtils {
     public static float getBlockHardnessMining(World world, int x, int y, int z, Block b, ItemStack tool) {
         if (world instanceof WorldServer && !BuildCraftCore.miningAllowPlayerProtectedBlocks) {
             float relativeHardness = b.getPlayerRelativeBlockHardness(
-                    getFakePlayerWithTool((WorldServer) world, x, y, z, tool), world, x, y, z);
+                    getFakePlayerWithTool((WorldServer) world, x, y, z, tool),
+                    world,
+                    x,
+                    y,
+                    z);
 
-            if (relativeHardness
-                    <= 0.0F) { // Forge's getPlayerRelativeBlockHardness hook returns 0.0F if the hardness is < 0.0F.
+            if (relativeHardness <= 0.0F) { // Forge's getPlayerRelativeBlockHardness hook returns 0.0F if the hardness
+                                            // is < 0.0F.
                 return -1.0F;
             }
         }
@@ -307,17 +316,16 @@ public final class BlockUtils {
             }
 
             if (player.getDistanceSq(x, y, z) < 4096) {
-                ((EntityPlayerMP) player)
-                        .playerNetServerHandler.sendPacket(new S27PacketExplosion(
-                                x + .5, y + .5, z + .5, 3f, explosion.affectedBlockPositions, null));
+                ((EntityPlayerMP) player).playerNetServerHandler.sendPacket(
+                        new S27PacketExplosion(x + .5, y + .5, z + .5, 3f, explosion.affectedBlockPositions, null));
             }
         }
     }
 
     public static int computeBlockBreakEnergy(World world, int x, int y, int z) {
-        return (int) Math.floor(BuilderAPI.BREAK_ENERGY
-                * BuildCraftCore.miningMultiplier
-                * ((world.getBlock(x, y, z).getBlockHardness(world, x, y, z) + 1) * 2));
+        return (int) Math.floor(
+                BuilderAPI.BREAK_ENERGY * BuildCraftCore.miningMultiplier
+                        * ((world.getBlock(x, y, z).getBlockHardness(world, x, y, z) + 1) * 2));
     }
 
     /**
@@ -371,10 +379,10 @@ public final class BlockUtils {
         }
     }
 
-    public static boolean useItemOnBlock(
-            World world, EntityPlayer player, ItemStack stack, int x, int y, int z, ForgeDirection direction) {
-        boolean done =
-                stack.getItem().onItemUseFirst(stack, player, world, x, y, z, direction.ordinal(), 0.5F, 0.5F, 0.5F);
+    public static boolean useItemOnBlock(World world, EntityPlayer player, ItemStack stack, int x, int y, int z,
+            ForgeDirection direction) {
+        boolean done = stack.getItem()
+                .onItemUseFirst(stack, player, world, x, y, z, direction.ordinal(), 0.5F, 0.5F, 0.5F);
 
         if (!done) {
             done = stack.getItem().onItemUse(stack, player, world, x, y, z, direction.ordinal(), 0.5F, 0.5F, 0.5F);

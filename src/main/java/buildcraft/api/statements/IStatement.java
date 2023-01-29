@@ -1,22 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.statements;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public interface IStatement {
+
     /**
-     * Every statement needs a unique tag, it should be in the format of
-     * "&lt;modid&gt;:&lt;name&gt;.
+     * Every statement needs a unique tag, it should be in the format of "&lt;modid&gt;:&lt;name&gt;.
      *
      * @return the unique id
      */
@@ -49,8 +48,7 @@ public interface IStatement {
     IStatementParameter createParameter(int index);
 
     /**
-     * This returns the statement after a left rotation. Used in particular in
-     * blueprints orientation.
+     * This returns the statement after a left rotation. Used in particular in blueprints orientation.
      */
     IStatement rotateLeft();
 }

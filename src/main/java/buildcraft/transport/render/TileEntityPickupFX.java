@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  * <p/>
  * Based on EntityPickupFX
  */
@@ -13,9 +11,6 @@
  */
 package buildcraft.transport.render;
 
-import buildcraft.transport.utils.TransportUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -24,10 +19,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
+import buildcraft.transport.utils.TransportUtils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityPickupFX extends EntityFX {
+
     private Entity entityToPickUp;
     private TileEntity entityPickingUp;
     private int age = 0;
@@ -52,8 +53,8 @@ public class TileEntityPickupFX extends EntityFX {
     }
 
     @Override
-    public void renderParticle(
-            Tessellator par1Tessellator, float par2, float par3, float par4, float par5, float par6, float par7) {
+    public void renderParticle(Tessellator par1Tessellator, float par2, float par3, float par4, float par5, float par6,
+            float par7) {
         float var8 = (this.age + par2) / this.maxAge;
         var8 *= var8;
         double var9 = this.entityToPickUp.posX;
@@ -75,7 +76,12 @@ public class TileEntityPickupFX extends EntityFX {
         var25 -= interpPosZ;
         if (RenderManager.instance.renderEngine != null) {
             RenderManager.instance.renderEntityWithPosYaw(
-                    this.entityToPickUp, var21, var23, var25, this.entityToPickUp.rotationYaw, par2);
+                    this.entityToPickUp,
+                    var21,
+                    var23,
+                    var25,
+                    this.entityToPickUp.rotationYaw,
+                    par2);
         }
     }
 

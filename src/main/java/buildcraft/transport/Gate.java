@@ -1,12 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.gates.GateExpansionController;
@@ -33,18 +42,10 @@ import buildcraft.transport.gates.GateDefinition.GateMaterial;
 import buildcraft.transport.gates.ItemGate;
 import buildcraft.transport.gui.ContainerGateInterface;
 import buildcraft.transport.statements.ActionValve;
+
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultiset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public final class Gate implements IGate, ISidedStatementContainer, IRedstoneStatementContainer {
 
@@ -70,16 +71,15 @@ public final class Gate implements IGate, ISidedStatementContainer, IRedstoneSta
     public int redstoneOutputSide = 0;
 
     /**
-     * this is the internal pulsing state of the gate. Intended to be managed
-     * by the server side only, the client is supposed to be referring to the
-     * state of the renderer, and update moveStage accordingly.
+     * this is the internal pulsing state of the gate. Intended to be managed by the server side only, the client is
+     * supposed to be referring to the state of the renderer, and update moveStage accordingly.
      */
     public boolean isPulsing = false;
 
     private ForgeDirection direction;
 
     private HashMultiset<IStatement> statementCounts = HashMultiset.create();
-    private int[] actionGroups = new int[] {0, 1, 2, 3, 4, 5, 6, 7};
+    private int[] actionGroups = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
 
     // / CONSTRUCTOR
     public Gate(Pipe<?> pipe, GateMaterial material, GateLogic logic, ForgeDirection direction) {
@@ -538,8 +538,8 @@ public final class Gate implements IGate, ISidedStatementContainer, IRedstoneSta
                 TileEntity tile = this.getPipe().getTile().getNeighborTile(side);
                 if (tile != null) {
                     if (tile instanceof ITriggerExternalOverride) {
-                        ITriggerExternalOverride.Result result =
-                                ((ITriggerExternalOverride) tile).override(side, this, parameters);
+                        ITriggerExternalOverride.Result result = ((ITriggerExternalOverride) tile)
+                                .override(side, this, parameters);
                         if (result == ITriggerExternalOverride.Result.TRUE) {
                             return true;
                         } else if (result == ITriggerExternalOverride.Result.FALSE) {
@@ -628,16 +628,14 @@ public final class Gate implements IGate, ISidedStatementContainer, IRedstoneSta
             actionGroups[i] = i;
 
             for (int j = i - 1; j >= 0; --j) {
-                if (actions[i] != null
-                        && actions[j] != null
+                if (actions[i] != null && actions[j] != null
                         && actions[i].getUniqueTag().equals(actions[j].getUniqueTag())) {
                     boolean sameParams = true;
 
                     for (int p = 0; p < MAX_PARAMETERS; ++p) {
                         if ((actionParameters[i][p] != null && actionParameters[j][p] == null)
                                 || (actionParameters[i][p] == null && actionParameters[j][p] != null)
-                                || (actionParameters[i][p] != null
-                                        && actionParameters[j][p] != null
+                                || (actionParameters[i][p] != null && actionParameters[j][p] != null
                                         && !actionParameters[i][p].equals(actionParameters[j][p]))) {
                             sameParams = false;
                             break;
@@ -703,8 +701,7 @@ public final class Gate implements IGate, ISidedStatementContainer, IRedstoneSta
 
     @Override
     public int getRedstoneInput(ForgeDirection side) {
-        return side == ForgeDirection.UNKNOWN
-                ? pipe.container.redstoneInput
+        return side == ForgeDirection.UNKNOWN ? pipe.container.redstoneInput
                 : pipe.container.redstoneInputSide[side.ordinal()];
     }
 

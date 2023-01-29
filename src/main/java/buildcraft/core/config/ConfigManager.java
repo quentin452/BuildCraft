@@ -1,10 +1,8 @@
 package buildcraft.core.config;
 
-import cpw.mods.fml.client.IModGuiFactory;
-import cpw.mods.fml.client.config.GuiConfig;
-import cpw.mods.fml.client.config.IConfigElement;
 import java.util.ArrayList;
 import java.util.Set;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -12,10 +10,16 @@ import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
+import cpw.mods.fml.client.IModGuiFactory;
+import cpw.mods.fml.client.config.GuiConfig;
+import cpw.mods.fml.client.config.IConfigElement;
+
 public class ConfigManager implements IModGuiFactory {
+
     public static Configuration config;
 
     public static class GuiConfigManager extends GuiConfig {
+
         public GuiConfigManager(GuiScreen parentScreen) {
             super(
                     parentScreen,
@@ -78,8 +82,8 @@ public class ConfigManager implements IModGuiFactory {
         return p;
     }
 
-    public Property register(
-            String catName, String propName, Object property, String comment, RestartRequirement restartRequirement) {
+    public Property register(String catName, String propName, Object property, String comment,
+            RestartRequirement restartRequirement) {
         ConfigCategory c = config.getCategory(catName);
         ConfigCategory parent = c;
         while (parent != null) {

@@ -1,20 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.silicon;
 
-import buildcraft.BuildCraftSilicon;
-import buildcraft.api.power.ILaserTargetBlock;
-import buildcraft.core.BCCreativeTab;
-import buildcraft.core.lib.block.BlockBuildCraft;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +16,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import buildcraft.BuildCraftSilicon;
+import buildcraft.api.power.ILaserTargetBlock;
+import buildcraft.core.BCCreativeTab;
+import buildcraft.core.lib.block.BlockBuildCraft;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockLaserTable extends BlockBuildCraft implements ILaserTargetBlock {
+
     protected static final int TABLE_MAX = 6;
 
     public BlockLaserTable() {
@@ -52,8 +53,8 @@ public class BlockLaserTable extends BlockBuildCraft implements ILaserTargetBloc
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7,
+            float par8, float par9) {
         if (super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9)) {
             return true;
         }
@@ -99,7 +100,7 @@ public class BlockLaserTable extends BlockBuildCraft implements ILaserTargetBloc
         return par1;
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs par2CreativeTabs, List par3List) {
@@ -111,13 +112,8 @@ public class BlockLaserTable extends BlockBuildCraft implements ILaserTargetBloc
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getIconBlockNames() {
-        return new String[] {
-            "BuildCraft|Silicon:assemblyTable",
-            "BuildCraft|Silicon:advancedCraftingTable",
-            "BuildCraft|Silicon:integrationTable",
-            "BuildCraft|Silicon:chargingTable",
-            "BuildCraft|Silicon:programmingTable",
-            "BuildCraft|Silicon:stampingTable"
-        };
+        return new String[] { "BuildCraft|Silicon:assemblyTable", "BuildCraft|Silicon:advancedCraftingTable",
+                "BuildCraft|Silicon:integrationTable", "BuildCraft|Silicon:chargingTable",
+                "BuildCraft|Silicon:programmingTable", "BuildCraft|Silicon:stampingTable" };
     }
 }

@@ -1,18 +1,17 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
 
-import buildcraft.core.lib.EntityBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import buildcraft.core.lib.EntityBlock;
 
 public class EntityMechanicalArm extends Entity {
 
@@ -33,8 +32,8 @@ public class EntityMechanicalArm extends Entity {
         noClip = true;
     }
 
-    public EntityMechanicalArm(
-            World world, double x, double y, double z, double width, double height, TileQuarry parent) {
+    public EntityMechanicalArm(World world, double x, double y, double z, double width, double height,
+            TileQuarry parent) {
         this(world);
         setPositionAndRotation(parent.xCoord, parent.yCoord, parent.zCoord, 0, 0);
         this.xRoot = x;
@@ -146,6 +145,6 @@ public class EntityMechanicalArm extends Entity {
     }
 
     private double[] getHead() {
-        return new double[] {this.headX / 32D, this.headY / 32D, this.headZ / 32D};
+        return new double[] { this.headX / 32D, this.headY / 32D, this.headZ / 32D };
     }
 }

@@ -1,9 +1,5 @@
 package buildcraft.transport.render;
 
-import buildcraft.api.transport.IPipeTile;
-import buildcraft.api.transport.pluggable.IFacadePluggable;
-import buildcraft.api.transport.pluggable.PipePluggable;
-import buildcraft.core.CompatHooks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -11,7 +7,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.transport.IPipeTile;
+import buildcraft.api.transport.pluggable.IFacadePluggable;
+import buildcraft.api.transport.pluggable.PipePluggable;
+import buildcraft.core.CompatHooks;
+
 public class FacadeBlockAccess implements IBlockAccess {
+
     private final IBlockAccess world;
     private final ForgeDirection side;
 

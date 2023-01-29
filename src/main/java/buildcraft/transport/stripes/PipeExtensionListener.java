@@ -1,5 +1,18 @@
 package buildcraft.transport.stripes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.core.Position;
 import buildcraft.api.transport.IStripesActivator;
@@ -11,31 +24,21 @@ import buildcraft.transport.TravelingItem;
 import buildcraft.transport.utils.TransportUtils;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeExtensionListener {
+
     private class PipeExtensionRequest {
+
         public ItemStack stack;
         public int x, y, z;
         public ForgeDirection o;
         public IStripesActivator h;
     }
 
-    private final Map<World, HashSet<PipeExtensionRequest>> requests =
-            new HashMap<World, HashSet<PipeExtensionRequest>>();
+    private final Map<World, HashSet<PipeExtensionRequest>> requests = new HashMap<World, HashSet<PipeExtensionRequest>>();
 
-    public void requestPipeExtension(
-            ItemStack stack, World world, int x, int y, int z, ForgeDirection o, IStripesActivator h) {
+    public void requestPipeExtension(ItemStack stack, World world, int x, int y, int z, ForgeDirection o,
+            IStripesActivator h) {
         if (world.isRemote) {
             return;
         }
@@ -89,7 +92,7 @@ public class PipeExtensionListener {
                     }
                 }
 
-                // Step	1: Copy over and remove existing pipe
+                // Step 1: Copy over and remove existing pipe
                 Block oldBlock = w.getBlock(r.x, r.y, r.z);
                 int oldMeta = w.getBlockMetadata(r.x, r.y, r.z);
                 NBTTagCompound nbt = new NBTTagCompound();
@@ -100,32 +103,27 @@ public class PipeExtensionListener {
 
                 // Step 2: If retracting, remove previous pipe; if extending, add new pipe
                 if (retract) {
-                    removedPipeStacks = w.getBlock((int) target.x, (int) target.y, (int) target.z)
-                            .getDrops(
-                                    w,
-                                    (int) target.x,
-                                    (int) target.y,
-                                    (int) target.z,
-                                    w.getBlockMetadata((int) target.x, (int) target.y, (int) target.z),
-                                    0);
+                    removedPipeStacks = w.getBlock((int) target.x, (int) target.y, (int) target.z).getDrops(
+                            w,
+                            (int) target.x,
+                            (int) target.y,
+                            (int) target.z,
+                            w.getBlockMetadata((int) target.x, (int) target.y, (int) target.z),
+                            0);
 
                     w.setBlockToAir((int) target.x, (int) target.y, (int) target.z);
                 } else {
-                    if (!r.stack
-                            .getItem()
-                            .onItemUse(
-                                    r.stack,
-                                    CoreProxy.proxy
-                                            .getBuildCraftPlayer((WorldServer) w, r.x, r.y, r.z)
-                                            .get(),
-                                    w,
-                                    r.x,
-                                    r.y,
-                                    r.z,
-                                    1,
-                                    0,
-                                    0,
-                                    0)) {
+                    if (!r.stack.getItem().onItemUse(
+                            r.stack,
+                            CoreProxy.proxy.getBuildCraftPlayer((WorldServer) w, r.x, r.y, r.z).get(),
+                            w,
+                            r.x,
+                            r.y,
+                            r.z,
+                            1,
+                            0,
+                            0,
+                            0)) {
                         failedPlacement = true;
                         target.moveBackwards(1.0D);
                     }

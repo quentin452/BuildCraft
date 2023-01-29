@@ -1,10 +1,9 @@
 package buildcraft.core.crops;
 
-import buildcraft.api.crops.ICropHandler;
-import buildcraft.core.lib.utils.BlockUtils;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDoublePlant;
@@ -21,6 +20,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.crops.ICropHandler;
+import buildcraft.core.lib.utils.BlockUtils;
 
 public class CropHandlerPlantable implements ICropHandler {
 
@@ -50,7 +52,7 @@ public class CropHandlerPlantable implements ICropHandler {
     public boolean canSustainPlant(World world, ItemStack seed, int x, int y, int z) {
         if (seed.getItem() instanceof IPlantable) {
             return world.getBlock(x, y, z)
-                            .canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) seed.getItem())
+                    .canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) seed.getItem())
                     && world.isAirBlock(x, y + 1, z);
         } else {
             Block block = world.getBlock(x, y, z);
@@ -70,21 +72,21 @@ public class CropHandlerPlantable implements ICropHandler {
     public boolean isMature(IBlockAccess blockAccess, Block block, int meta, int x, int y, int z) {
         if (block == null || FORBIDDEN_BLOCKS.contains(block)) {
             return false;
-        } else if (block instanceof BlockTallGrass
-                || block instanceof BlockMelon
+        } else if (block instanceof BlockTallGrass || block instanceof BlockMelon
                 || block instanceof BlockMushroom
                 || block instanceof BlockDoublePlant
                 || block == Blocks.pumpkin) {
-            return true;
-        } else if (block instanceof BlockCrops) {
-            return meta == 7;
-        } else if (block instanceof BlockNetherWart) {
-            return meta == 3;
-        } else if (block instanceof IPlantable) {
-            if (y > 0 && blockAccess.getBlock(x, y - 1, z) == block) {
-                return true;
+                    return true;
+                } else
+            if (block instanceof BlockCrops) {
+                return meta == 7;
+            } else if (block instanceof BlockNetherWart) {
+                return meta == 3;
+            } else if (block instanceof IPlantable) {
+                if (y > 0 && blockAccess.getBlock(x, y - 1, z) == block) {
+                    return true;
+                }
             }
-        }
         return false;
     }
 

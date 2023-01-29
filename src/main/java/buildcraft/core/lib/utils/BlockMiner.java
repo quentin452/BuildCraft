@@ -1,8 +1,7 @@
 package buildcraft.core.lib.utils;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.core.proxy.CoreProxy;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -13,7 +12,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.BlockEvent;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.core.proxy.CoreProxy;
+
 public class BlockMiner {
+
     protected final World world;
     protected final TileEntity owner;
     protected final int x, y, z, minerId;
@@ -39,13 +42,18 @@ public class BlockMiner {
 
     public void mineStack(ItemStack stack) {
         // First, try to add to a nearby chest
-        stack.stackSize -=
-                Utils.addToRandomInventoryAround(owner.getWorldObj(), owner.xCoord, owner.yCoord, owner.zCoord, stack);
+        stack.stackSize -= Utils
+                .addToRandomInventoryAround(owner.getWorldObj(), owner.xCoord, owner.yCoord, owner.zCoord, stack);
 
         // Second, try to add to adjacent pipes
         if (stack.stackSize > 0) {
             stack.stackSize -= Utils.addToRandomInjectableAround(
-                    owner.getWorldObj(), owner.xCoord, owner.yCoord, owner.zCoord, ForgeDirection.UNKNOWN, stack);
+                    owner.getWorldObj(),
+                    owner.xCoord,
+                    owner.yCoord,
+                    owner.zCoord,
+                    ForgeDirection.UNKNOWN,
+                    stack);
         }
 
         // Lastly, throw the object away
@@ -55,7 +63,11 @@ public class BlockMiner {
             float f2 = world.rand.nextFloat() * 0.8F + 0.1F;
 
             EntityItem entityitem = new EntityItem(
-                    owner.getWorldObj(), owner.xCoord + f, owner.yCoord + f1 + 0.5F, owner.zCoord + f2, stack);
+                    owner.getWorldObj(),
+                    owner.xCoord + f,
+                    owner.yCoord + f1 + 0.5F,
+                    owner.zCoord + f2,
+                    stack);
 
             entityitem.lifespan = BuildCraftCore.itemLifespan * 20;
             entityitem.delayBeforeCanPickup = 10;
@@ -98,10 +110,11 @@ public class BlockMiner {
                     world,
                     block,
                     meta,
-                    CoreProxy.proxy
-                            .getBuildCraftPlayer(
-                                    (WorldServer) owner.getWorldObj(), owner.xCoord, owner.yCoord, owner.zCoord)
-                            .get());
+                    CoreProxy.proxy.getBuildCraftPlayer(
+                            (WorldServer) owner.getWorldObj(),
+                            owner.xCoord,
+                            owner.yCoord,
+                            owner.zCoord).get());
             MinecraftForge.EVENT_BUS.post(breakEvent);
 
             if (!breakEvent.isCanceled()) {
@@ -123,7 +136,11 @@ public class BlockMiner {
             }
         } else {
             world.destroyBlockInWorldPartially(
-                    minerId, x, y, z, MathUtils.clamp((int) Math.floor(energyAccepted * 10 / energyRequired), 0, 9));
+                    minerId,
+                    x,
+                    y,
+                    z,
+                    MathUtils.clamp((int) Math.floor(energyAccepted * 10 / energyRequired), 0, 9));
         }
         return usedAmount;
     }

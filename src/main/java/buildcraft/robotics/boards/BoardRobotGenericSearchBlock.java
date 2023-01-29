@@ -1,5 +1,13 @@
 package buildcraft.robotics.boards;
 
+import java.util.ArrayList;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+
 import buildcraft.api.boards.RedstoneBoardRobot;
 import buildcraft.api.core.BlockIndex;
 import buildcraft.api.robots.AIRobot;
@@ -12,12 +20,6 @@ import buildcraft.core.lib.utils.IBlockFilter;
 import buildcraft.robotics.ai.AIRobotGotoSleep;
 import buildcraft.robotics.ai.AIRobotSearchAndGotoBlock;
 import buildcraft.robotics.statements.ActionRobotFilter;
-import java.util.ArrayList;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 
 public abstract class BoardRobotGenericSearchBlock extends RedstoneBoardRobot {
 
@@ -30,9 +32,8 @@ public abstract class BoardRobotGenericSearchBlock extends RedstoneBoardRobot {
     }
 
     /**
-     * This function has to be derived in a thread safe manner, as it may be
-     * called from parallel jobs. In particular, world should not be directly
-     * used, only through WorldProperty class and subclasses.
+     * This function has to be derived in a thread safe manner, as it may be called from parallel jobs. In particular,
+     * world should not be directly used, only through WorldProperty class and subclasses.
      */
     public abstract boolean isExpectedBlock(World world, int x, int y, int z);
 
@@ -41,6 +42,7 @@ public abstract class BoardRobotGenericSearchBlock extends RedstoneBoardRobot {
         updateFilter();
 
         startDelegateAI(new AIRobotSearchAndGotoBlock(robot, false, new IBlockFilter() {
+
             @Override
             public boolean matches(World world, int x, int y, int z) {
                 if (isExpectedBlock(world, x, y, z) && !robot.getRegistry().isTaken(new ResourceIdBlock(x, y, z))) {

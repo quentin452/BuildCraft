@@ -1,17 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.builders;
 
-import buildcraft.api.tools.IToolWrench;
-import buildcraft.core.BlockMarker;
-import buildcraft.core.lib.utils.BlockUtils;
-import buildcraft.core.lib.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +15,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import buildcraft.api.tools.IToolWrench;
+import buildcraft.core.BlockMarker;
+import buildcraft.core.lib.utils.BlockUtils;
+import buildcraft.core.lib.utils.Utils;
+
 public class BlockConstructionMarker extends BlockMarker {
+
     public BlockConstructionMarker() {}
 
     @Override
@@ -60,16 +60,15 @@ public class BlockConstructionMarker extends BlockMarker {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7,
+            float par8, float par9) {
         if (super.onBlockActivated(world, x, y, z, entityplayer, par6, par7, par8, par9)) {
             return true;
         }
 
         TileConstructionMarker marker = (TileConstructionMarker) world.getTileEntity(x, y, z);
 
-        Item equipped = entityplayer.getCurrentEquippedItem() != null
-                ? entityplayer.getCurrentEquippedItem().getItem()
+        Item equipped = entityplayer.getCurrentEquippedItem() != null ? entityplayer.getCurrentEquippedItem().getItem()
                 : null;
 
         if (equipped instanceof ItemBlueprint) {

@@ -1,12 +1,20 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 import buildcraft.api.blueprints.BuilderAPI;
 import buildcraft.api.blueprints.SchematicTile;
@@ -56,15 +64,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 @Mod(
         name = "BuildCraft Factory",
@@ -101,8 +100,8 @@ public class BuildCraftFactory extends BuildCraftMod {
         BCRegistry.INSTANCE.registerTileEntity(TileMiningWell.class, "MiningWell");
         BCRegistry.INSTANCE.registerTileEntity(TileAutoWorkbench.class, "AutoWorkbench");
         BCRegistry.INSTANCE.registerTileEntity(TilePump.class, "net.minecraft.src.buildcraft.factory.TilePump");
-        BCRegistry.INSTANCE.registerTileEntity(
-                TileFloodGate.class, "net.minecraft.src.buildcraft.factory.TileFloodGate");
+        BCRegistry.INSTANCE
+                .registerTileEntity(TileFloodGate.class, "net.minecraft.src.buildcraft.factory.TileFloodGate");
         BCRegistry.INSTANCE.registerTileEntity(TileTank.class, "net.minecraft.src.buildcraft.factory.TileTank");
         BCRegistry.INSTANCE.registerTileEntity(TileRefinery.class, "net.minecraft.src.buildcraft.factory.Refinery");
         BCRegistry.INSTANCE.registerTileEntity(TileHopper.class, "net.minecraft.src.buildcraft.factory.TileHopper");
@@ -112,34 +111,37 @@ public class BuildCraftFactory extends BuildCraftMod {
         BuilderAPI.schematicRegistry.registerSchematicBlock(refineryBlock, SchematicRefinery.class);
         BuilderAPI.schematicRegistry.registerSchematicBlock(tankBlock, SchematicTileIgnoreState.class);
         BuilderAPI.schematicRegistry.registerSchematicBlock(pumpBlock, SchematicPump.class);
-        BuilderAPI.schematicRegistry.registerSchematicBlock(
-                miningWellBlock, SchematicRotateMeta.class, new int[] {2, 5, 3, 4}, true);
+        BuilderAPI.schematicRegistry
+                .registerSchematicBlock(miningWellBlock, SchematicRotateMeta.class, new int[] { 2, 5, 3, 4 }, true);
         BuilderAPI.schematicRegistry.registerSchematicBlock(floodGateBlock, SchematicTileIgnoreState.class);
         BuilderAPI.schematicRegistry.registerSchematicBlock(autoWorkbenchBlock, SchematicAutoWorkbench.class);
         BuilderAPI.schematicRegistry.registerSchematicBlock(hopperBlock, SchematicTile.class);
         BuilderAPI.schematicRegistry.registerSchematicBlock(plainPipeBlock, SchematicFree.class);
 
-        aLotOfCraftingAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.aLotOfCrafting",
-                "aLotOfCraftingAchievement",
-                1,
-                2,
-                autoWorkbenchBlock,
-                BuildCraftCore.woodenGearAchievement));
-        straightDownAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.straightDown",
-                "straightDownAchievement",
-                5,
-                2,
-                miningWellBlock,
-                BuildCraftCore.ironGearAchievement));
-        refineAndRedefineAchievement = BuildCraftCore.achievementManager.registerAchievement(new Achievement(
-                "achievement.refineAndRedefine",
-                "refineAndRedefineAchievement",
-                10,
-                0,
-                refineryBlock,
-                BuildCraftCore.diamondGearAchievement));
+        aLotOfCraftingAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.aLotOfCrafting",
+                        "aLotOfCraftingAchievement",
+                        1,
+                        2,
+                        autoWorkbenchBlock,
+                        BuildCraftCore.woodenGearAchievement));
+        straightDownAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.straightDown",
+                        "straightDownAchievement",
+                        5,
+                        2,
+                        miningWellBlock,
+                        BuildCraftCore.ironGearAchievement));
+        refineAndRedefineAchievement = BuildCraftCore.achievementManager.registerAchievement(
+                new Achievement(
+                        "achievement.refineAndRedefine",
+                        "refineAndRedefineAchievement",
+                        10,
+                        0,
+                        refineryBlock,
+                        BuildCraftCore.diamondGearAchievement));
 
         if (BuildCraftCore.loadDefaultRecipes) {
             loadRecipes();
@@ -148,8 +150,8 @@ public class BuildCraftFactory extends BuildCraftMod {
 
     @Mod.EventHandler
     public void initialize(FMLPreInitializationEvent evt) {
-        channels = NetworkRegistry.INSTANCE.newChannel(
-                DefaultProps.NET_CHANNEL_NAME + "-FACTORY", new ChannelHandler(), new PacketHandler());
+        channels = NetworkRegistry.INSTANCE
+                .newChannel(DefaultProps.NET_CHANNEL_NAME + "-FACTORY", new ChannelHandler(), new PacketHandler());
 
         String plc = "Allows admins to whitelist or blacklist pumping of specific fluids in specific dimensions.\n"
                 + "Eg. \"-/-1/Lava\" will disable lava in the nether. \"-/*/Lava\" will disable lava in any dimension. \"+/0/*\" will enable any fluid in the overworld.\n"
@@ -162,10 +164,7 @@ public class BuildCraftFactory extends BuildCraftMod {
                 "Should the mining well only be usable once after placing?",
                 ConfigManager.RestartRequirement.NONE);
 
-        BuildCraftCore.mainConfigManager
-                .get("general.miningDepth")
-                .setMinValue(2)
-                .setMaxValue(256);
+        BuildCraftCore.mainConfigManager.get("general.miningDepth").setMinValue(2).setMaxValue(256);
         BuildCraftCore.mainConfigManager.register(
                 "general.pumpDimensionControl",
                 DefaultProps.PUMP_DIMENSION_LIST,
@@ -246,10 +245,22 @@ public class BuildCraftFactory extends BuildCraftMod {
 
         if (autoWorkbenchBlock != null) {
             BCRegistry.INSTANCE.addCraftingRecipe(
-                    new ItemStack(autoWorkbenchBlock), "gwg", 'w', "craftingTableWood", 'g', "gearStone");
+                    new ItemStack(autoWorkbenchBlock),
+                    "gwg",
+                    'w',
+                    "craftingTableWood",
+                    'g',
+                    "gearStone");
 
             BCRegistry.INSTANCE.addCraftingRecipe(
-                    new ItemStack(autoWorkbenchBlock), "g", "w", "g", 'w', "craftingTableWood", 'g', "gearStone");
+                    new ItemStack(autoWorkbenchBlock),
+                    "g",
+                    "w",
+                    "g",
+                    'w',
+                    "craftingTableWood",
+                    'g',
+                    "gearStone");
         }
 
         if (tankBlock != null) {
@@ -271,7 +282,15 @@ public class BuildCraftFactory extends BuildCraftMod {
 
         if (hopperBlock != null) {
             BCRegistry.INSTANCE.addCraftingRecipe(
-                    new ItemStack(hopperBlock), "ICI", " G ", 'I', "ingotIron", 'C', "chestWood", 'G', "gearStone");
+                    new ItemStack(hopperBlock),
+                    "ICI",
+                    " G ",
+                    'I',
+                    "ingotIron",
+                    'C',
+                    "chestWood",
+                    'G',
+                    "gearStone");
 
             BCRegistry.INSTANCE.addShapelessRecipe(new ItemStack(hopperBlock), Blocks.hopper, "gearStone");
         }
@@ -299,14 +318,10 @@ public class BuildCraftFactory extends BuildCraftMod {
         } else if (restartType == ConfigManager.RestartRequirement.WORLD) {
             reloadConfig(ConfigManager.RestartRequirement.NONE);
         } else {
-            miningDepth =
-                    BuildCraftCore.mainConfigManager.get("general.miningDepth").getInt();
-            pumpsNeedRealPower = BuildCraftCore.mainConfigManager
-                    .get("general.pumpsNeedRealPower")
-                    .getBoolean();
-            pumpDimensionList = new PumpDimensionList(BuildCraftCore.mainConfigManager
-                    .get("general.pumpDimensionControl")
-                    .getString());
+            miningDepth = BuildCraftCore.mainConfigManager.get("general.miningDepth").getInt();
+            pumpsNeedRealPower = BuildCraftCore.mainConfigManager.get("general.pumpsNeedRealPower").getBoolean();
+            pumpDimensionList = new PumpDimensionList(
+                    BuildCraftCore.mainConfigManager.get("general.pumpDimensionControl").getString());
 
             if (BuildCraftCore.mainConfiguration.hasChanged()) {
                 BuildCraftCore.mainConfiguration.save();
@@ -318,8 +333,7 @@ public class BuildCraftFactory extends BuildCraftMod {
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if ("BuildCraft|Core".equals(event.modID)) {
             reloadConfig(
-                    event.isWorldRunning
-                            ? ConfigManager.RestartRequirement.NONE
+                    event.isWorldRunning ? ConfigManager.RestartRequirement.NONE
                             : ConfigManager.RestartRequirement.WORLD);
         }
     }
@@ -341,13 +355,13 @@ public class BuildCraftFactory extends BuildCraftMod {
     @Mod.EventHandler
     public void whiteListAppliedEnergetics(FMLInitializationEvent event) {
         // FMLInterModComms.sendMessage("appliedenergistics2", "whitelist-spatial",
-        //		TileMiningWell.class.getCanonicalName());
-        FMLInterModComms.sendMessage(
-                "appliedenergistics2", "whitelist-spatial", TileAutoWorkbench.class.getCanonicalName());
+        // TileMiningWell.class.getCanonicalName());
+        FMLInterModComms
+                .sendMessage("appliedenergistics2", "whitelist-spatial", TileAutoWorkbench.class.getCanonicalName());
         // FMLInterModComms.sendMessage("appliedenergistics2", "whitelist-spatial",
-        //		TilePump.class.getCanonicalName());
-        FMLInterModComms.sendMessage(
-                "appliedenergistics2", "whitelist-spatial", TileFloodGate.class.getCanonicalName());
+        // TilePump.class.getCanonicalName());
+        FMLInterModComms
+                .sendMessage("appliedenergistics2", "whitelist-spatial", TileFloodGate.class.getCanonicalName());
         FMLInterModComms.sendMessage("appliedenergistics2", "whitelist-spatial", TileTank.class.getCanonicalName());
         FMLInterModComms.sendMessage("appliedenergistics2", "whitelist-spatial", TileRefinery.class.getCanonicalName());
         FMLInterModComms.sendMessage("appliedenergistics2", "whitelist-spatial", TileHopper.class.getCanonicalName());

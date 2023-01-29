@@ -1,24 +1,24 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.gui;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.core.lib.gui.GuiBuildCraft;
 import buildcraft.core.lib.utils.StringUtils;
 import buildcraft.transport.pipes.PipeFluidsEmerald;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GuiEmeraldFluidPipe extends GuiBuildCraft {
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("buildcraftcore:textures/gui/generic_one_slot.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "buildcraftcore:textures/gui/generic_one_slot.png");
     IInventory playerInventory;
     IInventory filterInventory;
 
@@ -33,7 +33,10 @@ public class GuiEmeraldFluidPipe extends GuiBuildCraft {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         fontRendererObj.drawString(
-                filterInventory.getInventoryName(), getCenteredOffset(filterInventory.getInventoryName()), 6, 0x404040);
+                filterInventory.getInventoryName(),
+                getCenteredOffset(filterInventory.getInventoryName()),
+                6,
+                0x404040);
         fontRendererObj.drawString(StringUtils.localize("gui.inventory"), 8, ySize - 97, 0x404040);
     }
 

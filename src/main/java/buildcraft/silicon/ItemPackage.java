@@ -1,11 +1,7 @@
 package buildcraft.silicon;
 
-import buildcraft.core.lib.items.ItemBuildCraft;
-import buildcraft.core.lib.utils.NBTUtils;
-import buildcraft.silicon.render.PackageFontRenderer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,8 +14,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+import buildcraft.core.lib.items.ItemBuildCraft;
+import buildcraft.core.lib.utils.NBTUtils;
+import buildcraft.silicon.render.PackageFontRenderer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemPackage extends ItemBuildCraft {
+
     public static final class DispenseBehaviour extends BehaviorDefaultDispenseItem {
+
         @Override
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
             if (stack != null && stack.getItem() instanceof ItemPackage) {

@@ -1,17 +1,11 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.render;
 
-import buildcraft.core.lib.render.ICustomHighlight;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -19,9 +13,16 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+
 import org.lwjgl.opengl.GL11;
 
+import buildcraft.core.lib.render.ICustomHighlight;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockHighlightHandler {
+
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void handleBlockHighlight(DrawBlockHighlightEvent e) {
@@ -44,9 +45,7 @@ public class BlockHighlightHandler {
                 double exp = ((ICustomHighlight) block).getExpansion();
                 for (AxisAlignedBB aabb : aabbs) {
                     RenderGlobal.drawOutlinedBoundingBox(
-                            aabb.copy()
-                                    .expand(exp, exp, exp)
-                                    .offset(x, y, z)
+                            aabb.copy().expand(exp, exp, exp).offset(x, y, z)
                                     .offset(-pos.xCoord, -pos.yCoord, -pos.zCoord),
                             -1);
                 }

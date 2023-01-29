@@ -1,25 +1,26 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.energy.fuels;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 import buildcraft.api.core.StackKey;
 import buildcraft.api.fuels.ICoolant;
 import buildcraft.api.fuels.ICoolantManager;
 import buildcraft.api.fuels.ISolidCoolant;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 public final class CoolantManager implements ICoolantManager {
+
     public static final CoolantManager INSTANCE = new CoolantManager();
 
     private final List<ICoolant> coolants = new LinkedList<ICoolant>();
@@ -83,6 +84,7 @@ public final class CoolantManager implements ICoolantManager {
     }
 
     private static final class BCCoolant implements ICoolant {
+
         private final Fluid fluid;
         private final float degreesCoolingPerMB;
 
@@ -103,6 +105,7 @@ public final class CoolantManager implements ICoolantManager {
     }
 
     private static final class BCSolidCoolant implements ISolidCoolant {
+
         private final StackKey solid;
         private final StackKey liquid;
         private final float multiplier;

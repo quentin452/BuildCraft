@@ -1,12 +1,14 @@
 package buildcraft.robotics.map;
 
-import buildcraft.api.core.BCLog;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.chunk.Chunk;
 
+import buildcraft.api.core.BCLog;
+
 public class MapChunk {
+
     private static final int VERSION = 1;
 
     private int x, z;

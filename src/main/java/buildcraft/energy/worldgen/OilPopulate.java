@@ -1,21 +1,15 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.energy.worldgen;
 
-import buildcraft.BuildCraftCore;
-import buildcraft.BuildCraftEnergy;
-import buildcraft.core.lib.block.BlockBuildCraftFluid;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockStaticLiquid;
@@ -32,11 +26,17 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.IFluidBlock;
 
+import buildcraft.BuildCraftCore;
+import buildcraft.BuildCraftEnergy;
+import buildcraft.core.lib.block.BlockBuildCraftFluid;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 public final class OilPopulate {
 
     public static final OilPopulate INSTANCE = new OilPopulate();
-    public static final EventType EVENT_TYPE =
-            EnumHelper.addEnum(EventType.class, "BUILDCRAFT_OIL", new Class[0], new Object[0]);
+    public static final EventType EVENT_TYPE = EnumHelper
+            .addEnum(EventType.class, "BUILDCRAFT_OIL", new Class[0], new Object[0]);
     private static final byte LARGE_WELL_HEIGHT = 16;
     private static final byte MEDIUM_WELL_HEIGHT = 6;
     public final Set<Integer> excessiveBiomes = new HashSet<Integer>();
@@ -51,7 +51,7 @@ public final class OilPopulate {
     }
 
     private OilPopulate() {
-        //		BuildCraftCore.debugWorldgen = true;
+        // BuildCraftCore.debugWorldgen = true;
     }
 
     @SubscribeEvent
@@ -173,16 +173,15 @@ public final class OilPopulate {
             int lakeRadius;
             if (type == GenType.LARGE) {
                 lakeRadius = 25 + rand.nextInt(20);
-                //				if (BuildCraftCore.debugMode) {
-                //					lakeRadius += 40;
-                //				}
+                // if (BuildCraftCore.debugMode) {
+                // lakeRadius += 40;
+                // }
             } else {
                 lakeRadius = 5 + rand.nextInt(10);
             }
             generateSurfaceDeposit(world, rand, biome, wellX, groundLevel, wellZ, lakeRadius);
 
-            boolean makeSpring = type == GenType.LARGE
-                    && BuildCraftEnergy.spawnOilSprings
+            boolean makeSpring = type == GenType.LARGE && BuildCraftEnergy.spawnOilSprings
                     && BuildCraftCore.springBlock != null
                     && (BuildCraftCore.debugWorldgen || rand.nextDouble() <= 0.25);
 
@@ -311,21 +310,19 @@ public final class OilPopulate {
     }
 
     private boolean isOilAdjacent(World world, int x, int y, int z) {
-        return isOil(world, x + 1, y, z)
-                || isOil(world, x - 1, y, z)
+        return isOil(world, x + 1, y, z) || isOil(world, x - 1, y, z)
                 || isOil(world, x, y, z + 1)
                 || isOil(world, x, y, z - 1);
     }
 
     private boolean isOilSurrounded(World world, int x, int y, int z) {
-        return isOil(world, x + 1, y, z)
-                && isOil(world, x - 1, y, z)
+        return isOil(world, x + 1, y, z) && isOil(world, x - 1, y, z)
                 && isOil(world, x, y, z + 1)
                 && isOil(world, x, y, z - 1);
     }
 
-    private void setOilWithProba(
-            World world, BiomeGenBase biome, Random rand, float proba, int x, int y, int z, int depth) {
+    private void setOilWithProba(World world, BiomeGenBase biome, Random rand, float proba, int x, int y, int z,
+            int depth) {
         if (rand.nextFloat() <= proba && !world.isAirBlock(x, y - depth - 1, z)) {
             if (isOilAdjacent(world, x, y, z)) {
                 setOilColumnForLake(world, biome, x, y, z, depth, 3);

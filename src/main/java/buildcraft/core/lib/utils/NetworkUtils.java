@@ -1,15 +1,18 @@
 package buildcraft.core.lib.utils;
 
-import io.netty.buffer.ByteBuf;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
 
+import io.netty.buffer.ByteBuf;
+
 public final class NetworkUtils {
+
     private NetworkUtils() {}
 
     public static void writeUTF(ByteBuf data, String str) {

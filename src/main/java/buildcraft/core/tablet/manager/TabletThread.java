@@ -1,9 +1,11 @@
 package buildcraft.core.tablet.manager;
 
-import buildcraft.core.tablet.TabletBase;
 import java.util.Date;
 
+import buildcraft.core.tablet.TabletBase;
+
 public class TabletThread implements Runnable {
+
     private final TabletBase tablet;
 
     private long begunTickDate;
@@ -34,8 +36,7 @@ public class TabletThread implements Runnable {
             } else {
                 try {
                     Thread.sleep(1);
-                } catch (Exception e) {
-                }
+                } catch (Exception e) {}
             }
         }
     }

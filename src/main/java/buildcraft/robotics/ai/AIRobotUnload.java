@@ -1,12 +1,13 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.robotics.ai;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.api.core.IInvSlot;
 import buildcraft.api.robots.AIRobot;
@@ -17,8 +18,6 @@ import buildcraft.core.lib.inventory.InventoryIterator;
 import buildcraft.core.lib.inventory.filters.ArrayStackOrListFilter;
 import buildcraft.robotics.statements.ActionRobotFilter;
 import buildcraft.robotics.statements.ActionStationAcceptItems;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class AIRobotUnload extends AIRobot {
 
@@ -63,7 +62,9 @@ public class AIRobotUnload extends AIRobot {
             }
 
             if (!ActionRobotFilter.canInteractWithItem(
-                    station, new ArrayStackOrListFilter(robotSlot.getStackInSlot()), ActionStationAcceptItems.class)) {
+                    station,
+                    new ArrayStackOrListFilter(robotSlot.getStackInSlot()),
+                    ActionStationAcceptItems.class)) {
                 continue;
             }
 
@@ -80,7 +81,9 @@ public class AIRobotUnload extends AIRobot {
 
         if (robot.getHeldItem() != null) {
             if (!ActionRobotFilter.canInteractWithItem(
-                    station, new ArrayStackOrListFilter(robot.getHeldItem()), ActionStationAcceptItems.class)) {
+                    station,
+                    new ArrayStackOrListFilter(robot.getHeldItem()),
+                    ActionStationAcceptItems.class)) {
                 return false;
             }
 

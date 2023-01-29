@@ -1,13 +1,15 @@
 package buildcraft.core.recipes;
 
-import buildcraft.api.core.BCLog;
-import buildcraft.api.recipes.IProgrammingRecipe;
-import buildcraft.api.recipes.IProgrammingRecipeManager;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
+import buildcraft.api.core.BCLog;
+import buildcraft.api.recipes.IProgrammingRecipe;
+import buildcraft.api.recipes.IProgrammingRecipeManager;
+
 public class ProgrammingRecipeManager implements IProgrammingRecipeManager {
+
     public static final ProgrammingRecipeManager INSTANCE = new ProgrammingRecipeManager();
     private final HashMap<String, IProgrammingRecipe> recipes = new HashMap<String, IProgrammingRecipe>();
 
@@ -20,8 +22,8 @@ public class ProgrammingRecipeManager implements IProgrammingRecipeManager {
         if (!recipes.containsKey(recipe.getId())) {
             recipes.put(recipe.getId(), recipe);
         } else {
-            BCLog.logger.warn(
-                    "Programming Table Recipe '" + recipe.getId() + "' seems to be duplicated! This is a bug!");
+            BCLog.logger
+                    .warn("Programming Table Recipe '" + recipe.getId() + "' seems to be duplicated! This is a bug!");
         }
     }
 

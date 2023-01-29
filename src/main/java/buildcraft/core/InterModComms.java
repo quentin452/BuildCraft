@@ -1,12 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.fluids.FluidStack;
 
 import buildcraft.api.core.BCLog;
 import buildcraft.core.crops.CropHandlerPlantable;
@@ -14,17 +23,9 @@ import buildcraft.core.recipes.AssemblyRecipeManager;
 import buildcraft.core.recipes.RefineryRecipeManager;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.fluids.FluidStack;
 
 public final class InterModComms {
+
     private static final Set<IMCHandler> handlers = new HashSet<IMCHandler>();
 
     /**
@@ -62,9 +63,11 @@ public final class InterModComms {
             if (blockObj instanceof Block) {
                 CropHandlerPlantable.forbidBlock((Block) blockObj);
             }
-            BCLog.logger.info(String.format(
-                    "Received a plantable block '%s' removal request from mod %s",
-                    msg.getStringValue(), msg.getSender()));
+            BCLog.logger.info(
+                    String.format(
+                            "Received a plantable block '%s' removal request from mod %s",
+                            msg.getStringValue(),
+                            msg.getSender()));
         }
     }
 
@@ -72,9 +75,11 @@ public final class InterModComms {
         if (msg.isStringMessage()) {
             AssemblyRecipeManager.INSTANCE.removeRecipe(msg.getStringValue());
 
-            BCLog.logger.info(String.format(
-                    "Received an assembly recipe '%s' removal request from mod %s",
-                    msg.getStringValue(), msg.getSender()));
+            BCLog.logger.info(
+                    String.format(
+                            "Received an assembly recipe '%s' removal request from mod %s",
+                            msg.getStringValue(),
+                            msg.getSender()));
         }
     }
 
@@ -82,9 +87,11 @@ public final class InterModComms {
         if (msg.isStringMessage()) {
             RefineryRecipeManager.INSTANCE.removeRecipe(msg.getStringValue());
 
-            BCLog.logger.info(String.format(
-                    "Received a refinery recipe '%s' removal request from mod %s",
-                    msg.getStringValue(), msg.getSender()));
+            BCLog.logger.info(
+                    String.format(
+                            "Received a refinery recipe '%s' removal request from mod %s",
+                            msg.getStringValue(),
+                            msg.getSender()));
         }
     }
 
@@ -94,8 +101,7 @@ public final class InterModComms {
             failed = true;
         } else {
             NBTTagCompound recipe = msg.getNBTValue();
-            if (!recipe.hasKey("id")
-                    || !recipe.hasKey("input", 9)
+            if (!recipe.hasKey("id") || !recipe.hasKey("input", 9)
                     || !recipe.hasKey("output", 10)
                     || !recipe.hasKey("energy", 3)) { // Ints - NBTBase#NBTTypes
                 failed = true;
@@ -112,7 +118,10 @@ public final class InterModComms {
                 ItemStack is = ItemStack.loadItemStackFromNBT(recipe.getCompoundTag("output"));
                 if (is != null && !input.isEmpty() && id.length() > 0) {
                     AssemblyRecipeManager.INSTANCE.addRecipe(
-                            id, recipe.getInteger("energy"), is, (Object[]) input.toArray(new ItemStack[input.size()]));
+                            id,
+                            recipe.getInteger("energy"),
+                            is,
+                            (Object[]) input.toArray(new ItemStack[input.size()]));
                 } else {
                     failed = true;
                 }
@@ -129,8 +138,7 @@ public final class InterModComms {
             failed = true;
         } else {
             NBTTagCompound recipe = msg.getNBTValue();
-            if (!recipe.hasKey("id") && !recipe.hasKey("input", 10)
-                    || !recipe.hasKey("output", 10)
+            if (!recipe.hasKey("id") && !recipe.hasKey("input", 10) || !recipe.hasKey("output", 10)
                     || !recipe.hasKey("energy", 3)
                     || !recipe.hasKey("delay", 3)) {
                 failed = true;
@@ -144,7 +152,12 @@ public final class InterModComms {
                 }
                 if (input != null && output != null && id.length() > 0) {
                     RefineryRecipeManager.INSTANCE.addRecipe(
-                            id, input, input2, output, recipe.getInteger("energy"), recipe.getInteger("delay"));
+                            id,
+                            input,
+                            input2,
+                            output,
+                            recipe.getInteger("energy"),
+                            recipe.getInteger("delay"));
                 } else {
                     failed = true;
                 }

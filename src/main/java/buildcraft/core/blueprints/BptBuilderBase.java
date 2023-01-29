@@ -1,12 +1,28 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.blueprints;
+
+import java.util.BitSet;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.event.world.BlockEvent;
+
+import org.apache.logging.log4j.Level;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.api.blueprints.BuilderAPI;
@@ -27,21 +43,6 @@ import buildcraft.core.builders.TileAbstractBuilder;
 import buildcraft.core.lib.utils.BitSetUtils;
 import buildcraft.core.lib.utils.BlockUtils;
 import buildcraft.core.proxy.CoreProxy;
-import java.util.BitSet;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.BlockSnapshot;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.event.world.BlockEvent;
-import org.apache.logging.log4j.Level;
 
 public abstract class BptBuilderBase implements IAreaProvider {
 
@@ -112,8 +113,8 @@ public abstract class BptBuilderBase implements IAreaProvider {
         }
     }
 
-    public boolean buildSlot(
-            World world, IBuildingItemsProvider builder, BuildingSlot slot, double x, double y, double z) {
+    public boolean buildSlot(World world, IBuildingItemsProvider builder, BuildingSlot slot, double x, double y,
+            double z) {
         initialize();
 
         if (slot != null) {
@@ -272,9 +273,7 @@ public abstract class BptBuilderBase implements IAreaProvider {
                     world,
                     world.getBlock(x, y, z),
                     world.getBlockMetadata(x, y, z),
-                    CoreProxy.proxy
-                            .getBuildCraftPlayer((WorldServer) world, this.x, this.y, this.z)
-                            .get());
+                    CoreProxy.proxy.getBuildCraftPlayer((WorldServer) world, this.x, this.y, this.z).get());
             MinecraftForge.EVENT_BUS.post(breakEvent);
             return breakEvent.isCanceled();
         }
@@ -288,9 +287,7 @@ public abstract class BptBuilderBase implements IAreaProvider {
         BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(
                 new BlockSnapshot(world, x, y, z, block, meta),
                 Blocks.air,
-                CoreProxy.proxy
-                        .getBuildCraftPlayer((WorldServer) world, this.x, this.y, this.z)
-                        .get());
+                CoreProxy.proxy.getBuildCraftPlayer((WorldServer) world, this.x, this.y, this.z).get());
 
         MinecraftForge.EVENT_BUS.post(placeEvent);
         return placeEvent.isCanceled();

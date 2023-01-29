@@ -1,21 +1,22 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.core.render;
+
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.tileentity.TileEntity;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.core.EntityLaser;
 import buildcraft.core.LaserData;
 import buildcraft.core.builders.TileAbstractBuilder;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.GL11;
 
 public class RenderBuilder extends RenderBoxProvider {
+
     private static final RenderBuildingItems renderItems = new RenderBuildingItems();
 
     @Override
@@ -39,7 +40,9 @@ public class RenderBuilder extends RenderBoxProvider {
                 if (laser != null) {
                     GL11.glPushMatrix();
                     RenderLaser.doRenderLaser(
-                            TileEntityRendererDispatcher.instance.field_147553_e, laser, EntityLaser.LASER_TEXTURES[4]);
+                            TileEntityRendererDispatcher.instance.field_147553_e,
+                            laser,
+                            EntityLaser.LASER_TEXTURES[4]);
                     GL11.glPopMatrix();
                 }
             }

@@ -1,12 +1,21 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft.transport.render;
+
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
 
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftCore.RenderMode;
@@ -25,17 +34,9 @@ import buildcraft.transport.Pipe;
 import buildcraft.transport.PipeRenderState;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.gates.GatePluggable;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
-import org.lwjgl.opengl.GL11;
 
 public class PipeRendererTESR extends TileEntitySpecialRenderer {
+
     public static final PipeRendererTESR INSTANCE = new PipeRendererTESR();
 
     protected PipeRendererTESR() {}
@@ -125,8 +126,8 @@ public class PipeRendererTESR extends TileEntitySpecialRenderer {
         }
     }
 
-    private void pipeWireRender(
-            TileGenericPipe pipe, float cx, float cy, float cz, PipeWire color, double x, double y, double z) {
+    private void pipeWireRender(TileGenericPipe pipe, float cx, float cy, float cz, PipeWire color, double x, double y,
+            double z) {
 
         PipeRenderState state = pipe.renderState;
 
@@ -234,8 +235,8 @@ public class PipeRendererTESR extends TileEntitySpecialRenderer {
         bindTexture(TextureMap.locationBlocksTexture);
 
         RenderInfo renderBox = new RenderInfo();
-        renderBox.texture =
-                BuildCraftTransport.instance.wireIconProvider.getIcon(state.wireMatrix.getWireIconIndex(color));
+        renderBox.texture = BuildCraftTransport.instance.wireIconProvider
+                .getIcon(state.wireMatrix.getWireIconIndex(color));
         boolean isLit = (state.wireMatrix.getWireIconIndex(color) & 1) > 0;
 
         // Z render
@@ -302,14 +303,8 @@ public class PipeRendererTESR extends TileEntitySpecialRenderer {
         }
     }
 
-    public static void renderGateStatic(
-            RenderBlocks renderblocks,
-            ForgeDirection direction,
-            GatePluggable gate,
-            ITextureStates blockStateMachine,
-            int x,
-            int y,
-            int z) {
+    public static void renderGateStatic(RenderBlocks renderblocks, ForgeDirection direction, GatePluggable gate,
+            ITextureStates blockStateMachine, int x, int y, int z) {
         blockStateMachine.getTextureState().set(gate.getLogic().getGateIcon());
 
         float trim = 0.1F;
@@ -332,7 +327,12 @@ public class PipeRendererTESR extends TileEntitySpecialRenderer {
 
         blockStateMachine.setRenderAllSides();
         renderblocks.setRenderBounds(
-                rotated[0][0], rotated[1][0], rotated[2][0], rotated[0][1], rotated[1][1], rotated[2][1]);
+                rotated[0][0],
+                rotated[1][0],
+                rotated[2][0],
+                rotated[0][1],
+                rotated[1][1],
+                rotated[2][1]);
         renderblocks.renderStandardBlock(blockStateMachine.getBlock(), x, y, z);
     }
 
@@ -383,15 +383,8 @@ public class PipeRendererTESR extends TileEntitySpecialRenderer {
         GL11.glPopMatrix();
     }
 
-    private static void renderGate(
-            IIcon icon,
-            int layer,
-            float trim,
-            float translateCenter,
-            float extraDepth,
-            ForgeDirection direction,
-            boolean isLit,
-            int sideRenderingMode) {
+    private static void renderGate(IIcon icon, int layer, float trim, float translateCenter, float extraDepth,
+            ForgeDirection direction, boolean isLit, int sideRenderingMode) {
         RenderInfo renderBox = new RenderInfo();
         renderBox.texture = icon;
 
@@ -411,8 +404,7 @@ public class PipeRendererTESR extends TileEntitySpecialRenderer {
 
         if (translateCenter != 0) {
             GL11.glPushMatrix();
-            float xt = direction.offsetX * translateCenter,
-                    yt = direction.offsetY * translateCenter,
+            float xt = direction.offsetX * translateCenter, yt = direction.offsetY * translateCenter,
                     zt = direction.offsetZ * translateCenter;
 
             GL11.glTranslatef(xt, yt, zt);

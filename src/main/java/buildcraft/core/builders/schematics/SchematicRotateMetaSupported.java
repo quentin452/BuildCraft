@@ -1,12 +1,16 @@
 package buildcraft.core.builders.schematics;
 
-import buildcraft.api.blueprints.IBuilderContext;
-import buildcraft.api.core.BlockIndex;
-import com.google.common.collect.Sets;
 import java.util.Set;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
+import buildcraft.api.blueprints.IBuilderContext;
+import buildcraft.api.core.BlockIndex;
+
+import com.google.common.collect.Sets;
+
 public class SchematicRotateMetaSupported extends SchematicRotateMeta {
+
     public SchematicRotateMetaSupported(int[] rotations, boolean rotateForward) {
         super(rotations, rotateForward);
     }

@@ -1,5 +1,11 @@
 package buildcraft.transport;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftTransport;
 import buildcraft.api.gates.GateExpansions;
@@ -17,12 +23,9 @@ import buildcraft.transport.recipes.AdvancedFacadeRecipe;
 import buildcraft.transport.recipes.GateExpansionRecipe;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 
 public final class TransportSiliconRecipes {
+
     private TransportSiliconRecipes() {}
 
     @Optional.Method(modid = "BuildCraft|Silicon")
@@ -51,7 +54,10 @@ public final class TransportSiliconRecipes {
             }
 
             BuildcraftRecipeRegistry.assemblyTable.addRecipe(
-                    "buildcraft:lens:16", 10000, new ItemStack(BuildCraftTransport.lensItem, 2, 32), "blockGlass");
+                    "buildcraft:lens:16",
+                    10000,
+                    new ItemStack(BuildCraftTransport.lensItem, 2, 32),
+                    "blockGlass");
             BuildcraftRecipeRegistry.assemblyTable.addRecipe(
                     "buildcraft:filter:16",
                     10000,
@@ -63,11 +69,26 @@ public final class TransportSiliconRecipes {
         // PIPE WIRE
         if (Utils.isRegistered(PipeWire.item)) {
             BuildcraftRecipeRegistry.assemblyTable.addRecipe(
-                    "buildcraft:redWire", 5000, PipeWire.RED.getStack(8), "dyeRed", "dustRedstone", "ingotIron");
+                    "buildcraft:redWire",
+                    5000,
+                    PipeWire.RED.getStack(8),
+                    "dyeRed",
+                    "dustRedstone",
+                    "ingotIron");
             BuildcraftRecipeRegistry.assemblyTable.addRecipe(
-                    "buildcraft:blueWire", 5000, PipeWire.BLUE.getStack(8), "dyeBlue", "dustRedstone", "ingotIron");
+                    "buildcraft:blueWire",
+                    5000,
+                    PipeWire.BLUE.getStack(8),
+                    "dyeBlue",
+                    "dustRedstone",
+                    "ingotIron");
             BuildcraftRecipeRegistry.assemblyTable.addRecipe(
-                    "buildcraft:greenWire", 5000, PipeWire.GREEN.getStack(8), "dyeGreen", "dustRedstone", "ingotIron");
+                    "buildcraft:greenWire",
+                    5000,
+                    PipeWire.GREEN.getStack(8),
+                    "dyeGreen",
+                    "dustRedstone",
+                    "ingotIron");
             BuildcraftRecipeRegistry.assemblyTable.addRecipe(
                     "buildcraft:yellowWire",
                     5000,
@@ -133,22 +154,20 @@ public final class TransportSiliconRecipes {
 
                 // This will only add recipes to the gate expansions.
                 GateExpansions.registerExpansion(
-                        GateExpansionPulsar.INSTANCE, ItemRedstoneChipset.Chipset.PULSATING.getStack());
+                        GateExpansionPulsar.INSTANCE,
+                        ItemRedstoneChipset.Chipset.PULSATING.getStack());
+                GateExpansions
+                        .registerExpansion(GateExpansionTimer.INSTANCE, ItemRedstoneChipset.Chipset.QUARTZ.getStack());
                 GateExpansions.registerExpansion(
-                        GateExpansionTimer.INSTANCE, ItemRedstoneChipset.Chipset.QUARTZ.getStack());
-                GateExpansions.registerExpansion(
-                        GateExpansionRedstoneFader.INSTANCE, ItemRedstoneChipset.Chipset.COMP.getStack());
+                        GateExpansionRedstoneFader.INSTANCE,
+                        ItemRedstoneChipset.Chipset.COMP.getStack());
             }
         }
     }
 
     @Optional.Method(modid = "BuildCraft|Silicon")
-    private static void addGateRecipe(
-            String materialName,
-            int energyCost,
-            GateDefinition.GateMaterial material,
-            ItemRedstoneChipset.Chipset chipset,
-            PipeWire... pipeWire) {
+    private static void addGateRecipe(String materialName, int energyCost, GateDefinition.GateMaterial material,
+            ItemRedstoneChipset.Chipset chipset, PipeWire... pipeWire) {
         List<ItemStack> temp = new ArrayList<ItemStack>();
         temp.add(chipset.getStack());
         for (PipeWire wire : pipeWire) {

@@ -1,25 +1,16 @@
 /**
- * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+ * Copyright (c) 2011-2017, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  * <p/>
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents
+ * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package buildcraft;
 
-import buildcraft.api.core.BCLog;
-import buildcraft.core.DefaultProps;
-import buildcraft.core.lib.network.Packet;
-import buildcraft.core.lib.utils.ThreadSafeUtils;
-import cpw.mods.fml.common.network.FMLEmbeddedChannel;
-import cpw.mods.fml.common.network.FMLOutboundHandler;
-import cpw.mods.fml.common.network.FMLOutboundHandler.OutboundTarget;
-import cpw.mods.fml.relauncher.Side;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -30,13 +21,24 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import buildcraft.api.core.BCLog;
+import buildcraft.core.DefaultProps;
+import buildcraft.core.lib.network.Packet;
+import buildcraft.core.lib.utils.ThreadSafeUtils;
+import cpw.mods.fml.common.network.FMLEmbeddedChannel;
+import cpw.mods.fml.common.network.FMLOutboundHandler;
+import cpw.mods.fml.common.network.FMLOutboundHandler.OutboundTarget;
+import cpw.mods.fml.relauncher.Side;
+
 public class BuildCraftMod {
+
     private static PacketSender sender = new PacketSender();
     private static Thread senderThread = new Thread(sender);
 
     public EnumMap<Side, FMLEmbeddedChannel> channels;
 
     abstract static class SendRequest {
+
         final Packet packet;
         final BuildCraftMod source;
 
@@ -49,6 +51,7 @@ public class BuildCraftMod {
     }
 
     class PlayerSendRequest extends SendRequest {
+
         EntityPlayer player;
 
         PlayerSendRequest(BuildCraftMod source, Packet packet, EntityPlayer player) {
@@ -62,6 +65,7 @@ public class BuildCraftMod {
     }
 
     class EntitySendRequest extends SendRequest {
+
         Entity entity;
 
         EntitySendRequest(BuildCraftMod source, Packet packet, Entity entity) {
@@ -72,9 +76,7 @@ public class BuildCraftMod {
         boolean isValid(EntityPlayer player) {
             if (player.worldObj.equals(entity.worldObj)) {
                 if (player.worldObj instanceof WorldServer) {
-                    return ((WorldServer) player.worldObj)
-                            .getEntityTracker()
-                            .getTrackingPlayers(entity)
+                    return ((WorldServer) player.worldObj).getEntityTracker().getTrackingPlayers(entity)
                             .contains(player);
                 } else {
                     return true;
@@ -86,6 +88,7 @@ public class BuildCraftMod {
     }
 
     class WorldSendRequest extends SendRequest {
+
         final int dimensionId;
 
         WorldSendRequest(BuildCraftMod source, Packet packet, int dimensionId) {
@@ -99,6 +102,7 @@ public class BuildCraftMod {
     }
 
     class LocationSendRequest extends SendRequest {
+
         final int dimensionId;
         final int x, y, z, md;
 
@@ -117,6 +121,7 @@ public class BuildCraftMod {
     }
 
     static class PacketSender implements Runnable {
+
         private Queue<SendRequest> packets = new ConcurrentLinkedQueue<SendRequest>();
 
         @Override
@@ -131,10 +136,10 @@ public class BuildCraftMod {
                 while (!packets.isEmpty()) {
                     try {
                         SendRequest r = packets.remove();
-                        net.minecraft.network.Packet p =
-                                ThreadSafeUtils.generatePacketFrom(r.packet, r.source.channels.get(Side.SERVER));
-                        List<EntityPlayerMP> playerList =
-                                MinecraftServer.getServer().getConfigurationManager().playerEntityList;
+                        net.minecraft.network.Packet p = ThreadSafeUtils
+                                .generatePacketFrom(r.packet, r.source.channels.get(Side.SERVER));
+                        List<EntityPlayerMP> playerList = MinecraftServer.getServer()
+                                .getConfigurationManager().playerEntityList;
                         for (EntityPlayerMP player : playerList.toArray(new EntityPlayerMP[playerList.size()])) {
                             if (r.isValid(player)) {
                                 NetHandlerPlayServer handler = player.playerNetServerHandler;
@@ -173,14 +178,15 @@ public class BuildCraftMod {
     }
 
     public void sendToPlayersNear(Packet packet, TileEntity tileEntity, int maxDistance) {
-        sender.add(new LocationSendRequest(
-                this,
-                packet,
-                tileEntity.getWorldObj().provider.dimensionId,
-                tileEntity.xCoord,
-                tileEntity.yCoord,
-                tileEntity.zCoord,
-                maxDistance));
+        sender.add(
+                new LocationSendRequest(
+                        this,
+                        packet,
+                        tileEntity.getWorldObj().provider.dimensionId,
+                        tileEntity.xCoord,
+                        tileEntity.yCoord,
+                        tileEntity.zCoord,
+                        maxDistance));
     }
 
     public void sendToPlayersNear(Packet packet, TileEntity tileEntity) {
