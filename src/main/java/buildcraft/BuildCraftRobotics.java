@@ -149,6 +149,8 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 @Mod(
         name = "BuildCraft Robotics",
         version = Version.VERSION,
@@ -513,6 +515,8 @@ public class BuildCraftRobotics extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if(GTNH) return;
+
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(robotItem),
                 "PPP",

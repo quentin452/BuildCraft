@@ -65,6 +65,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 @Mod(
         name = "BuildCraft Factory",
         version = Version.VERSION,
@@ -209,6 +211,8 @@ public class BuildCraftFactory extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if (GTNH) return;
+
         if (miningWellBlock != null) {
             BCRegistry.INSTANCE.addCraftingRecipe(
                     new ItemStack(miningWellBlock, 1),

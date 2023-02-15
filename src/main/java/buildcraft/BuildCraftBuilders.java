@@ -140,6 +140,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 @Mod(
         name = "BuildCraft Builders",
         version = Version.VERSION,
@@ -655,6 +657,8 @@ public class BuildCraftBuilders extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if(GTNH) return;
+
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(quarryBlock),
                 "ipi",

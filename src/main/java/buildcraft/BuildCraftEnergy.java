@@ -79,6 +79,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 @Mod(
         name = "BuildCraft Energy",
         version = Version.VERSION,
@@ -505,6 +507,7 @@ public class BuildCraftEnergy extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if(GTNH) return;
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(BuildCraftCore.engineBlock, 1, 1),
                 "www",

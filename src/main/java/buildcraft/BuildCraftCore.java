@@ -290,6 +290,8 @@ public class BuildCraftCore extends BuildCraftMod {
     public static Achievement wrenchAchievement;
     public static Achievement engineRedstoneAchievement;
 
+    public static boolean GTNH = false;
+
     public static GameProfile gameProfile = new GameProfile(
             UUID.nameUUIDFromBytes("buildcraft.core".getBytes()),
             "[BuildCraft]");
@@ -483,6 +485,8 @@ public class BuildCraftCore extends BuildCraftMod {
 
         OreDictionary.registerOre("chestWood", Blocks.chest);
         OreDictionary.registerOre("craftingTableWood", Blocks.crafting_table);
+
+        GTNH = Loader.isModLoaded("dreamcraft");
     }
 
     @Mod.EventHandler
@@ -806,6 +810,8 @@ public class BuildCraftCore extends BuildCraftMod {
     }
 
     public void loadRecipes() {
+        if(GTNH) return;
+
         BCRegistry.INSTANCE
                 .addCraftingRecipe(new ItemStack(wrenchItem), "I I", " G ", " I ", 'I', "ingotIron", 'G', "gearStone");
         BCRegistry.INSTANCE.addCraftingRecipe(new ItemStack(woodenGearItem), " S ", "S S", " S ", 'S', "stickWood");

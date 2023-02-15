@@ -58,6 +58,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 @Mod(
         name = "BuildCraft Silicon",
         version = Version.VERSION,
@@ -195,6 +197,7 @@ public class BuildCraftSilicon extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if(GTNH) return;
 
         // TABLES
         BCRegistry.INSTANCE.addCraftingRecipe(

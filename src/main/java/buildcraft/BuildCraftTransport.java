@@ -185,6 +185,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 @Mod(
         version = Version.VERSION,
         modid = "BuildCraft|Transport",
@@ -716,6 +718,8 @@ public class BuildCraftTransport extends BuildCraftMod {
     }
 
     public void loadRecipes() {
+        if(GTNH) return;
+
         // Add base recipe for pipe waterproof.
         GameRegistry.addShapelessRecipe(new ItemStack(pipeWaterproof, 1), new ItemStack(Items.dye, 1, 2));
         if (additionalWaterproofingRecipe) {
