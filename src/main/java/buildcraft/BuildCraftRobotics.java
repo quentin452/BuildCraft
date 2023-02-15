@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,8 +150,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import static buildcraft.BuildCraftCore.GTNH;
 
 @Mod(
         name = "BuildCraft Robotics",
@@ -515,7 +515,7 @@ public class BuildCraftRobotics extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
-        if(GTNH) return;
+        if (GTNH) return;
 
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(robotItem),

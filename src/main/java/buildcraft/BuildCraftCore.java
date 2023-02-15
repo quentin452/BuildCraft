@@ -810,7 +810,7 @@ public class BuildCraftCore extends BuildCraftMod {
     }
 
     public void loadRecipes() {
-        if(GTNH) return;
+        if (GTNH) return;
 
         BCRegistry.INSTANCE
                 .addCraftingRecipe(new ItemStack(wrenchItem), "I I", " G ", " I ", 'I', "ingotIron", 'G', "gearStone");
