@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Blocks;
@@ -57,8 +59,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-
-import static buildcraft.BuildCraftCore.GTNH;
 
 @Mod(
         name = "BuildCraft Silicon",
@@ -197,7 +197,7 @@ public class BuildCraftSilicon extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
-        if(GTNH) return;
+        if (GTNH) return;
 
         // TABLES
         BCRegistry.INSTANCE.addCraftingRecipe(

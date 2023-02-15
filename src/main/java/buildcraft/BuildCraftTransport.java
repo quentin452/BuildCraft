@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import java.io.PrintWriter;
 import java.util.LinkedList;
 
@@ -184,8 +186,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import static buildcraft.BuildCraftCore.GTNH;
 
 @Mod(
         version = Version.VERSION,
@@ -718,7 +718,7 @@ public class BuildCraftTransport extends BuildCraftMod {
     }
 
     public void loadRecipes() {
-        if(GTNH) return;
+        if (GTNH) return;
 
         // Add base recipe for pipe waterproof.
         GameRegistry.addShapelessRecipe(new ItemStack(pipeWaterproof, 1), new ItemStack(Items.dye, 1, 2));

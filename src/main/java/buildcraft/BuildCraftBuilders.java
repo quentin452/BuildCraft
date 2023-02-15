@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -139,8 +141,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import static buildcraft.BuildCraftCore.GTNH;
 
 @Mod(
         name = "BuildCraft Builders",
@@ -657,7 +657,7 @@ public class BuildCraftBuilders extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
-        if(GTNH) return;
+        if (GTNH) return;
 
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(quarryBlock),

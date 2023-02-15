@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
@@ -64,8 +66,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import static buildcraft.BuildCraftCore.GTNH;
 
 @Mod(
         name = "BuildCraft Factory",
