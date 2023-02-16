@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import java.util.Set;
 
 import net.minecraft.block.Block;
@@ -505,6 +507,7 @@ public class BuildCraftEnergy extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if (GTNH) return;
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(BuildCraftCore.engineBlock, 1, 1),
                 "www",

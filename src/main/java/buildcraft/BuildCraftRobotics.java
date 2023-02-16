@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -513,6 +515,8 @@ public class BuildCraftRobotics extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if (GTNH) return;
+
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(robotItem),
                 "PPP",

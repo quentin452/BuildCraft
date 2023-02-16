@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -655,6 +657,8 @@ public class BuildCraftBuilders extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if (GTNH) return;
+
         BCRegistry.INSTANCE.addCraftingRecipe(
                 new ItemStack(quarryBlock),
                 "ipi",

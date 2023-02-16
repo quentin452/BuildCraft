@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Blocks;
@@ -195,6 +197,7 @@ public class BuildCraftSilicon extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if (GTNH) return;
 
         // TABLES
         BCRegistry.INSTANCE.addCraftingRecipe(

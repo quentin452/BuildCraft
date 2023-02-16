@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import java.io.PrintWriter;
 import java.util.LinkedList;
 
@@ -716,6 +718,8 @@ public class BuildCraftTransport extends BuildCraftMod {
     }
 
     public void loadRecipes() {
+        if (GTNH) return;
+
         // Add base recipe for pipe waterproof.
         GameRegistry.addShapelessRecipe(new ItemStack(pipeWaterproof, 1), new ItemStack(Items.dye, 1, 2));
         if (additionalWaterproofingRecipe) {

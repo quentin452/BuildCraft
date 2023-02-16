@@ -6,6 +6,8 @@
  */
 package buildcraft;
 
+import static buildcraft.BuildCraftCore.GTNH;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
@@ -209,6 +211,8 @@ public class BuildCraftFactory extends BuildCraftMod {
     }
 
     public static void loadRecipes() {
+        if (GTNH) return;
+
         if (miningWellBlock != null) {
             BCRegistry.INSTANCE.addCraftingRecipe(
                     new ItemStack(miningWellBlock, 1),
