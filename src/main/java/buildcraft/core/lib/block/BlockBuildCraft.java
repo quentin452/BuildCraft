@@ -295,7 +295,7 @@ public abstract class BlockBuildCraft extends BlockContainer {
             float power = 0.0F;
             for (IInvSlot slot : InventoryIterator
                     .getIterable((IInventory) tile, ForgeDirection.getOrientation(side))) {
-                if (((IComparatorInventory) this)
+                if (this instanceof IComparatorInventory && ((IComparatorInventory) this)
                         .doesSlotCountComparator(tile, slot.getIndex(), slot.getStackInSlot())) {
                     count++;
                     if (slot.getStackInSlot() != null) {
