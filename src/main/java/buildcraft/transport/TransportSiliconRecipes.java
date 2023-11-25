@@ -67,7 +67,7 @@ public final class TransportSiliconRecipes {
         }
 
         // PIPE WIRE
-        if (Utils.isRegistered(PipeWire.item)) {
+        if (Utils.isRegistered(PipeWire.item) && !BuildCraftCore.GTNH) {
             BuildcraftRecipeRegistry.assemblyTable.addRecipe(
                     "buildcraft:redWire",
                     5000,
