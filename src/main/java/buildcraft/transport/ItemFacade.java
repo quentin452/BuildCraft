@@ -9,6 +9,7 @@ package buildcraft.transport;
 import java.util.ArrayList;
 import java.util.List;
 
+import buildcraft.BuildCraftBuilders;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -649,6 +650,9 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
     }
 
     public static ItemStack getFacade(FacadeState... states) {
+        if (BuildCraftBuilders.disableBuildcraftFACADE){
+            return null;
+        }
         if (states == null || states.length == 0) {
             return null;
         }
@@ -666,6 +670,9 @@ public class ItemFacade extends ItemBuildCraft implements IFacadeItem, IPipePlug
 
     @Override
     public PipePluggable createPipePluggable(IPipe pipe, ForgeDirection side, ItemStack stack) {
+        if (BuildCraftBuilders.disableBuildcraftFACADE){
+            return null;
+        }
         return new FacadePluggable(getFacadeStates(stack));
     }
 }

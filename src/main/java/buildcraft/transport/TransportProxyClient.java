@@ -6,6 +6,7 @@
  */
 package buildcraft.transport;
 
+import buildcraft.BuildCraftBuilders;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
@@ -58,7 +59,6 @@ public class TransportProxyClient extends TransportProxy {
         for (Item itemPipe : BlockGenericPipe.pipes.keySet()) {
             MinecraftForgeClient.registerItemRenderer(itemPipe, pipeItemRenderer);
         }
-
         MinecraftForgeClient.registerItemRenderer(BuildCraftTransport.facadeItem, facadeItemRenderer);
         MinecraftForgeClient.registerItemRenderer(BuildCraftTransport.plugItem, plugItemRenderer);
         MinecraftForgeClient.registerItemRenderer(BuildCraftTransport.pipeGate, gateItemRenderer);

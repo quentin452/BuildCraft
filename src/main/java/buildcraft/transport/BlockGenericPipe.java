@@ -521,22 +521,24 @@ public class BlockGenericPipe extends BlockBuildCraft implements IColorRemovable
         if (world.isRemote) {
             return;
         }
+
         Pipe<?> pipe = getPipe(world, i, j, k);
 
         if (pipe == null) {
             pipe = pipeRemoved.get(new BlockIndex(i, j, k));
         }
 
-        if (pipe != null) {
-            Item k1 = pipe.item;
+        if (pipe != null && pipe.item != null) {
+            pipe.dropContents();
 
-            if (k1 != null) {
-                pipe.dropContents();
-                for (ItemStack is : pipe.computeItemDrop()) {
+            for (ItemStack is : pipe.computeItemDrop()) {
+                if (is != null) {
                     dropBlockAsItem(world, i, j, k, is);
                 }
-                dropBlockAsItem(world, i, j, k, new ItemStack(k1, 1, pipe.container.getItemMetadata()));
             }
+
+            ItemStack pipeItemStack = new ItemStack(pipe.item, 1, pipe.container.getItemMetadata());
+            dropBlockAsItem(world, i, j, k, pipeItemStack);
         }
     }
 

@@ -447,10 +447,12 @@ public class BuildCraftTransport extends BuildCraftMod {
             }
             BCRegistry.INSTANCE.registerItem(pipeGate, false);
 
-            facadeItem = new ItemFacade();
-            facadeItem.setUnlocalizedName("pipeFacade");
-            BCRegistry.INSTANCE.registerItem(facadeItem, false);
-            FacadeAPI.facadeItem = facadeItem;
+            if (!BuildCraftBuilders.disableBuildcraftFACADE){
+                facadeItem = new ItemFacade();
+                facadeItem.setUnlocalizedName("pipeFacade");
+                BCRegistry.INSTANCE.registerItem(facadeItem, false);
+                FacadeAPI.facadeItem = facadeItem;
+            }
 
             plugItem = new ItemPlug();
             plugItem.setUnlocalizedName("pipePlug");
@@ -555,7 +557,7 @@ public class BuildCraftTransport extends BuildCraftMod {
         if (BCCreativeTab.isPresent("pipes")) {
             BCCreativeTab.get("pipes").setIcon(new ItemStack(BuildCraftTransport.pipeItemsDiamond, 1));
         }
-        if (BCCreativeTab.isPresent("facades")) {
+        if (!BuildCraftBuilders.disableBuildcraftFACADE & BCCreativeTab.isPresent("facades")) {
             BCCreativeTab.get("facades").setIcon(facadeItem.getFacadeForBlock(Blocks.brick_block, 0));
         }
         if (BCCreativeTab.isPresent("gates")) {
@@ -611,9 +613,10 @@ public class BuildCraftTransport extends BuildCraftMod {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt) {
+        if (!BuildCraftBuilders.disableBuildcraftFACADE) {
         facadeItem.initialize();
-
-        if (debugPrintFacadeList) {
+        }
+        if (!BuildCraftBuilders.disableBuildcraftFACADE && debugPrintFacadeList) {
             try {
                 PrintWriter writer = new PrintWriter("FacadeDebug.txt", "UTF-8");
                 writer.println("*** REGISTERED FACADES ***");
@@ -632,7 +635,9 @@ public class BuildCraftTransport extends BuildCraftMod {
 
         ListRegistry.itemClassAsType.add(ItemPipe.class);
         ListRegistry.itemClassAsType.add(ItemGate.class);
+        if (!BuildCraftBuilders.disableBuildcraftFACADE) {
         ListRegistry.itemClassAsType.add(ItemFacade.class);
+        }
         ListRegistry.itemClassAsType.add(ItemPipeWire.class);
     }
 
@@ -759,12 +764,14 @@ public class BuildCraftTransport extends BuildCraftMod {
                     Blocks.piston);
 
             // Facade turning helper
-            GameRegistry.addRecipe(facadeItem.new FacadeRecipe());
-            RecipeSorter.register(
-                    "facadeTurningHelper",
-                    ItemFacade.FacadeRecipe.class,
-                    RecipeSorter.Category.SHAPELESS,
-                    "");
+            if (!BuildCraftBuilders.disableBuildcraftFACADE) {
+                GameRegistry.addRecipe(facadeItem.new FacadeRecipe());
+                RecipeSorter.register(
+                        "facadeTurningHelper",
+                        ItemFacade.FacadeRecipe.class,
+                        RecipeSorter.Category.SHAPELESS,
+                        "");
+            }
 
             // Pipe Plug
             GameRegistry.addShapelessRecipe(new ItemStack(plugItem, 4), new ItemStack(pipeStructureCobblestone));
